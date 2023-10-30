@@ -19,8 +19,9 @@ class RegisterController extends Controller
         $user->_token = $user->createToken("UserToken")->plainTextToken;
 
         return response()->json([
+            'status' => 'true',
             'message' => 'success',
-            'data' => UserResource::make($user) 
+            'data' => UserResource::make($user)
         ]);
     }
 }
