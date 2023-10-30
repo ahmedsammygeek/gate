@@ -25,4 +25,9 @@ class UniversityController extends Controller
     }
 
 
+    public function show($id)
+    {
+        $University = University::with(['courses.trainer', 'courses.reviews.count'])->findOrFail($id);
+    }
+
 }
