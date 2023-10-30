@@ -19,7 +19,7 @@ class UniversityController extends Controller
             ->paginate($request->per_page ?? 10);
 
         return response()->json([
-            'status' => 'true',
+            'status' => true,
             'message' => 'success',
             'data' => (object) [
                 'universities' => UniversityResource::collection($universities)
