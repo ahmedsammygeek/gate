@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -16,7 +17,11 @@ class RegisterController extends Controller
 
         $user = User::create($data);
 
-        $user->createToken("StudentToken");
+        $user->_token = $user->createToken("UserToken")->plainTextToken;
 
+        return response()->json([
+            'message' => 'success',
+            'data' => UserResource::make($user) // Update this line
+        ]);
     }
 }

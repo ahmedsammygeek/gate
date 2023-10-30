@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use App\Http\Resources\BasicDataResource;
+use App\Http\Resources\UniversityResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -16,7 +17,7 @@ class UserResource extends JsonResource
             'email' => $this?->email,
             'phone' => $this?->phone,
             'image' => $this?->image,
-            'university' => BasicDataResource::make($this->university),
+            'university' => UniversityResource::make($this->university),
             '_token' => $this->token,
         ];
     }
