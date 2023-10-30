@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Resources\UniversityResource;
+use App\Http\Resources\DetailedUniversityResource;
 use App\Models\University;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\UniversityResource;
 
 class UniversityController extends Controller
 {
@@ -19,7 +21,9 @@ class UniversityController extends Controller
         return response()->json([
             'status' => 'true',
             'message' => 'success',
-            'data' => UniversityResource::collection($universities)
+            'data' => (object) [
+                'universities' => UniversityResource::collection($universities)
+            ]
         ]);
 
     }
@@ -27,7 +31,15 @@ class UniversityController extends Controller
 
     public function show($id)
     {
-        $University = University::with(['courses.trainer', 'courses.reviews.count'])->findOrFail($id);
+        $university = University::with(['courses.trainer', 'courses.reviews.count'])->findOrFail($id);
+
+        return response()->json([
+            'status' => true,
+            'message' => "success",
+            "data" => (object) [
+                'university' => DetailedUniversityResource::make($university)
+            ]
+        ]);
     }
 
 }

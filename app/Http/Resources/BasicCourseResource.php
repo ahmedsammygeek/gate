@@ -19,7 +19,7 @@ class BasicCourseResource extends JsonResource
             'price' => $this->price,
             'price_after_discount' => $this->price_after_discount,
             'reviews' => $this->reviews,
-            'reviews_count' => $this->reviews_count,
+          //  'reviews_count' => $this->reviews_count,
             'trainer' => BasicUserResource::make($this->trainer),
             'category' => BasicDataResource::make($this->category),
         ];

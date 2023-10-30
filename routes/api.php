@@ -2,8 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\UniversityController;
 use App\Http\Controllers\Api\Auth\AuthController;
+use App\Http\Controllers\Api\UniversityController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 
 /*
@@ -24,6 +24,8 @@ Route::post('login', [AuthController::class, 'login']);
 
 
 Route::get('universities', [UniversityController::class, 'index']);
+Route::get('universities/{id}', [UniversityController::class, 'show']);
+
 
 Route::middleware('auth:sanctum')->group( function () {
 

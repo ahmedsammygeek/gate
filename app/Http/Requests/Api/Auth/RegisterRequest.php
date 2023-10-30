@@ -16,6 +16,7 @@ class RegisterRequest extends FormRequest
             'telegram' => ['nullable', 'string'],
             'university_id' => ['required', 'numeric', 'exists:universities,id'],
             'speciality_id' => ['required', 'numeric'],
+            'group_id' => ['required']
         ];
     }
 }
