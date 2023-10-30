@@ -17,6 +17,18 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->text('image')->nullable();
+            $table->text('job_title')->nullable();
+            $table->tinyInteger('is_banned')->default(0)->comment('1 means yes 0 means no');
+            $table->string('phone')->nullable();
+            $table->tinyInteger('type')->default(2)->comment('1 means admin 2 means student 3 means trainer');
+            $table->integer('university_id')->nullable();
+            $table->integer('speciality_id')->nullable();
+            $table->string('group_number')->nullable();
+            $table->text('bio')->nullable();
+            $table->text('facebook')->nullable();
+            $table->text('instagram')->nullable();
+            $table->text('twitter')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
