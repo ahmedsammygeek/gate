@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UniversityController;
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 
@@ -20,6 +21,9 @@ use App\Http\Controllers\Api\Auth\RegisterController;
 Route::post('register', [RegisterController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
+
+
+Route::get('universities', [UniversityController::class, 'index']);
 
 Route::middleware('auth:sanctum')->group( function () {
 

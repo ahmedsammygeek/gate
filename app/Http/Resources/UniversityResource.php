@@ -13,6 +13,10 @@ class UniversityResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
+            'image' => $this->image,
+            'cover' =>$this->cover,
+            'rate' => $this->rate,
+            'country' => BasicDataResource::make($this->country)
         ];
     }
 }
