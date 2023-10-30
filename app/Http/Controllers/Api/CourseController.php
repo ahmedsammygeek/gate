@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 
@@ -8,6 +8,6 @@ class CourseController extends Controller
 {
     public function index()
     {
-        
+
     }
 }
