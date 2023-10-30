@@ -18,7 +18,7 @@ class UserResource extends JsonResource
             'phone' => $this?->phone,
             'image' => $this?->image,
             'university' => UniversityResource::make($this->university),
-            '_token' => $this->token,
+            '_token' => $this->_token,
         ];
     }
 }

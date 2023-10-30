@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Auth\RegisterRequest;
 
-class RegisterController extends Controller
+class AuthController extends Controller
 {
-    public function register(RegisterRequest $request)
+    public function login(LoginRequest $request)
     {
         $data = $request->validated();
 
@@ -20,7 +20,7 @@ class RegisterController extends Controller
 
         return response()->json([
             'message' => 'success',
-            'data' => UserResource::make($user) 
+            'data' => UserResource::make($user)
         ]);
     }
 }
