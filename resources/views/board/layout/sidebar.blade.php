@@ -17,7 +17,6 @@
 		<div class="sidebar-section">
 			<ul class="nav nav-sidebar" data-nav-type="accordion">
 
-				<!-- Main -->
 				<li class="nav-item-header pt-0">
 					<div class="text-uppercase fs-sm lh-sm opacity-50 sidebar-resize-hide"> الروابط </div>
 					<i class="ph-dots-three sidebar-resize-show"></i>
@@ -81,6 +80,16 @@
 					<ul class="nav-group-sub collapse" data-submenu-title="Trainers">
 						<li class="nav-item"><a href="{{ route('board.trainers.index') }}" class="nav-link"> عرض كافه المدربين </a></li>
 						<li class="nav-item"><a href="{{ route('board.trainers.create') }}" class="nav-link">إضافه مدرب جديد </a></li>
+					</ul>
+				</li>
+				<li class="nav-item nav-item-submenu">
+					<a href="#" class="nav-link">
+						<i class="ph-note-blank"></i>
+						<span> الكورسات </span>
+					</a>
+					<ul class="nav-group-sub collapse" data-submenu-title="Trainers">
+						<li class="nav-item"><a href="{{ route('board.courses.index') }}" class="nav-link"> عرض كافه الكورسات </a></li>
+						<li class="nav-item"><a href="{{ route('board.courses.create') }}" class="nav-link">إضافه كورس جديد </a></li>
 					</ul>
 				</li>
 

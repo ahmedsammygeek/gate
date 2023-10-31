@@ -8,70 +8,135 @@
 @endsection
 
 @section('content')
+
+<div class="row">
+	<div class="col-md-12">
+		<ul class="nav nav-tabs nav-tabs-highlight nav-justified">
+			<li class="nav-item"><a href="{{ route('board.courses.show' , $course ) }}" class="nav-link active"> تفاصيل الكورس </a></li>
+			<li class="nav-item"><a href="{{ route('board.courses.students' , $course ) }}" class="nav-link"> الطلبه </a></li>
+			<li class="nav-item"><a href="{{ route('board.courses.reviews' , $course ) }}" class="nav-link"> التقييمات </a></li>
+			<li class="nav-item"><a href="{{ route('board.courses.installments' , $course ) }}" class="nav-link"> الاقساط </a></li>
+		</ul>
+	</div>
+</div>
 <!-- Main charts -->
 <div class="row">
 	<div class="col-md-12">
 		<div class="card">
-			<div class="card-header bg-primary text-white">
-				<h5 class="mb-0"> عرض بيانات المشرف </h5>
-			</div>
 
 			<div class='card-body' >
 				<table  class='table table-bordered table-responsive table-striped'>
 					<tbody>
 						<tr>
 							<th> تاريخ الاضافه </th>
-							<td> {{ $trainer->created_at }} <span class='text-muted' > {{ $trainer->created_at->diffForHumans() }} </span> </td>
+							<td> {{ $course->created_at }} <span class='text-muted' > {{ $course->created_at->diffForHumans() }} </span> </td>
 						</tr>
 
 						<tr>
 							<th> تمت الاضافه بواستطه  </th>
-							<td> <a href="{{ route('board.admins.show' , $trainer->user_id ) }}"> {{ $trainer->addedBy?->name }} </a> </td>
+							<td> <a href="{{ route('board.admins.show' , $course->user_id ) }}"> {{ $course->user?->name }} </a> </td>
 						</tr>
 
 						<tr>
-							<th> الاسم </th>
-							<td> {{ $trainer->name }} </td>
+							<th>  العنوان بالعربيه </th>
+							<td> {{ $course->getTranslation('title'  , 'ar' ) }} </td>
 						</tr>
 
 						<tr>
-							<th>  السيرة الذاتية  </th>
-							<td> {{ $trainer->bio }} </td>
+							<th>  العنوان بالانجليزيه </th>
+							<td> {{ $course->getTranslation('title'  , 'en' ) }} </td>
 						</tr>
+
 						<tr>
-							<th> facebook </th>
-							<td> <a href="{{ $trainer->facebook }}"> {{ $trainer->facebook }} </a> </td>
+							<th>  النبذه التعريفيه بالعربيه </th>
+							<td> {{ $course->getTranslation('subtitle'  , 'ar' ) }} </td>
 						</tr>
+
 						<tr>
-							<th> youtube </th>
-							<td> <a href="{{ $trainer->youtube }}"> {{ $trainer->youtube }} </a> </td>
+							<th>  النبذه التعريفيه بالانجليزيه </th>
+							<td> {{ $course->getTranslation('subtitle'  , 'en' ) }} </td>
 						</tr>
+
 						<tr>
-							<th> instagram </th>
-							<td> <a href="{{ $trainer->instagram }}"> {{ $trainer->instagram }} </a> </td>
+							<th>  محتوى الكورس بالعربيه </th>
+							<td> {!! $course->getTranslation('content'  , 'ar' ) !!} </td>
 						</tr>
+
 						<tr>
-							<th> twitter </th>
-							<td> <a href="{{ $trainer->twitter }}"> {{ $trainer->twitter }} </a> </td>
+							<th>  محتوى الكورس بالانجليزيه </th>
+							<td> {!! $course->getTranslation('content'  , 'en' ) !!} </td>
+						</tr>
+
+
+						<tr>
+							<th>  المنهج بالعربيه </th>
+							<td> {!! $course->getTranslation('curriculum'  , 'ar' ) !!} </td>
+						</tr>
+
+						<tr>
+							<th>  المنهج بالانجليزيه </th>
+							<td> {!! $course->getTranslation('curriculum'  , 'en' ) !!} </td>
+						</tr>
+
+						<tr>
+							<th> السماح بالعرض و الشراء </th>
+							<td> 
+								 @switch($course->is_active )
+                                @case(1)
+                                <span class="badge bg-primary"> نعم </span>
+                                @break
+                                @case(0)
+                                <span class="badge bg-danger"> لا</span>
+                                @break
+                                @endswitch
+							</td>
 						</tr>
 
 						<tr>
 							<th> عرض داخل الصفحه الرئيسيه </th>
 							<td> 
-								@switch($trainer->show_in_home)
-								@case(1)
-								<span class="badge bg-primary"> نعم </span>
-								@break
-								@case(0)
-								<span class="badge bg-danger"> لا</span>
-								@break
-								@endswitch
+								 @switch($course->show_in_home )
+                                @case(1)
+                                <span class="badge bg-primary"> نعم </span>
+                                @break
+                                @case(0)
+                                <span class="badge bg-danger"> لا</span>
+                                @break
+                                @endswitch
 							</td>
 						</tr>
 
 						<tr>
-							<th> الصوره الشخصيه الحاليه </th>
-							<td> <img class='img-responsive img-thumbnail' src="{{ Storage::url('trainers/'.$trainer->image) }}" alt=""> </td>
+							<th> سعر الكورس المباشر </th>
+							<td> 
+								{{ $course->price }}
+							</td>
+						</tr>
+
+						<tr>
+							<th> سعر الكورس بعد الخصم </th>
+							<td> 
+								{{ $course->price_after_discount }}
+							</td>
+						</tr>
+						<tr>
+							<th>  نسبه الخصم </th>
+							<td> 
+								{{ $course->discount_percentage }} %
+							</td>
+						</tr>
+
+						<tr>
+							<th>  تاريخ انتهاء الخصم </th>
+							<td> 
+								{{ $course->discount_end_at }} 
+							</td>
+						</tr>
+
+
+						<tr>
+							<th> الصوره الكورس الحاليه </th>
+							<td> <img width='300' height='300' src="{{ Storage::url('courses/'.$course->image) }}" alt=""> </td>
 						</tr>
 					</tbody>
 				</table>

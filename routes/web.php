@@ -28,6 +28,10 @@ Route::group(['prefix' => 'Board' , 'as' => 'board.'  ], function() {
         Route::resource('universities', UniversityController::class);  // done
         Route::resource('courses', CourseController::class);  // done
         Route::resource('trainers', TrainerController::class);  // done
+
+        Route::get('courses/{course}/students' , [CourseController::class , 'students'] )->name('courses.students');
+        Route::get('courses/{course}/reviews' , [CourseController::class , 'reviews'] )->name('courses.reviews');
+        Route::get('courses/{course}/installments' , [CourseController::class , 'installments'] )->name('courses.installments');
     });
 });
 

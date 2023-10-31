@@ -68,9 +68,10 @@ class CourseController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Course $course)
     {
-        //
+        $course->load('reviews' , 'user' ,'trainer'  , 'university' , 'category' );
+        return view('board.courses.show' , compact('course') );
     }
 
     /**
@@ -119,8 +120,8 @@ class CourseController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function students(Course $course)
     {
-        //
+        return view('board.courses.students' , compact('course') );
     }
 }
