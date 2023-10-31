@@ -20,7 +20,7 @@ class AuthController extends Controller
 
             if ($user->is_banned) {
                 return response()->json([
-                    'status' => 'false',
+                    'status' => false,
                     'message' => 'please contact admins',
                     'data' => null
                 ], 401);
@@ -29,14 +29,14 @@ class AuthController extends Controller
             $user->_token = $user->createToken('UserToken')->plainTextToken;
 
             return response()->json([
-                'status' => 'true',
+                'status' => true,
                 'message' => "success",
-
-                'data' => UserResource::make($user)
-            ], 200);
+                'data' => (object) [
+                    'user' => UserResource::make($user)
+                ]], 200);
         } else {
             return response()->json([
-                'status' => 'false',
+                'status' => false,
                 'message' => 'Phone & Password does not match with our record.',
                 'data' => null
             ], 401);
