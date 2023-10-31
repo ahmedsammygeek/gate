@@ -11,6 +11,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+
+    const ADMIN = 1;
+    const USER = 2;
+    const TRAINER = 3;
+
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
