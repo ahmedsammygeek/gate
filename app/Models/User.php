@@ -30,6 +30,12 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+
+    public function addedBy()
+    {
+        return $this->belongsTo(User::class , 'user_id' );
+    }
+
     public function university()
     {
         return $this->belongsTo(University::class);

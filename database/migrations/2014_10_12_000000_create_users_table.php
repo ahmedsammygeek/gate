@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->text('image')->nullable();
-            $table->text('job_title')->nullable();
+            $table->string('job_title')->nullable();
             $table->tinyInteger('is_banned')->default(0)->comment('1 means yes 0 means no');
             $table->string('phone')->nullable();
             $table->tinyInteger('type')->default(2)->comment('1 means admin 2 means student 3 means trainer');

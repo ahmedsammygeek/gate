@@ -7,13 +7,13 @@ use App\Http\Controllers\Board\AdminController;
 use App\Http\Controllers\Board\CategoryController;
 use App\Http\Controllers\Board\SettingController;
 use App\Http\Controllers\Board\CountryController;
-
+use App\Http\Controllers\Board\UniversityController;
+use App\Http\Controllers\Board\UserController;
+use App\Http\Controllers\Board\CourseController;
+use App\Http\Controllers\Board\TrainerController;
 use App\Http\Controllers\TestController;
 
-
-
 Route::get('/test' ,[TestController::class , 'index'] );
-
 Route::group(['prefix' => 'Board' , 'as' => 'board.'  ], function() {
     Route::group(['middleware' => 'auth'], function() {
         Route::get('/' , [BoardController::class , 'index'] )->name('index');
@@ -22,8 +22,12 @@ Route::group(['prefix' => 'Board' , 'as' => 'board.'  ], function() {
         Route::get('/settings/edit' , [SettingController::class , 'edit'] )->name('settings.edit');
         Route::patch('/settings' , [SettingController::class , 'update'] )->name('settings.update');
         Route::resource('admins', AdminController::class); // done
+        Route::resource('users', UserController::class); // done
         Route::resource('categories', CategoryController::class); // done
-        Route::resource('countries', CountryController::class); 
+        Route::resource('countries', CountryController::class);  // done
+        Route::resource('universities', UniversityController::class);  // done
+        Route::resource('courses', CourseController::class);  // done
+        Route::resource('trainers', TrainerController::class);  // done
     });
 });
 
