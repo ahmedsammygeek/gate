@@ -15,6 +15,12 @@ class Course extends Model
     use HasFactory;
 
 
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+
     public function trainer(): BelongsTo
     {
         return $this->belongsTo(User::class, 'trainer_id');

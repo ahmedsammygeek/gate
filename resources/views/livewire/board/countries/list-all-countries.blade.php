@@ -38,7 +38,6 @@
                             <th> كود الدوله </th>
                             <th > اسم الدوله بالعربيه </th>
                             <th > اسم الدوله بالانجليزيه </th>
-                            <th > عدد المناطق </th>
                             <th>حاله الدوله</th>
                             <th class="text-center" style="width: 20px;">خصائص</th>
                         </tr>
@@ -57,14 +56,13 @@
                                 <a href="{{ route('board.countries.show' , $country ) }}" class="d-block fw-semibold">{{ $country->getTranslation('name' , 'en') }}</a>
                             </td>
 
-                            <td> {{ $country->areas_count }} </td>
 
                             <td>
                                 @switch($country->is_active)
-                                @case(App\Models\Country::ACTIVE)
+                                @case(1)
                                 <span class="badge bg-primary"> فعال </span>
                                 @break
-                                @case(App\Models\Country::INACTIVE)
+                                @case(0)
                                 <span class="badge bg-danger"> غير فعال </span>
                                 @break
                                 @endswitch

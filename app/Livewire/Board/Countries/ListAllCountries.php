@@ -35,7 +35,7 @@ class ListAllCountries extends Component
 
     public function render()
     {
-        $countries = Country::withCount('areas')
+        $countries = Country::query()
         ->when($this->search , function($query){
             $query->where('name->ar' , 'LIKE' , '%'.$this->search.'%' )->orWhere('name->en' , 'LIKE' , '%'.$this->search.'%' )->orWhere('code' , $this->search );
         })
