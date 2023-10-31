@@ -51,7 +51,7 @@
                                 </a>
                             </td>
                             <td>
-                                <a href="{{ route('board.admins.show' , $trainer ) }}" class="d-block fw-semibold">{{ $trainer->name }}</a>
+                                <a href="{{ route('board.trainers.show' , $trainer ) }}" class="d-block fw-semibold">{{ $trainer->name }}</a>
                                 <span class="fs-sm text-muted">{{ $trainer->created_at->toFormattedDateString() }}</span>
                             </td>
                             <td>

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->text('image');
             $table->longText('curriculum');
             $table->integer('trainer_id');
-            $table->double('reviews');
+            $table->double('reviews')->nullable();
             $table->double('price');
             $table->double('price_after_discount')->nullable();
             $table->double('discount_percentage')->nullable();

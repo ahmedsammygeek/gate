@@ -9,10 +9,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
+use Spatie\Translatable\HasTranslations;
 class Course extends Model
 {
     use HasFactory;
+    use HasTranslations;
+
+    public $translatable = ['title' , 'subtitle' , 'content' , 'curriculum' ];
 
 
     public function user(): BelongsTo
@@ -31,10 +34,24 @@ class Course extends Model
         return $this->belongsTo(Category::class,'category_id');
     }
 
+    public function university(): BelongsTo
+    {
+        return $this->belongsTo(University::class,'university_id');
+    }
+
     public function reviews(): HasMany
     {
         return $this->hasMany(CourseReview::class, 'course_id');
     }
 
+
+    public function getPrice()
+    {
+        if ($this->price_after_discount) {
+            return $this->price_after_discount;
+        }
+
+        return $this->price;
+    }
 
 }
