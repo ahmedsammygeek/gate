@@ -50,7 +50,7 @@
 					</a>
 
 					<div class="dropdown-menu dropdown-menu-end">
-						<a href="#" class="dropdown-item">
+						<a href="{{ route('board.profile') }}" class="dropdown-item">
 							<i class="ph-user-circle me-2"></i>
 							الملف الشخصى
 						</a>
