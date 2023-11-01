@@ -4,7 +4,11 @@ namespace App\Http\Controllers\Board;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Models\User;
+use App\Models\Category;
+use App\Models\Course;
+use App\Models\Country;
+use App\Models\University;
 class BoardController extends Controller
 {
     /**
@@ -12,7 +16,13 @@ class BoardController extends Controller
      */
     public function index()
     {
-        return view('board.index');
+        $trainers_count = User::where('type' , User::TRAINER )->count();
+        $students_count = User::where('type' , User::USER )->count();
+        $categories_count = Category::count();
+        $universities_count = University::count();
+        $courses_count = Course::count();
+        $countries_count = Country::count();
+        return view('board.index' , compact('trainers_count' , 'students_count' , 'categories_count' , 'universities_count' , 'courses_count' , 'countries_count' ) );
     }
 
     /**
