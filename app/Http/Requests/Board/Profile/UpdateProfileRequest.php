@@ -24,7 +24,7 @@ class UpdateProfileRequest extends FormRequest
         return [
             'name' => 'required' , 
             'email' => 'required|email|unique:users,email,'.Auth::id() , 
-            'mobile' => 'nullable|unique:users,mobile,'.Auth::id() , 
+            'phone' => 'nullable|unique:users,phone,'.Auth::id() , 
             'password' => 'nullable|confirmed' , 
             'image' => 'nullable|image'
         ];

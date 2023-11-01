@@ -19,6 +19,7 @@ Route::group(['prefix' => 'Board' , 'as' => 'board.'  ], function() {
         Route::get('/' , [BoardController::class , 'index'] )->name('index');
         Route::get('/profile' , [ProfileController::class , 'index'] )->name('profile');
         Route::patch('/profile' , [ProfileController::class , 'update'] )->name('profile.update');
+        Route::get('/logout' , [ProfileController::class , 'logout'] )->name('profile.logout');
         Route::get('/settings/edit' , [SettingController::class , 'edit'] )->name('settings.edit');
         Route::patch('/settings' , [SettingController::class , 'update'] )->name('settings.update');
         Route::resource('admins', AdminController::class); // done

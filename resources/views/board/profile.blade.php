@@ -45,9 +45,9 @@
 						<div class="row mb-3">
 							<label class="col-form-label col-lg-2"> رقم الجوال </label>
 							<div class="col-lg-10">
-								<input type="text" name="mobile" value="{{ $user->mobile }}" class="form-control 
-								@error('mobile')  is-invalid @enderror"  placeholder="رقم الجوال">
-								@error('mobile')
+								<input type="text" name="phone" value="{{ $user->phone }}" class="form-control 
+								@error('phone')  is-invalid @enderror"  placeholder="رقم الجوال">
+								@error('phone')
 								<p class='text-danger' > {{ $message }} </p>
 								@enderror
 							</div>
@@ -83,7 +83,7 @@
 						<div class="row mb-3">
 							<label class="col-form-label col-lg-2"> صوره الملف الشخصى الحاليه </label>
 							<div class="col-lg-10">
-								<img src="{{ Storage::url('users/'.$user->image) }}" alt="">
+								<img class='img-thumbnail' src="{{ Storage::url('users/'.$user->image) }}" alt="">
 							</div>
 						</div>
 

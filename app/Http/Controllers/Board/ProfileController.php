@@ -26,7 +26,7 @@ class ProfileController extends Controller
         $user = Auth::user();
         $user->email = $request->email;
         $user->name = $request->name;
-        $user->mobile = $request->mobile;
+        $user->phone = $request->phone;
         $user->password  = $request->filled('password') ? Hash::make($request->password) : $user->password;
         if ($request->hasFile('image')) {
             $user->image = basename($request->file('image')->store('users'));
@@ -34,6 +34,12 @@ class ProfileController extends Controller
         $user->save();
 
         return redirect()->back()->with('success' , 'تم تعديل الملف الشخصى بنجاح' );
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect(route('board.index'));
     }
 
 }
