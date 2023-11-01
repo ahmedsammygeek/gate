@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Board;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
+use Hash;
 use App\Http\Requests\Board\Profile\UpdateProfileRequest;
 class ProfileController extends Controller
 {
