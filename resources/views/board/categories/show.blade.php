@@ -10,6 +10,10 @@
 @section('content')
 <!-- Main charts -->
 <div class="row">
+    <div class="col-md-12">
+        <a href="{{ route('board.categories.index') }}" class="btn btn-primary mb-2" style="float: left;">
+            عرض كافه التصنيفات <i class="icon-arrow-left7"></i></a>
+    </div>
 	<div class="col-md-12">
 		<div class="card">
 			<div class="card-header bg-primary text-white">
@@ -42,7 +46,7 @@
 
 						<tr  class='row' >
 							<th class='col-md-2' > حاله التصنيف </th>
-							<td class='col-md-10' > 
+							<td class='col-md-10' >
 								@switch($category->is_active)
                                 @case(1)
                                 <span class="badge bg-primary"> فعال </span>
@@ -54,7 +58,7 @@
 							</td>
 						</tr>
 
-		
+
 					</tbody>
 				</table>
 			</div>

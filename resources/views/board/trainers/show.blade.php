@@ -10,6 +10,10 @@
 @section('content')
 <!-- Main charts -->
 <div class="row">
+    <div class="col-md-12">
+        <a href="{{ route('board.trainers.index') }}" class="btn btn-primary mb-2" style="float: left;">
+            عرض كافه المشرفين <i class="icon-arrow-left7"></i></a>
+    </div>
 	<div class="col-md-12">
 		<div class="card">
 			<div class="card-header bg-primary text-white">
@@ -57,7 +61,7 @@
 
 						<tr>
 							<th> عرض داخل الصفحه الرئيسيه </th>
-							<td> 
+							<td>
 								@switch($trainer->show_in_home)
 								@case(1)
 								<span class="badge bg-primary"> نعم </span>
