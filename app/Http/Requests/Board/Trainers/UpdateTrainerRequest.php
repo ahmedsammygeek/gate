@@ -26,11 +26,11 @@ class UpdateTrainerRequest extends FormRequest
             'youtube' => 'nullable|url' ,
             'twitter' => 'nullable|url' ,
             'instagram' => 'nullable|url' ,
-            'name' => 'required' , 
-            'image'=> 'nullable|image' , 
+            'name' => 'required' ,
+            'image'=> 'nullable|image' ,
             'job_title' => 'required' ,
-            'bio' => 'required' , 
-            'show_in_home' => 'nullable' , 
+            'bio' => 'required' ,
+            'show_in_home' => 'nullable' ,
         ];
     }
 }

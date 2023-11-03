@@ -66,7 +66,7 @@
 						<label class="col-form-label col-lg-2"> facebook  </label>
 						<div class="col-lg-10">
 
-							<input type="text" name="facebook" value='{{ $trainer->facebook }}' class="form-control @error('facebook')  is-invalid @enderror" required placeholder='' >
+							<input type="text" name="facebook" value='{{ $trainer->facebook }}' class="form-control @error('facebook')  is-invalid @enderror"  placeholder='' >
 							@error('facebook')
 							<p class='text-danger' > {{ $message }} </p>
 							@enderror
@@ -77,7 +77,7 @@
 						<label class="col-form-label col-lg-2"> instagram  </label>
 						<div class="col-lg-10">
 
-							<input type="text" name="instagram" value='{{ $trainer->instagram }}' class="form-control @error('instagram')  is-invalid @enderror" required placeholder='' >
+							<input type="text" name="instagram" value='{{ $trainer->instagram }}' class="form-control @error('instagram')  is-invalid @enderror"  placeholder='' >
 							@error('instagram')
 							<p class='text-danger' > {{ $message }} </p>
 							@enderror
@@ -88,7 +88,7 @@
 						<label class="col-form-label col-lg-2"> twitter  </label>
 						<div class="col-lg-10">
 
-							<input type="text" name="twitter" value='{{ $trainer->twitter }}' class="form-control @error('twitter')  is-invalid @enderror" required placeholder='' >
+							<input type="text" name="twitter" value='{{ $trainer->twitter }}' class="form-control @error('twitter')  is-invalid @enderror"  placeholder='' >
 							@error('twitter')
 							<p class='text-danger' > {{ $message }} </p>
 							@enderror
@@ -99,7 +99,7 @@
 					<div class="row mb-3">
 						<label class="col-form-label col-lg-2"> youtube  </label>
 						<div class="col-lg-10">
-							<input type="text" name="youtube" value='{{ $trainer->youtube }}' class="form-control @error('youtube')  is-invalid @enderror" required placeholder='' >
+							<input type="text" name="youtube" value='{{ $trainer->youtube }}' class="form-control @error('youtube')  is-invalid @enderror"  placeholder='' >
 
 							@error('youtube')
 							<p class='text-danger' > {{ $message }} </p>

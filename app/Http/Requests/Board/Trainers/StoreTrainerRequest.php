@@ -22,15 +22,15 @@ class StoreTrainerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'facebook' => 'nullable|url' ,
-            'youtube' => 'nullable|url' ,
-            'twitter' => 'nullable|url' ,
-            'instagram' => 'nullable|url' ,
-            'name' => 'required' , 
-            'image'=> 'required|image' , 
+            'facebook' => 'nullable|string',
+            'youtube' => 'nullable|string' ,
+            'twitter' => 'nullable|string' ,
+            'instagram' => 'nullable|string' ,
+            'name' => 'required' ,
+            'image'=> 'required|image' ,
             'job_title' => 'required' ,
-            'bio' => 'required' , 
-            'show_in_home' => 'nullable' , 
+            'bio' => 'required' ,
+            'show_in_home' => 'nullable' ,
         ];
     }
 }

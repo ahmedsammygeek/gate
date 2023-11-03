@@ -34,14 +34,14 @@ class TrainerController extends Controller
         $trainer = new User;
         $trainer->user_id = Auth::id();
         $trainer->type = User::TRAINER;
-        $trainer->job_title = $request->job_title; 
-        $trainer->name = $request->name; 
-        $trainer->bio = $request->bio; 
-        $trainer->facebook = $request->facebook; 
-        $trainer->youtube = $request->youtube; 
-        $trainer->twitter = $request->twitter; 
-        $trainer->instagram = $request->instagram; 
-        $trainer->show_in_home = $request->filled('show_in_home') ? 1 : 0 ; 
+        $trainer->job_title = $request->job_title;
+        $trainer->name = $request->name;
+        $trainer->bio = $request->bio;
+        $trainer->facebook = $request->facebook;
+        $trainer->youtube = $request->youtube;
+        $trainer->twitter = $request->twitter;
+        $trainer->instagram = $request->instagram;
+        $trainer->show_in_home = $request->filled('show_in_home') ? 1 : 0 ;
         $trainer->image = basename($request->file('image')->store('trainers'));
         $trainer->save();
         return redirect(route('board.trainers.index'))->with('success' , 'تم إضافه المدرب بنجاح' );
@@ -68,14 +68,14 @@ class TrainerController extends Controller
      */
     public function update(UpdateTrainerRequest $request, User $trainer)
     {
-        $trainer->job_title = $request->job_title; 
-        $trainer->name = $request->name; 
-        $trainer->bio = $request->bio; 
-        $trainer->facebook = $request->facebook; 
-        $trainer->youtube = $request->youtube; 
-        $trainer->twitter = $request->twitter; 
-        $trainer->instagram = $request->instagram; 
-        $trainer->show_in_home = $request->filled('show_in_home') ? 1 : 0 ; 
+        $trainer->job_title = $request->job_title;
+        $trainer->name = $request->name;
+        $trainer->bio = $request->bio;
+        $trainer->facebook = $request->facebook;
+        $trainer->youtube = $request->youtube;
+        $trainer->twitter = $request->twitter;
+        $trainer->instagram = $request->instagram;
+        $trainer->show_in_home = $request->filled('show_in_home') ? 1 : 0 ;
         if ($request->hasFile('image')) {
            $trainer->image = basename($request->file('image')->store('trainers'));
         }
