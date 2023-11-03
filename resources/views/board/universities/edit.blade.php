@@ -97,7 +97,7 @@
 						</div>
 
 						<div class="row mb-3">
-							
+
 							<div class="col-md-12">
 								<label class="col-form-label col-lg-12"> محتوى علن الجامعه بالعربيه <span class="text-danger">*</span></label>
 								<div class="col-lg-12">
@@ -117,11 +117,11 @@
 									@enderror
 								</div>
 							</div>
-							
+
 						</div>
 
 						<div class="row mb-3">
-							
+
 							<div class="col-md-12">
 								<label class="col-form-label col-lg-12">صوره الجامعه الحاليه <span class="text-danger">*</span></label>
 								<img  class="img-responsive img-thumbnail" src="{{ Storage::url('universities/'.$university->image) }}" alt="">
@@ -131,7 +131,7 @@
 								<label class="col-form-label col-lg-12"> صوره الكافر الحاليه <span class="text-danger">*</span></label>
 								<img  class="img-responsive img-thumbnail" src="{{ Storage::url('universities/'.$university->cover) }}" alt="">
 							</div>
-							
+
 						</div>
 
 
@@ -142,7 +142,7 @@
 					</div>
 				</div>
 
-				<div class="card-footer d-flex justify-content-between">
+				<div class="card-footer d-flex  justify-content-end">
 					<a  href='{{ route('board.universities.index') }}' class="btn btn-light" id="reset"> الغاء </a>
 					<button type="submit" class="btn btn-primary ms-3"> تعديل <i class="ph-paper-plane-tilt ms-2"></i></button>
 				</div>

@@ -67,7 +67,7 @@
 					</div>
 				</div>
 
-				<div class="card-footer d-flex justify-content-between">
+				<div class="card-footer d-flex  justify-content-end">
 					<a  href='{{ route('board.countries.index') }}' class="btn btn-light" id="reset"> الغاء </a>
 					<button type="submit" class="btn btn-primary ms-3"> إضافه <i class="ph-paper-plane-tilt ms-2"></i></button>
 				</div>

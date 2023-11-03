@@ -55,7 +55,7 @@
 							</div>
 						</div>
 
-						
+
 
 						<div class="row mb-3">
 							<label class="col-lg-2 col-form-label pt-0"> حاله الدوله </label>
@@ -71,7 +71,7 @@
 					</div>
 				</div>
 
-				<div class="card-footer d-flex justify-content-between">
+				<div class="card-footer d-flex justify-content-end">
 					<a  href='{{ route('board.categories.index') }}' class="btn btn-light" id="reset"> الغاء </a>
 					<button type="submit" class="btn btn-primary ms-3"> تعديل <i class="ph-paper-plane-tilt ms-2"></i></button>
 				</div>

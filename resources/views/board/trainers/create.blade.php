@@ -64,7 +64,7 @@
 					<div class="row mb-3">
 						<label class="col-form-label col-lg-2"> facebook  </label>
 						<div class="col-lg-10">
-							
+
 							<input type="text" name="facebook" value='{{ old('facebook') }}' class="form-control @error('facebook')  is-invalid @enderror" required placeholder='' >
 							@error('facebook')
 							<p class='text-danger' > {{ $message }} </p>
@@ -75,7 +75,7 @@
 					<div class="row mb-3">
 						<label class="col-form-label col-lg-2"> instagram  </label>
 						<div class="col-lg-10">
-							
+
 							<input type="text" name="instagram" value='{{ old('instagram') }}' class="form-control @error('instagram')  is-invalid @enderror" required placeholder='' >
 							@error('instagram')
 							<p class='text-danger' > {{ $message }} </p>
@@ -86,7 +86,7 @@
 					<div class="row mb-3">
 						<label class="col-form-label col-lg-2"> twitter  </label>
 						<div class="col-lg-10">
-							
+
 							<input type="text" name="twitter" value='{{ old('twitter') }}' class="form-control @error('twitter')  is-invalid @enderror" required placeholder='' >
 							@error('twitter')
 							<p class='text-danger' > {{ $message }} </p>
@@ -122,7 +122,7 @@
 				</div>
 			</div>
 
-			<div class="card-footer d-flex justify-content-between">
+			<div class="card-footer d-flex  justify-content-end">
 				<a  href='{{ route('board.trainers.index') }}' class="btn btn-light" id="reset"> الغاء </a>
 				<button type="submit" class="btn btn-primary ms-3"> إضافه <i class="ph-paper-plane-tilt ms-2"></i></button>
 			</div>
