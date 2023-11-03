@@ -78,7 +78,8 @@
 							<label class="col-lg-2 col-form-label pt-0"> السماح بدخول النظام </label>
 							<div class="col-lg-10">
 								<label class="form-check form-switch">
-									<input type="checkbox" value='1' class="form-check-input" name="active" {{ $admin->is_active == 1 ? 'checked' : '' }} >
+									<input type="checkbox" value='1' class="form-check-input" name="active"
+                                    {{ $admin->is_banned == 0 ? 'checked' : '' }} >
 									<span class="form-check-label"> نعم </span>
 								</label>
 							</div>

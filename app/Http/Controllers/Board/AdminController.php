@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Board;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Http\Requests\Board\Admins\StoreAdminRequest;
-use App\Http\Requests\Board\Admins\UpdateAdminRequest;
 use Hash;
 use App\Models\User;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Board\Admins\StoreAdminRequest;
+use App\Http\Requests\Board\Admins\UpdateAdminRequest;
+
 class AdminController extends Controller
 {
     /**
@@ -37,6 +38,7 @@ class AdminController extends Controller
         $admin->phone = $request->phone;
         $admin->password = Hash::make($request->password);
         $admin->type = User::ADMIN;
+        $admin->user_id = auth()->id();
         if ($request->hasFile('image')) {
             $admin->image = basename($request->file('image')->store('users'));
         }
@@ -86,6 +88,6 @@ class AdminController extends Controller
      */
     public function destroy(string $id)
     {
-        
+
     }
 }
