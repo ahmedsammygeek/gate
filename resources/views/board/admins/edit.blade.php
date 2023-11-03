@@ -27,7 +27,7 @@
                                 <label class="col-form-label col-lg-2"> اسم المشرف <span
                                         class="text-danger">*</span></label>
                                 <div class="col-lg-10">
-                                    <input type="text" name="name" value="{{ $admin->name }}"
+                                    <input autocomplete="off" type="text" name="name" value="{{ $admin->name }}"
                                         class="form-control @error('name')  is-invalid @enderror" required
                                         placeholder="اسم المشرف">
                                     @error('name')
@@ -41,7 +41,7 @@
                                 <div class="col-lg-10">
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="icon-mention "></i></span>
-                                        <input type="email" name="email" value='{{ $admin->email }}'
+                                        <input autocomplete="off" type="email" name="email" value='{{ $admin->email }}'
                                             class="form-control @error('email')  is-invalid @enderror" required
                                             placeholder="البريد الاكترونى">
                                     </div>
@@ -55,7 +55,7 @@
                                 <div class="col-lg-10">
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="icon-phone2 "></i></span>
-                                        <input type="text" name="phone" value='{{ $admin->phone }}'
+                                        <input autocomplete="off" type="text" name="phone" value='{{ $admin->phone }}'
                                             class="form-control @error('phone')  is-invalid @enderror"
                                             placeholder="رقم الجوال">
                                     </div>
@@ -69,7 +69,7 @@
                                 <label class="col-form-label col-lg-2"> كلمه المرور </label>
                                 <div class="col-lg-10">
                                     <div class="input-group">
-                                        <input type="password" name="password" id="passwordInput" class="form-control"
+                                        <input autocomplete="off" type="password" name="password" id="passwordInput" class="form-control"
                                             placeholder="كلمه المرور">
                                         <span class="input-group-text" onclick="showPassword()"> <i
                                                 class="icon-eye2"></i></span>
@@ -82,7 +82,7 @@
                             <div class="row mb-3">
                                 <label class="col-form-label col-lg-2"> تاكيد كلمه المرور </label>
                                 <div class="col-lg-10">
-                                    <input type="password" name="password_confirmation" class="form-control"
+                                    <input autocomplete="off" type="password" name="password_confirmation" class="form-control"
                                         placeholder="تاكيد كلمه المرور">
                                     @error('password_confirmation')
                                         <p class='text-danger'> {{ $message }} </p>

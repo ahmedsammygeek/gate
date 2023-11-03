@@ -23,7 +23,7 @@
                                 <label class="col-form-label col-lg-2"> اسم المشرف <span
                                         class="text-danger">*</span></label>
                                 <div class="col-lg-10">
-                                    <input type="text" name="name" value="{{ old('name') }}"
+                                    <input  autocomplete="off" type="text" name="name" value="{{ old('name') }}"
                                         class="form-control @error('name')  is-invalid @enderror" required
                                         placeholder="اسم المشرف">
                                     @error('name')
