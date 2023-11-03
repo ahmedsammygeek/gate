@@ -47,7 +47,8 @@ class CountryController extends Controller
      */
     public function show(Country $country)
     {
-        $country->load(['user' ]);
+        $country->load(['user']);
+        
         return view('board.countries.show' , compact('country') );
     }
 
