@@ -46,13 +46,14 @@
 						<tr>
 							<th> السماح بدخول النظام </th>
 							<td> 
-								 @switch($admin->is_banned)
-                                @case(1)
+								@switch($admin->is_banned )
+                                @case(0)
                                 <span class="badge bg-primary"> نعم </span>
                                 @break
-                                @case(0)
+                                @case(1)
                                 <span class="badge bg-danger"> لا</span>
                                 @break
+                                @endswitch
                                 @endswitch
 							</td>
 						</tr>
