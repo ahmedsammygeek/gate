@@ -15,7 +15,7 @@ use App\Http\Controllers\TestController;
 
 Route::get('/test' ,[TestController::class , 'index'] );
 Route::group(['prefix' => 'Board' , 'as' => 'board.'  ], function() {
-    Route::group(['middleware' => 'auth'], function() {
+    Route::group(['middleware' => ['auth', 'active']], function() {
         Route::get('/' , [BoardController::class , 'index'] )->name('index');
         Route::get('/profile' , [ProfileController::class , 'index'] )->name('profile');
         Route::patch('/profile' , [ProfileController::class , 'update'] )->name('profile.update');
