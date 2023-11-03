@@ -36,7 +36,7 @@ class ListAllUniversities extends Component
     public function render()
     {
         $universities = University::with('user')->when($this->search , function($query){
-            $query->where('name->ar' , 'LIKE' , '%'.$this->search.'%' )->orWhere('name->en' , 'LIKE' , '%'.$this->search.'%' );
+            $query->where('title->ar' , 'LIKE' , '%'.$this->search.'%' )->orWhere('title->en' , 'LIKE' , '%'.$this->search.'%' );
         })
         ->latest()
         ->paginate($this->rows);
