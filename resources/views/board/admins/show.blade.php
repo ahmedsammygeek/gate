@@ -12,7 +12,7 @@
     <div class="row">
         <div class="col-md-12">
             <a href="{{ route('board.admins.index') }}" class="btn btn-primary mb-2" style="float: left;">
-                  عرض كافه المشرفين  <i class="icon-arrow-left7"></i></a>
+                عرض كافه المشرفين <i class="icon-arrow-left7"></i></a>
         </div>
         <div class="col-md-12">
             <div class="card">

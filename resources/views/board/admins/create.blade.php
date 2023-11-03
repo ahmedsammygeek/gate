@@ -37,7 +37,7 @@
                                 <div class="col-lg-10">
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="icon-mention"></i></span>
-                                        <input type="email" name="email" value='{{ old('email') }}'
+                                        <input autocomplete="off" type="email" name="email" value='{{ old('email') }}'
                                             class="form-control @error('email')  is-invalid @enderror" required
                                             placeholder="البريد الاكترونى">
                                     </div>
@@ -51,7 +51,7 @@
                                 <div class="col-lg-10">
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="icon-phone2 "></i></span>
-                                        <input type="text" name="phone" value='{{ old('phone') }}'
+                                        <input autocomplete="off" type="text" name="phone" value='{{ old('phone') }}'
                                             class="form-control @error('phone')  is-invalid @enderror"
                                             placeholder="رقم الجوال">
                                     </div>
@@ -66,7 +66,7 @@
                                         class="text-danger">*</span></label>
                                 <div class="col-lg-10">
                                     <div class="input-group">
-                                        <input type="password" name="password" id="passwordInput" class="form-control"
+                                        <input autocomplete="off"  type="password" name="password" id="passwordInput" class="form-control"
                                             required placeholder="كلمه المرور">
                                         <span class="input-group-text"  onclick="showPassword()"><i class="icon-eye2"></i></span>
                                         @error('password')
@@ -79,7 +79,7 @@
                                 <label class="col-form-label col-lg-2"> تاكيد كلمه المرور <span
                                         class="text-danger">*</span></label>
                                 <div class="col-lg-10">
-                                    <input type="password" name="password_confirmation" class="form-control" required
+                                    <input autocomplete="off" type="password" name="password_confirmation" class="form-control" required
                                         placeholder="تاكيد كلمه المرور" id="passwordInput">
                                     @error('password_confirmation')
                                         <p class='text-danger'> {{ $message }} </p>
