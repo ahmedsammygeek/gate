@@ -52,9 +52,11 @@ class UniversityController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(University $university)
     {
-        //
+        $countries = Country::get();
+        
+        return view('board.universities.show' , compact('university' , 'countries' ) );
     }
 
     /**
@@ -63,6 +65,7 @@ class UniversityController extends Controller
     public function edit(University $university)
     {
         $countries = Country::get();
+
         return view('board.universities.edit' , compact('university' , 'countries' ) );
     }
 
@@ -78,7 +81,7 @@ class UniversityController extends Controller
         $university->country_id = $request->country_id;
         $university->rate = $request->rate;
         if ($request->hasFile('image')) {
-            $university->image = basename($request->file('image')->store('universities'));   
+            $university->image = basename($request->file('image')->store('universities'));
         }
         if ($request->hasFile('cover')) {
             $university->cover = basename($request->file('cover')->store('universities'));

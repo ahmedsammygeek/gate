@@ -1,10 +1,10 @@
 @extends('board.layout.master')
 
-@section('page_title' , 'عرض بيانات المشرف' )
+@section('page_title' , 'عرض بيانات مدرب' )
 
 @section('breadcrumbs')
-<a href="{{ route('board.trainers.index') }}" class="breadcrumb-item"> المشرفين </a>
-<span class="breadcrumb-item active"> عرض بيانات المشرف </span>
+<a href="{{ route('board.trainers.index') }}" class="breadcrumb-item"> المدربين </a>
+<span class="breadcrumb-item active"> عرض بيانات المدرب </span>
 @endsection
 
 @section('content')
@@ -12,12 +12,12 @@
 <div class="row">
     <div class="col-md-12">
         <a href="{{ route('board.trainers.index') }}" class="btn btn-primary mb-2" style="float: left;">
-            عرض كافه المشرفين <i class="icon-arrow-left7"></i></a>
+            عرض كافه المدربين <i class="icon-arrow-left7"></i></a>
     </div>
 	<div class="col-md-12">
 		<div class="card">
 			<div class="card-header bg-primary text-white">
-				<h5 class="mb-0"> عرض بيانات المشرف </h5>
+				<h5 class="mb-0"> عرض بيانات المدرب </h5>
 			</div>
 
 			<div class='card-body' >
