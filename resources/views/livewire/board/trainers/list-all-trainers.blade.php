@@ -59,10 +59,10 @@
                             </td>
                             <td>
                                 @switch($trainer->show_in_home )
-                                @case(0)
+                                @case(1)
                                 <span class="badge bg-primary"> نعم </span>
                                 @break
-                                @case(1)
+                                @case(0)
                                 <span class="badge bg-danger"> لا</span>
                                 @break
                                 @endswitch
@@ -126,7 +126,7 @@
         })
 
 
-        
+
         $(document).on('click', 'a.delete_item', function(event) {
             event.preventDefault();
             var item_id = $(this).attr('data-item_id');
@@ -147,7 +147,7 @@
                     Livewire.emit('deleteItem' , item_id );
                 }
             });
-            
+
         });
 
     });
