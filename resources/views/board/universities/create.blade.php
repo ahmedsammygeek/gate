@@ -108,7 +108,7 @@
                             <div class="row mb-3">
 
                                 <div class="col-md-12">
-                                    <label class="col-form-label col-lg-12"> محتوى علن الجامعه بالعربيه <span
+                                    <label class="col-form-label col-lg-12"> محتوى عن الجامعه بالعربيه <span
                                             class="text-danger">*</span></label>
                                     <div class="col-lg-12">
                                         <textarea name="content_ar" class='form-control textarea' id="" cols="30" rows="5">{{ old('content_ar') }}</textarea>
@@ -119,7 +119,7 @@
                                 </div>
 
                                 <div class="col-md-12">
-                                    <label class="col-form-label col-lg-12"> محتوى علن الجامعه بالانجليزيه <span
+                                    <label class="col-form-label col-lg-12"> محتوى عن الجامعه بالانجليزيه <span
                                             class="text-danger">*</span></label>
                                     <div class="col-lg-12">
                                         <textarea name="content_en" class='form-control textarea' id="" cols="30" rows="5">{{ old('content_en') }}</textarea>

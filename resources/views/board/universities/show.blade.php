@@ -39,20 +39,37 @@
 						</tr>
 
 						<tr>
-							<th> البريد الاكترنى </th>
+							<th> المحتوي </th>
 							<td> {{ $university->content }} </td>
 						</tr>
 						<tr>
-							<th> رقم الجوال </th>
+							<th>  التقييم </th>
 							<td> {{ $university->rate }} </td>
 						</tr>
                         <tr>
-							<th> الصوره الشخصيه الحاليه </th>
+							<th>  الدوله </th>
+							<td> {{ $university->country->name }} </td>
+						</tr>
+                        <tr>
+							<th> عرض داخل الصفحه الرئيسيه </th>
+							<td>
+								@switch($university->is_active)
+								@case(1)
+								<span class="badge bg-primary"> نعم </span>
+								@break
+								@case(0)
+								<span class="badge bg-danger"> لا</span>
+								@break
+								@endswitch
+							</td>
+						</tr>
+                        <tr>
+							<th> صوره الجامعه </th>
 							<td> <img class='img-responsive img-thumbnail' src="{{ Storage::url('universities/'.$university->cover) }}" alt=""> </td>
 						</tr>
 
 						<tr>
-							<th> الصوره الشخصيه الحاليه </th>
+							<th> صوره الغلاف </th>
 							<td> <img class='img-responsive img-thumbnail' src="{{ Storage::url('universities/'.$university->image) }}" alt=""> </td>
 						</tr>
 					</tbody>

@@ -47,9 +47,18 @@
                         @foreach ($admins as $admin)
                         <tr>
                             <td class="pe-0">
-                                <a href="{{ route('board.admins.show' , $admin ) }}">
-                                    <img src="{{ Storage::url('users/'.$admin->image) }}" height="60" alt="">
-                                </a>
+                                <div class="col-sm-6 col-lg-5">
+                                    <div class="card">
+                                        <div class="card-img-actions m-1">
+                                            <img src="{{ Storage::url('users/'.$admin->image) }}" class="card-img" width="120px" height="60px" alt="">
+                                            <div class="card-img-actions-overlay">
+                                                <a href="{{ Storage::url('users/'.$admin->image) }}" class="btn btn-outline-white btn-icon rounded-pill" data-bs-popup="lightbox" data-gallery="gallery1">
+                                                    <i class="ph-plus"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
                             <td>
                                 <a href="{{ route('board.admins.show' , $admin ) }}" class="d-block fw-semibold">{{ $admin->name }}</a>
@@ -126,7 +135,7 @@
         })
 
 
-        
+
         $(document).on('click', 'a.delete_item', function(event) {
             event.preventDefault();
             var item_id = $(this).attr('data-item_id');
@@ -147,7 +156,7 @@
                     Livewire.emit('deleteItem' , item_id );
                 }
             });
-            
+
         });
 
     });

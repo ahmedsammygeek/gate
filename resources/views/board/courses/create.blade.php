@@ -96,7 +96,7 @@
 					<div class="row mb-3">
 						<label class="col-form-label col-lg-12"> نبذه تعريفيه عن الكورس بالعربيه <span class="text-danger">*</span></label>
 						<div class="col-lg-12">
-							<input type="text" name="subtitle_ar" value='{{ old('subtitle_ar') }}' class="form-control @error('subtitle_ar')  is-invalid @enderror" required placeholder='نبذه تعريفيه عن الكورس بالعربيه' >
+							<input type="text"  name="subtitle_ar" value='{{ old('subtitle_ar') }}' class="form-control @error('subtitle_ar')  is-invalid @enderror" required placeholder='نبذه تعريفيه عن الكورس بالعربيه' >
 						</div>
 						@error('subtitle_ar')
 						<p class='text-danger' > {{ $message }} </p>
@@ -116,7 +116,7 @@
 					<div class="row mb-3">
 						<label class="col-form-label col-lg-12"> نظره عامه بالعربيه <span class="text-danger">*</span></label>
 						<div class="col-lg-12">
-							<textarea name="content_ar" class='form-control textarea' cols="30" rows="10">{{ old('content_ar') }}</textarea>
+							<textarea name="content_ar" id="arTextarea" class='form-control textarea' cols="30" rows="10">{{ old('content_ar') }}</textarea>
 							@error('content_ar')
 							<p class='text-danger' > {{ $message }} </p>
 							@enderror
@@ -126,7 +126,7 @@
 					<div class="row mb-3">
 						<label class="col-form-label col-lg-12"> نظره عامه بالانجليزيه <span class="text-danger">*</span></label>
 						<div class="col-lg-12">
-							<textarea name="content_en" class='form-control textarea' cols="30" rows="10">{{ old('content_en') }}</textarea>
+							<textarea name="content_en" id="enTextarea" class='form-control textarea' cols="30" rows="10">{{ old('content_en') }}</textarea>
 							@error('content_en')
 							<p class='text-danger' > {{ $message }} </p>
 							@enderror
@@ -136,7 +136,7 @@
 					<div class="row mb-3">
 						<label class="col-form-label col-lg-12"> المنهج بالعربيه <span class="text-danger">*</span></label>
 						<div class="col-lg-12">
-							<textarea name="curriculum_ar" class='form-control textarea' cols="30" rows="10">{{ old('curriculum_ar') }}</textarea>
+							<textarea name="curriculum_ar" id="arTextarea" class='form-control textarea' cols="30" rows="10">{{ old('curriculum_ar') }}</textarea>
 							@error('curriculum_ar')
 							<p class='text-danger' > {{ $message }} </p>
 							@enderror
@@ -146,7 +146,7 @@
 					<div class="row mb-3">
 						<label class="col-form-label col-lg-12"> المنهج بالانجليزيه <span class="text-danger">*</span></label>
 						<div class="col-lg-12">
-							<textarea name="curriculum_en" class='form-control textarea' cols="30" rows="10">{{ old('curriculum_en') }}</textarea>
+							<textarea name="curriculum_en"  id="enTextarea" class='form-control textarea' cols="30" rows="10">{{ old('curriculum_en') }}</textarea>
 							@error('curriculum_en')
 							<p class='text-danger' > {{ $message }} </p>
 							@enderror
@@ -245,17 +245,29 @@
 
 @endsection
 
-
 @section('scripts')
 <script src="https://cdn.tiny.cloud/1/ic4s7prz04qh4jzykmzgizzo1lize2ckglkcjr9ci9sgkbuc/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 
 <script>
 	$(document).ready(function() {
 		tinymce.init({
-			selector: 'textarea',
+			selector: '#enTextarea',
 			plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
 			toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
-		});
+        });
 	});
+
+    $(document).ready(function() {
+		tinymce.init({
+            selector: '#arTextarea',
+			plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+			toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+            language : 'ar'
+        });
+	});
+
+
+
 </script>
 @endsection
+
