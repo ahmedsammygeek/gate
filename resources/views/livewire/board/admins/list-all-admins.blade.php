@@ -53,9 +53,6 @@
                                            <a href="{{ Storage::url('users/'.$admin->image) }}" class="btn btn-outline-white btn-icon rounded-pill" data-bs-popup="lightbox" data-gallery="gallery1">
                                             <img src="{{ Storage::url('users/'.$admin->image) }}" class="card-img " width="60" height="60" alt="">
                                         </a>
-
-
-
                                     </div>
                                 </div>
                             </div>
@@ -106,6 +103,7 @@
 </div>
 
 @section('scripts')
+
 <script src="{{ asset('board_assets/js/vendor/media/glightbox.min.js') }}"></script>
 <script src="{{ asset('board_assets/js/vendor/notifications/sweet_alert.min.js') }}"></script>
 <script src="{{ asset('board_assets/demo/pages/gallery.js') }}"></script>

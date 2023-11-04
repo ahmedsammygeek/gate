@@ -22,16 +22,6 @@
 						<div class="fw-bold border-bottom pb-2 mb-3"> بيانات المدرب </div>
 
 						<div class="row mb-3">
-							<label class="col-lg-2 col-form-label pt-0"> صوره المدرب </label>
-							<div class="col-lg-10">
-								<input type="file" name="image" class="form-control"  >
-								@error('image')
-								<p class='text-danger' > {{ $message }} </p>
-								@enderror
-							</div>
-						</div>
-
-						<div class="row mb-3">
 							<label class="col-form-label col-lg-2"> اسم المدرب <span class="text-danger">*</span></label>
 							<div class="col-lg-10">
 								<input type="text" name="name" value="{{ $trainer->name }}" class="form-control @error('name')  is-invalid @enderror" required placeholder="اسم المدرب">
@@ -120,10 +110,32 @@
 						</div>
 					</div>
 
+                    <div class="row mb-3">
+                        <label class="col-lg-2 col-form-label pt-0"> صوره المدرب </label>
+                        <div class="col-lg-10">
+                            <input type="file" name="image" class="form-control"  >
+                            @error('image')
+                            <p class='text-danger' > {{ $message }} </p>
+                            @enderror
+                        </div>
+                    </div>
+
+
 					<div class="row mb-3">
 						<label class="col-lg-2 col-form-label pt-0"> صوره المدرب الحاليه </label>
 						<div class="col-lg-10">
-							<img class='img-responsive img-thumbnail' src="{{ Storage::url('trainers/'.$trainer->image) }}" alt="">
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="card">
+                                    <div class="card-img-actions m-1">
+                                        <a href="{{ Storage::url('trainers/'.$trainer->image) }}"
+                                            class="btn btn-outline-white btn-icon rounded-pill"
+                                            data-bs-popup="lightbox" data-gallery="gallery1">
+                                            <img src="{{ Storage::url('trainers/'.$trainer->image) }}" class="avatar"
+                                                width="120" height="120" alt="">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
 						</div>
 					</div>
 
@@ -139,4 +151,11 @@
 </div>
 </div>
 
+@endsection
+
+
+@section('scripts')
+    <script src="{{ asset('board_assets/js/vendor/media/glightbox.min.js') }}"></script>
+    <script src="{{ asset('board_assets/js/vendor/notifications/sweet_alert.min.js') }}"></script>
+    <script src="{{ asset('board_assets/demo/pages/gallery.js') }}"></script>
 @endsection

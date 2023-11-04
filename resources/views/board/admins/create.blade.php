@@ -23,7 +23,7 @@
                                 <label class="col-form-label col-lg-2"> اسم المشرف <span
                                         class="text-danger">*</span></label>
                                 <div class="col-lg-10">
-                                    <input  autocomplete="off" type="text" name="name" value="{{ old('name') }}"
+                                    <input autocomplete="off" type="text" name="name" value="{{ old('name') }}"
                                         class="form-control @error('name')  is-invalid @enderror" required
                                         placeholder="اسم المشرف">
                                     @error('name')
@@ -66,9 +66,10 @@
                                         class="text-danger">*</span></label>
                                 <div class="col-lg-10">
                                     <div class="input-group">
-                                        <input autocomplete="off"  type="password" name="password" id="passwordInput" class="form-control"
-                                            required placeholder="كلمه المرور">
-                                        <span class="input-group-text"  onclick="showPassword()"><i class="icon-eye2"></i></span>
+                                        <input autocomplete="off" type="password" name="password" id="passwordInput"
+                                            class="form-control" required placeholder="كلمه المرور">
+                                        <span class="input-group-text" onclick="showPassword()"><i
+                                                class="icon-eye2"></i></span>
                                         @error('password')
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
@@ -79,8 +80,8 @@
                                 <label class="col-form-label col-lg-2"> تاكيد كلمه المرور <span
                                         class="text-danger">*</span></label>
                                 <div class="col-lg-10">
-                                    <input autocomplete="off" type="password" name="password_confirmation" class="form-control" required
-                                        placeholder="تاكيد كلمه المرور" id="passwordInput">
+                                    <input autocomplete="off" type="password" name="password_confirmation"
+                                        class="form-control" required placeholder="تاكيد كلمه المرور" id="passwordInput">
                                     @error('password_confirmation')
                                         <p class='text-danger'> {{ $message }} </p>
                                     @enderror
@@ -111,7 +112,7 @@
                     <div class="card-footer d-flex justify-content-end">
                         <a href='{{ route('board.admins.index') }}' class="btn btn-light" id="reset"> الغاء </a>
                         <button type="submit" class="btn btn-primary ms-3"> إضافه <i
-                            class="ph-paper-plane-tilt ms-2"></i></button>
+                                class="ph-paper-plane-tilt ms-2"></i></button>
                     </div>
                 </form>
             </div>
@@ -122,7 +123,6 @@
 
 
 @section('scripts')
-    <script>
         function showPassword() {
             var x = document.getElementById("passwordInput");
             if (x.type === "password") {

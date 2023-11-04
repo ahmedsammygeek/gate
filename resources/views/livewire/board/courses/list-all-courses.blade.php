@@ -91,9 +91,18 @@
                         @foreach ($courses as $course)
                         <tr>
                             <td class="pe-0">
-                                <a href="{{ route('board.courses.show' , $course ) }}">
-                                    <img src="{{ Storage::url('courses/'.$course->image) }}" height="60" alt="">
-                                </a>
+                                <div class="col-sm-6 col-lg-5">
+                                    <div class="card">
+                                        <div class="card-img-actions m-1">
+                                            <a href="{{ Storage::url('courses/'.$course->image) }}"
+                                                class="btn btn-outline-white btn-icon rounded-pill"
+                                                data-bs-popup="lightbox" data-gallery="gallery1">
+                                                <img src="{{ Storage::url('courses/'.$course->image) }}"
+                                                    class="card-img " width="60" height="60" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
                             <td>
                                 <a href="{{ route('board.courses.show' , $course->user_id ) }}" class="d-block fw-semibold">{{ $course->title }}</a>
@@ -162,6 +171,9 @@
 
 @section('scripts')
 <script src="{{ Storage::url('board_assets/js/vendor/notifications/sweet_alert.min.js') }}"></script>
+<script src="{{ asset('board_assets/js/vendor/media/glightbox.min.js') }}"></script>
+<script src="{{ asset('board_assets/js/vendor/notifications/sweet_alert.min.js') }}"></script>
+<script src="{{ asset('board_assets/demo/pages/gallery.js') }}"></script>
 <script>
     $(function() {
 
