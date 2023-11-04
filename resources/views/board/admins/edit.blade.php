@@ -111,7 +111,18 @@
                             <div class="row mb-3">
                                 <label class="col-lg-2 col-form-label pt-0"> الصوره الشخصيه الحاليه </label>
                                 <div class="col-lg-10">
-                                    <img src="{{ Storage::url('users/' . $admin->image) }}" alt="">
+                                    <div class="col-sm-6 col-lg-3">
+                                        <div class="card">
+                                            <div class="card-img-actions m-1">
+                                                <img src="{{ Storage::url('users/'.$admin->image) }}" class="card-img" width="120px" height="80px" alt="">
+                                                <div class="card-img-actions-overlay">
+                                                    <a href="{{ Storage::url('users/'.$admin->image) }}" class="btn btn-outline-white btn-icon rounded-pill" data-bs-popup="lightbox" data-gallery="gallery1">
+                                                        <i class="ph-plus"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

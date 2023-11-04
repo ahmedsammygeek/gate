@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class BasicUserResource extends JsonResource
+class TrainerResource extends JsonResource
 {
 
     public function toArray(Request $request): array
@@ -14,7 +14,15 @@ class BasicUserResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'email' => $this->email,
             'image' => Storage::url('users/' . $this->image),
+            'telegram' => $this->telegram,
+            'youtube' => $this->youtube,
+            'twitter' => $this->twitter,
+            'instagram' =>$this->instagram,
+            'facebook' => $this->facebook,
+            'bio' => $this->bio,
+            'job_title' => $this->job_title,
         ];
     }
 }

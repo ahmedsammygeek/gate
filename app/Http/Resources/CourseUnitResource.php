@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class BasicCourseResource extends JsonResource
+class CourseUnitResource extends JsonResource
 {
 
     public function toArray(Request $request): array

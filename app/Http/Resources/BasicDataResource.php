@@ -12,7 +12,7 @@ class BasicDataResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name
+            'name' =>  $this->getTranslations('name', ['ar', 'en']),
         ];
     }
 }

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class BasicCourseResource extends JsonResource
+class DetailedCourseResource extends JsonResource
 {
 
     public function toArray(Request $request): array
@@ -15,11 +15,13 @@ class BasicCourseResource extends JsonResource
             'id' => $this->id,
             'title' => $this->getTranslations('title', ['ar', 'en']),
             'subtitle' => $this->getTranslations('subtitle', ['ar', 'en']),
+            'curriculum' => $this->getTranslations('curriculum', ['ar', 'en']),
             'image' => Storage::url('courses/' . $this->image),
             'price' => $this->price,
             'price_after_discount' => $this->price_after_discount,
             'reviews' => $this->reviews,
-            'trainer' => BasicUserResource::make($this->trainer),
+            'trainer' => TrainerResource::make($this->trainer),
+            // 'units' => 
             'category' => BasicDataResource::make($this->category),
         ];
     }

@@ -69,8 +69,23 @@
 
                             <tr>
                                 <th> الصوره الشخصيه الحاليه </th>
-                                <td> <img class='img-responsive img-thumbnail'
-                                        src="{{ Storage::url('users/' . $admin->image) }}" alt=""> </td>
+                                <td>
+                                    <div class="col-sm-6 col-lg-3">
+                                        <div class="card">
+                                            <div class="card-img-actions m-1">
+                                                <img src="{{ Storage::url('users/' . $admin->image) }}" class="card-img"
+                                                    width="120px" height="60px" alt="">
+                                                <div class="card-img-actions-overlay">
+                                                    <a href="{{ Storage::url('users/' . $admin->image) }}"
+                                                        class="btn btn-outline-white btn-icon rounded-pill"
+                                                        data-bs-popup="lightbox" data-gallery="gallery1">
+                                                        <i class="ph-plus"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

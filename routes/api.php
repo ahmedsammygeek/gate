@@ -26,6 +26,7 @@ Route::post('login', [AuthController::class, 'login']);
 
 Route::get('universities', [UniversityController::class, 'index']);
 Route::get('universities/{id}', [UniversityController::class, 'show']);
+Route::get('universities/{id}/courses/{courseId}', [UniversityController::class, 'course']);
 Route::get('packages', [CourseController::class, 'index']);
 
 

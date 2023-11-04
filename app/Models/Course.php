@@ -4,12 +4,14 @@ namespace App\Models;
 
 use App\Models\User;
 use App\Models\Category;
+use App\Models\CourseUnit;
 use App\Models\CourseReview;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Spatie\Translatable\HasTranslations;
+
 class Course extends Model
 {
     use HasFactory;
@@ -54,4 +56,9 @@ class Course extends Model
         return $this->price;
     }
 
+
+    public function units(): HasMany
+    {
+        return $this->hasMany(CourseUnit::class, 'course_id');
+    }
 }
