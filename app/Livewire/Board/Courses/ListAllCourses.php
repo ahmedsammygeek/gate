@@ -59,9 +59,9 @@ class ListAllCourses extends Component
         })
         ->when($this->trainer_id , function($query){
             $query->where('trainer_id' , $this->trainer_id );
-        })->when($this->is_active , function($query){
+        })->when($this->is_active != null, function($query){
             $query->where('is_active' , '='  , $this->is_active );
-        })->when($this->show_in_home , function($query){
+        })->when($this->show_in_home != null , function($query){
             $query->where('show_in_home' , '='  , $this->show_in_home );
         })
         ->latest()
