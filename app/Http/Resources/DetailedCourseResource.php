@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
+use App\Http\Resources\ReviewResource;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -20,9 +21,10 @@ class DetailedCourseResource extends JsonResource
             'price' => $this->price,
             'price_after_discount' => $this->price_after_discount,
             'reviews' => $this->reviews,
-            'trainer' => TrainerResource::make($this->trainer),
-            // 'units' => 
-            'category' => BasicDataResource::make($this->category),
+            'trainer' => TrainerResource::make($this->whenLoaded('trainer')),
+            'category' => BasicDataResource::make($this->whenLoaded('category')),
+            'units' => CourseUnitResource::collection($this->whenLoaded('units')),
+            'course_reviews' => ReviewResource::collection($this->whenLoaded('courseReviews')),
         ];
     }
 }

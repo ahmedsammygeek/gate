@@ -47,7 +47,7 @@ class UniversityController extends Controller
 
     public function course($id, $courseId)
     {
-        $course = Course::with(['trainer', 'units', 'reviews'])->findOrFail($courseId);
+        $course = Course::with(['trainer', 'units', 'courseReviews.user'])->findOrFail($courseId);
 
         return response()->json([
             'status' => true,

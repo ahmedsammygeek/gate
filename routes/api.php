@@ -19,18 +19,22 @@ use App\Http\Controllers\Api\Auth\RegisterController;
 */
 
 
-Route::post('register', [RegisterController::class, 'register']);
-Route::post('login', [AuthController::class, 'login']);
+Route::prefix("v1")->group(function () {
+
+    Route::post('register', [RegisterController::class, 'register']);
+    Route::post('login', [AuthController::class, 'login']);
 
 
+    Route::get('universities', [UniversityController::class, 'index']);
+    Route::get('universities/{id}', [UniversityController::class, 'show']);
+    Route::get('universities/{id}/courses/{courseId}', [UniversityController::class, 'course']);
+    // Route::get('packages', [CourseController::class, 'index']);
 
-Route::get('universities', [UniversityController::class, 'index']);
-Route::get('universities/{id}', [UniversityController::class, 'show']);
-Route::get('universities/{id}/courses/{courseId}', [UniversityController::class, 'course']);
-Route::get('packages', [CourseController::class, 'index']);
 
+    Route::middleware('auth:sanctum')->group(function () {
 
-Route::middleware('auth:sanctum')->group( function () {
+        Route::post('logout', [AuthController::class, 'logout']);
+    });
 
-    Route::post('logout', [AuthController::class, 'logout']);
 });
+
