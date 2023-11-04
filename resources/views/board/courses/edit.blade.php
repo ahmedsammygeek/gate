@@ -224,7 +224,7 @@
 							<label class="col-lg-12 col-form-label pt-0"> السماح بالاشتراك فى الكورس </label>
 							<div class="col-lg-12">
 								<label class="form-check form-switch">
-									<input type="checkbox" value='1' class="form-check-input" name="active"  {{ $course->active == 1 ? 'checked' : '' }}  >
+									<input type="checkbox" value='1' class="form-check-input" name="active"  {{ $course->is_active == 1 ? 'checked' : '' }}  >
 									<span class="form-check-label"> نعم </span>
 								</label>
 							</div>

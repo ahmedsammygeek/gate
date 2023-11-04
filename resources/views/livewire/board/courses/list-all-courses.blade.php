@@ -28,7 +28,7 @@
                     </div>
                 </div>
                  <div class="d-sm-flex align-items-sm-start mt-2">
-                    
+
                     <div class="dropdown ms-sm-3  mb-sm-0">
                         <select wire:model='category_id' class="form-select">
                             <option value=""> جميع التصنيفات </option>
@@ -55,18 +55,18 @@
                     </div>
                     <div class="dropdown ms-sm-3  mb-sm-0">
                         <select wire:model='is_active' class="form-select">
-                            <option value=""> الجميع </option>
+                            <option value=""> جميع حالات شراء الكورسات </option>
                             <option value="1"> قابل للشراء </option>
                             <option value="0"> غير قابل للشراء </option>
-                            
+
                         </select>
                     </div>
                     <div class="dropdown ms-sm-3  mb-sm-0">
                         <select wire:model='show_in_home' class="form-select">
-                            <option value=""> الجميع </option>
-                            <option value="1"> المعروض داخل الصفحه الرئيسيه </option>
+                            <option value="">   جميع الكورسات داخل الصفحه الرئيسيه  </option>
+                            <option value="1"> المعروض  </option>
                             <option value="0"> غير المعروض </option>
-                            
+
                         </select>
                     </div>
                 </div>
@@ -106,7 +106,7 @@
                             </td>
                              <td>
                                 @if ($course->university_id)
-                                    <a href="{{ route('board.categories.show' , $course->university_id ) }}"> {{ $course->university?->title }} </a>
+                                    <a href="{{ route('board.universities.show' , $course->university_id ) }}"> {{ $course->university?->title }} </a>
                                 @endif
                             </td>
                             <td> {{ $course->getPrice() }} <span class='text-muted' >  ر.س </span>  </td>
@@ -190,7 +190,7 @@
         })
 
 
-        
+
         $(document).on('click', 'a.delete_item', function(event) {
             event.preventDefault();
             var item_id = $(this).attr('data-item_id');
@@ -211,7 +211,7 @@
                     Livewire.emit('deleteItem' , item_id );
                 }
             });
-            
+
         });
 
     });
