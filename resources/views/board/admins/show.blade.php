@@ -81,6 +81,9 @@
                                                         data-bs-popup="lightbox" data-gallery="gallery1">
                                                         <i class="ph-plus"></i>
                                                     </a>
+                                                    <a href="{{ Storage::url('users/' . $admin->image) }}" class="btn btn-outline-white btn-icon rounded-pill ms-2">
+                                                        <i class="ph-link"></i>
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
