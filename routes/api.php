@@ -1,10 +1,12 @@
 <?php
 
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\UniversityController;
+use App\Http\Controllers\Api\Auth\ProfileController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 
 /*
@@ -33,6 +35,8 @@ Route::prefix("v1")->group(function () {
 
     Route::middleware('auth:sanctum')->group(function () {
 
+        Route::get('/profile', [ProfileController::class,'index']);
+        // Route::post('/profile/', [ProfileController::class,'index']);
         Route::post('logout', [AuthController::class, 'logout']);
     });
 
