@@ -50,63 +50,67 @@
                                 <div class="col-sm-6 col-lg-5">
                                     <div class="card">
                                         <div class="card-img-actions m-1">
-                                            <img src="{{ Storage::url('users/'.$admin->image) }}" class="card-img" width="120px" height="60px" alt="">
-                                            <div class="card-img-actions-overlay">
-                                                <a href="{{ Storage::url('users/'.$admin->image) }}" class="btn btn-outline-white btn-icon rounded-pill" data-bs-popup="lightbox" data-gallery="gallery1">
-                                                    <i class="ph-plus"></i>
-                                                </a>
-                                            </div>
-                                        </div>
+                                           <a href="{{ Storage::url('users/'.$admin->image) }}" class="btn btn-outline-white btn-icon rounded-pill" data-bs-popup="lightbox" data-gallery="gallery1">
+                                            <img src="{{ Storage::url('users/'.$admin->image) }}" class="card-img " width="60" height="60" alt="">
+                                        </a>
+
+
+
                                     </div>
                                 </div>
-                            </td>
-                            <td>
-                                <a href="{{ route('board.admins.show' , $admin ) }}" class="d-block fw-semibold">{{ $admin->name }}</a>
-                                <span class="fs-sm text-muted">{{ $admin->created_at->toFormattedDateString() }}</span>
-                            </td>
-                            <td>{{ $admin->email }}</td>
-                            <td>{{ $admin->phone }}</td>
-                            <td>
-                                @switch($admin->is_banned )
-                                @case(0)
-                                <span class="badge bg-primary"> نعم </span>
-                                @break
-                                @case(1)
-                                <span class="badge bg-danger"> لا</span>
-                                @break
-                                @endswitch
-                            </td>
+                            </div>
+                        </td>
+                        <td>
+                            <a href="{{ route('board.admins.show' , $admin ) }}" class="d-block fw-semibold">{{ $admin->name }}</a>
+                            <span class="fs-sm text-muted">{{ $admin->created_at->toFormattedDateString() }}</span>
+                        </td>
+                        <td>{{ $admin->email }}</td>
+                        <td>{{ $admin->phone }}</td>
+                        <td>
+                            @switch($admin->is_banned )
+                            @case(0)
+                            <span class="badge bg-primary"> نعم </span>
+                            @break
+                            @case(1)
+                            <span class="badge bg-danger"> لا</span>
+                            @break
+                            @endswitch
+                        </td>
 
 
-                            <td class="text-center">
-                                <a  href="{{ route('board.admins.show'  , $admin ) }}"  class="btn btn-sm btn-primary  ">
-                                    <i class="icon-eye  "></i>
-                                </a>
-                                <a href="{{ route('board.admins.edit'  , $admin ) }}"  class="btn btn-sm btn-warning ">
-                                    <i class="icon-database-edit2  "></i>
-                                </a>
-                                <a data-item_id='{{ $admin->id }}' class="btn btn-danger btn-sm delete_item">
-                                    <i class="icon-trash  "></i>
-                                </a>
-                            </td>
-                        </tr>
-                        @endforeach
+                        <td class="text-center">
+                            <a  href="{{ route('board.admins.show'  , $admin ) }}"  class="btn btn-sm btn-primary  ">
+                                <i class="icon-eye  "></i>
+                            </a>
+                            <a href="{{ route('board.admins.edit'  , $admin ) }}"  class="btn btn-sm btn-warning ">
+                                <i class="icon-database-edit2  "></i>
+                            </a>
+                            <a data-item_id='{{ $admin->id }}' class="btn btn-danger btn-sm delete_item">
+                                <i class="icon-trash  "></i>
+                            </a>
+                        </td>
+                    </tr>
+                    @endforeach
 
 
 
-                    </tbody>
-                </table>
-            </div>
+                </tbody>
+            </table>
+        </div>
 
-            <div class="card-footer d-flex justify-content-end ">
-                {{ $admins->links() }}
-            </div>
+        <div class="card-footer d-flex justify-content-end ">
+            {{ $admins->links() }}
         </div>
     </div>
 </div>
+</div>
 
 @section('scripts')
-<script src="{{ Storage::url('board_assets/js/vendor/notifications/sweet_alert.min.js') }}"></script>
+<script src="{{ asset('board_assets/js/vendor/media/glightbox.min.js') }}"></script>
+<script src="{{ asset('board_assets/js/vendor/notifications/sweet_alert.min.js') }}"></script>
+<script src="{{ asset('board_assets/demo/pages/gallery.js') }}"></script>
+{{-- <script src="../../../assets/demo/pages/gallery.js"></script> --}}
+
 <script>
     $(function() {
 
