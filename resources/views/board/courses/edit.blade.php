@@ -4,14 +4,14 @@
 
 @section('breadcrumbs')
 <a href="{{ route('board.courses.index') }}" class="breadcrumb-item"> الكورسات </a>
-<span class="breadcrumb-item active"> تعديل بينات الكورس </span>
+<span class="breadcrumb-item active"> تعديل بيانات الكورس </span>
 @endsection
 @section('content')
 <div class="row">
 	<div class="col-md-12">
 		<div class="card">
 			<div class="card-header bg-primary text-white">
-				<h5 class="mb-0"> تعديل بينات الكورس </h5>
+				<h5 class="mb-0"> تعديل بيانات الكورس </h5>
 			</div>
 
 			<form class="" method="POST" action="{{ route('board.courses.update' , $course ) }}" enctype="multipart/form-data">
@@ -117,7 +117,7 @@
 					<div class="row mb-3">
 						<label class="col-form-label col-lg-12"> نظره عامه بالعربيه <span class="text-danger">*</span></label>
 						<div class="col-lg-12">
-							<textarea name="content_ar" class='form-control textarea' cols="30" rows="10">{{ $course->getTranslation('content' , 'ar' ) }}</textarea>
+							<textarea name="content_ar" id="arTextarea" class='form-control textarea' cols="30" rows="10">{{ $course->getTranslation('content' , 'ar' ) }}</textarea>
 							@error('content_ar')
 							<p class='text-danger' > {{ $message }} </p>
 							@enderror
@@ -127,7 +127,7 @@
 					<div class="row mb-3">
 						<label class="col-form-label col-lg-12"> نظره عامه بالانجليزيه <span class="text-danger">*</span></label>
 						<div class="col-lg-12">
-							<textarea name="content_en" class='form-control textarea' cols="30" rows="10">{{ $course->getTranslation('content' , 'en' ) }}</textarea>
+							<textarea name="content_en" id="enTextarea" class='form-control textarea' cols="30" rows="10">{{ $course->getTranslation('content' , 'en' ) }}</textarea>
 							@error('content_en')
 							<p class='text-danger' > {{ $message }} </p>
 							@enderror
@@ -137,7 +137,7 @@
 					<div class="row mb-3">
 						<label class="col-form-label col-lg-12"> المنهج بالعربيه <span class="text-danger">*</span></label>
 						<div class="col-lg-12">
-							<textarea name="curriculum_ar" class='form-control textarea' cols="30" rows="10">{{ $course->getTranslation('curriculum' , 'ar' ) }}</textarea>
+							<textarea name="curriculum_ar" id="arTextarea" class='form-control textarea' cols="30" rows="10">{{ $course->getTranslation('curriculum' , 'ar' ) }}</textarea>
 							@error('curriculum_ar')
 							<p class='text-danger' > {{ $message }} </p>
 							@enderror
@@ -147,7 +147,7 @@
 					<div class="row mb-3">
 						<label class="col-form-label col-lg-12"> المنهج بالانجليزيه <span class="text-danger">*</span></label>
 						<div class="col-lg-12">
-							<textarea name="curriculum_en" class='form-control textarea' cols="30" rows="10">{{ $course->getTranslation('curriculum' , 'en' ) }}</textarea>
+							<textarea name="curriculum_en" id="enTextarea" class='form-control textarea' cols="30" rows="10">{{ $course->getTranslation('curriculum' , 'en' ) }}</textarea>
 							@error('curriculum_en')
 							<p class='text-danger' > {{ $message }} </p>
 							@enderror
@@ -208,8 +208,6 @@
 
 
 
-
-
 					<div class="row mb-3">
 						<div class="col-md-6">
 							<label class="col-lg-12 col-form-label pt-0"> عرض داخل الصفحه الرئيسيه </label>
@@ -263,10 +261,22 @@
 <script>
 	$(document).ready(function() {
 		tinymce.init({
-			selector: 'textarea',
+			selector: '#enTextarea',
 			plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
 			toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
-		});
+        });
 	});
+
+    $(document).ready(function() {
+		tinymce.init({
+            selector: '#arTextarea',
+			plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+			toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+            language : 'ar'
+        });
+	});
+
+
+
 </script>
 @endsection
