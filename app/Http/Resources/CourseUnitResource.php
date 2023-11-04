@@ -12,10 +12,9 @@ class CourseUnitResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            // 'id' => $this->id,
-            // 'title' => $this->getTranslations('title', ['ar', 'en']),
-            'title' => $this->title,
-            'active' => boolean($this->is_active),
+            'id' => $this->id,
+            'title' => $this->getTranslations('title', ['ar', 'en']),
+            'active' => (bool) $this->is_active,
         ];
     }
 }

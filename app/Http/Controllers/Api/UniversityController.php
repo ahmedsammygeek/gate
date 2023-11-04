@@ -33,7 +33,10 @@ class UniversityController extends Controller
 
     public function show($id)
     {
-        $university = University::with(['courses.trainer', 'courses.reviews.count'])->findOrFail($id);
+        $university = University::with(['courses.trainer',])
+            ->whereHas('courses', function ($query) {
+                $query->where('is_active', 1);
+            })->findOrFail($id);
 
         return response()->json([
             'status' => true,
