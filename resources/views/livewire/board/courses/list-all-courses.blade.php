@@ -104,8 +104,8 @@
                                     </div>
                                 </div>
                             </td>
-                            <td>
-                                <a href="{{ route('board.courses.show' , $course->user_id ) }}" class="d-block fw-semibold">{{ $course->title }}</a>
+                            <td class="text-wrap">
+                                <a href="{{ route('board.courses.show', $course->id) }}" class="d-block fw-semibold">{{ $course->title }}</a>
                                 <span class="fs-sm text-muted">{{ $course->created_at->toFormattedDateString() }}</span>
                             </td>
                             <td>
