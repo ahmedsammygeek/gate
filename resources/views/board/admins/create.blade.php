@@ -68,8 +68,9 @@
                                     <div class="input-group">
                                         <input autocomplete="off" type="password" name="password" id="passwordInput"
                                             class="form-control" required placeholder="كلمه المرور">
-                                        <span class="input-group-text" onclick="showPassword()"><i class="icon-eye2">
-                                            </i></span>
+                                        <span class="input-group-text" onclick="showPassword()">
+                                            <i class="icon-eye2" id="passEye"></i>
+                                        </span>
                                         @error('password')
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
@@ -83,9 +84,10 @@
                                     <div class="input-group">
                                         <input autocomplete="off" type="password" name="password_confirmation"
                                             class="form-control" required placeholder="تاكيد كلمه المرور"
-                                            id="passwordInput">
-                                        <span class="input-group-text" onclick="showPassword()"><i class="icon-eye2">
-                                            </i></span>
+                                            id="confirmPasswordInput">
+                                        <span class="input-group-text" onclick="showConfirmedPassword()">
+                                            <i class="icon-eye2" id="confirmPassEye"></i>
+                                        </span>
                                         @error('password_confirmation')
                                             <p class='text-danger'> {{ $message }} </p>
                                         @enderror
@@ -131,27 +133,27 @@
     <script>
         function showPassword() {
             var x = document.getElementById("passwordInput");
-            var eyeIcon = document.getElementById("eyeIcon");
+            var passEye = document.getElementById("passEye");
 
             if (x.type === "password") {
                 x.type = "text";
-                eyeIcon.style.color = "blue"; // Change the color to your desired color
+                passEye.style.color = "blue";
             } else {
                 x.type = "password";
-                eyeIcon.style.color = "black"; // Change the color to your desired color
+                passEye.style.color = "black"; // Change the color to your desired color
             }
         }
 
-        function showPassword() {
-            var x = document.getElementById("confirmedPasswordInput");
-            var eyeIcon = document.getElementById("eyeIcon");
+        function showConfirmedPassword() {
+            var x = document.getElementById("confirmPasswordInput");
+            var passEye = document.getElementById("confirmPassEye");
 
             if (x.type === "password") {
                 x.type = "text";
-                eyeIcon.style.color = "blue"; // Change the color to your desired color
+                passEye.style.color = "blue";
             } else {
                 x.type = "password";
-                eyeIcon.style.color = "black"; // Change the color to your desired color
+                passEye.style.color = "blue";
             }
         }
     </script>
