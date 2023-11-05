@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
+use App\Http\Resources\ReviewResource;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -16,13 +17,14 @@ class DetailedCourseResource extends JsonResource
             'title' => $this->getTranslations('title', ['ar', 'en']),
             'subtitle' => $this->getTranslations('subtitle', ['ar', 'en']),
             'curriculum' => $this->getTranslations('curriculum', ['ar', 'en']),
-            'image' => Storage::url('courses/' . $this->image),
+            'image' =>  env('APP_URL') . Storage::url('courses/' . $this->image),
             'price' => $this->price,
             'price_after_discount' => $this->price_after_discount,
             'reviews' => $this->reviews,
-            'trainer' => TrainerResource::make($this->trainer),
-            // 'units' => 
-            'category' => BasicDataResource::make($this->category),
+            'trainer' => TrainerResource::make($this->whenLoaded('trainer')),
+            'category' => BasicDataResource::make($this->whenLoaded('category')),
+            'units' => CourseUnitResource::collection($this->whenLoaded('units')),
+            'course_reviews' => ReviewResource::collection($this->whenLoaded('courseReviews')),
         ];
     }
 }

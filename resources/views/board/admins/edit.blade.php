@@ -69,8 +69,8 @@
                                 <label class="col-form-label col-lg-2"> كلمه المرور </label>
                                 <div class="col-lg-10">
                                     <div class="input-group">
-                                        <input autocomplete="off" type="password" name="password" id="passwordInput" class="form-control"
-                                            placeholder="كلمه المرور">
+                                        <input autocomplete="off" type="password" name="password" id="passwordInput"
+                                            class="form-control" placeholder="كلمه المرور">
                                         <span class="input-group-text" onclick="showPassword()"> <i
                                                 class="icon-eye2"></i></span>
                                         @error('password')
@@ -82,8 +82,8 @@
                             <div class="row mb-3">
                                 <label class="col-form-label col-lg-2"> تاكيد كلمه المرور </label>
                                 <div class="col-lg-10">
-                                    <input autocomplete="off" type="password" name="password_confirmation" class="form-control"
-                                        placeholder="تاكيد كلمه المرور">
+                                    <input autocomplete="off" type="password" name="password_confirmation"
+                                        class="form-control" placeholder="تاكيد كلمه المرور">
                                     @error('password_confirmation')
                                         <p class='text-danger'> {{ $message }} </p>
                                     @enderror
@@ -110,17 +110,15 @@
                             </div>
                             <div class="row mb-3">
                                 <label class="col-lg-2 col-form-label pt-0"> الصوره الشخصيه الحاليه </label>
-                                <div class="col-lg-10">
-                                    <div class="col-sm-6 col-lg-3">
-                                        <div class="card">
-                                            <div class="card-img-actions m-1">
-                                                <img src="{{ Storage::url('users/'.$admin->image) }}" class="card-img" width="120px" height="80px" alt="">
-                                                <div class="card-img-actions-overlay">
-                                                    <a href="{{ Storage::url('users/'.$admin->image) }}" class="btn btn-outline-white btn-icon rounded-pill" data-bs-popup="lightbox" data-gallery="gallery1">
-                                                        <i class="ph-plus"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
+                                <div class="col-sm-6 col-lg-3">
+                                    <div class="card">
+                                        <div class="card-img-actions m-1">
+                                            <a href="{{ Storage::url('users/' . $admin->image) }}"
+                                                class="btn btn-outline-white btn-icon rounded-pill"
+                                                data-bs-popup="lightbox" data-gallery="gallery1">
+                                                <img src="{{ Storage::url('users/' . $admin->image) }}" class="avatar"
+                                                    width="120" height="120" alt="">
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -141,6 +139,9 @@
 @endsection
 
 @section('scripts')
+    <script src="{{ asset('board_assets/js/vendor/media/glightbox.min.js') }}"></script>
+    <script src="{{ asset('board_assets/js/vendor/notifications/sweet_alert.min.js') }}"></script>
+    <script src="{{ asset('board_assets/demo/pages/gallery.js') }}"></script>
     <script>
         function showPassword() {
             var x = document.getElementById("passwordInput");

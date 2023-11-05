@@ -21,15 +21,6 @@
                         <div class="mb-4">
                             <div class="fw-bold border-bottom pb-2 mb-3"> بيانات المدرب </div>
 
-                            <div class="row mb-3">
-                                <label class="col-lg-2 col-form-label pt-0"> صوره المدرب </label>
-                                <div class="col-lg-10">
-                                    <input type="file" name="image" class="form-control">
-                                    @error('image')
-                                        <p class='text-danger'> {{ $message }} </p>
-                                    @enderror
-                                </div>
-                            </div>
 
                             <div class="row mb-3">
                                 <label class="col-form-label col-lg-2"> اسم المدرب <span
@@ -120,6 +111,16 @@
                                     <input type="checkbox" value='1' class="form-check-input" name="show_in_home">
                                     <span class="form-check-label"> نعم </span>
                                 </label>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-lg-2 col-form-label pt-0"> صوره المدرب </label>
+                            <div class="col-lg-10">
+                                <input type="file" name="image" class="form-control">
+                                @error('image')
+                                    <p class='text-danger'> {{ $message }} </p>
+                                @enderror
                             </div>
                         </div>
 

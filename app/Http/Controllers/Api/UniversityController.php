@@ -17,6 +17,12 @@ class UniversityController extends Controller
         $universities = University::query()
             ->with('country')
             ->where('is_active', 1)
+            ->where(function ($query) use ($request) {
+                if ($request->has('title')) {
+                    $query->where('title->ar', 'like', '%' . $request->get('title') . '%')
+                        ->orWhere('title->en', 'like', '%' . $request->get('title') . '%');
+                }
+            })
             ->latest()
             ->paginate($request->per_page ?? 10);
 
@@ -31,23 +37,45 @@ class UniversityController extends Controller
     }
 
 
-    public function show($id)
-    {
-        $university = University::with(['courses.trainer', 'courses.reviews.count'])->findOrFail($id);
+    public function show($id, Request $request)
+{
+    $query = University::with('courses.trainer')
+        ->whereHas('courses', function ($query) use ($request) {
+            $query->where('is_active', 1);
 
-        return response()->json([
-            'status' => true,
-            'message' => "success",
-            "data" => (object) [
-                'university' => DetailedUniversityResource::make($university)
-            ]
-        ]);
+            if ($request->has('category_id')) {
+                $query->where('category_id', $request->get('category_id'));
+            }
+        });
+
+    if ($request->has('sort')) {
+        $sortColumn = $request->get('sort');
+
+        if ($sortColumn == 'price') {
+            $query->with(['courses' => function ($query) {
+                $query->where('is_active', 1)
+                    ->orderBy('price', 'ASC');
+            }]);
+        } else {
+            $query->orderBy($sortColumn, 'desc');
+        }
     }
+
+    $university = $query->findOrFail($id);
+
+    return response()->json([
+        'status' => true,
+        'message' => "success",
+        "data" => (object) [
+            'university' => DetailedUniversityResource::make($university)
+        ]
+    ]);
+}
 
 
     public function course($id, $courseId)
     {
-        $course = Course::with(['trainer', 'units', 'reviews'])->findOrFail($courseId);
+        $course = Course::with(['trainer', 'units', 'courseReviews.user'])->findOrFail($courseId);
 
         return response()->json([
             'status' => true,

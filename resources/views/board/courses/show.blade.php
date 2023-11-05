@@ -148,8 +148,20 @@
 
                             <tr>
                                 <th> الصوره الكورس الحاليه </th>
-                                <td> <img width='300' height='300' src="{{ Storage::url('courses/' . $course->image) }}"
-                                        alt=""> </td>
+                                <td>
+                                    <div class="col-sm-6 col-lg-3">
+                                        <div class="card">
+                                            <div class="card-img-actions m-1">
+                                                <a href="{{ Storage::url('courses/' . $course->image) }}"
+                                                    class="btn btn-outline-white btn-icon rounded-pill"
+                                                    data-bs-popup="lightbox" data-gallery="gallery1">
+                                                    <img src="{{ Storage::url('courses/' . $course->image) }}"
+                                                        class="avatar" width="120" height="120" alt="">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -158,4 +170,11 @@
         </div>
     </div>
 
+@endsection
+
+
+@section('scripts')
+    <script src="{{ asset('board_assets/js/vendor/media/glightbox.min.js') }}"></script>
+    <script src="{{ asset('board_assets/js/vendor/notifications/sweet_alert.min.js') }}"></script>
+    <script src="{{ asset('board_assets/demo/pages/gallery.js') }}"></script>
 @endsection
