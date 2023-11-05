@@ -109,8 +109,6 @@
 <script src="{{ asset('board_assets/js/vendor/media/glightbox.min.js') }}"></script>
 <script src="{{ asset('board_assets/js/vendor/notifications/sweet_alert.min.js') }}"></script>
 <script src="{{ asset('board_assets/demo/pages/gallery.js') }}"></script>
-{{-- <script src="../../../assets/demo/pages/gallery.js"></script> --}}
-
 <script>
     $(function() {
 
