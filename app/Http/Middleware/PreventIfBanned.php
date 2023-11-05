@@ -20,7 +20,7 @@ class PreventIfBanned
         if (Auth::user()->is_banned) {
             $message =  'تم وقف دخولك للوحه التحكم برجاء التحدث مع الدعم الفنى' ;
             Auth::logout();
-            return abort(403, $message);
+            return redirect()->route('login')->with('error', $message);
         }
         return $next($request);
     }
