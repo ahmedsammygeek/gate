@@ -22,7 +22,8 @@
                             <div class="fw-bold border-bottom pb-2 mb-3"> بيانات الجامعه </div>
                             <div class="row mb-3">
                                 <div class="col-md-6">
-                                    <label class="col-lg-12 col-form-label pt-0"> صوره الجامعه </label>
+                                    <label class="col-lg-12 col-form-label pt-0"> صوره الجامعه
+                                    <span class="text-danger">*</span></label>
                                     <div class="col-lg-12">
                                         <input type="file" name="image" class="form-control">
                                         @error('image')
@@ -31,7 +32,8 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="col-lg-12 col-form-label pt-0"> صوره الغلاف </label>
+                                    <label class="col-lg-12 col-form-label pt-0"> صوره الغلاف
+                                    <span class="text-danger">*</span></label>
                                     <div class="col-lg-12">
                                         <input type="file" name="cover" class="form-control">
                                         @error('cover')
@@ -119,8 +121,8 @@
                                 </div>
 
                                 <div class="col-md-12">
-                                    <label class="col-form-label col-lg-12"> محتوى عن الجامعه بالانجليزيه <span
-                                            class="text-danger">*</span></label>
+                                    <label class="col-form-label col-lg-12"> محتوى عن الجامعه بالانجليزيه
+                                        <span class="text-danger">*</span></label>
                                     <div class="col-lg-12">
                                         <textarea name="content_en" class='form-control textarea' id="" cols="30" rows="5">{{ old('content_en') }}</textarea>
                                         @error('content_en')
