@@ -18,7 +18,7 @@ class PreventIfBanned
     public function handle(Request $request, Closure $next)
     {
         if (Auth::user()->is_banned) {
-            $message =  'تم وقف دخولك للوحه التحكم برجاء التحدث مع الدعم الفنى' ;
+            $message =  ' الحساب غير مفعل' ;
             Auth::logout();
             return redirect()->route('login')->with('error', $message);
         }
