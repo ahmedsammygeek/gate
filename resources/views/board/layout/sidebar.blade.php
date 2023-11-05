@@ -56,8 +56,8 @@
 						<span> التصنيفات </span>
 					</a>
 					<ul class="nav-group-sub collapse" data-submenu-title="Categories">
-						<li class="nav-item"><a href="{{ route('board.categories.index') }}" class="nav-link active"> عرض كافه التصنيفات </a></li>
-						<li class="nav-item"><a href="{{ route('board.categories.create') }}" class="nav-link active">إضافه تصنيف جديد</a></li>
+						<li class="nav-item"><a href="{{ route('board.categories.index') }}" class="nav-link "> عرض كافه التصنيفات </a></li>
+						<li class="nav-item"><a href="{{ route('board.categories.create') }}" class="nav-link ">إضافه تصنيف جديد</a></li>
 					</ul>
 				</li>
 
