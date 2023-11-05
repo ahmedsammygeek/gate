@@ -15,7 +15,7 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
-	
+
 	<style>
 		a , h1 , h2 , h3 , h4 , h5 , h6 , span , input , button , div {
 			font-family: 'Cairo', sans-serif;
@@ -74,10 +74,15 @@
 									<div class="mb-3">
 										<label class="form-label"> كلمه المرور </label>
 										<div class="form-control-feedback form-control-feedback-start">
-											<input type="password" name='password' class="form-control @error('password') is-invalid @enderror " placeholder="•••••••••••" >
+                                            <div class="input-group">
+                                            <input type="password" name='password' id="passwordInput"  class="form-control @error('password') is-invalid @enderror " placeholder="•••••••••••" >
 											<div class="form-control-feedback-icon">
-												<i class="ph-lock text-muted"></i>
+                                                <i class="ph-lock text-muted"></i>
 											</div>
+                                            <span class="input-group-text" onclick="showPassword()">
+                                                <i class="ph-eye-slash" id="passEye"></i>
+                                            </span>
+                                            </div>
 										</div>
 										@error('password')
 										<div class="text-danger lead"> {{ $message }} </div>
@@ -114,6 +119,20 @@
 	</div>
 	<!-- /page content -->
 
+    <script>
+        function showPassword() {
+            var x = document.getElementById("passwordInput");
+            var passEye = document.getElementById("passEye");
+
+            if (x.type === "password") {
+                x.type = "text";
+                passEye.style.color = "blue";
+            } else {
+                x.type = "password";
+                passEye.style.color = "black"; // Change the color to your desired color
+            }
+        }
+    </script>
 
 
 </body>
