@@ -35,8 +35,11 @@ Route::prefix("v1")->group(function () {
 
     Route::middleware('auth:sanctum')->group(function () {
 
-        Route::get('/profile', [ProfileController::class,'index']);
-        // Route::post('/profile/', [ProfileController::class,'index']);
+        Route::get('profile', [ProfileController::class, 'index']);
+        Route::post('profile', [ProfileController::class, 'store']);
+        Route::post('profile/password', [ProfileController::class, 'changePassword']);
+        Route::post('profile/validate/number', [ProfileController::class, 'sendOtp']);
+        Route::put('profile/number', [ProfileController::class, 'changeWtsNumber']);
         Route::post('logout', [AuthController::class, 'logout']);
     });
 

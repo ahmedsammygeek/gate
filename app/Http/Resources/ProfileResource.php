@@ -16,6 +16,8 @@ class ProfileResource extends JsonResource
             'name' =>  $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
+            'speciality_id' => $this->speciality_id,
+            'group_id' => $this->group_id,
             'university' => UniversityResource::make($this?->university),
             'image' =>  $this->image ? env('APP_URL') .  Storage::url('users/' . $this->image) : '',
         ];
