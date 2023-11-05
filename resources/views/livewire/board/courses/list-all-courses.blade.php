@@ -91,7 +91,7 @@
                         @foreach ($courses as $course)
                         <tr>
                             <td class="pe-0">
-                                <div class="col-sm-6 col-lg-5">
+                                <div class="col-sm-6 col-lg-9">
                                     <div class="card">
                                         <div class="card-img-actions m-1">
                                             <a href="{{ Storage::url('courses/'.$course->image) }}"
