@@ -21,17 +21,7 @@
 						<div class="fw-bold border-bottom pb-2 mb-3"> بيانات الكورس </div>
 
 						<div class="row mb-3">
-							<div class="col-md-3">
-								<label class="col-lg-12 col-form-label pt-0"> صوره الكورس
-                                    <span class="text-danger">*</span>
-                                </label>
-								<div class="col-lg-12">
-									<input type="file" name="image" class="form-control"  >
-									@error('image')
-									<p class='text-danger' > {{ $message }} </p>
-									@enderror
-								</div>
-							</div>
+
 							<div class="col-md-3">
 								<label class="col-form-label col-lg-12"> التصنيف <span class="text-danger">*</span></label>
 								<div class="col-lg-12">
@@ -66,7 +56,7 @@
 									<select name="trainer_id" class='form-control form-select' id="">
                                         <option value=""> اختر المدرب </option>
 										@foreach ($trainers as $trainer)
-										<option value="{{ $trainer->id }}"  {{ old('trainer_id') == $trainer->id ? 'selected' : '' }}> {{ $university->title }} > {{ $trainer->name }} </option>
+										<option value="{{ $trainer->id }}"  {{ old('trainer_id') == $trainer->id ? 'selected' : '' }}> {{ $trainer->name }} </option>
 										@endforeach
 									</select>
 									@error('trainer_id')
@@ -231,6 +221,18 @@
 							</div>
 						</div>
 					</div>
+
+                    <div class="col-md-3">
+                        <label class="col-lg-12 col-form-label pt-0"> صوره الكورس
+                            <span class="text-danger">*</span>
+                        </label>
+                        <div class="col-lg-12">
+                            <input type="file" name="image" class="form-control"  >
+                            @error('image')
+                            <p class='text-danger' > {{ $message }} </p>
+                            @enderror
+                        </div>
+                    </div>
 
 
 				</div>

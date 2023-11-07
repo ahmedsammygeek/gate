@@ -19,10 +19,14 @@
                         الكورس </a></li>
                 <li class="nav-item"><a href="{{ route('board.courses.students', $course) }}" class="nav-link"> الطلبه </a>
                 </li>
-                <li class="nav-item"><a href="{{ route('board.courses.reviews', $course) }}" class="nav-link"> التقييمات
-                    </a></li>
-                <li class="nav-item"><a href="{{ route('board.courses.installments', $course) }}" class="nav-link">
-                        الاقساط </a></li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link"> التقييمات</a>
+                    {{-- <a href="{{ route('board.courses.reviews', $course) }}" class="nav-link"> التقييمات</a> --}}
+                </li>
+                <li class="nav-item">
+                    {{-- <a href="{{ route('board.courses.installments', $course) }}" class="nav-link">الاقساط </a> --}}
+                    <a href="#" class="nav-link">الاقساط </a>
+                </li>
             </ul>
         </div>
     </div>
