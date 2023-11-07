@@ -105,7 +105,8 @@
                                 </div>
                             </td>
                             <td class="text-wrap">
-                                <a href="{{ route('board.courses.show', $course->id) }}" class="d-block fw-semibold">{{ $course->title }}</a>
+                                <a href="{{ route('board.courses.show', $course->id) }}" class="d-block fw-semibold">
+                                    {{ Str::words($course->title, 2, '.....') }}</a>
                                 <span class="fs-sm text-muted">{{ $course->created_at->toFormattedDateString() }}</span>
                             </td>
                             <td>

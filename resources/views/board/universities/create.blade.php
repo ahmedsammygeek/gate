@@ -76,8 +76,9 @@
                                             class="text-danger">*</span></label>
                                     <div class="col-lg-12">
                                         <select name="country_id" class='form-control form-select' id="">
+                                            <option value=""> اختر الدوله </option>
                                             @foreach ($countries as $country)
-                                                <option value="{{ $country->id }}"> {{ $country->name }} </option>
+                                                <option value="{{ $country->id }}" {{ old('country_id') == $country->id ? 'selected' : '' }}> {{ $country->name }} </option>
                                             @endforeach
                                         </select>
                                         @error('country_id')
