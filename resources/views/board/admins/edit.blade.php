@@ -73,10 +73,10 @@
                                             class="form-control" placeholder="كلمه المرور">
                                         <span class="input-group-text" onclick="showPassword()"> <i
                                                 class="icon-eye2" id="passEye"></i></span>
+                                    </div>
                                         @error('password')
                                             <p class='text-danger'> {{ $message }} </p>
                                         @enderror
-                                    </div>
                                 </div>
                             </div>
                             <div class="row mb-3">
