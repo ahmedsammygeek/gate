@@ -267,7 +267,9 @@
 
                         <div class="row mb-3">
                             <div class="col-md-3">
-                                <label class="col-lg-12 col-form-label pt-0"> صوره الكورس </label>
+                                <label class="col-lg-12 col-form-label pt-0"> صوره الكورس
+                                    <span class="text-danger">*</span>
+                                </label>
                                 <div class="col-lg-12">
                                     <input type="file" name="image" class="form-control">
                                     @error('image')

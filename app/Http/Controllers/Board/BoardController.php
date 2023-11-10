@@ -22,6 +22,7 @@ class BoardController extends Controller
         $universities_count = University::count();
         $courses_count = Course::count();
         $countries_count = Country::count();
+        
         return view('board.index' , compact('trainers_count' , 'students_count' , 'categories_count' , 'universities_count' , 'courses_count' , 'countries_count' ) );
     }
 

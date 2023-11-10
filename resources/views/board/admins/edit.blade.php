@@ -72,18 +72,22 @@
                                         <input autocomplete="off" type="password" name="password" id="passwordInput"
                                             class="form-control" placeholder="كلمه المرور">
                                         <span class="input-group-text" onclick="showPassword()"> <i
-                                                class="icon-eye2"></i></span>
+                                                class="icon-eye2" id="passEye"></i></span>
+                                    </div>
                                         @error('password')
                                             <p class='text-danger'> {{ $message }} </p>
                                         @enderror
-                                    </div>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label class="col-form-label col-lg-2"> تاكيد كلمه المرور </label>
                                 <div class="col-lg-10">
-                                    <input autocomplete="off" type="password" name="password_confirmation"
+                                    <div class="input-group">
+                                    <input autocomplete="off" type="password" name="password_confirmation" id="confirmPasswordInput"
                                         class="form-control" placeholder="تاكيد كلمه المرور">
+                                        <span class="input-group-text" onclick="showConfirmedPassword()"> <i
+                                                class="icon-eye2" id="confirmPassEye"></i></span>
+                                    </div>
                                     @error('password_confirmation')
                                         <p class='text-danger'> {{ $message }} </p>
                                     @enderror
@@ -143,12 +147,29 @@
     <script src="{{ asset('board_assets/js/vendor/notifications/sweet_alert.min.js') }}"></script>
     <script src="{{ asset('board_assets/demo/pages/gallery.js') }}"></script>
     <script>
-        function showPassword() {
+         function showPassword() {
             var x = document.getElementById("passwordInput");
+            var passEye = document.getElementById("passEye");
+
             if (x.type === "password") {
                 x.type = "text";
+                passEye.style.color = "blue";
             } else {
                 x.type = "password";
+                passEye.style.color = "black"; // Change the color to your desired color
+            }
+        }
+
+        function showConfirmedPassword() {
+            var x = document.getElementById("confirmPasswordInput");
+            var passEye = document.getElementById("confirmPassEye");
+
+            if (x.type === "password") {
+                x.type = "text";
+                passEye.style.color = "blue";
+            } else {
+                x.type = "password";
+                passEye.style.color = "blue";
             }
         }
     </script>

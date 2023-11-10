@@ -91,7 +91,7 @@
                         @foreach ($courses as $course)
                         <tr>
                             <td class="pe-0">
-                                <div class="col-sm-6 col-lg-5">
+                                <div class="col-sm-6 col-lg-9">
                                     <div class="card">
                                         <div class="card-img-actions m-1">
                                             <a href="{{ Storage::url('courses/'.$course->image) }}"
@@ -104,8 +104,9 @@
                                     </div>
                                 </div>
                             </td>
-                            <td>
-                                <a href="{{ route('board.courses.show' , $course->user_id ) }}" class="d-block fw-semibold">{{ $course->title }}</a>
+                            <td class="text-wrap">
+                                <a href="{{ route('board.courses.show', $course->id) }}" class="d-block fw-semibold">
+                                    {{ Str::limit($course->title, 30, '.....') }}</a>
                                 <span class="fs-sm text-muted">{{ $course->created_at->toFormattedDateString() }}</span>
                             </td>
                             <td>

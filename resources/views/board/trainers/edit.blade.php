@@ -111,7 +111,9 @@
 					</div>
 
                     <div class="row mb-3">
-                        <label class="col-lg-2 col-form-label pt-0"> صوره المدرب </label>
+                        <label class="col-lg-2 col-form-label pt-0"> صوره المدرب
+                            <span class="text-danger">*</span>
+                        </label>
                         <div class="col-lg-10">
                             <input type="file" name="image" class="form-control"  >
                             @error('image')

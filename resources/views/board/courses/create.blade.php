@@ -21,21 +21,14 @@
 						<div class="fw-bold border-bottom pb-2 mb-3"> بيانات الكورس </div>
 
 						<div class="row mb-3">
-							<div class="col-md-3">
-								<label class="col-lg-12 col-form-label pt-0"> صوره الكورس </label>
-								<div class="col-lg-12">
-									<input type="file" name="image" class="form-control"  >
-									@error('image')
-									<p class='text-danger' > {{ $message }} </p>
-									@enderror
-								</div>
-							</div>
+
 							<div class="col-md-3">
 								<label class="col-form-label col-lg-12"> التصنيف <span class="text-danger">*</span></label>
 								<div class="col-lg-12">
 									<select name="category_id" class='form-control form-select' id="">
+                                        <option value=""> اختر التصنيف </option>
 										@foreach ($categories as $category)
-										<option value="{{ $category->id }}"> {{ $category->name }} </option>
+										<option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}> {{ $category->name }} </option>
 										@endforeach
 									</select>
 									@error('category_id')
@@ -47,8 +40,9 @@
 								<label class="col-form-label col-lg-12"> الجامعه <span class="text-danger">*</span></label>
 								<div class="col-lg-12">
 									<select name="university_id" class='form-control form-select' id="">
+                                        <option value=""> اختر الجامعه </option>
 										@foreach ($universities as $university)
-										<option value="{{ $university->id }}"> {{ $university->title }} </option>
+										<option value="{{ $university->id }}" {{ old('university_id') == $university->id ? 'selected' : '' }}> {{ $university->title }} </option>
 										@endforeach
 									</select>
 									@error('university_id')
@@ -60,8 +54,9 @@
 								<label class="col-form-label col-lg-12"> المدرب <span class="text-danger">*</span></label>
 								<div class="col-lg-12">
 									<select name="trainer_id" class='form-control form-select' id="">
+                                        <option value=""> اختر المدرب </option>
 										@foreach ($trainers as $trainer)
-										<option value="{{ $trainer->id }}"> {{ $trainer->name }} </option>
+										<option value="{{ $trainer->id }}"  {{ old('trainer_id') == $trainer->id ? 'selected' : '' }}> {{ $trainer->name }} </option>
 										@endforeach
 									</select>
 									@error('trainer_id')
@@ -206,9 +201,6 @@
 					</div>
 
 
-
-
-
 					<div class="row mb-3">
 						<div class="col-md-6">
 							<label class="col-lg-12 col-form-label pt-0"> عرض داخل الصفحه الرئيسيه </label>
@@ -229,6 +221,18 @@
 							</div>
 						</div>
 					</div>
+
+                    <div class="col-md-3">
+                        <label class="col-lg-12 col-form-label pt-0"> صوره الكورس
+                            <span class="text-danger">*</span>
+                        </label>
+                        <div class="col-lg-12">
+                            <input type="file" name="image" class="form-control"  >
+                            @error('image')
+                            <p class='text-danger' > {{ $message }} </p>
+                            @enderror
+                        </div>
+                    </div>
 
 
 				</div>

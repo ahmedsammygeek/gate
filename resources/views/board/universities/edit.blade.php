@@ -23,7 +23,8 @@
                             <div class="fw-bold border-bottom pb-2 mb-3"> بيانات الجامعه </div>
                             <div class="row mb-3">
                                 <div class="col-md-6">
-                                    <label class="col-lg-12 col-form-label pt-0"> صوره الجامعه </label>
+                                    <label class="col-lg-12 col-form-label pt-0"> صوره الجامعه
+                                        <span class="text-danger">*</span></label>
                                     <div class="col-lg-12">
                                         <input type="file" name="image" class="form-control">
                                         @error('image')
@@ -32,7 +33,8 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="col-lg-12 col-form-label pt-0"> صوره الكافر </label>
+                                    <label class="col-lg-12 col-form-label pt-0"> صوره الغلاف
+                                        <span class="text-danger">*</span></label>
                                     <div class="col-lg-12">
                                         <input type="file" name="cover" class="form-control">
                                         @error('cover')
