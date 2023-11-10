@@ -19,6 +19,7 @@ class ListAllCourses extends Component
     public $is_active;
     public $show_in_home;
     public $search;
+    public $type;
     public $showDeletionConfirmationModal = false;
     protected $listeners   = ['deleteItem'];
 
@@ -63,6 +64,8 @@ class ListAllCourses extends Component
             $query->where('is_active' , '='  , $this->is_active );
         })->when($this->show_in_home != null , function($query){
             $query->where('show_in_home' , '='  , $this->show_in_home );
+        })->when($this->type , function($query){
+            $query->where('type'  , $this->type );
         })
         ->latest()
         ->paginate($this->rows);

@@ -27,13 +27,21 @@
                         </select>
                     </div>
                 </div>
-                 <div class="d-sm-flex align-items-sm-start mt-2">
+                <div class="d-sm-flex align-items-sm-start mt-2">
+
+                    <div class="dropdown ms-sm-3  mb-sm-0">
+                        <select wire:model='type' class="form-select">
+                            <option value=""> جميع الانواع </option>
+                            <option value="1"> الكورسات فقط </option>
+                            <option value="2"> الباقات فقط </option>
+                        </select>
+                    </div>
 
                     <div class="dropdown ms-sm-3  mb-sm-0">
                         <select wire:model='category_id' class="form-select">
                             <option value=""> جميع التصنيفات </option>
                             @foreach ($categories as $category)
-                              <option value="{{ $category->id }}"> {{ $category->name }} </option>
+                            <option value="{{ $category->id }}"> {{ $category->name }} </option>
                             @endforeach
                         </select>
                     </div>
@@ -41,7 +49,7 @@
                         <select wire:model='university_id' class="form-select">
                             <option value=""> جميع الجامعات </option>
                             @foreach ($universities as $university)
-                              <option value="{{ $university->id }}"> {{ $university->title }} </option>
+                            <option value="{{ $university->id }}"> {{ $university->title }} </option>
                             @endforeach
                         </select>
                     </div>
@@ -49,7 +57,7 @@
                         <select wire:model='trainer_id' class="form-select">
                             <option value=""> جميع المدربين </option>
                             @foreach ($trainers as $trainer)
-                              <option value="{{ $trainer->id }}"> {{ $trainer->name }} </option>
+                            <option value="{{ $trainer->id }}"> {{ $trainer->name }} </option>
                             @endforeach
                         </select>
                     </div>
@@ -78,6 +86,7 @@
                         <tr>
                             <th > صوره الكورس </th>
                             <th > اسم الكورس </th>
+                            <th >  النوع </th>
                             <th >  التصنيف </th>
                             <th >  الجامعه </th>
                             <th >  السعر </th>
@@ -98,7 +107,7 @@
                                                 class="btn btn-outline-white btn-icon rounded-pill"
                                                 data-bs-popup="lightbox" data-gallery="gallery1">
                                                 <img src="{{ Storage::url('courses/'.$course->image) }}"
-                                                    class="card-img " width="60" height="60" alt="">
+                                                class="card-img " width="60" height="60" alt="">
                                             </a>
                                         </div>
                                     </div>
@@ -107,126 +116,136 @@
                             <td class="text-wrap">
                                 <a href="{{ route('board.courses.show', $course->id) }}" class="d-block fw-semibold">
                                     {{ Str::limit($course->title, 30, '.....') }}</a>
-                                <span class="fs-sm text-muted">{{ $course->created_at->toFormattedDateString() }}</span>
-                            </td>
-                            <td>
-                                @if ($course->category_id)
+                                    <span class="fs-sm text-muted">{{ $course->created_at->toFormattedDateString() }}</span>
+                                </td>
+                                <td>
+                                    @switch($course->type )
+                                    @case(1)
+                                    <span class="badge bg-info"> كورس </span>
+                                    @break
+                                    @case(2)
+                                    <span class="badge bg-secondary"> باقه</span>
+                                    @break
+                                    @endswitch
+                                </td>
+                                <td>
+                                    @if ($course->category_id)
                                     <a href="{{ route('board.categories.show' , $course->category_id ) }}"> {{ $course->category?->name }} </a>
-                                @endif
-                            </td>
-                             <td>
-                                @if ($course->university_id)
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($course->university_id)
                                     <a href="{{ route('board.universities.show' , $course->university_id ) }}"> {{ $course->university?->title }} </a>
-                                @endif
-                            </td>
-                            <td> {{ $course->getPrice() }} <span class='text-muted' >  ر.س </span>  </td>
-                            <td>
-                                @switch($course->show_in_home )
-                                @case(1)
-                                <span class="badge bg-primary"> نعم </span>
-                                @break
-                                @case(0)
-                                <span class="badge bg-danger"> لا</span>
-                                @break
-                                @endswitch
-                            </td>
+                                    @endif
+                                </td>
+                                <td> {{ $course->getPrice() }} <span class='text-muted' >  ر.س </span>  </td>
+                                <td>
+                                    @switch($course->show_in_home )
+                                    @case(1)
+                                    <span class="badge bg-primary"> نعم </span>
+                                    @break
+                                    @case(0)
+                                    <span class="badge bg-danger"> لا</span>
+                                    @break
+                                    @endswitch
+                                </td>
 
-                             <td>
-                                @switch($course->is_active )
-                                @case(1)
-                                <span class="badge bg-primary"> نعم </span>
-                                @break
-                                @case(0)
-                                <span class="badge bg-danger"> لا</span>
-                                @break
-                                @endswitch
-                            </td>
-
-
-                            <td class="text-center">
-                                <a  href="{{ route('board.courses.show'  , $course ) }}"  class="btn btn-sm btn-primary  ">
-                                    <i class="icon-eye  "></i>
-                                </a>
-                                <a href="{{ route('board.courses.edit'  , $course ) }}"  class="btn btn-sm btn-warning ">
-                                    <i class="icon-database-edit2  "></i>
-                                </a>
-                                <a data-item_id='{{ $course->id }}' class="btn btn-danger btn-sm delete_item">
-                                    <i class="icon-trash  "></i>
-                                </a>
-                            </td>
-                        </tr>
-                        @endforeach
+                                <td>
+                                    @switch($course->is_active )
+                                    @case(1)
+                                    <span class="badge bg-primary"> نعم </span>
+                                    @break
+                                    @case(0)
+                                    <span class="badge bg-danger"> لا</span>
+                                    @break
+                                    @endswitch
+                                </td>
 
 
+                                <td class="text-center">
+                                    <a  href="{{ route('board.courses.show'  , $course ) }}"  class="btn btn-sm btn-primary  ">
+                                        <i class="icon-eye  "></i>
+                                    </a>
+                                    <a href="{{ route('board.courses.edit'  , $course ) }}"  class="btn btn-sm btn-warning ">
+                                        <i class="icon-database-edit2  "></i>
+                                    </a>
+                                    <a data-item_id='{{ $course->id }}' class="btn btn-danger btn-sm delete_item">
+                                        <i class="icon-trash  "></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            @endforeach
 
-                    </tbody>
-                </table>
-            </div>
 
-            <div class="card-footer d-flex justify-content-end ">
-                {{ $courses->links() }}
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card-footer d-flex justify-content-end ">
+                    {{ $courses->links() }}
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-@section('scripts')
-<script src="{{ Storage::url('board_assets/js/vendor/notifications/sweet_alert.min.js') }}"></script>
-<script src="{{ asset('board_assets/js/vendor/media/glightbox.min.js') }}"></script>
-<script src="{{ asset('board_assets/js/vendor/notifications/sweet_alert.min.js') }}"></script>
-<script src="{{ asset('board_assets/demo/pages/gallery.js') }}"></script>
-<script>
-    $(function() {
+    @section('scripts')
+    <script src="{{ Storage::url('board_assets/js/vendor/notifications/sweet_alert.min.js') }}"></script>
+    <script src="{{ asset('board_assets/js/vendor/media/glightbox.min.js') }}"></script>
+    <script src="{{ asset('board_assets/js/vendor/notifications/sweet_alert.min.js') }}"></script>
+    <script src="{{ asset('board_assets/demo/pages/gallery.js') }}"></script>
+    <script>
+        $(function() {
 
-        Noty.overrideDefaults({
-            theme: 'limitless',
-            layout: 'topLeft',
-            type: 'alert',
-            timeout: 2500
-        });
+            Noty.overrideDefaults({
+                theme: 'limitless',
+                layout: 'topLeft',
+                type: 'alert',
+                timeout: 2500
+            });
 
-        const swalInit = swal.mixin({
-            buttonsStyling: false,
-            customClass: {
-                confirmButton: 'btn btn-primary',
-                cancelButton: 'btn btn-light',
-                denyButton: 'btn btn-light',
-                input: 'form-control'
-            }
-        });
-
-        Livewire.on('itemDeleted', () => {
-            new Noty({
-              text: 'تم الحذف بنجاح',
-              type: 'info'
-          }).show();
-        })
-
-
-
-        $(document).on('click', 'a.delete_item', function(event) {
-            event.preventDefault();
-            var item_id = $(this).attr('data-item_id');
-            swalInit.fire({
-                title: 'تاكيد الحذف',
-                text: "هل انت متاكد من رغبتك فى حذف العنصر ؟",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'نعم',
-                cancelButtonText: 'تراجع',
+            const swalInit = swal.mixin({
                 buttonsStyling: false,
                 customClass: {
-                    confirmButton: 'btn btn-danger',
-                    cancelButton: 'btn btn-success'
-                }
-            }).then(function(result) {
-                if(result.value) {
-                    Livewire.emit('deleteItem' , item_id );
+                    confirmButton: 'btn btn-primary',
+                    cancelButton: 'btn btn-light',
+                    denyButton: 'btn btn-light',
+                    input: 'form-control'
                 }
             });
 
-        });
+            Livewire.on('itemDeleted', () => {
+                new Noty({
+                  text: 'تم الحذف بنجاح',
+                  type: 'info'
+              }).show();
+            })
 
-    });
-</script>
-@endsection
+
+
+            $(document).on('click', 'a.delete_item', function(event) {
+                event.preventDefault();
+                var item_id = $(this).attr('data-item_id');
+                swalInit.fire({
+                    title: 'تاكيد الحذف',
+                    text: "هل انت متاكد من رغبتك فى حذف العنصر ؟",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'نعم',
+                    cancelButtonText: 'تراجع',
+                    buttonsStyling: false,
+                    customClass: {
+                        confirmButton: 'btn btn-danger',
+                        cancelButton: 'btn btn-success'
+                    }
+                }).then(function(result) {
+                    if(result.value) {
+                        Livewire.emit('deleteItem' , item_id );
+                    }
+                });
+
+            });
+
+        });
+    </script>
+    @endsection
