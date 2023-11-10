@@ -59,6 +59,11 @@ class Course extends Model
         return $this->price;
     }
 
+    public function courses()
+    {
+        return $this->hasMany(Package::class , 'main_course_id');
+    }
+
 
     public function units(): HasMany
     {
