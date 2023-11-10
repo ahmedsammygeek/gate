@@ -23,7 +23,7 @@ class StoreCourseRequest extends FormRequest
     {
         return [
             'image' => 'required|image' , 
-            'trainer_id' => 'required' , 
+            'trainer_id' => 'required_if:type,1' , 
             'university_id' => 'required' ,
             'category_id' => 'required' , 
             'title_ar' => 'required' , 
@@ -41,6 +41,7 @@ class StoreCourseRequest extends FormRequest
             'discount_end_at' => 'nullable' , 
             'show_in_home' => 'nullable' , 
             'active' => 'nullable' , 
+            'type' => 'required' , 
         ];
     }
 }

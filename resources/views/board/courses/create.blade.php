@@ -23,6 +23,20 @@
 						<div class="row mb-3">
 
 							<div class="col-md-3">
+								<label class="col-form-label col-lg-12"> النوع <span class="text-danger">*</span></label>
+								<div class="col-lg-12">
+									<select name="type" class='form-control form-select' id="">
+                                        <option value="1"  {{ old('type') == 1 ? 'selected' : '' }} > كورس </option>
+                                        <option value="2"  {{ old('type') == 2 ? 'selected' : '' }} > باقه </option>
+									</select>
+									@error('type')
+									<p class='text-danger' > {{ $message }} </p>
+									@enderror
+								</div>
+							</div>
+
+
+							<div class="col-md-3">
 								<label class="col-form-label col-lg-12"> التصنيف <span class="text-danger">*</span></label>
 								<div class="col-lg-12">
 									<select name="category_id" class='form-control form-select' id="">
@@ -51,7 +65,7 @@
 								</div>
 							</div>
 							<div class="col-md-3">
-								<label class="col-form-label col-lg-12"> المدرب <span class="text-danger">*</span></label>
+								<label class="col-form-label col-lg-12"> المدرب <span class='text-muted'> (مطلوب فى حاله ان النوع  دوره) </span> </label>
 								<div class="col-lg-12">
 									<select name="trainer_id" class='form-control form-select' id="">
                                         <option value=""> اختر المدرب </option>

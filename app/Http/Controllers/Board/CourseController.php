@@ -42,6 +42,7 @@ class CourseController extends Controller
         $course->category_id = $request->category_id;
         $course->university_id = $request->university_id;
         $course->trainer_id = $request->trainer_id;
+        $course->type = $request->type;
         $course->user_id = Auth::id();
         $course->setTranslation('title' , 'ar' , $request->title_ar );
         $course->setTranslation('title' , 'en' , $request->title_en );
@@ -93,6 +94,7 @@ class CourseController extends Controller
         $course->category_id = $request->category_id;
         $course->university_id = $request->university_id;
         $course->trainer_id = $request->trainer_id;
+        $course->type = $request->type;
         $course->setTranslation('title' , 'ar' , $request->title_ar );
         $course->setTranslation('title' , 'en' , $request->title_en );
         $course->setTranslation('subtitle' , 'ar' , $request->subtitle_ar );

@@ -17,6 +17,9 @@ class Course extends Model
     use HasFactory;
     use HasTranslations;
 
+    const COURSE = 1 ;
+    const PACKAGE = 2 ;
+
     public $translatable = ['title' , 'subtitle' , 'content' , 'curriculum' ];
 
 
