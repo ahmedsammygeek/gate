@@ -126,4 +126,6 @@ class CourseController extends Controller
     {
         return view('board.courses.students' , compact('course') );
     }
+
+
 }

@@ -11,6 +11,7 @@ use App\Http\Controllers\Board\UniversityController;
 use App\Http\Controllers\Board\UserController;
 use App\Http\Controllers\Board\CourseController;
 use App\Http\Controllers\Board\TrainerController;
+use App\Http\Controllers\Board\CourseInstallmentController;
 use App\Http\Controllers\TestController;
 
 Route::get('/test' ,[TestController::class , 'index'] );
@@ -29,10 +30,19 @@ Route::group(['prefix' => 'Board' , 'as' => 'board.'  ], function() {
         Route::resource('universities', UniversityController::class);  // done
         Route::resource('courses', CourseController::class);  // done
         Route::resource('trainers', TrainerController::class);  // done
-
         Route::get('courses/{course}/students' , [CourseController::class , 'students'] )->name('courses.students');
         Route::get('courses/{course}/reviews' , [CourseController::class , 'reviews'] )->name('courses.reviews');
-        Route::get('courses/{course}/installments' , [CourseController::class , 'installments'] )->name('courses.installments');
+
+        Route::get('courses/{course}/installments' , [CourseInstallmentController::class , 'index'] )->name('courses.installments.index');
+        Route::get('/courses/{course}/installments/create' , [CourseInstallmentController::class , 'create'] )->name('courses.installments.create');
+        Route::post('/courses/{course}/installments' , [CourseInstallmentController::class , 'store'] )->name('courses.installments.store');
+
+        Route::get('/courses/{course}/installments/{installment}/edit' , [CourseInstallmentController::class , 'edit'] )->name('courses.installments.edit');
+        Route::patch('/courses/{course}/installments/{installment}' , [CourseInstallmentController::class , 'update'] )->name('courses.installments.update');
+        Route::get('/courses/{course}/installments/{installment}' , [CourseInstallmentController::class , 'show'] )->name('courses.installments.show');
+
+
+
     });
 });
 
