@@ -19,7 +19,6 @@ class UserResource extends JsonResource
             'image' => $this?->image,
             'group_number' => $this?->group_number,
             'university' => UniversityResource::make($this->university),
-            '_token' => $this->_token,
         ];
     }
 }
