@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\UserResource;
+use App\Http\Resources\ProfileResource;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Api\Auth\LoginRequest;
 
@@ -32,7 +32,7 @@ class AuthController extends Controller
                 'status' => true,
                 'message' => "success",
                 'data' => (object) [
-                    'user' => UserResource::make($user) , 
+                    'user' => ProfileResource::make($user) , 
                     'token' => $token
                 ]], 200);
         } else {

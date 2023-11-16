@@ -15,8 +15,8 @@ class RegisterRequest extends FormRequest
             'password' => ['required', 'string'],
             'telegram' => ['nullable', 'string'],
             'university_id' => ['required', 'numeric', 'exists:universities,id'],
-            'speciality_id' => ['required', 'numeric'],
-            'group_number' => ['nullable']
+            'group_number' => ['nullable'] , 
+            'study_type' => ['nullable'] , 
         ];
     }
 }

@@ -16,12 +16,11 @@ class ProfileResource extends JsonResource
             'name' =>  $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
-            'speciality_id' => $this->speciality_id,
-            'group_id' => $this->group_id,
+            'study_type' => $this->study_type,
             'university' => UniversityResource::make($this?->university),
-            'image' =>  $this->image ? Storage::url('users/' . $this->image) : '',
+            'image' =>  Storage::url('users/' . $this->image) ,
             'group_number' => $this->group_number , 
-            'activated_at' => $this->created_at->format('Y-m-d'),
+            'is_activated' => $this->activated_at ? true : false , 
         ];
     }
 }
