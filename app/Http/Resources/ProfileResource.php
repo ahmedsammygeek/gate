@@ -19,9 +19,8 @@ class ProfileResource extends JsonResource
             'speciality_id' => $this->speciality_id,
             'group_id' => $this->group_id,
             'university' => UniversityResource::make($this?->university),
-            'image' =>  $this->image ? env('APP_URL') .  Storage::url('users/' . $this->image) : '',
-            'created_at' => $this->created_at->format('Y-m-d'),
-            'updated_at' => $this->updated_at->format('Y-m-d'),
+            'image' =>  $this->image ? Storage::url('users/' . $this->image) : '',
+            'group_number' => $this->group_number , 
             'activated_at' => $this->created_at->format('Y-m-d'),
         ];
     }

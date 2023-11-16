@@ -26,13 +26,14 @@ class AuthController extends Controller
                 ], 401);
             }
 
-            $user->_token = $user->createToken('UserToken')->plainTextToken;
+            $token = $user->createToken('UserToken')->plainTextToken;
 
             return response()->json([
                 'status' => true,
                 'message' => "success",
                 'data' => (object) [
-                    'user' => UserResource::make($user)
+                    'user' => UserResource::make($user) , 
+                    'token' => $token
                 ]], 200);
         } else {
             return response()->json([

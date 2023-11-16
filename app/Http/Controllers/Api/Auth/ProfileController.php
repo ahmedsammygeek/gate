@@ -11,19 +11,22 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\ProfileResource;
 use App\Http\Requests\Api\Auth\ProfileRequest;
 use App\Http\Requests\Api\Auth\ChangePasswordRequest;
-
+use Auth;
 
 class ProfileController extends Controller
 {
     public function index()
     {
-        $user = User::with('university')->where("id", auth()->id())->first();
+
+
+        $user = Auth::user();
+        $user->load('university');
 
         return response()->json([
             'status' => true,
             'message' => 'success',
             'data' => (object) [
-                'user' => ProfileResource::collection($user)
+                'user' => new ProfileResource($user) , 
             ]
         ]);
 

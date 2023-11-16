@@ -30,6 +30,12 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function image()
+    {
+        return new Attribute(
+            set: fn($value) => $value ? null : ''
+        );
+    }
 
     public function addedBy()
     {
@@ -38,6 +44,6 @@ class User extends Authenticatable
 
     public function university()
     {
-        return $this->belongsTo(University::class);
+        return $this->belongsTo(University::class );
     }
 }

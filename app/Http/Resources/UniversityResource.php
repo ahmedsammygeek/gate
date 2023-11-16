@@ -15,8 +15,8 @@ class UniversityResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->getTranslations('title', ['ar', 'en']),
-            'image' => env('APP_URL') . Storage::url('universities/' . $this->image),
-            'cover' => env('APP_URL') . Storage::url('universities/' . $this->cover),
+            'image' => Storage::url('universities/' . $this->image),
+            'cover' => Storage::url('universities/' . $this->cover),
             'rate' => $this->rate,
             'country' => BasicDataResource::make($this->country)
         ];
