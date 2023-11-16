@@ -17,7 +17,7 @@ class DetailedCourseResource extends JsonResource
             'title' => $this->getTranslations('title', ['ar', 'en']),
             'subtitle' => $this->getTranslations('subtitle', ['ar', 'en']),
             'curriculum' => $this->getTranslations('curriculum', ['ar', 'en']),
-            'image' =>  env('APP_URL') . Storage::url('courses/' . $this->image),
+            'image' =>  Storage::url('courses/' . $this->image),
             'price' => $this->price,
             'price_after_discount' => $this->price_after_discount,
             'reviews' => $this->reviews,
