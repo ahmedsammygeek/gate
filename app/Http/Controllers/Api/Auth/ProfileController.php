@@ -35,18 +35,18 @@ class ProfileController extends Controller
 
     public function store(ProfileRequest $request)
     {
-        $data = $request->validated();
 
-        auth()->user()->update([
-            'university_id' => $data['university_id'],
-            'speciality_id' => $data['speciality_id'],
-        ]);
+        $user = Auth::user();
+        $user->university_id = $request->university_id;
+        $user->division = $request->division;
+        $user->study_type = $request->study_type;
+        $user->save();
 
         return response()->json([
             'status' => true,
             'message' => 'success',
             'data' => (object) [
-                'user' => ProfileResource::make(auth()->user())
+                'user' => ProfileResource::make($user) , 
             ]
         ]);
 
@@ -98,7 +98,7 @@ class ProfileController extends Controller
         $user = User::whereId(auth()->id())->where('otp', $data['otp'])->first();
 
         if (!$user) {
-            dd(1);
+
             return response()->json([
                 'status' => false,
                 'message' => 'incorrect otp',
@@ -106,7 +106,7 @@ class ProfileController extends Controller
             ], 401);
         }
 
-        dd(2);
+
         auth()->user()->update([
             'otp' => null,
         ]);

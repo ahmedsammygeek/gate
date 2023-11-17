@@ -11,7 +11,9 @@ class ProfileRequest extends FormRequest
     {
         return [
             'university_id' => ['required', 'numeric', 'exists:universities,id'],
-            'speciality_id' => ['required', 'numeric'],
+            'division' => ['nullable'],
+            'study_type' => ['nullable'] , 
+            'image' => ['nullable' , 'image' ] , 
         ];
     }
 }
