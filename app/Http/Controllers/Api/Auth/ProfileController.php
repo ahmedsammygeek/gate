@@ -40,6 +40,9 @@ class ProfileController extends Controller
         $user->university_id = $request->university_id;
         $user->division = $request->division;
         $user->study_type = $request->study_type;
+        if ($request->hasFile('image')) {
+            $user->image = basename($request->file('image')->store('users'));
+        }
         $user->save();
 
         return response()->json([
