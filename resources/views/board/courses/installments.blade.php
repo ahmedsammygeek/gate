@@ -34,6 +34,10 @@
             <li class="nav-item">
                 <a href="{{ route('board.courses.courses.index', $course) }}" class="nav-link ">  الكورسات التى تحتوى عليها الباقه </a>
             </li>
+            @else
+            <li class="nav-item">
+                <a href="{{ route('board.courses.units.index', $course) }}" class="nav-link "> الوحدات </a>
+            </li>
             @endif
 			<li class="nav-item"><a href="{{ route('board.courses.students' , $course ) }}" class="nav-link "> الطلبه </a></li>
 			<li class="nav-item"><a href="#" class="nav-link"> التقييمات </a></li>
