@@ -13,6 +13,8 @@ use App\Http\Controllers\Board\CourseController;
 use App\Http\Controllers\Board\TrainerController;
 use App\Http\Controllers\Board\CourseInstallmentController;
 use App\Http\Controllers\Board\PackageController;
+use App\Http\Controllers\Board\CourseUnitController;
+use App\Http\Controllers\Board\LessonController;
 use App\Http\Controllers\TestController;
 
 Route::get('/test' ,[TestController::class , 'index'] );
@@ -31,6 +33,9 @@ Route::group(['prefix' => 'Board' , 'as' => 'board.'  ], function() {
         Route::resource('universities', UniversityController::class);  // done
         Route::resource('courses', CourseController::class);  // done
         Route::resource('trainers', TrainerController::class);  // done
+        Route::resource('courses.units', CourseUnitController::class);  // done
+        Route::resource('courses.units.lessons', LessonController::class);  // done
+
         Route::get('courses/{course}/students' , [CourseController::class , 'students'] )->name('courses.students');
         Route::get('courses/{course}/reviews' , [CourseController::class , 'reviews'] )->name('courses.reviews');
 

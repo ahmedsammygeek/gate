@@ -46,4 +46,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo(University::class );
     }
+
+
+    public function routeNotificationForWhatsApp()
+    {
+        return $this->phone;
+    }
 }

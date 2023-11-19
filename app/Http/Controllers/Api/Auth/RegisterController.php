@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Auth\RegisterRequest;
 use Hash;
+use App\Notifications\WelcomeNotification;
 class RegisterController extends Controller
 {
     public function register(RegisterRequest $request)
@@ -24,6 +25,7 @@ class RegisterController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
 
+        $user->notify(new WelcomeNotification);
        
 
         return response()->json([
@@ -35,4 +37,5 @@ class RegisterController extends Controller
             ]
         ]);
     }
+
 }

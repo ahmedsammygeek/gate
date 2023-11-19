@@ -8,6 +8,8 @@ use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\UniversityController;
 use App\Http\Controllers\Api\Auth\ProfileController;
 use App\Http\Controllers\Api\Auth\RegisterController;
+use App\Http\Controllers\Api\NotificationController;
+use App\Http\Controllers\Api\ForgetPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +33,8 @@ Route::prefix("v1")->group(function () {
     Route::get('universities/{id}', [UniversityController::class, 'show']);
     Route::get('universities/{id}/courses/{courseId}', [UniversityController::class, 'course']);
     // Route::get('packages', [CourseController::class, 'index']);
+    Route::post('forget_password', [ForgetPasswordController::class, 'index']);
+    Route::post('forget_password/step_two', [ForgetPasswordController::class, 'update']);
 
 
     Route::middleware('auth:sanctum')->group(function () {
@@ -41,6 +45,8 @@ Route::prefix("v1")->group(function () {
         Route::post('profile/validate/number', [ProfileController::class, 'sendOtp']);
         Route::put('profile/number', [ProfileController::class, 'changeWtsNumber']);
         Route::post('logout', [AuthController::class, 'logout']);
+        Route::get('notifications' , [NotificationController::class , 'index'] );
+        Route::patch('notifications' , [NotificationController::class , 'update'] );
     });
 
 });
