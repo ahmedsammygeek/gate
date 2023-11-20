@@ -3,10 +3,10 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
-use App\Http\Resources\ReviewResource;
+
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Resources\Json\JsonResource;
-
+use App\Http\Resources\Api\ReviewResource;
 class DetailedCourseResource extends JsonResource
 {
 
@@ -14,8 +14,10 @@ class DetailedCourseResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'students_number' => $this->students_number , 
             'title' => $this->getTranslations('title', ['ar', 'en']),
             'subtitle' => $this->getTranslations('subtitle', ['ar', 'en']),
+            'content' => $this->getTranslations('content', ['ar', 'en']),
             'curriculum' => $this->getTranslations('curriculum', ['ar', 'en']),
             'image' =>  Storage::url('courses/' . $this->image),
             'price' => $this->price,
@@ -25,6 +27,9 @@ class DetailedCourseResource extends JsonResource
             'category' => BasicDataResource::make($this->whenLoaded('category')),
             'units' => CourseUnitResource::collection($this->whenLoaded('units')),
             'course_reviews' => ReviewResource::collection($this->whenLoaded('courseReviews')),
+            'lessons_count' => 90 , 
+            'units_count' => $this->units->count() , 
+
         ];
     }
 }

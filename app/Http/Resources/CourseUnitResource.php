@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Resources\Json\JsonResource;
-
+use App\Http\Resources\Api\CourseUnitLessonResource;
 class CourseUnitResource extends JsonResource
 {
 
@@ -14,7 +14,7 @@ class CourseUnitResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->getTranslations('title', ['ar', 'en']),
-            'active' => (bool) $this->is_active,
+            'lessons' => CourseUnitLessonResource::collection($this->lessons) , 
         ];
     }
 }
