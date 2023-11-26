@@ -47,6 +47,15 @@ class User extends Authenticatable
         return $this->belongsTo(University::class );
     }
 
+    public function installments()
+    {
+        return $this->hasMany(UserInstallments::class  , 'user_id');
+    }
+
+    public function courses()
+    {
+        return $this->hasMany(UserCourse::class , 'user_id' );
+    }
 
     public function routeNotificationForWhatsApp()
     {

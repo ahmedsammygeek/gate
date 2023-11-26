@@ -10,23 +10,14 @@ use App\Http\Controllers\Api\Auth\ProfileController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\ForgetPasswordController;
-
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
-
-
+use App\Http\Controllers\Api\ContactController;
 Route::prefix("v1")->group(function () {
 
     Route::post('register', [RegisterController::class, 'register']);
+    Route::post('check_register', [RegisterController::class, 'check_register']);
+    Route::post('validate_phone', [RegisterController::class, 'validate_phone']);
     Route::post('login', [AuthController::class, 'login']);
+    Route::post('contact'  , [ContactController::class , 'store'] );
 
 
     Route::get('universities', [UniversityController::class, 'index']);
@@ -40,9 +31,10 @@ Route::prefix("v1")->group(function () {
 
 
     Route::middleware('auth:sanctum')->group(function () {
-
+        Route::get('courses/{course}/lessons/{lesson}', [CourseController::class, 'lesson']);
         Route::get('profile', [ProfileController::class, 'index']);
         Route::post('profile', [ProfileController::class, 'store']);
+        Route::get('profile/courses', [ProfileController::class, 'courses']);
         Route::post('profile/password', [ProfileController::class, 'changePassword']);
         Route::post('profile/validate/number', [ProfileController::class, 'sendOtp']);
         Route::put('profile/number', [ProfileController::class, 'changeWtsNumber']);

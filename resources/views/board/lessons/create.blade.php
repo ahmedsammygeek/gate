@@ -13,14 +13,14 @@
 <div class="row">
 	<div class="col-md-12">
 		<a href="{{ route('board.courses.units.show' , ['course' => $course , 'unit' => $unit ] ) }}" class="btn btn-primary mb-2" style="float: left;margin-left:10px;">
-            <span style='margin-left:10px' > العوده الى الوحده  </span>  <i class="icon-arrow-left7"></i>
-        </a>
-        <a href="{{ route('board.courses.show' , $course ) }}" class="btn btn-primary mb-2" style="float: left; margin-left:10px;">
-            <span style='margin-left:10px' > العوده الى الكورس </span>  <i class="icon-arrow-left7"></i>
-        </a>
-        <a href='{{ route('board.courses.index'  ) }}' class="btn btn-primary mb-2" style="float: left;margin-left:  20px;">
-            <span style='margin-left:10px' > العوده الى الكورسات </span> <i class="icon-arrow-left7 "></i>
-        </a>
+			<span style='margin-left:10px' > العوده الى الوحده  </span>  <i class="icon-arrow-left7"></i>
+		</a>
+		<a href="{{ route('board.courses.show' , $course ) }}" class="btn btn-primary mb-2" style="float: left; margin-left:10px;">
+			<span style='margin-left:10px' > العوده الى الكورس </span>  <i class="icon-arrow-left7"></i>
+		</a>
+		<a href='{{ route('board.courses.index'  ) }}' class="btn btn-primary mb-2" style="float: left;margin-left:  20px;">
+			<span style='margin-left:10px' > العوده الى الكورسات </span> <i class="icon-arrow-left7 "></i>
+		</a>
 
 	</div>
 
@@ -40,7 +40,7 @@
 						<div class="row mb-3">
 							<label class="col-form-label col-lg-2"> الفديو <span class="text-danger">*</span></label>
 							<div class="col-lg-10">
-								<input type="file" name="video"  class="form-control @error('video')  is-invalid @enderror" required >
+								<input type="file" name="video"  class=" my-pond"  >
 								@error('video')
 								<p class='text-danger' > {{ $message }} </p>
 								@enderror
@@ -113,4 +113,42 @@
 	</div>
 </div>
 
+@endsection
+
+
+@section('styles')
+<link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
+
+@endsection
+
+@section('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+
+<script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
+
+<script src="https://unpkg.com/jquery-filepond/filepond.jquery.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+
+
+		FilePond.setOptions({
+        server: {
+            url: "{{ route('board.proccess_video_uploads') }}",
+            headers: {
+                'X-CSRF-TOKEN': "{{ @csrf_token() }}",
+            }
+        }
+    });
+
+    // Create the FilePond instance
+
+    FilePond.create(document.querySelector('input[name="video"]'));
+
+
+
+
+
+	});
+</script>
 @endsection

@@ -6,7 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\UniversityResource;
 use Illuminate\Http\Resources\Json\JsonResource;
-
+use Carbon\Carbon;
+use Auth;
+use App\Http\Resources\Api\UserCourseProgressResource;
+use App\Models\UserCourseProgress;
 class ProfileResource extends JsonResource
 {
 
@@ -26,6 +29,13 @@ class ProfileResource extends JsonResource
             'updated_ar' => $this->updated_ar , 
             'activated_at' => $this->activated_at , 
             'unread_notifications_count' => $this->unreadNotifications->count() , 
+            'courses_count' => $this->courses()->count() , 
+            'eligible_installments' => $this->installments()->whereDate('due_date' , '>=' , Carbon::today() )->count() , 
+            'course_progress' => UserCourseProgressResource::collection(Auth::user()->courses->map(function($item){
+                $course_progress = UserCourseProgress::where('course_id'  , $item->course_id )->where('user_id'  , $item->user_id )->first();
+                $item->progress = $course_progress ? $course_progress->progress : 0;
+                return $item;
+            }))
         ];
     }
 }

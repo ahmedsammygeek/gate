@@ -15,9 +15,19 @@ use App\Http\Controllers\Board\CourseInstallmentController;
 use App\Http\Controllers\Board\PackageController;
 use App\Http\Controllers\Board\CourseUnitController;
 use App\Http\Controllers\Board\LessonController;
+use App\Http\Controllers\Board\PurchaseController;
+use App\Http\Controllers\Board\UploadLessonVideoController;
+use App\Http\Controllers\Board\UserInstallmentController;
+use App\Http\Controllers\Board\TransactionController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\MyFatoorahController;
 
-Route::get('/test' ,[TestController::class , 'index'] );
+
+
+
+// Route::get('/test' ,[TestController::class , 'index'] );
+Route::get('/test' ,[MyFatoorahController::class , 'index'] );
+Route::get('/myfatoorah/callback' ,[MyFatoorahController::class , 'callback'] )->name('myfatoorah.callback');
 Route::group(['prefix' => 'Board' , 'as' => 'board.'  ], function() {
     Route::group(['middleware' => 'auth'], function() {
         Route::get('/' , [BoardController::class , 'index'] )->name('index');
@@ -36,6 +46,17 @@ Route::group(['prefix' => 'Board' , 'as' => 'board.'  ], function() {
         Route::resource('courses.units', CourseUnitController::class);  // done
         Route::resource('courses.units.lessons', LessonController::class);  // done
 
+        Route::get('purchases' , [PurchaseController::class ,'index'] )->name('purchases.index');
+        Route::get('purchases/{purchase}' , [PurchaseController::class ,'show'] )->name('purchases.show');
+        Route::get('purchases/{purchase}/installments' , [PurchaseController::class ,'installments'] )->name('purchases.installments');
+        Route::get('purchases/{purchase}/transactions' , [PurchaseController::class ,'transactions'] )->name('purchases.transactions');
+
+        Route::get('transactions' , [TransactionController::class , 'index'] )->name('transactions.index');
+        Route::get('transactions/{transaction}'  , [TransactionController::class , 'show'] )->name('transactions.show');
+
+        Route::get('installments' , [UserInstallmentController::class , 'index'] )->name('installments.index');
+        Route::get('installments/{installment}' , [UserInstallmentController::class , 'show'] )->name('installments.show');
+
         Route::get('courses/{course}/students' , [CourseController::class , 'students'] )->name('courses.students');
         Route::get('courses/{course}/reviews' , [CourseController::class , 'reviews'] )->name('courses.reviews');
 
@@ -50,6 +71,10 @@ Route::group(['prefix' => 'Board' , 'as' => 'board.'  ], function() {
         Route::get('/courses/{course}/courses/create' , [PackageController::class , 'create'] )->name('courses.courses.create');
         Route::get('/courses/{course}/courses' , [PackageController::class , 'index'] )->name('courses.courses.index');
         Route::post('/courses/{course}/courses' , [PackageController::class , 'store'] )->name('courses.courses.store');
+
+
+        Route::post('proccess_video_uploads' , [UploadLessonVideoController::class , 'store'] )->name('proccess_video_uploads');
+        Route::patch('proccess_video_uploads' , [UploadLessonVideoController::class , 'store'] )->name('proccess_video_uploads');
     });
 });
 

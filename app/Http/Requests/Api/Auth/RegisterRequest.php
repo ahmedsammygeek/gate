@@ -11,12 +11,13 @@ class RegisterRequest extends FormRequest
         return [
             'name' => ['required', 'string'],
             'email' => ['required', 'email', 'unique:users,email'],
-            'phone' => ['required', 'string', 'unique:users,phone',],
+            'phone' => ['required', 'string', 'phone'  ,  'unique:users,phone'],
             'password' => ['required', 'string'],
             'telegram' => ['nullable', 'string'],
             'university_id' => ['required', 'numeric', 'exists:universities,id'],
             'group_number' => ['nullable'] , 
             'study_type' => ['nullable'] , 
+            'code' => ['required']
         ];
     }
 }

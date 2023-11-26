@@ -69,4 +69,10 @@ class Course extends Model
     {
         return $this->hasMany(CourseUnit::class, 'course_id');
     }
+
+
+    public function lessons()
+    {
+        return $this->hasManyThrough( Lesson::class , CourseUnit::class );
+    }
 }

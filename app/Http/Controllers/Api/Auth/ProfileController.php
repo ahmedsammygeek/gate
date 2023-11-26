@@ -12,16 +12,13 @@ use App\Http\Resources\ProfileResource;
 use App\Http\Requests\Api\Auth\ProfileRequest;
 use App\Http\Requests\Api\Auth\ChangePasswordRequest;
 use Auth;
-
+use App\Http\Resources\Api\UserCourseRecourse;
 class ProfileController extends Controller
 {
     public function index()
     {
-
-
         $user = Auth::user();
         $user->load('university');
-
         return response()->json([
             'status' => true,
             'message' => 'success',
@@ -29,7 +26,6 @@ class ProfileController extends Controller
                 'user' => new ProfileResource($user) , 
             ]
         ]);
-
     }
 
 
@@ -52,7 +48,19 @@ class ProfileController extends Controller
                 'user' => ProfileResource::make($user) , 
             ]
         ]);
+    }
 
+
+    public function courses()
+    {
+        $user = Auth::user();
+        return response()->json([
+            'status' => true,
+            'message' => '',
+            'data' => (object) [
+                'courses' => UserCourseRecourse::collection($user->courses) , 
+            ]
+        ]);
     }
 
 

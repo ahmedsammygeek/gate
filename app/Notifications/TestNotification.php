@@ -11,13 +11,11 @@ use App\Channels\WhatsAppChannel;
 class TestNotification extends Notification
 {
     use Queueable;
+    public $code;
 
-
-
-
-    public function __construct()
+    public function __construct($code)
     {
-        
+        $this->code = $code;
     }
 
     public function via($notifiable)
@@ -28,6 +26,6 @@ class TestNotification extends Notification
     public function toWhatsApp($notifiable)
     {
         return (new WhatsAppMessage)
-        ->content(" Your Gate code is 1238432 ");
+        ->content("*".$this->code."* is your verification code. For your security, do not share this code.");
     }
 }

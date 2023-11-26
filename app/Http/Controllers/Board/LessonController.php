@@ -32,8 +32,10 @@ class LessonController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreLessonRequest $request , Course $course ,  CourseUnit $unit)
+    public function store(Request $request , Course $course ,  CourseUnit $unit)
     {
+
+        dd($request->all());
         $video_path = Vimeo::upload($request->video);
 
         $video = Vimeo::request($video_path, ['name' => $request->title_ar  , 'description' => $request->title_en ], 'patch');

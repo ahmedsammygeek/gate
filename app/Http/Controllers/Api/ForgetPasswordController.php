@@ -9,6 +9,8 @@ use App\Http\Requests\Api\ForgetPasswordStepTwoRequest;
 use App\Models\User;
 use App\Models\PhoneCodeVerification;
 use Hash;
+use Notification;
+use App\Notifications\TestNotification;
 class ForgetPasswordController extends Controller
 {
 
@@ -26,9 +28,12 @@ class ForgetPasswordController extends Controller
         }
 
         $code = new PhoneCodeVerification;
-        $code->code = 12345;
+        $code->code = substr(str_shuffle('0123456789'), 0  , 5);
         $code->phone = $user->phone;
         $code->save();
+
+
+         Notification::route('WhatsApp', $request->phone )->notify(new TestNotification($code->code));
 
 
         return response()->json([
