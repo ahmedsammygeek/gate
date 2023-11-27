@@ -14,19 +14,15 @@ use Notification;
 use App\Notifications\TestNotification;
 use App\Models\User;
 use App\Models\UserCourseProgress;
+use Storage;
+use File;
+use Vimeo;
 class TestController extends Controller
 {
   public function index()
   {
-    $user = User::find(1);
-    dd($user->courses->map(function($item){
-      $course_progress = UserCourseProgress::where('course_id'  , $item->course_id )->where('user_id'  , $item->user_id )->first();
-      $item->progress = $course_progress ? $course_progress->progress : 0;
-      return $item;
-    }));
-    // Notification::route('WhatsApp', '+201014340346')->notify(new TestNotification('999999'));
-     // $user = User::find(1);
-     //  $user->notify(new TestNotification('999999'));
+    $test = Vimeo::request('/videos/888570712', ['name' => '44444 test'  , 'description' => '444444 test desctiption' ], 'patch');
+    dd($test);
   }
 
 

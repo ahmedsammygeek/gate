@@ -24,9 +24,8 @@ use App\Http\Controllers\MyFatoorahController;
 
 
 
-
-// Route::get('/test' ,[TestController::class , 'index'] );
-Route::get('/test' ,[MyFatoorahController::class , 'index'] );
+Route::get('/test' ,[TestController::class , 'index'] );
+// Route::get('/test' ,[MyFatoorahController::class , 'index'] );
 Route::get('/myfatoorah/callback' ,[MyFatoorahController::class , 'callback'] )->name('myfatoorah.callback');
 Route::group(['prefix' => 'Board' , 'as' => 'board.'  ], function() {
     Route::group(['middleware' => 'auth'], function() {
