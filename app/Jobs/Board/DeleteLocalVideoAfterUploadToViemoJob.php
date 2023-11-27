@@ -10,6 +10,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Storage;
 use File;
+use Log;
 class DeleteLocalVideoAfterUploadToViemoJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
@@ -32,6 +33,7 @@ class DeleteLocalVideoAfterUploadToViemoJob implements ShouldQueue
         Storage::delete([$this->video_temp_path]);
         // delete the folder
         $exploded_data = explode('/', $this->video_temp_path);
+        Log::info($exploded_data);
         File::deleteDirectory(storage_path().'/app/public/tmp_videos/'.$exploded_data[2]);
     }
 }
