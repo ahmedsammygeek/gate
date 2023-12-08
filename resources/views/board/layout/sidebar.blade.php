@@ -17,7 +17,7 @@
 </div>
 
 @php
-$home = $admins = $countries = $transactions = $installments = $purchases =  $universities = $courses = $categories = $trainers = '';
+$home = $admins = $countries = $transactions = $installments = $purchases =  $universities = $courses = $packages = $categories = $trainers = '';
 switch (Request::segment(2)) {
     case 'admins':
     $admins = 'active';
@@ -45,6 +45,9 @@ switch (Request::segment(2)) {
     break;
     case 'transactions':
     $transactions = 'active';
+    break;
+    case 'packages':
+    $packages = 'active';
     break;
     default:
     $home = 'active';
@@ -140,6 +143,18 @@ switch (Request::segment(2)) {
                 <li class="nav-item"><a href="{{ route('board.courses.index') }}" class="nav-link"> عرض كافه
                 الكورسات </a></li>
                 <li class="nav-item"><a href="{{ route('board.courses.create') }}" class="nav-link">إضافه كورس
+                جديد </a></li>
+            </ul>
+        </li>
+        <li class="nav-item nav-item-submenu">
+            <a href="#" class="nav-link {{ $packages }}">
+                <i class="ph-note-blank"></i>
+                <span> الباقات </span>
+            </a>
+            <ul class="nav-group-sub collapse" data-submenu-title="Trainers">
+                <li class="nav-item"><a href="{{ route('board.packages.index') }}" class="nav-link"> عرض كافه
+                الباقات </a></li>
+                <li class="nav-item"><a href="{{ route('board.packages.create') }}" class="nav-link">إضافه باقه
                 جديد </a></li>
             </ul>
         </li>

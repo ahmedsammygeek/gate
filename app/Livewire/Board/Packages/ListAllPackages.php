@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Board\Courses;
+namespace App\Livewire\Board\Packages;
 
 use Livewire\Component;
 use App\Models\Course;
@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Models\Category;
 use App\Models\University;
 use Livewire\WithPagination;
-class ListAllCourses extends Component
+class ListAllPackages extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
@@ -31,7 +31,12 @@ class ListAllCourses extends Component
         }
     }
 
-    public function updated()
+    public function updatedRows()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedSearch()
     {
         $this->resetPage();
     }
@@ -42,8 +47,8 @@ class ListAllCourses extends Component
         $categories = Category::get();
         $universities = University::get();
         $trainers = User::select('name' , 'id' )->where('type' , User::TRAINER )->get();
-        $courses = Course::where(function($query){
-            return $query->where('type' ,  '=' , Course::COURSE );
+        $packages = Course::where(function($query){
+            return $query->where('type' ,  '=' , Course::PACKAGE );
         })
         ->when($this->search , function($query){
             $query->where(function($query){
@@ -65,6 +70,6 @@ class ListAllCourses extends Component
         })
         ->latest()
         ->paginate($this->rows);
-        return view('livewire.board.courses.list-all-courses' , compact('courses' , 'categories' , 'universities' , 'trainers' ));
+        return view('livewire.board.packages.list-all-packages' , compact('packages' , 'categories' , 'universities' , 'trainers' ));
     }
 }

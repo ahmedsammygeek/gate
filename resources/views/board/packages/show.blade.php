@@ -1,39 +1,39 @@
 @extends('board.layout.master')
 
-@section('page_title', 'عرض بيانات الكورس')
+@section('page_title', 'عرض بيانات الباقه')
 
 @section('breadcrumbs')
-<a href="{{ route('board.courses.index') }}" class="breadcrumb-item"> الكورسات </a>
-<span class="breadcrumb-item active"> عرض بيانات الكورس </span>
+<a href="{{ route('board.packages.index') }}" class="breadcrumb-item"> الباقهات </a>
+<span class="breadcrumb-item active"> عرض بيانات الباقه </span>
 @endsection
 
 @section('content')
 <div class="row">
     <div class="col-md-12">
-        <a href="{{ route('board.courses.index') }}" class="btn btn-primary mb-2 " style="float: left;">
-            عرض كافه الكورسات <i class="icon-arrow-left7 "></i>
+        <a href="{{ route('board.packages.index') }}" class="btn btn-primary mb-2 " style="float: left;">
+            عرض كافه الباقات <i class="icon-arrow-left7 "></i>
         </a>
     </div>
     <div class="col-md-12">
         <ul class="nav nav-tabs nav-tabs-highlight nav-justified">
             <li class="nav-item">
-                <a href="{{ route('board.courses.show', $course) }}" class="nav-link active"> 
-                   تفاصيل   الكورس
+                <a href="{{ route('board.packages.show', $package) }}" class="nav-link active"> 
+                    تفاصيل   الباقه
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('board.courses.units.index', $course) }}" class="nav-link "> الوحدات </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('board.courses.students', $course) }}" class="nav-link"> الطلبه </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link"> التقييمات</a>
-                {{-- <a href="{{ route('board.courses.reviews', $course) }}" class="nav-link"> التقييمات</a> --}}
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('board.courses.installments.index', $course) }}" class="nav-link">الاقساط </a>
-            </li>
+                <a href="{{ route('board.packages.courses.index', $package) }}" class="nav-link ">  الكورسات داخل الباقه </a>
+            </li> 
+
+{{--             <li class="nav-item">
+                <a href="{{ route('board.packages.courses.index', $package) }}" class="nav-link ">  الباقهات التى تحتوى عليها الباقه </a>
+            </li> --}}
+    {{--         <li class="nav-item">
+                <a href="{{ route('board.packages.students', $package) }}" class="nav-link"> الطلبه </a>
+            </li> --}}
+{{--             <li class="nav-item">
+                <a href="{{ route('board.courses.installments.index', $package) }}" class="nav-link">الاقساط </a>
+            </li> --}}
         </ul>
     </div>
 </div>
@@ -48,75 +48,75 @@
                     <tbody>
                         <tr>
                             <th> تاريخ الاضافه </th>
-                            <td> {{ $course->created_at }} <span class='text-muted'>
-                                {{ $course->created_at->diffForHumans() }} </span> </td>
+                            <td> {{ $package->created_at }} <span class='text-muted'>
+                                {{ $package->created_at->diffForHumans() }} </span> </td>
                             </tr>
 
                             <tr>
                                 <th> تمت الاضافه بواستطه </th>
-                                <td> <a href="{{ route('board.admins.show', $course->user_id) }}">
-                                    {{ $course->user?->name }} </a> </td>
+                                <td> <a href="{{ route('board.admins.show', $package->user_id) }}">
+                                    {{ $package->user?->name }} </a> </td>
                                 </tr>
 
                                 <tr>
                                     <th> slug بالعربيه </th>
-                                    <td> {{ $course->getTranslation('slug', 'ar') }} </td>
+                                    <td> {{ $package->getTranslation('slug', 'ar') }} </td>
                                 </tr>
 
                                 <tr>
                                     <th> slug بالانجليزيه </th>
-                                    <td> {{ $course->getTranslation('slug', 'en') }} </td>
+                                    <td> {{ $package->getTranslation('slug', 'en') }} </td>
                                 </tr>
 
 
 
                                 <tr>
                                     <th> العنوان بالعربيه </th>
-                                    <td> {{ $course->getTranslation('title', 'ar') }} </td>
+                                    <td> {{ $package->getTranslation('title', 'ar') }} </td>
                                 </tr>
 
                                 <tr>
                                     <th> العنوان بالانجليزيه </th>
-                                    <td> {{ $course->getTranslation('title', 'en') }} </td>
+                                    <td> {{ $package->getTranslation('title', 'en') }} </td>
                                 </tr>
 
 
                                 <tr>
                                     <th> النبذه التعريفيه بالعربيه </th>
-                                    <td> {{ $course->getTranslation('subtitle', 'ar') }} </td>
+                                    <td> {{ $package->getTranslation('subtitle', 'ar') }} </td>
                                 </tr>
 
                                 <tr>
                                     <th> النبذه التعريفيه بالانجليزيه </th>
-                                    <td> {{ $course->getTranslation('subtitle', 'en') }} </td>
+                                    <td> {{ $package->getTranslation('subtitle', 'en') }} </td>
                                 </tr>
 
                                 <tr>
-                                    <th> محتوى الكورس بالعربيه </th>
-                                    <td> {!! $course->getTranslation('content', 'ar') !!} </td>
+                                    <th> محتوى الباقه بالعربيه </th>
+                                    <td> {!! $package->getTranslation('content', 'ar') !!} </td>
                                 </tr>
 
                                 <tr>
-                                    <th> محتوى الكورس بالانجليزيه </th>
-                                    <td> {!! $course->getTranslation('content', 'en') !!} </td>
+                                    <th> محتوى الباقه بالانجليزيه </th>
+                                    <td> {!! $package->getTranslation('content', 'en') !!} </td>
                                 </tr>
 
 
                                 <tr>
                                     <th> المنهج بالعربيه </th>
-                                    <td> {!! $course->getTranslation('curriculum', 'ar') !!} </td>
+                                    <td> {!! $package->getTranslation('curriculum', 'ar') !!} </td>
                                 </tr>
 
                                 <tr>
                                     <th> المنهج بالانجليزيه </th>
-                                    <td> {!! $course->getTranslation('curriculum', 'en') !!} </td>
+                                    <td> {!! $package->getTranslation('curriculum', 'en') !!} </td>
                                 </tr>
 
                                 <tr>
                                     <th> الجامعه </th>
                                     <td> 
-                                        @if ($course->university_id)
-                                            <a href="{{ route('board.universities.show' , $course->university_id ) }}"> {{ $course->university?->title }} </a>
+                                        @if ($package->university_id)
+                                            <a href="{{ route('board.universities.show' , $package->university_id ) }}"> {{ $package->university?->title }} </a>
                                         @endif
                                     </td>
                                 </tr>
@@ -124,7 +124,7 @@
                                 <tr>
                                     <th> النوع </th>
                                     <td>
-                                        @switch($course->type )
+                                        @switch($package->type )
                                         @case(1)
                                         <span class="badge bg-info"> كورس </span>
                                         @break
@@ -138,7 +138,7 @@
                                 <tr>
                                     <th> السماح بالعرض و الشراء </th>
                                     <td>
-                                        @switch($course->is_active)
+                                        @switch($package->is_active)
                                         @case(1)
                                         <span class="badge bg-primary"> نعم </span>
                                         @break
@@ -153,7 +153,7 @@
                                 <tr>
                                     <th> عرض داخل الصفحه الرئيسيه </th>
                                     <td>
-                                        @switch($course->show_in_home)
+                                        @switch($package->show_in_home)
                                         @case(1)
                                         <span class="badge bg-primary"> نعم </span>
                                         @break
@@ -166,50 +166,50 @@
                                 </tr>
 
                                 <tr>
-                                    <th> سعر الكورس المباشر </th>
+                                    <th> سعر الباقه المباشر </th>
                                     <td>
-                                        {{ $course->price }} <span class="text-muted"> ريال </span>
+                                        {{ $package->price }} <span class="text-muted"> ريال </span>
                                     </td>
                                 </tr>
 
                                 <tr>
-                                    <th> سعر الكورس عند الدفع لاحقا </th>
+                                    <th> سعر الباقه عند الدفع لاحقا </th>
                                     <td>
-                                        {{ $course->price_later }} <span class="text-muted"> ريال </span>
+                                        {{ $package->price_later }} <span class="text-muted"> ريال </span>
                                     </td>
                                 </tr>
 
                                 <tr>
-                                    <th> سعر الكورس بعد الخصم </th>
+                                    <th> سعر الباقه بعد الخصم </th>
                                     <td>
-                                        {{ $course->price_after_discount }}
+                                        {{ $package->price_after_discount }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th> نسبه الخصم </th>
                                     <td>
-                                        {{ $course->discount_percentage }} %
+                                        {{ $package->discount_percentage }} %
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <th> تاريخ انتهاء الخصم </th>
                                     <td>
-                                        {{ $course->discount_end_at }}
+                                        {{ $package->discount_end_at }}
                                     </td>
                                 </tr>
 
 
                                 <tr>
-                                    <th> الصوره الكورس الحاليه </th>
+                                    <th> الصوره الباقه الحاليه </th>
                                     <td>
                                         <div class="col-sm-6 col-lg-3">
                                             <div class="card">
                                                 <div class="card-img-actions m-1">
-                                                    <a href="{{ Storage::url('courses/' . $course->image) }}"
+                                                    <a href="{{ Storage::url('courses/' . $package->image) }}"
                                                         class="btn btn-outline-white btn-icon rounded-pill"
                                                         data-bs-popup="lightbox" data-gallery="gallery1">
-                                                        <img src="{{ Storage::url('courses/' . $course->image) }}"
+                                                        <img src="{{ Storage::url('courses/' . $package->image) }}"
                                                         class="avatar" width="120" height="120" alt="">
                                                     </a>
                                                 </div>

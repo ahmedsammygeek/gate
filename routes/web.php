@@ -41,6 +41,7 @@ Route::group(['prefix' => 'Board' , 'as' => 'board.'  ], function() {
         Route::resource('countries', CountryController::class);  // done
         Route::resource('universities', UniversityController::class);  // done
         Route::resource('courses', CourseController::class);  // done
+        Route::resource('packages', PackageController::class);  // done
         Route::resource('trainers', TrainerController::class);  // done
         Route::resource('courses.units', CourseUnitController::class);  // done
         Route::resource('courses.units.lessons', LessonController::class);  // done
@@ -67,9 +68,9 @@ Route::group(['prefix' => 'Board' , 'as' => 'board.'  ], function() {
         Route::patch('/courses/{course}/installments/{installment}' , [CourseInstallmentController::class , 'update'] )->name('courses.installments.update');
         Route::get('/courses/{course}/installments/{installment}' , [CourseInstallmentController::class , 'show'] )->name('courses.installments.show');
 
-        Route::get('/courses/{course}/courses/create' , [PackageController::class , 'create'] )->name('courses.courses.create');
-        Route::get('/courses/{course}/courses' , [PackageController::class , 'index'] )->name('courses.courses.index');
-        Route::post('/courses/{course}/courses' , [PackageController::class , 'store'] )->name('courses.courses.store');
+        Route::get('/packages/{package}/courses/create' , [PackageController::class , 'add_course_to_package'] )->name('packages.courses.create');
+        Route::get('/packages/{package}/courses' , [PackageController::class , 'show_packge_courses'] )->name('packages.courses.index');
+        Route::post('/packages/{package}/courses' , [PackageController::class , 'store_course_to_package'] )->name('packages.courses.store');
 
 
         Route::post('proccess_video_uploads' , [UploadLessonVideoController::class , 'store'] )->name('proccess_video_uploads');
