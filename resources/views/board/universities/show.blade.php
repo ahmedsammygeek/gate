@@ -50,7 +50,7 @@
                             </tr>
                             <tr>
                                 <th> الدوله </th>
-                                <td> {{ $university->country->name }} </td>
+                                <td> {{ $university->country?->name }} </td>
                             </tr>
                             <tr>
                                 <th> عرض داخل الصفحه الرئيسيه </th>

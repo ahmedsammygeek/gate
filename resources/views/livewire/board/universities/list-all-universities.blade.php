@@ -65,7 +65,9 @@
                                 @endswitch
                             </td>
 
-                            <td> <a href="{{ route('board.admins.show' , $university->user_id ) }}"> {{ $university->user?->name }} </a> </td>
+                            <td>
+                                <a href="{{ route('board.admins.show' , $university->user_id ) }}"> {{ $university->user?->name }} </a> 
+                            </td>
 
 
                             <td class="text-center">

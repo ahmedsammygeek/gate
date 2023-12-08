@@ -15,7 +15,7 @@ class University extends Model
 
     use HasTranslations;
 
-    public $translatable = ['title' ,  'content'];
+    public $translatable = ['title' ,  'content', 'slug' ];
 
 
     public function user(): BelongsTo
