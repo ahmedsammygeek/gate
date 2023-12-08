@@ -23,6 +23,8 @@ class TestController extends Controller
   public function index()
   {
 
+    dd(User::where('type' , 3 )->inRandomOrder()->first()->id);
+
      $images = [
             'https://upload.wikimedia.org/wikipedia/commons/c/cd/University-of-Alabama-EngineeringResearchCenter-01.jpg' , 
             'https://cdn.britannica.com/85/13085-050-C2E88389/Corpus-Christi-College-University-of-Cambridge-England.jpg' , 
