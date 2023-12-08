@@ -86,7 +86,7 @@
                         <tr>
                             <th > صوره الكورس </th>
                             <th > اسم الكورس </th>
-                            <th >  النوع </th>
+
                             <th >  التصنيف </th>
                             <th >  الجامعه </th>
                             <th >  السعر </th>
@@ -118,16 +118,7 @@
                                     {{ Str::limit($course->title, 30, '.....') }}</a>
                                     <span class="fs-sm text-muted">{{ $course->created_at->toFormattedDateString() }}</span>
                                 </td>
-                                <td>
-                                    @switch($course->type )
-                                    @case(1)
-                                    <span class="badge bg-info"> كورس </span>
-                                    @break
-                                    @case(2)
-                                    <span class="badge bg-secondary"> باقه</span>
-                                    @break
-                                    @endswitch
-                                </td>
+
                                 <td>
                                     @if ($course->category_id)
                                     <a href="{{ route('board.categories.show' , $course->category_id ) }}"> {{ $course->category?->name }} </a>

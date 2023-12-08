@@ -20,23 +20,22 @@
 					<div class="mb-4">
 						<div class="fw-bold border-bottom pb-2 mb-3"> بيانات الكورس </div>
 
-						<div class="row mb-3">
+						<div class="row mb-2">
 
-							<div class="col-md-3">
-								<label class="col-form-label col-lg-12"> النوع <span class="text-danger">*</span></label>
-								<div class="col-lg-12">
-									<select name="type" class='form-control form-select' id="">
-                                        <option value="1"  {{ old('type') == 1 ? 'selected' : '' }} > كورس </option>
-                                        <option value="2"  {{ old('type') == 2 ? 'selected' : '' }} > باقه </option>
-									</select>
-									@error('type')
-									<p class='text-danger' > {{ $message }} </p>
-									@enderror
-								</div>
-							</div>
+							 <div class="col-md-3">
+                        <label class="col-lg-12 col-form-label pt-0"> صوره الكورس
+                            <span class="text-danger">*</span>
+                        </label>
+                        <div class="col-lg-12">
+                            <input type="file" name="image" class="form-control"  >
+                            @error('image')
+                            <p class='text-danger' > {{ $message }} </p>
+                            @enderror
+                        </div>
+                    </div>
 
 
-							<div class="col-md-3">
+							<div class="col-md-2">
 								<label class="col-form-label col-lg-12"> التصنيف <span class="text-danger">*</span></label>
 								<div class="col-lg-12">
 									<select name="category_id" class='form-control form-select' id="">
@@ -64,8 +63,8 @@
 									@enderror
 								</div>
 							</div>
-							<div class="col-md-3">
-								<label class="col-form-label col-lg-12"> المدرب <span class='text-muted'> (مطلوب فى حاله ان النوع  دوره) </span> </label>
+							<div class="col-md-2">
+								<label class="col-form-label col-lg-12"> المدرب <span class="text-danger">*</span>  </label>
 								<div class="col-lg-12">
 									<select name="trainer_id" class='form-control form-select' id="">
                                         <option value=""> اختر المدرب </option>
@@ -74,6 +73,18 @@
 										@endforeach
 									</select>
 									@error('trainer_id')
+									<p class='text-danger' > {{ $message }} </p>
+									@enderror
+								</div>
+							</div>
+
+							<div class="col-md-2">
+								<label class="col-lg-12 col-form-label pt-0"> تاريخ انتهاء الكورس
+									<span class="text-danger">*</span>
+								</label>
+								<div class="col-lg-12">
+									<input type="date" name="ends_at" value="{{ old('ends_at') }}" class="form-control"  >
+									@error('ends_at')
 									<p class='text-danger' > {{ $message }} </p>
 									@enderror
 								</div>
@@ -236,17 +247,7 @@
 						</div>
 					</div>
 
-                    <div class="col-md-3">
-                        <label class="col-lg-12 col-form-label pt-0"> صوره الكورس
-                            <span class="text-danger">*</span>
-                        </label>
-                        <div class="col-lg-12">
-                            <input type="file" name="image" class="form-control"  >
-                            @error('image')
-                            <p class='text-danger' > {{ $message }} </p>
-                            @enderror
-                        </div>
-                    </div>
+                   
 
 
 				</div>

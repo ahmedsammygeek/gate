@@ -42,7 +42,8 @@ class CourseController extends Controller
         $course->category_id = $request->category_id;
         $course->university_id = $request->university_id;
         $course->trainer_id = $request->trainer_id;
-        $course->type = $request->type;
+        $course->ends_at = $request->ends_at;
+        $course->type = Course::COURSE ;
         $course->user_id = Auth::id();
         $course->setTranslation('title' , 'ar' , $request->title_ar );
         $course->setTranslation('title' , 'en' , $request->title_en );
@@ -61,8 +62,6 @@ class CourseController extends Controller
         $course->is_active = $request->filled('active') ? 1 : 0;
         $course->image = basename($request->file('image')->store('courses'));
         $course->save();
-
-
         return redirect(route('board.courses.index'))->with('success' , 'تم إاضفه الكورس بنجاح' );
     }
 
@@ -94,7 +93,7 @@ class CourseController extends Controller
         $course->category_id = $request->category_id;
         $course->university_id = $request->university_id;
         $course->trainer_id = $request->trainer_id;
-        $course->type = $request->type;
+        $course->ends_at = $request->ends_at;
         $course->setTranslation('title' , 'ar' , $request->title_ar );
         $course->setTranslation('title' , 'en' , $request->title_en );
         $course->setTranslation('subtitle' , 'ar' , $request->subtitle_ar );
