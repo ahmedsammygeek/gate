@@ -61,4 +61,10 @@ class User extends Authenticatable
     {
         return $this->phone;
     }
+
+
+    public function coursesAsTrainer()
+    {
+        return $this->hasMany(Course::class , 'trainer_id');
+    }
 }

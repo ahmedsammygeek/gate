@@ -68,7 +68,7 @@
                                         class="fs-sm text-muted">{{ $trainer->created_at->toFormattedDateString() }}</span>
                                 </td>
                                 <td>
-                                    45
+                                    {{ $trainer->coursesAsTrainer()->count() }}
                                 </td>
                                 <td>
                                     @switch($trainer->show_in_home)
