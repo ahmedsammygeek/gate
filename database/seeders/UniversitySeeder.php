@@ -36,7 +36,6 @@ class UniversitySeeder extends Seeder
         ];
 
         $images = [
-            'https://upload.wikimedia.org/wikipedia/commons/c/cd/University-of-Alabama-EngineeringResearchCenter-01.jpg' , 
             'https://cdn.britannica.com/85/13085-050-C2E88389/Corpus-Christi-College-University-of-Cambridge-England.jpg' , 
             'https://louisiana.edu/sites/default/files/2021-08/university-louisiana-lafayette-best-louisiana.jpg' , 
             'https://www.ox.ac.uk/sites/files/oxford/styles/ow_large_feature/s3/field/field_image_main/b_AllSoulsquad.jpg?itok=tTcH-5ix' , 
