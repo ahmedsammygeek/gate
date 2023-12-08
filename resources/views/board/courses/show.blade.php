@@ -69,6 +69,18 @@
                                 </tr>
 
                                 <tr>
+                                    <th> slug بالعربيه </th>
+                                    <td> {{ $course->getTranslation('slug', 'ar') }} </td>
+                                </tr>
+
+                                <tr>
+                                    <th> slug بالانجليزيه </th>
+                                    <td> {{ $course->getTranslation('slug', 'en') }} </td>
+                                </tr>
+
+
+
+                                <tr>
                                     <th> العنوان بالعربيه </th>
                                     <td> {{ $course->getTranslation('title', 'ar') }} </td>
                                 </tr>
@@ -77,6 +89,7 @@
                                     <th> العنوان بالانجليزيه </th>
                                     <td> {{ $course->getTranslation('title', 'en') }} </td>
                                 </tr>
+
 
                                 <tr>
                                     <th> النبذه التعريفيه بالعربيه </th>
@@ -107,6 +120,15 @@
                                 <tr>
                                     <th> المنهج بالانجليزيه </th>
                                     <td> {!! $course->getTranslation('curriculum', 'en') !!} </td>
+                                </tr>
+
+                                <tr>
+                                    <th> الجامعه </th>
+                                    <td> 
+                                        @if ($course->university_id)
+                                            <a href="{{ route('board.universities.show' , $course->university_id ) }}"> {{ $course->university?->title }} </a>
+                                        @endif
+                                    </td>
                                 </tr>
 
                                 <tr>
@@ -156,7 +178,14 @@
                                 <tr>
                                     <th> سعر الكورس المباشر </th>
                                     <td>
-                                        {{ $course->price }}
+                                        {{ $course->price }} <span class="text-muted"> ريال </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th> سعر الكورس عند الدفع لاحقا </th>
+                                    <td>
+                                        {{ $course->price_later }} <span class="text-muted"> ريال </span>
                                     </td>
                                 </tr>
 

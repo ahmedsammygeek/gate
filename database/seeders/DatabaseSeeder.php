@@ -17,7 +17,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             // CategoryTableSeeder::class,
             // CountryTableSeeder::class
-            UniversitySeeder::class , 
+            // UniversitySeeder::class , 
+            CoursesSeeder::class , 
         ]);
     }
 }

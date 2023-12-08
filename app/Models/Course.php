@@ -20,7 +20,7 @@ class Course extends Model
     const COURSE = 1 ;
     const PACKAGE = 2 ;
 
-    public $translatable = ['title' , 'subtitle' , 'content' , 'curriculum' ];
+    public $translatable = ['title' , 'subtitle' , 'slug' , 'content' , 'curriculum' ];
 
 
     public function user(): BelongsTo

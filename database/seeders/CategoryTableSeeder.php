@@ -13,11 +13,10 @@ class CategoryTableSeeder extends Seeder
      */
     public function run(): void
     {
-        Category::create(['name' => 'برمجة', 'user_id' =>1 ,'is_active' => 1]);
-        Category::create(['name' => 'فنون و تصميم', 'user_id' =>1, 'is_active' => 1 ]);
-        Category::create(['name' => 'اللغات', 'user_id' =>1, 'is_active' => 1]);
-        Category::create(['name' => 'علوم البيانات', 'user_id' =>1, 'is_active' => 1]);
-        Category::create(['name' => 'كتابة المحتوي', 'user_id' =>1, 'is_active' => 1]);
-        Category::create(['name' => 'اللإدارة', 'user_id' =>1, 'is_active' => 1]);
+        Category::create(['name->ar' => 'فنون و تصميم',  'name->en' => 'فنون و تصميم' ,  'user_id' =>1, 'is_active' => 1  , ]);
+        Category::create(['name->ar' => 'العلوم التطبيقيه',  'name->en' => 'applied Sciences' ,  'user_id' =>1, 'is_active' => 1 , ]);
+        Category::create(['name->ar' => 'علوم البيانات',  'name->en' => 'Data science' ,  'user_id' =>1, 'is_active' => 1 , ]);
+        Category::create(['name->ar' => 'التصوير', 'name->en' =>'Photography'  ,  'user_id' =>1, 'is_active' => 1 , ]);
+        Category::create(['name->ar' => 'اللإدارة',  'name->en' => 'Mangement' ,  'user_id' =>1, 'is_active' => 1 , ]);
     }
 }
