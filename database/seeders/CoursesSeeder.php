@@ -87,7 +87,7 @@ class CoursesSeeder extends Seeder
             $new_course->type = rand(1 , 2);
             $new_course->students_number = rand(200, 3000);
             $new_course->reviews = 5;
-            $new_course->trainer_id = User::where('type' , 3 )->inRandomOrder()->first()->id;;
+            $new_course->trainer_id = User::where('type' , 3 )->inRandomOrder()->first()->id;
             $random_image  = $images[mt_rand(0 , count($images) - 1 )];
             $image_name = Str::uuid();
             Storage::put('courses/'.$image_name.'.jpg', file_get_contents($random_image) );
