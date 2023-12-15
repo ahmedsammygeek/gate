@@ -21,11 +21,11 @@ Route::prefix("v1")->group(function () {
 
 
     Route::get('universities', [UniversityController::class, 'index']);
-    Route::get('universities/{id}', [UniversityController::class, 'show']);
-    Route::get('courses/{course}', [CourseController::class, 'course_details']);
+    Route::get('universities/{identifier}', [UniversityController::class, 'show']);
+    Route::get('courses/{identifier}', [CourseController::class, 'course_details']);
     Route::get('courses', [CourseController::class, 'index']);
     Route::get('packages', [CourseController::class, 'packages']);
-    Route::get('packages/{course}', [CourseController::class, 'package_details']);
+    Route::get('packages/{identifier}', [CourseController::class, 'package_details']);
     Route::post('forget_password', [ForgetPasswordController::class, 'index']);
     Route::post('forget_password/step_two', [ForgetPasswordController::class, 'update']);
 

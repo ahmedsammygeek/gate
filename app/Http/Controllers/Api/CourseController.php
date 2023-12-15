@@ -54,19 +54,21 @@ class CourseController extends Controller
         ]);
     }
 
-    public function package_details(Course $course)
+    public function package_details($identifier)
     {
+        $package = Course::where('id' , $identifier )->orWhere('slug->ar' , $identifier )->orWhere('slug->en' , $identifier )->first();
         return response()->json([
             'status' => true,
             'message' => '',
             'data' => (object) [
-                'package' => PackageDetailsResource::make($course) , 
+                'package' => PackageDetailsResource::make($package) , 
             ]
         ]);    
     }
 
-    public function course_details(Course $course)
+    public function course_details($identifier)
     {
+        $course = Course::where('id' , $identifier )->orWhere('slug->ar' , $identifier )->orWhere('slug->en' , $identifier )->first();
         $course->load(['courseReviews' , 'trainer' , 'units' ]);
         return response()->json([
             'status' => true,

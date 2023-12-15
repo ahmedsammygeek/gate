@@ -16,6 +16,7 @@ class DetailedCourseResource extends JsonResource
             'id' => $this->id,
             'students_number' => $this->students_number , 
             'title' => $this->getTranslations('title', ['ar', 'en']),
+            'slug' => $this->getTranslations('slug', ['ar', 'en']),
             'subtitle' => $this->getTranslations('subtitle', ['ar', 'en']),
             'content' => $this->getTranslations('content', ['ar', 'en']),
             'curriculum' => $this->getTranslations('curriculum', ['ar', 'en']),

@@ -19,6 +19,8 @@ class PackageResource extends JsonResource
             'id' => $this->id , 
             'created_at' => $this->created_at->toDateTimeString() , 
             'title' => $this->getTranslations('title', ['ar', 'en']),
+            'slug' => $this->getTranslations('slug', ['ar', 'en']),
+            'subtitle' => $this->getTranslations('subtitle', ['ar', 'en']),
             'price' => $this->getPrice() , 
             'category' => BasicDataResource::make($this->category) , 
             'reviews' => $this->reviews,

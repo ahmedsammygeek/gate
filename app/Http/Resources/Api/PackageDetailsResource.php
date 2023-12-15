@@ -22,6 +22,7 @@ class PackageDetailsResource extends JsonResource
             'image' =>  Storage::url('courses/' . $this->image),
             'title' => $this->getTranslations('title', ['ar', 'en']),
             'subtitle' => $this->getTranslations('subtitle', ['ar', 'en']),
+            'slug' => $this->getTranslations('slug', ['ar', 'en']),
             'content' => $this->getTranslations('content', ['ar', 'en']),
             'curriculum' => $this->getTranslations('curriculum', ['ar', 'en']),
             'price' => $this->getPrice() , 
