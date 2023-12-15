@@ -13,6 +13,7 @@ class BasicCourseResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'created_at' => $this->created_at->toDateTimeString() , 
             'title' => $this->getTranslations('title', ['ar', 'en']),
             'subtitle' => $this->getTranslations('subtitle', ['ar', 'en']),
             'image' =>  Storage::url('courses/' . $this->image),

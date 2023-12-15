@@ -21,6 +21,9 @@ class CourseController extends Controller
         $courses = Course::query()
         ->where('type' , Course::COURSE ) 
         ->with(['trainer', 'category'])
+        ->when($request->category_id , function($query) use ($request) {
+            $query->where('category_id' , $request->category_id );
+        })
         ->latest()
         ->paginate($request->per_page ?? 10);
         return response()->json([
@@ -32,11 +35,14 @@ class CourseController extends Controller
         ]);
     }
 
-    public function packages()
+    public function packages(Request $request)
     {
         $packages = Course::query()
         ->where('type' , Course::PACKAGE ) 
         ->with(['trainer', 'category'])
+        ->when($request->category_id , function($query) use ($request) {
+            $query->where('category_id' , $request->category_id );
+        })
         ->latest()
         ->paginate($request->per_page ?? 10);
         return response()->json([
