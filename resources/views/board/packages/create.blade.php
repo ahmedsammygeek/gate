@@ -23,7 +23,7 @@
 						<div class="row mb-3">
 
 							<div class="col-md-3">
-								<label class="col-lg-12 col-form-label pt-0"> صوره الباقه
+								<label class="col-lg-12 col-form-label "> صوره الباقه
 									<span class="text-danger">*</span>
 								</label>
 								<div class="col-lg-12">
@@ -36,7 +36,7 @@
 							<div class="col-md-3">
 								<label class="col-form-label col-lg-12"> التصنيف <span class="text-danger">*</span></label>
 								<div class="col-lg-12">
-									<select name="category_id" class='form-control form-select' id="">
+									<select name="category_id" class='form-control form-select select' id="">
 										<option value=""> اختر التصنيف </option>
 										@foreach ($categories as $category)
 										<option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}> {{ $category->name }} </option>
@@ -50,7 +50,7 @@
 							<div class="col-md-3">
 								<label class="col-form-label col-lg-12"> الجامعه <span class="text-danger">*</span></label>
 								<div class="col-lg-12">
-									<select name="university_id" class='form-control form-select' id="">
+									<select name="university_id" class='form-control form-select select' id="">
 										<option value=""> اختر الجامعه </option>
 										@foreach ($universities as $university)
 										<option value="{{ $university->id }}" {{ old('university_id') == $university->id ? 'selected' : '' }}> {{ $university->title }} </option>
@@ -64,7 +64,7 @@
 
 
 							<div class="col-md-3">
-								<label class="col-lg-12 col-form-label pt-0"> تاريخ انتهاء الباقه
+								<label class="col-lg-12 col-form-label "> تاريخ انتهاء الباقه
 									<span class="text-danger">*</span>
 								</label>
 								<div class="col-lg-12">

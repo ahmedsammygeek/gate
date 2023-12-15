@@ -28,7 +28,7 @@
                         <div class="col-md-3">
                             <label class="col-form-label col-lg-12"> التصنيف <span class="text-danger">*</span></label>
                             <div class="col-lg-12">
-                                <select name="category_id" class='form-control form-select' id="">
+                                <select name="category_id" class='form-control form-select select' id="">
                                     @foreach ($categories as $category)
                                     <option value="{{ $category->id }}" {{ $category->id == $course->category_id ? 'selected="selected"' : '' }}>
                                         {{ $category->name }} 
@@ -43,7 +43,7 @@
                         <div class="col-md-3">
                             <label class="col-form-label col-lg-12"> الجامعه <span  class="text-danger">*</span></label>
                             <div class="col-lg-12">
-                                <select name="university_id" class='form-control form-select' id="">
+                                <select name="university_id" class='form-control form-select select' id="">
                                     @foreach ($universities as $university)
                                     <option value="{{ $university->id }}"  {{ $university->id == $course->university_id ? 'selected="selected"' : '' }}>
                                         {{ $university->title }} </option>
@@ -330,6 +330,8 @@
                                     <script src="{{ asset('board_assets/js/vendor/media/glightbox.min.js') }}"></script>
                                     <script src="{{ asset('board_assets/js/vendor/notifications/sweet_alert.min.js') }}"></script>
                                     <script src="{{ asset('board_assets/demo/pages/gallery.js') }}"></script>
+                                    <script src="{{ asset('board_assets/js/vendor/forms/selects/select2.min.js') }}"></script>
+<script src="{{ asset('board_assets/demo/pages/form_select2.js') }}"></script>
 
                                     <script>
                                         $(document).ready(function() {

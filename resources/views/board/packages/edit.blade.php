@@ -36,7 +36,7 @@
 							<div class="col-md-3">
 								<label class="col-form-label col-lg-12"> التصنيف <span class="text-danger">*</span></label>
 								<div class="col-lg-12">
-									<select name="category_id" class='form-control form-select' id="">
+									<select name="category_id" class='form-control form-select select' id="">
 										<option value=""> اختر التصنيف </option>
 										@foreach ($categories as $category)
 										<option value="{{ $category->id }}" {{ $package->category_id == $category->id ? 'selected="selected"' : '' }}> {{ $category->name }} </option>
@@ -50,7 +50,7 @@
 							<div class="col-md-3">
 								<label class="col-form-label col-lg-12"> الجامعه <span class="text-danger">*</span></label>
 								<div class="col-lg-12">
-									<select name="university_id" class='form-control form-select' id="">
+									<select name="university_id" class='form-control form-select select' id="">
 										<option value=""> اختر الجامعه </option>
 										@foreach ($universities as $university)
 										<option value="{{ $university->id }}" {{ $package->university_id == $university->id ?  'selected="selected"'  : '' }}> {{ $university->title }} </option>

@@ -38,7 +38,7 @@
 							<div class="col-md-2">
 								<label class="col-form-label col-lg-12"> التصنيف <span class="text-danger">*</span></label>
 								<div class="col-lg-12">
-									<select name="category_id" class='form-control form-select' id="">
+									<select name="category_id" class='form-control form-select select' id="">
                                         <option value=""> اختر التصنيف </option>
 										@foreach ($categories as $category)
 										<option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}> {{ $category->name }} </option>
@@ -52,7 +52,7 @@
 							<div class="col-md-3">
 								<label class="col-form-label col-lg-12"> الجامعه <span class="text-danger">*</span></label>
 								<div class="col-lg-12">
-									<select name="university_id" class='form-control form-select' id="">
+									<select name="university_id" class='form-control form-select select' id="">
                                         <option value=""> اختر الجامعه </option>
 										@foreach ($universities as $university)
 										<option value="{{ $university->id }}" {{ old('university_id') == $university->id ? 'selected' : '' }}> {{ $university->title }} </option>
@@ -266,7 +266,8 @@
 
 @section('scripts')
 <script src="https://cdn.tiny.cloud/1/ic4s7prz04qh4jzykmzgizzo1lize2ckglkcjr9ci9sgkbuc/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-
+<script src="{{ asset('board_assets/js/vendor/forms/selects/select2.min.js') }}"></script>
+<script src="{{ asset('board_assets/demo/pages/form_select2.js') }}"></script>
 <script>
 	$(document).ready(function() {
 		tinymce.init({
