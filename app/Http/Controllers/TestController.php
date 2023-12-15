@@ -28,7 +28,6 @@ class TestController extends Controller
     $courses = Course::all();
 
     foreach ($courses as $course) {
-      dd($course->getTranslation('slug' ,'ar') , $course->id );
       $course->setTranslation('slug' , 'ar' ,  str_replace(' ', '-', $course->getTranslation('slug' ,'ar'))  );
       $course->setTranslation('slug' , 'en' ,  str_replace(' ', '-', $course->getTranslation('slug' ,'en'))  );
       $course->save();
