@@ -34,6 +34,15 @@
                                 <td> <a href="{{ route('board.admins.show', $university->user_id) }}">
                                         {{ $university->user?->name }} </a> </td>
                             </tr>
+                            <tr>
+                                    <th> slug بالعربيه </th>
+                                    <td> {{ $university->getTranslation('slug', 'ar') }} </td>
+                                </tr>
+
+                                <tr>
+                                    <th> slug بالانجليزيه </th>
+                                    <td> {{ $university->getTranslation('slug', 'en') }} </td>
+                                </tr>
 
                             <tr>
                                 <th> الاسم </th>

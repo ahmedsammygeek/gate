@@ -14,7 +14,7 @@ use Notification;
 use App\Notifications\TestNotification;
 use App\Models\User;
 use App\Models\UserCourseProgress;
-use App\Models\Course;
+use App\Models\University;
 use Storage;
 use File;
 use Vimeo;
@@ -25,12 +25,12 @@ class TestController extends Controller
   {
 
 
-    $courses = Course::all();
+    $universities = University::all();
 
-    foreach ($courses as $course) {
-      $course->setTranslation('slug' , 'ar' ,  str_replace(' ', '-', $course->getTranslation('slug' ,'ar'))  );
-      $course->setTranslation('slug' , 'en' ,  str_replace(' ', '-', $course->getTranslation('slug' ,'en'))  );
-      $course->save();
+    foreach ($universities as $university) {
+      $university->setTranslation('slug' , 'ar' ,  str_replace(' ', '-', $university->getTranslation('slug' ,'ar'))  );
+      $university->setTranslation('slug' , 'en' ,  str_replace(' ', '-', $university->getTranslation('slug' ,'en'))  );
+      $university->save();
     }
 
     // dd(User::where('type' , 3 )->inRandomOrder()->first()->id);
