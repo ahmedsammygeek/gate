@@ -266,6 +266,8 @@
 
 @section('scripts')
 <script src="https://cdn.tiny.cloud/1/ic4s7prz04qh4jzykmzgizzo1lize2ckglkcjr9ci9sgkbuc/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="{{ asset('board_assets/js/vendor/forms/selects/select2.min.js') }}"></script>
+<script src="{{ asset('board_assets/demo/pages/form_select2.js') }}"></script>
 
 <script>
 	$(document).ready(function() {
