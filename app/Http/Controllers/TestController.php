@@ -13,11 +13,10 @@ use App\Channels\WhatsAppChannel;
 use Notification;
 use App\Notifications\TestNotification;
 use App\Models\User;
-use App\Models\UserCourseProgress;
-use App\Models\University;
-use Storage;
-use File;
-use Vimeo;
+use App\Models\Course;
+use App\Models\CourseUnit;
+use App\Models\Lesson;
+
 
 class TestController extends Controller
 {
@@ -25,31 +24,43 @@ class TestController extends Controller
   {
 
 
-    $universities = University::all();
+    $courses = Course::where('type'  , 1)->whereDoesntHave('units')->get();
 
-    foreach ($universities as $university) {
-      $university->setTranslation('slug' , 'ar' ,  str_replace(' ', '-', $university->getTranslation('slug' ,'ar'))  );
-      $university->setTranslation('slug' , 'en' ,  str_replace(' ', '-', $university->getTranslation('slug' ,'en'))  );
-      $university->save();
+
+    foreach ($courses as $course) {
+
+      for ($i=0; $i < 2 ; $i++) { 
+        $unit = new CourseUnit;
+        $unit->setTranslation('title' , 'ar'  , 'الوحده رقم '.$i );
+        $unit->setTranslation('title' , 'en'  , 'unit number '.$i );
+        $unit->course_id = $course->id;
+        $unit->user_id = 1;
+        $unit->is_active = 1;
+        $unit->save();
+      }
+
     }
 
-    // dd(User::where('type' , 3 )->inRandomOrder()->first()->id);
-
-    //  $images = [
-    //         'https://upload.wikimedia.org/wikipedia/commons/c/cd/University-of-Alabama-EngineeringResearchCenter-01.jpg' , 
-    //         'https://cdn.britannica.com/85/13085-050-C2E88389/Corpus-Christi-College-University-of-Cambridge-England.jpg' , 
-    //         'https://louisiana.edu/sites/default/files/2021-08/university-louisiana-lafayette-best-louisiana.jpg' , 
-    //         'https://www.ox.ac.uk/sites/files/oxford/styles/ow_large_feature/s3/field/field_image_main/b_AllSoulsquad.jpg?itok=tTcH-5ix' , 
-    //         'https://acu.edu.eg/Media/News/2022/7/19/19_2022-637938152217502934-750.jpg' , 
-    //     ];
-
-    //     dd($images[mt_rand(0 , count($images) - 1 )]);
-
-    // dd( Storage::put('universities/ahmed sami.jpg', file_get_contents('https://cdn.britannica.com/85/13085-050-C2E88389/Corpus-Christi-College-University-of-Cambridge-England.jpg') ) );
 
 
-    // $test = Vimeo::request('/videos/888570712', ['name' => '44444 test'  , 'description' => '444444 test desctiption' ], 'patch');
-    // dd($test);
+    $units = CourseUnit::get();
+
+    foreach ($units as $unit) {
+
+      for ($i=0; $i < 8 ; $i++) { 
+
+        $lesson = new Lesson;
+        $lesson->user_id = 1;
+        $lesson->course_unit_id = $unit->id;
+        $lesson->setTranslation('title' , 'ar'  , 'الدرس رقم '.$i );
+        $lesson->setTranslation('title' , 'en'  , 'lesson number '.$i );
+        $lesson->setTranslation('description' , 'ar'  , 'الدرس رقم '.$i );
+        $lesson->setTranslation('description' , 'en'  , 'lesson number '.$i );
+        $lesson->is_active = 1;
+        $lesson->vimeo_number  = 888618608;
+        $lesson->save() ;
+      }
+    }
   }
 
 
