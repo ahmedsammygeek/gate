@@ -28,7 +28,7 @@ class PurchaseController extends Controller
 
     public function show(Purchase $purchase)
     {
-        $purchase->load(['user' , 'course' ]);
+        $purchase->load(['user' , 'items.course' ]);
         return view('board.purchases.show' , compact('purchase') );
     }
 

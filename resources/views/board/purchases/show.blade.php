@@ -100,11 +100,19 @@
                             </td>
                         </tr>
                         <tr>
-                            <th> الكورس & الباقات  </th>
+                            <th> العناصر داخل عمليه الشراء </th>
                             <td>
-                               <a href="{{ route('board.courses.show' , $purchase->course_id ) }}"> {{ $purchase->course?->title }} </a>
+                                <ul>
+                                    @foreach ($purchase->items as $item)
+                                    <li>
+                                       <a href="{{ route('board.courses.show' , $item->item_id ) }}">  {{ $item->course?->title }} </a>
+                                    </li>
+                                    @endforeach
+                                </ul>
                             </td>
                         </tr>
+
+                        {{-- <a href="{{ route('board.courses.show' , $purchase->course_id ) }}"> {{ $purchase->course?->title }} </a> --}}
 
 
                     </tbody>

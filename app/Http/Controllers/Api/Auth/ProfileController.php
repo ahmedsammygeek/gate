@@ -13,6 +13,7 @@ use App\Http\Requests\Api\Auth\ProfileRequest;
 use App\Http\Requests\Api\Auth\ChangePasswordRequest;
 use Auth;
 use App\Http\Resources\Api\UserCourseRecourse;
+use App\Models\UserCourse;
 class ProfileController extends Controller
 {
     public function index()

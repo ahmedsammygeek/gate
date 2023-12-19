@@ -14,6 +14,7 @@ use App\Http\Resources\DetailedCourseResource;
 use Auth;
 use App\Http\Resources\Api\LessonDetailsResource;
 use App\Http\Resources\CourseUnitResource;
+
 class CourseController extends Controller
 {
     public function index(Request $request)
@@ -66,8 +67,9 @@ class CourseController extends Controller
         ]);    
     }
 
-    public function course_details($identifier)
-    {
+    public function course_details(Request $request ,  $identifier)
+    {   
+        // dd($request->bearerToken());
         $course = Course::where('id' , $identifier )->orWhere('slug->ar' , $identifier )->orWhere('slug->en' , $identifier )->first();
         $course->load(['courseReviews' , 'trainer' , 'units' ]);
         return response()->json([

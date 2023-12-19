@@ -12,7 +12,7 @@ class PurchaseItem extends Model
 
     public function course()
     {
-        return $this->belongsTo(Course::class , 'course_id');
+        return $this->belongsTo(Course::class , 'item_id');
     }
 
     public function purchase()

@@ -9,7 +9,9 @@ class UserCourse extends Model
 {
     use HasFactory;
 
-
+    protected $dates = [
+        'expires_at' => 'date' , 
+    ];
 
     public function user()
     {
