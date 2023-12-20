@@ -103,7 +103,20 @@ class CourseController extends Controller
 
     public function lesson(Course $course , Lesson $lesson)
     {
-        // dd(Auth::id());
+        // we need first to check if this lesson s free or not 
+
+        if ($lesson->is_free == 1 ) {
+            return response()->json([
+                'status' => true,
+                'message' => "",
+                "data" => [
+                    'lesson' => LessonDetailsResource::make($lesson) , 
+                    'unit' => CourseUnitResource::make($lesson->unit) ,
+                ]
+            ] , 200); 
+        }
+
+
         // check first if this user bought this course or not
         $user_course = UserCourse::where('user_id' , Auth::id() )->where('course_id'  , $course->id)->first();
         if (!$user_course) {
