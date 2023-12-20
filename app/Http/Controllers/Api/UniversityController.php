@@ -39,7 +39,7 @@ class UniversityController extends Controller
 
     public function show($identifier, Request $request)
     {
-        
+
         $query = University::with('courses.trainer')
         ->whereHas('courses', function ($query) use ($request) {
             $query->where('is_active', 1);
@@ -63,6 +63,16 @@ class UniversityController extends Controller
         }
 
         $university = $query->where('id' , $identifier )->orWhere('slug->ar' , $identifier )->orWhere('slug->en' , $identifier )->first();
+
+
+        if (!$university) {
+            return response()->json([
+                'status' => false,
+                'message' => "error",
+                "data" => (object) [
+                ]
+            ] , 404);
+        }
 
         return response()->json([
             'status' => true,

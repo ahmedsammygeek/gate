@@ -30,8 +30,6 @@ Route::prefix("v1")->group(function () {
     Route::get('packages/{identifier}', [CourseController::class, 'package_details']);
     Route::post('forget_password', [ForgetPasswordController::class, 'index']);
     Route::post('forget_password/step_two', [ForgetPasswordController::class, 'update']);
-
-
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('courses/{course}/lessons/{lesson}', [CourseController::class, 'lesson']);
         Route::get('profile', [ProfileController::class, 'index']);
