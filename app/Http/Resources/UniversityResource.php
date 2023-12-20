@@ -14,7 +14,7 @@ class UniversityResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'slug' => $this->getTranslations('title', ['ar', 'en']) , 
+            'slug' => $this->getTranslations('slug', ['ar', 'en']) , 
             'title' => $this->getTranslations('title', ['ar', 'en']),
             'image' => Storage::url('universities/' . $this->image),
             'cover' => Storage::url('universities/' . $this->cover),
