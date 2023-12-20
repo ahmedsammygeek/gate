@@ -17,6 +17,8 @@ class CourseUnitLessonResource extends JsonResource
         return [
             'id' => $this->id , 
             'title' => $this->getTranslations('title', ['ar', 'en']),
+            'number' => $this->vimeo_number , 
+            'is_free' => $this->is_free == 0 ? false  : true , 
         ];
     }
 }

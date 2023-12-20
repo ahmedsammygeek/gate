@@ -19,6 +19,7 @@ class LessonDetailsResource extends JsonResource
             'title' => $this->getTranslations('title', ['ar', 'en']),
             'description' => $this->getTranslations('description', ['ar', 'en']),
             'vimeo_number' => $this->vimeo_number , 
+            'is_free' => $this->is_free == 0 ? false  : true , 
         ];
     }
 }

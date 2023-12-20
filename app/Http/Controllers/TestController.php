@@ -16,7 +16,6 @@ class TestController extends Controller
       $lesson = $course->units->first()->lessons()->first();
       $lesson->is_free = 1;
       $lesson->save();
-      dd($lesson->save());
     }
   }
 }
