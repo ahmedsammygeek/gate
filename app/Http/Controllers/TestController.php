@@ -10,11 +10,6 @@ class TestController extends Controller
   public function index()
   {
 
-    $universities = University::all();
-
-    foreach ($universities as $university) {
-      // code...
-    }
 
   }
 }

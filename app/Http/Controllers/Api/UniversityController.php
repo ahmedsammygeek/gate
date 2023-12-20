@@ -68,7 +68,7 @@ class UniversityController extends Controller
         if (!$university) {
             return response()->json([
                 'status' => false,
-                'message' => "error",
+                'message' => "university not found ",
                 "data" => (object) [
                 ]
             ] , 404);
@@ -76,7 +76,7 @@ class UniversityController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => "success",
+            'message' => "",
             "data" => (object) [
                 'university' => DetailedUniversityResource::make($university)
             ]

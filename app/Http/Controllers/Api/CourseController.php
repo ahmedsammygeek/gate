@@ -46,6 +46,7 @@ class CourseController extends Controller
         })
         ->latest()
         ->paginate($request->per_page ?? 10);
+
         return response()->json([
             'status' => true,
             'message' => '',
@@ -58,6 +59,15 @@ class CourseController extends Controller
     public function package_details($identifier)
     {
         $package = Course::where('id' , $identifier )->orWhere('slug->ar' , $identifier )->orWhere('slug->en' , $identifier )->first();
+
+        if (!$package) {
+            return response()->json([
+                'status' => false,
+                'message' => "package not found ",
+                "data" => (object) [
+                ]
+            ] , 404);
+        }
         return response()->json([
             'status' => true,
             'message' => '',
@@ -69,8 +79,17 @@ class CourseController extends Controller
 
     public function course_details(Request $request ,  $identifier)
     {   
-        // dd($request->bearerToken());
+
         $course = Course::where('id' , $identifier )->orWhere('slug->ar' , $identifier )->orWhere('slug->en' , $identifier )->first();
+        if (!$course) {
+            return response()->json([
+                'status' => false,
+                'message' => "course not found ",
+                "data" => (object) [
+                ]
+            ] , 404);
+        }
+
         $course->load(['courseReviews' , 'trainer' , 'units' ]);
         return response()->json([
             'status' => true,
@@ -105,8 +124,6 @@ class CourseController extends Controller
                 "data" => []
             ] , 403); 
         }
-
-
 
         return response()->json([
             'status' => true,
