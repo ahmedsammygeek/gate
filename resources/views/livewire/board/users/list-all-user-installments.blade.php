@@ -8,42 +8,35 @@
                     <thead>
                         <tr>
                             <th> رقم العمليه </th>
-                            <th> تاريخ العمليه </th>
+                            <th> تاريخ الاستحقاق </th>
                             <th> المبلغ </th>
-                            <th> طريقه الدفع </th>
+                            <th>  حاله القسط </th>
                             <th class="text-center" style="width: 20px;">خصائص</th>
                         </tr>
                     </thead>
                     <tbody>
 
-                        @foreach ($user->transactions as $user_transaction)
+                        @foreach ($user->installments as $user_installment)
                         <tr>
                             <td>
-                                {{ $user_transaction->payment_id }}
+                                {{ $user_installment->installment_number }}
                             </td>
+                            <td> {{ $user_installment->due_date }} </td>
+                           
+                            <td> {{ $user_installment->amount }} <span>  ريال </span> </td>
                             <td> 
-                                {{ $user_transaction->payment_date }}
-                                <span class='text-muted' > {{ $user_transaction->created_at->diffForHumans() }} </span>
-                            </td>
-                            <td> {{ $user_transaction->amount }} <span>  ريال </span> </td>
-                            <td> 
-                                @switch($user_transaction->payment_method)
-                                @case('cashe')
-                                <span class='badge bg-info' > كاش </span>
+                                @switch($user_installment->status)
+                                @case(1)
+                                <span class='badge bg-info' > مدفوع </span>
                                 @break
-                                @case('bank_transfer')
-                                <span class='badge bg-success' > تحويل بنكى </span>
-                                @break
-                                @case('my_fatoorah')
-                                <span class='badge bg-primary' > my fatora </span>
-                                @break
-                                @case('bank_misr')
-                                <span class='badge bg-dark' > بنك مصر </span>
+                               
+                                @case(0)
+                                <span class='badge bg-dark' > غير مدفوع  </span>
                                 @break
                                 @endswitch
                             </td> 
                             <td class="text-center">
-                                <a  href="{{ route('board.transactions.show' , $user_transaction->id ) }}"  class="btn btn-primary btn-sm">
+                                <a  href="{{ route('board.installments.show' , $user_installment->id ) }}"  class="btn btn-primary btn-sm">
                                     <i class="icon-eye"></i>
                                 </a>
                             </td> 
