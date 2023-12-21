@@ -22,13 +22,13 @@
                 </a>
             </li>
            <li class="nav-item">
-                <a href="{{ route('board.users.courses', $user) }}" class="nav-link active"> 
+                <a href="{{ route('board.users.courses', $user) }}" class="nav-link "> 
                     <span class="badge bg-primary rounded-pill me-2"> {{ $user->courses->count() }} </span>
                     الكورسات
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('board.users.purchases', $user) }}" class="nav-link ">
+                <a href="{{ route('board.users.purchases', $user) }}" class="nav-link active ">
                     <span class="badge bg-primary rounded-pill me-2">  {{ $user->purchases->count() }} </span>
                     عمليات الشراء  
                 </a>
@@ -51,13 +51,8 @@
 <!-- Main charts -->
 
 <div class="row">
- @livewire('board.users.list-all-user-courses' ,  ['user' => $user ] )
+ @livewire('board.users.list-all-user-purchases' ,  ['user' => $user ] )
 </div>
 @endsection
 
 
-@section('scripts')
-<script src="{{ asset('board_assets/js/vendor/media/glightbox.min.js') }}"></script>
-<script src="{{ asset('board_assets/js/vendor/notifications/sweet_alert.min.js') }}"></script>
-<script src="{{ asset('board_assets/demo/pages/gallery.js') }}"></script>
-@endsection

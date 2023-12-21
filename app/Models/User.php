@@ -68,4 +68,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Course::class , 'trainer_id');
     }
+
+    public function purchases()
+    {
+        return $this->hasMany(Purchase::class , 'user_id');
+    }
+
+     public function transactions()
+    {
+        return $this->hasMany(Transaction::class , 'user_id');
+    }
 }

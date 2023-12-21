@@ -30,30 +30,30 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return view('board.users.courses' , compact('user'));
+        return view('board.users.show' , compact('user'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function purchases(User $user)
     {
-        //
+        return view('board.users.purchases' , compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function installments(User $user)
     {
-        //
+        return view('board.users.installments' , compact('user'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+
+    public function transactions(User $user)
     {
-        //
+        return view('board.users.transactions' , compact('user'));
     }
+
+
 }
