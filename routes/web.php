@@ -75,6 +75,12 @@ Route::group(['prefix' => 'Board' , 'as' => 'board.'  ], function() {
 
         Route::post('proccess_video_uploads' , [UploadLessonVideoController::class , 'store'] )->name('proccess_video_uploads');
         Route::patch('proccess_video_uploads' , [UploadLessonVideoController::class , 'store'] )->name('proccess_video_uploads');
+
+
+        Route::get('users/{user}/courses' , [UserController::class , 'courses'] )->name('users.courses');
+
+
+
     });
 });
 

@@ -9,13 +9,18 @@ class UserCourse extends Model
 {
     use HasFactory;
 
-    protected $dates = [
+    protected $casts = [
         'expires_at' => 'date' , 
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class , 'user_id');
+    }
+
+    public function progress()
+    {
+        return $this->hasOne(UserCourseProgress::class , 'user_course_id' );
     }
 
     public function course()
