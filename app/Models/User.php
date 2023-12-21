@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable
 {
 
@@ -17,6 +18,7 @@ class User extends Authenticatable
     const TRAINER = 3;
 
     use HasApiTokens, HasFactory, Notifiable;
+    use HasRoles;
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
@@ -61,7 +63,6 @@ class User extends Authenticatable
     {
         return $this->phone;
     }
-
 
     public function coursesAsTrainer()
     {

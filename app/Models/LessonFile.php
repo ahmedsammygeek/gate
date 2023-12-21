@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class LessonFile extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['file' , 'user_id' , 'file_name' ];
 }

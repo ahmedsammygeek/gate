@@ -19,6 +19,10 @@ class Lesson extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function files()
+    {
+        return $this->hasMany(LessonFile::class , 'lesson_id');
+    }
     public function unit()
     {
         return $this->belongsTo(CourseUnit::class  , 'course_unit_id' );

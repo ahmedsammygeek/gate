@@ -28,6 +28,8 @@ class StoreLessonRequest extends FormRequest
             'description_en' => 'required' ,
             'is_active' => 'nullable' , 
             'video' => 'required' ,  
+            'files' => 'nullable' , 
+            'files.*' => 'mimes:jpg,png,zip,rar,pdf,doc,docx,jpeg',
         ];
     }
 }

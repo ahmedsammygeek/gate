@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Board\Admins\StoreAdminRequest;
 use App\Http\Requests\Board\Admins\UpdateAdminRequest;
-
+use Spatie\Permission\Models\Permission;
 class AdminController extends Controller
 {
     /**
@@ -30,7 +30,7 @@ class AdminController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreAdminRequest $request)
+    public function store(Request $request)
     {
         $admin = new User;
         $admin->name = $request->name;
@@ -44,8 +44,14 @@ class AdminController extends Controller
         }
         $admin->is_banned = $request->filled('active') ? 0 : 1;
         $admin->save();
-        return redirect(route('board.admins.index'))->with('success' , 'تم إضافه المشرف بنجاح');
 
+        if ($request->filled('permissions')) {
+            for ($i=0; $i < count($request->permissions) ; $i++) { 
+                Permission::firstOrCreate(['name' =>$request->permissions[$i]]);
+            }
+            $admin->syncPermissions($request->permissions);
+        }
+        return redirect(route('board.admins.index'))->with('success' , 'تم إضافه المشرف بنجاح');
     }
 
     /**
@@ -53,6 +59,7 @@ class AdminController extends Controller
      */
     public function show(User $admin)
     {
+        $admin->load('permissions');
         return view('board.admins.show' , compact('admin') );
     }
 
@@ -61,7 +68,10 @@ class AdminController extends Controller
      */
     public function edit(User $admin)
     {
-        return view('board.admins.edit' , compact('admin') );
+
+        $user_permissions = $admin->permissions()->pluck('name')->toArray();
+        // dd($user_permissions);
+        return view('board.admins.edit' , compact('admin' ,'user_permissions' ) );
     }
 
     /**
@@ -73,13 +83,20 @@ class AdminController extends Controller
         $admin->email = $request->email;
         $admin->phone = $request->phone;
         if ($request->filled('password')) {
-           $admin->password = Hash::make($request->password);
+            $admin->password = Hash::make($request->password);
         }
         if ($request->hasFile('image')) {
             $admin->image = basename($request->file('image')->store('users'));
         }
         $admin->is_banned = $request->filled('active') ? 0 : 1;
         $admin->save();
+
+        if ($request->filled('permissions')) {
+            for ($i=0; $i < count($request->permissions) ; $i++) { 
+                Permission::firstOrCreate(['name' =>$request->permissions[$i]]);
+            }
+            $admin->syncPermissions($request->permissions);
+        }
         return redirect(route('board.admins.index'))->with('success' , 'تم تعديل بيانات المشرف بنجاح');
     }
 
