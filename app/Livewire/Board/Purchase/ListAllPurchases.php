@@ -40,7 +40,7 @@ class ListAllPurchases extends Component
 
     public function generateQuery()
     {
-        return Purchase::query()->with(['user'])
+        return Purchase::query()->with(['user' , 'items.course' ])
         ->when($this->search , function($query){
             $query->where('purchase_number' , 'LIKE' , '%'.$this->search.'%' );
         })
@@ -72,7 +72,6 @@ class ListAllPurchases extends Component
     public function excelSheet()
     {
         $purchases = $this->generateQuery();
-
         return Excel::download(new PurchaseExcelEport($purchases), 'purchases.xlsx');
     }
 

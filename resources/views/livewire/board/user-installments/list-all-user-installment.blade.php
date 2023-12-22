@@ -28,13 +28,38 @@
                 <div class="d-sm-flex align-items-sm-start mt-2">
                     <div class="dropdown ms-sm-3  mb-sm-0">
                         <select wire:model='status' class="form-select">
-                            <option value="all"> جملع الحاات </option>
+                            <option value="all"> جملع الحاات الدفع </option>
                             <option value="0"> لم يتم الدفع  </option>
                             <option value="1"> تم الدفع  </option>
                         </select>
                     </div>
                     <div class="dropdown ms-sm-3  mb-sm-0">
+                        <select wire:model='due_date_status' class="form-select">
+                            <option value="all"> جملع الحلات الاستحقاق </option>
+                            <option value="1"> تم تخطى تاريخ الاستحقاق  </option>
+                            <option value="2"> لم يتم تخطى تاريخ الاستحقاق  بعد </option>
+                            <option value="3"> تاريخ استحقاق اليوم </option>
+                        </select>
+                    </div>
+                    <div class="dropdown ms-sm-3  mb-sm-0">
                         <input type="date"  wire:model='due_date'  class='form-control'>
+                    </div>
+                    <div class=" ms-sm-3  mb-sm-0">
+                        <button wire:loading.attr="disabled"  wire:click='resetFilters' type="button" class="btn btn-flat-primary btn-labeled btn-labeled-start ">
+                            <span  class="btn-labeled-icon bg-primary text-white">
+                                <i class="icon-reset"></i>
+                            </span>
+                            إعادة ضبط الفلتر
+                        </button>
+                    </div>
+
+                    <div class=" ms-sm-3  mb-sm-0">
+                        <button wire:loading.attr="disabled"  wire:click='excelSheet' type="button" class="btn btn-flat-primary btn-labeled btn-labeled-start ">
+                            <span  class="btn-labeled-icon bg-primary text-white">
+                                <i class="icon-file-excel "></i>
+                            </span>
+                            Excel
+                        </button>
                     </div>
 
                 </div>
@@ -59,7 +84,7 @@
                             <td> <a href="{{ route('board.users.show' , $installment->user_id ) }}"> {{ $installment->user?->name }} </a> </td>
                             
                             <td> {{ $installment->amount }} <span class='text-muted' >  ريال سعودى </span> </td>
-                            <td> {{ $installment->due_date }}  </td>
+                            <td> {{ $installment->due_date->toDateString() }} - <span class='text-muted'> {{ $installment->due_date->diffForHumans() }} </span>  </td>
 
                             <td>
                                 @switch($installment->status)

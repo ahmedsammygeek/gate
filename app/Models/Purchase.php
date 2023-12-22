@@ -57,7 +57,7 @@ class Purchase extends Model
 
     public function purchaseItemsAsText()
     {
-        $this->load(['items.course']);
+        // $this->load(['items.course']);
         $courses_names = [];
         // we need first to get the purchases items
         foreach ($this->items as $purchase_item) {
