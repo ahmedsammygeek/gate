@@ -1,6 +1,8 @@
 <div class="row">
     <div class="col-md-12">
-        <a href="{{ route('board.countries.create') }}" class="btn btn-primary mb-2" style="float: left;">  <i class="icon-plus3  me-2"></i>  إضافه دوله جديده </a>
+       @can('countries.add')
+           <a href="{{ route('board.countries.create') }}" class="btn btn-primary mb-2" style="float: left;">  <i class="icon-plus3  me-2"></i>  إضافه دوله جديده </a>
+       @endcan
     </div>
 
 
@@ -70,15 +72,21 @@
 
 
                             <td class="text-center">
-                                <a  href="{{ route('board.countries.show'  , $country ) }}"  class="btn btn-sm btn-primary  ">
+                                @can('countries.show')
+                                    <a  href="{{ route('board.countries.show'  , $country ) }}"  class="btn btn-sm btn-primary  ">
                                     <i class="icon-eye  "></i>
                                 </a>
-                                <a href="{{ route('board.countries.edit'  , $country ) }}"  class="btn btn-sm btn-warning ">
+                                @endcan
+                               @can('countries.edit')
+                                   <a href="{{ route('board.countries.edit'  , $country ) }}"  class="btn btn-sm btn-warning ">
                                     <i class="icon-database-edit2  "></i>
                                 </a>
-                                <a data-item_id='{{ $country->id }}' class="btn btn-danger btn-sm delete_item">
+                               @endcan
+                                @can('countries.delete')
+                                    <a data-item_id='{{ $country->id }}' class="btn btn-danger btn-sm delete_item">
                                     <i class="icon-trash  "></i>
                                 </a>
+                                @endcan
                             </td>
                         </tr>
                         @endforeach

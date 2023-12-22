@@ -74,6 +74,8 @@ switch (Request::segment(2)) {
                 </span>
             </a>
         </li>
+
+        @if(auth()->user()->hasAnyPermission(['admins.list' , 'admins.show' , 'admins.delete' , 'admins.edit' , 'admins.add' ]) )
         <li class="nav-item nav-item-submenu">
             <a href="#" class="nav-link {{ $admins }}">
                 <i class="icon-user "></i>
@@ -81,24 +83,42 @@ switch (Request::segment(2)) {
             </a>
             <ul class="nav-group-sub collapse" data-submenu-title="المشرفين">
                 <li class="nav-item"><a href="{{ route('board.admins.index') }}" class="nav-link"> عرض كافه
-                المشرفين </a></li>
+                المشرفين </a></li>            
+                @can('admins.add')
                 <li class="nav-item"><a href="{{ route('board.admins.create') }}" class="nav-link"> إضافه مشرف
                 جديد </a></li>
+                @endcan
+
             </ul>
         </li>
+        @endif
+
+
+        @if (auth()->user()->hasAnyPermission(['countries.list' , 'countries.show' , 'countries.delete' , 'countries.edit' , 'countries.add' ]) )
         <li class="nav-item nav-item-submenu">
             <a href="#" class="nav-link {{ $countries }}">
                 <i class="icon-location3 "></i>
                 <span> الدول </span>
             </a>
             <ul class="nav-group-sub collapse" data-submenu-title="الدول ">
-                <li class="nav-item"><a href="{{ route('board.countries.index') }}" class="nav-link"> عرض كافه
-                الدول </a></li>
-                <li class="nav-item"><a href="{{ route('board.countries.create') }}" class="nav-link"> إضافه
+                <li class="nav-item">
+                    <a href="{{ route('board.countries.index') }}" class="nav-link"> 
+                        عرض كافه الدول 
+                    </a>
+                </li>
+
+                @can('countries.add')
+                   <li class="nav-item"><a href="{{ route('board.countries.create') }}" class="nav-link"> إضافه
                 دوله جديده </a></li>
 
+                @endcan
+                
             </ul>
         </li>
+        @endif
+
+{{-- 
+        
         <li class="nav-item nav-item-submenu">
             <a href="#" class="nav-link {{ $categories }}">
                 <i class="ph-swatches"></i>
@@ -204,7 +224,7 @@ switch (Request::segment(2)) {
                 المعاملات  </a></li>
                 
             </ul>
-        </li>
+        </li> --}}
 
     </ul>
 </div>

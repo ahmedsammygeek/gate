@@ -15,6 +15,7 @@ class CountryController extends Controller
      */
     public function index()
     {
+        $this->authorize('countries.list');
         return view('board.countries.index');
     }
 
@@ -23,6 +24,7 @@ class CountryController extends Controller
      */
     public function create()
     {
+        $this->authorize('countries.add');
         return view('board.countries.create');
     }
 
@@ -31,6 +33,8 @@ class CountryController extends Controller
      */
     public function store(StoreCountryRequest $request)
     {
+        $this->authorize('countries.add');
+
         $country = new Country;
         $country->setTranslation('name' , 'ar' , $request->name_ar );
         $country->setTranslation('name' , 'en' , $request->name_en );
@@ -47,8 +51,8 @@ class CountryController extends Controller
      */
     public function show(Country $country)
     {
+        $this->authorize('countries.show');
         $country->load(['user']);
-        
         return view('board.countries.show' , compact('country') );
     }
 
@@ -57,6 +61,8 @@ class CountryController extends Controller
      */
     public function edit(Country $country)
     {
+        $this->authorize('countries.edit');
+
         return view('board.countries.edit' , compact('country') );
     }
 
@@ -65,20 +71,13 @@ class CountryController extends Controller
      */
     public function update(UpdateCountryRequest $request, Country $country)
     {
+        $this->authorize('countries.edit');
         $country->setTranslation('name' , 'ar' , $request->name_ar );
         $country->setTranslation('name' , 'en' , $request->name_en );
         $country->code = $request->code;
         $country->is_active = $request->filled('active') ? 1 : 0;
         $country->save();
-
         return redirect(route('board.countries.index'))->with('success' , 'تم إضافه الدوله بنجاح');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }

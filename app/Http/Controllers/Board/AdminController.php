@@ -16,6 +16,7 @@ class AdminController extends Controller
      */
     public function index()
     {
+        $this->authorize('admins.list');
         return view('board.admins.index');
     }
 
@@ -24,6 +25,7 @@ class AdminController extends Controller
      */
     public function create()
     {
+        $this->authorize('admins.add');
         return view('board.admins.create');
     }
 
@@ -32,6 +34,7 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('admins.add');
         $admin = new User;
         $admin->name = $request->name;
         $admin->email = $request->email;
@@ -51,7 +54,7 @@ class AdminController extends Controller
             }
             $admin->syncPermissions($request->permissions);
         }
-        return redirect(route('board.admins.index'))->with('success' , 'تم إضافه المشرف بنجاح');
+        return redirect(route('board.admins.create'))->with('success' , 'تم إضافه المشرف بنجاح');
     }
 
     /**
@@ -59,6 +62,7 @@ class AdminController extends Controller
      */
     public function show(User $admin)
     {
+        $this->authorize('admins.show');
         $admin->load('permissions');
         return view('board.admins.show' , compact('admin') );
     }
@@ -68,7 +72,7 @@ class AdminController extends Controller
      */
     public function edit(User $admin)
     {
-
+        $this->authorize('admins.edit');
         $user_permissions = $admin->permissions()->pluck('name')->toArray();
         // dd($user_permissions);
         return view('board.admins.edit' , compact('admin' ,'user_permissions' ) );
@@ -79,6 +83,7 @@ class AdminController extends Controller
      */
     public function update(UpdateAdminRequest $request,User $admin)
     {
+        $this->authorize('admins.edit');
         $admin->name = $request->name;
         $admin->email = $request->email;
         $admin->phone = $request->phone;
@@ -97,7 +102,7 @@ class AdminController extends Controller
             }
             $admin->syncPermissions($request->permissions);
         }
-        return redirect(route('board.admins.index'))->with('success' , 'تم تعديل بيانات المشرف بنجاح');
+        return redirect(route('board.admins.edit' , $admin ))->with('success' , 'تم تعديل بيانات المشرف بنجاح');
     }
 
     /**
