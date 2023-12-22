@@ -13,6 +13,7 @@ class UserController extends Controller
      */
     public function index()
     {
+        $this->authorize('users.list');
         return view('board.users.index');
     }
 
@@ -21,6 +22,7 @@ class UserController extends Controller
      */
     public function courses(User $user)
     {
+        $this->authorize('users.show');
         return view('board.users.courses' , compact('user') );
     }
 
@@ -30,6 +32,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        $this->authorize('users.show');
         return view('board.users.show' , compact('user'));
     }
 
@@ -38,6 +41,7 @@ class UserController extends Controller
      */
     public function purchases(User $user)
     {
+        $this->authorize('users.show');
         return view('board.users.purchases' , compact('user'));
     }
 
@@ -46,12 +50,14 @@ class UserController extends Controller
      */
     public function installments(User $user)
     {
+        $this->authorize('users.show');
         return view('board.users.installments' , compact('user'));
     }
 
 
     public function transactions(User $user)
     {
+        $this->authorize('users.show');
         return view('board.users.transactions' , compact('user'));
     }
 

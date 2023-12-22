@@ -180,11 +180,7 @@ switch (Request::segment(2)) {
     </li>
     @endif
 
-{{-- 
-        
-       
-
-       
+    @if (auth()->user()->hasAnyPermission(['users.list' , 'users.show' , 'users.delete' , 'users.edit' ]))
         <li class="nav-item nav-item-submenu">
             <a href="#" class="nav-link {{ $users }}">
                 <i class="icon-users4 "></i>
@@ -193,9 +189,15 @@ switch (Request::segment(2)) {
             <ul class="nav-group-sub collapse" data-submenu-title="المستخدمين">
                 <li class="nav-item"><a href="{{ route('board.users.index') }}" class="nav-link"> عرض كافه
                 المستخدمين </a></li>
-
             </ul>
         </li>
+    @endif
+
+{{-- 
+        
+       
+
+       
         <li class="nav-item nav-item-submenu">
             <a href="#" class="nav-link {{ $courses }}">
                 <i class="icon-typewriter "></i>

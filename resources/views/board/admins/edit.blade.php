@@ -155,18 +155,18 @@
                                                                 <input type="checkbox" name='permissions[]' value="users.show" class="form-check-input" id="users.show" {{ in_array('users.show', $user_permissions ) ? 'checked' : '' }} >
                                                                 <label class="form-check-label" for="users.show"> عرض بيانات المستخدم </label>
                                                             </div>
-                                                            <div class="form-check text-start mb-2">
+                                                            {{-- <div class="form-check text-start mb-2">
                                                                 <input type="checkbox" name='permissions[]' value="users.add" class="form-check-input" id="users.add" {{ in_array('users.add', $user_permissions ) ? 'checked' : '' }} >
                                                                 <label class="form-check-label" for="users.add"> إضافه مستخدم جديد </label>
-                                                            </div>
+                                                            </div> --}}
                                                             <div class="form-check text-start mb-2">
                                                                 <input type="checkbox" name='permissions[]' value="users.delete" class="form-check-input" id="users.delete" {{ in_array('users.delete', $user_permissions ) ? 'checked' : '' }} >
                                                                 <label class="form-check-label" for="users.delete"> حذف مستخدم </label>
                                                             </div>
-                                                            <div class="form-check text-start mb-2">
+                                                            {{-- <div class="form-check text-start mb-2">
                                                                 <input type="checkbox" name='permissions[]' value="users.edit" class="form-check-input" id="users.edit" {{ in_array('users.edit', $user_permissions ) ? 'checked' : '' }} >
                                                                 <label class="form-check-label" for="users.edit"> تعديل بيانات المستخدم </label>
-                                                            </div>
+                                                            </div> --}}
                                                         </div>
                                                     </div>
                                                 </div>

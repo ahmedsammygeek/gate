@@ -46,7 +46,7 @@
                                 <div class="col-sm-6 col-lg-5">
                                     <div class="card">
                                         <div class="card-img-actions m-1">
-                                           <a href="{{ Storage::url('users/'.$user->image) }}" class="btn btn-outline-white btn-icon rounded-pill" data-bs-popup="lightbox" data-gallery="gallery1">
+                                         <a href="{{ Storage::url('users/'.$user->image) }}" class="btn btn-outline-white btn-icon rounded-pill" data-bs-popup="lightbox" data-gallery="gallery1">
                                             <img src="{{ Storage::url('users/'.$user->image) }}" class="card-img " width="60" height="60" alt="">
                                         </a>
                                     </div>
@@ -72,15 +72,19 @@
 
 
                         <td class="text-center">
+                            @can('users.show')
                             <a  href="{{ route('board.users.show'  , $user ) }}"  class="btn btn-sm btn-primary  ">
                                 <i class="icon-eye  "></i>
                             </a>
+                            @endcan
 {{--                             <a href="{{ route('board.admins.edit'  , $admin ) }}"  class="btn btn-sm btn-warning ">
                                 <i class="icon-database-edit2  "></i>
                             </a> --}}
+                            @can('users.delete')
                             <a data-item_id='{{ $user->id }}' class="btn btn-danger btn-sm delete_item">
                                 <i class="icon-trash  "></i>
                             </a>
+                            @endcan
                         </td>
                     </tr>
                     @endforeach

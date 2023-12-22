@@ -158,18 +158,18 @@
                                                         <input type="checkbox" name='permissions[]' value="users.show" class="form-check-input" id="users.show" >
                                                         <label class="form-check-label" for="users.show"> عرض بيانات المستخدم </label>
                                                     </div>
-                                                    <div class="form-check text-start mb-2">
+                                                    {{-- <div class="form-check text-start mb-2">
                                                         <input type="checkbox" name='permissions[]' value="users.add" class="form-check-input" id="users.add" >
                                                         <label class="form-check-label" for="users.add"> إضافه مستخدم جديد </label>
-                                                    </div>
+                                                    </div> --}}
                                                     <div class="form-check text-start mb-2">
                                                         <input type="checkbox" name='permissions[]' value="users.delete" class="form-check-input" id="users.delete" >
                                                         <label class="form-check-label" for="users.delete"> حذف مستخدم </label>
                                                     </div>
-                                                    <div class="form-check text-start mb-2">
+                                                    {{-- <div class="form-check text-start mb-2">
                                                         <input type="checkbox" name='permissions[]' value="users.edit" class="form-check-input" id="users.edit" >
                                                         <label class="form-check-label" for="users.edit"> تعديل بيانات المستخدم </label>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                             </div>
                                         </div>
