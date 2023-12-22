@@ -388,6 +388,52 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <p class="fw-semibold"> صلاحيات عمليات الشراء </p>
+                                                        <div class="border p-3 rounded">
+                                                            <div class="form-check text-start mb-2">
+                                                                <input type="checkbox" name='permissions[]' value="purchases.list" class="form-check-input" id="purchases.list"  {{ in_array('purchases.list', $user_permissions ) ? 'checked' : '' }} >
+                                                                <label class="form-check-label" for="purchases.list"> عرض كافه عمليات الشراء </label>
+                                                            </div>
+                                                            <div class="form-check text-start mb-2">
+                                                                <input type="checkbox" name='permissions[]' value="purchases.show" class="form-check-input" id="purchases.show"  {{ in_array('purchases.list', $user_permissions ) ? 'checked' : '' }} >
+                                                                <label class="form-check-label" for="purchases.show"> عرض بيانات الشراء </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <p class="fw-semibold"> صلاحيات اقساط للمستخدمين </p>
+                                                        <div class="border p-3 rounded">
+                                                            <div class="form-check text-start mb-2">
+                                                                <input type="checkbox" name='permissions[]' value="installments.list" class="form-check-input" id="installments.list"  {{ in_array('installments.list', $user_permissions ) ? 'checked' : '' }} >
+                                                                <label class="form-check-label" for="installments.list"> عرض كافه الاقساط </label>
+                                                            </div>
+                                                            <div class="form-check text-start mb-2">
+                                                                <input type="checkbox" name='permissions[]' value="installments.show" class="form-check-input" id="installments.show"  {{ in_array('installments.list', $user_permissions ) ? 'checked' : '' }} >
+                                                                <label class="form-check-label" for="installments.show"> عرض بيانات القسط </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <p class="fw-semibold"> صلاحيات المعاملات الماليه  </p>
+                                                        <div class="border p-3 rounded">
+                                                            <div class="form-check text-start mb-2">
+                                                                <input type="checkbox" name='permissions[]' value="transactions.list" class="form-check-input" id="transactions.list"   {{ in_array('transactions.list', $user_permissions ) ? 'checked' : '' }}>
+                                                                <label class="form-check-label" for="transactions.list"> عرض كافه المعاملات </label>
+                                                            </div>
+                                                            <div class="form-check text-start mb-2">
+                                                                <input type="checkbox" name='permissions[]' value="transactions.show" class="form-check-input" id="transactions.show"  {{ in_array('transactions.list', $user_permissions ) ? 'checked' : '' }} >
+                                                                <label class="form-check-label" for="transactions.show"> عرض بيانات المعامله </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -427,7 +473,7 @@
                 <script src="{{ asset('board_assets/js/vendor/notifications/sweet_alert.min.js') }}"></script>
                 <script src="{{ asset('board_assets/demo/pages/gallery.js') }}"></script>
                 <script>
-                 function showPassword() {
+                   function showPassword() {
                     var x = document.getElementById("passwordInput");
                     var passEye = document.getElementById("passEye");
 

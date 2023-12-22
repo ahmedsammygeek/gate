@@ -12,49 +12,22 @@ class UserInstallmentController extends Controller
      */
     public function index()
     {
+        $this->authorize('installments.list');
         return view('board.user_installments.index');
     }
 
    
 
     /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      */
     public function show(UserInstallments $installment)
     {
+        $this->authorize('installments.show');
+
         $installment->load(['user' , 'course' , 'purchase' , 'transaction' ]);
         return view('board.user_installments.show' , compact('installment') );
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }

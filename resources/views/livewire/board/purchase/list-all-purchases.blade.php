@@ -118,9 +118,11 @@
                                 @endswitch
                             </td>
                             <td class="text-center">
-                                <a  href="{{ route('board.purchases.show'  , $purchase ) }}"  class="btn btn-sm btn-primary  ">
+                               @can('purchases.show')
+                                   <a  href="{{ route('board.purchases.show'  , $purchase ) }}"  class="btn btn-sm btn-primary  ">
                                     <i class="icon-eye  "></i>
                                 </a>
+                               @endcan
                             </td>
                         </tr>
                         @endforeach

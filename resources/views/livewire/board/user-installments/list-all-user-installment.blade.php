@@ -98,9 +98,11 @@
                                 @endswitch
                             </td>
                             <td class="text-center">
-                                <a  href="{{ route('board.installments.show'  , $installment ) }}"  class="btn btn-sm btn-primary  ">
+                                @can('installments.show')
+                                   <a  href="{{ route('board.installments.show'  , $installment ) }}"  class="btn btn-sm btn-primary  ">
                                     <i class="icon-eye  "></i>
                                 </a>
+                                @endcan
                             </td>
                         </tr>
                         @endforeach
