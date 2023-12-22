@@ -76,10 +76,10 @@ switch (Request::segment(2)) {
         </li>
         <li class="nav-item nav-item-submenu">
             <a href="#" class="nav-link {{ $admins }}">
-                <i class="ph-layout"></i>
+                <i class="icon-user "></i>
                 <span> المشرفين </span>
             </a>
-            <ul class="nav-group-sub collapse" data-submenu-title="Admins">
+            <ul class="nav-group-sub collapse" data-submenu-title="المشرفين">
                 <li class="nav-item"><a href="{{ route('board.admins.index') }}" class="nav-link"> عرض كافه
                 المشرفين </a></li>
                 <li class="nav-item"><a href="{{ route('board.admins.create') }}" class="nav-link"> إضافه مشرف
@@ -88,10 +88,10 @@ switch (Request::segment(2)) {
         </li>
         <li class="nav-item nav-item-submenu">
             <a href="#" class="nav-link {{ $countries }}">
-                <i class="ph-note-blank"></i>
+                <i class="icon-location3 "></i>
                 <span> الدول </span>
             </a>
-            <ul class="nav-group-sub collapse" data-submenu-title="Countries ">
+            <ul class="nav-group-sub collapse" data-submenu-title="الدول ">
                 <li class="nav-item"><a href="{{ route('board.countries.index') }}" class="nav-link"> عرض كافه
                 الدول </a></li>
                 <li class="nav-item"><a href="{{ route('board.countries.create') }}" class="nav-link"> إضافه
@@ -104,7 +104,7 @@ switch (Request::segment(2)) {
                 <i class="ph-swatches"></i>
                 <span> التصنيفات </span>
             </a>
-            <ul class="nav-group-sub collapse" data-submenu-title="Categories">
+            <ul class="nav-group-sub collapse" data-submenu-title="التصنيفات">
                 <li class="nav-item"><a href="{{ route('board.categories.index') }}" class="nav-link "> عرض كافه
                 التصنيفات </a></li>
                 <li class="nav-item"><a href="{{ route('board.categories.create') }}" class="nav-link ">إضافه
@@ -114,10 +114,10 @@ switch (Request::segment(2)) {
 
         <li class="nav-item nav-item-submenu">
             <a href="#" class="nav-link {{ $universities }}">
-                <i class="ph-note-blank"></i>
+                <i class="icon-office "></i>
                 <span> الجامعات </span>
             </a>
-            <ul class="nav-group-sub collapse" data-submenu-title="Universities">
+            <ul class="nav-group-sub collapse" data-submenu-title="الجمعات">
                 <li class="nav-item"><a href="{{ route('board.universities.index') }}" class="nav-link"> عرض
                 كافه الجامعات </a></li>
                 <li class="nav-item"><a href="{{ route('board.universities.create') }}" class="nav-link">إضافه
@@ -127,10 +127,10 @@ switch (Request::segment(2)) {
 
         <li class="nav-item nav-item-submenu">
             <a href="#" class="nav-link {{ $trainers }}">
-                <i class="ph-note-blank"></i>
+                <i class="icon-users "></i>
                 <span> المدربين </span>
             </a>
-            <ul class="nav-group-sub collapse" data-submenu-title="Trainers">
+            <ul class="nav-group-sub collapse" data-submenu-title="المدربين">
                 <li class="nav-item"><a href="{{ route('board.trainers.index') }}" class="nav-link"> عرض كافه
                 المدربين </a></li>
                 <li class="nav-item"><a href="{{ route('board.trainers.create') }}" class="nav-link">إضافه مدرب
@@ -139,10 +139,10 @@ switch (Request::segment(2)) {
         </li>
         <li class="nav-item nav-item-submenu">
             <a href="#" class="nav-link {{ $users }}">
-                <i class="ph-note-blank"></i>
+                <i class="icon-users4 "></i>
                 <span> المستخدمين </span>
             </a>
-            <ul class="nav-group-sub collapse" data-submenu-title="Trainers">
+            <ul class="nav-group-sub collapse" data-submenu-title="المستخدمين">
                 <li class="nav-item"><a href="{{ route('board.users.index') }}" class="nav-link"> عرض كافه
                 المستخدمين </a></li>
 
@@ -150,10 +150,10 @@ switch (Request::segment(2)) {
         </li>
         <li class="nav-item nav-item-submenu">
             <a href="#" class="nav-link {{ $courses }}">
-                <i class="ph-note-blank"></i>
+                <i class="icon-typewriter "></i>
                 <span> الكورسات </span>
             </a>
-            <ul class="nav-group-sub collapse" data-submenu-title="Trainers">
+            <ul class="nav-group-sub collapse" data-submenu-title="الكورسات">
                 <li class="nav-item"><a href="{{ route('board.courses.index') }}" class="nav-link"> عرض كافه
                 الكورسات </a></li>
                 <li class="nav-item"><a href="{{ route('board.courses.create') }}" class="nav-link">إضافه كورس
@@ -162,10 +162,10 @@ switch (Request::segment(2)) {
         </li>
         <li class="nav-item nav-item-submenu">
             <a href="#" class="nav-link {{ $packages }}">
-                <i class="ph-note-blank"></i>
+                <i class="icon-package "></i>
                 <span> الباقات </span>
             </a>
-            <ul class="nav-group-sub collapse" data-submenu-title="Trainers">
+            <ul class="nav-group-sub collapse" data-submenu-title="الباقات">
                 <li class="nav-item"><a href="{{ route('board.packages.index') }}" class="nav-link"> عرض كافه
                 الباقات </a></li>
                 <li class="nav-item"><a href="{{ route('board.packages.create') }}" class="nav-link">إضافه باقه
@@ -174,10 +174,10 @@ switch (Request::segment(2)) {
         </li>
         <li class="nav-item nav-item-submenu">
             <a href="#" class="nav-link {{ $purchases }}">
-                <i class="ph-shopping-cart "></i>
+                <i class="icon-cart "></i>
                 <span> عمليات الشراء </span>
             </a>
-            <ul class="nav-group-sub collapse" data-submenu-title="Trainers">
+            <ul class="nav-group-sub collapse" data-submenu-title="عمليات الشراء">
                 <li class="nav-item"><a href="{{ route('board.purchases.index') }}" class="nav-link"> عرض كافه
                 عمليات الشراء </a></li>
                 
@@ -188,7 +188,7 @@ switch (Request::segment(2)) {
                 <i class="ph-currency-circle-dollar "></i>
                 <span> الاقساط </span>
             </a>
-            <ul class="nav-group-sub collapse" data-submenu-title="Trainers">
+            <ul class="nav-group-sub collapse" data-submenu-title="الاقساط">
                 <li class="nav-item"><a href="{{ route('board.installments.index') }}" class="nav-link"> عرض كافه
                 الاقساط </a></li>
                 
@@ -196,10 +196,10 @@ switch (Request::segment(2)) {
         </li>
         <li class="nav-item nav-item-submenu">
             <a href="#" class="nav-link {{ $transactions }}">
-                <i class="ph-currency-circle-dollar "></i>
+                <i class="icon-coin-dollar "></i>
                 <span> المعاملات  </span>
             </a>
-            <ul class="nav-group-sub collapse" data-submenu-title="Trainers">
+            <ul class="nav-group-sub collapse" data-submenu-title="المعاملات">
                 <li class="nav-item"><a href="{{ route('board.transactions.index') }}" class="nav-link"> عرض كافه
                 المعاملات  </a></li>
                 
