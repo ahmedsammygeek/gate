@@ -15,6 +15,7 @@ class TrainerController extends Controller
      */
     public function index()
     {
+        $this->authorize('trainers.list');   
         return view('board.trainers.index');
     }
 
@@ -23,6 +24,7 @@ class TrainerController extends Controller
      */
     public function create()
     {
+        $this->authorize('trainers.add');
         return view('board.trainers.create');
     }
 
@@ -31,6 +33,7 @@ class TrainerController extends Controller
      */
     public function store(StoreTrainerRequest $request)
     {
+        $this->authorize('trainers.add');
         $trainer = new User;
         $trainer->user_id = Auth::id();
         $trainer->type = User::TRAINER;
@@ -52,6 +55,7 @@ class TrainerController extends Controller
      */
     public function show(User $trainer)
     {
+        $this->authorize('trainers.show');
         return view('board.trainers.show' , compact('trainer') );
     }
 
@@ -60,6 +64,7 @@ class TrainerController extends Controller
      */
     public function edit(User $trainer)
     {
+        $this->authorize('trainers.edit');
         return view('board.trainers.edit' , compact('trainer') );
     }
 
@@ -68,6 +73,7 @@ class TrainerController extends Controller
      */
     public function update(UpdateTrainerRequest $request, User $trainer)
     {
+        $this->authorize('trainers.edit');
         $trainer->job_title = $request->job_title;
         $trainer->name = $request->name;
         $trainer->bio = $request->bio;
@@ -81,13 +87,5 @@ class TrainerController extends Controller
         }
         $trainer->save();
         return redirect(route('board.trainers.index'))->with('success' , 'تم تعديل المدرب بنجاح' );
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

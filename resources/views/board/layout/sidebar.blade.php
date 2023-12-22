@@ -82,22 +82,22 @@ switch (Request::segment(2)) {
                 <span> المشرفين </span>
             </a>
             <ul class="nav-group-sub collapse" data-submenu-title="المشرفين">
-               @if (auth()->user()->hasAnyPermission(['admins.list' , 'admins.show' , 'admins.delete' , 'admins.edit' ]) )
-               <li class="nav-item"><a href="{{ route('board.admins.index') }}" class="nav-link"> عرض كافه
-               المشرفين </a></li>          
-               @endif  
-               @can('admins.add')
-               <li class="nav-item"><a href="{{ route('board.admins.create') }}" class="nav-link"> إضافه مشرف
-               جديد </a></li>
-               @endcan
+             @if (auth()->user()->hasAnyPermission(['admins.list' , 'admins.show' , 'admins.delete' , 'admins.edit' ]) )
+             <li class="nav-item"><a href="{{ route('board.admins.index') }}" class="nav-link"> عرض كافه
+             المشرفين </a></li>          
+             @endif  
+             @can('admins.add')
+             <li class="nav-item"><a href="{{ route('board.admins.create') }}" class="nav-link"> إضافه مشرف
+             جديد </a></li>
+             @endcan
 
-           </ul>
-       </li>
-       @endif
+         </ul>
+     </li>
+     @endif
 
 
-       @if (auth()->user()->hasAnyPermission(['countries.list' , 'countries.show' , 'countries.delete' , 'countries.edit' , 'countries.add' ]) )
-       <li class="nav-item nav-item-submenu">
+     @if (auth()->user()->hasAnyPermission(['countries.list' , 'countries.show' , 'countries.delete' , 'countries.edit' , 'countries.add' ]) )
+     <li class="nav-item nav-item-submenu">
         <a href="#" class="nav-link {{ $countries }}">
             <i class="icon-location3 "></i>
             <span> الدول </span>
@@ -160,22 +160,31 @@ switch (Request::segment(2)) {
     </li>
     @endif
 
+
+    @if (auth()->user()->hasAnyPermission(['trainers.list' , 'trainers.show' , 'trainers.delete' , 'trainers.edit' , 'trainers.add' ]) )
+    <li class="nav-item nav-item-submenu">
+        <a href="#" class="nav-link {{ $trainers }}">
+            <i class="icon-users "></i>
+            <span> المدربين </span>
+        </a>
+        <ul class="nav-group-sub collapse" data-submenu-title="المدربين">
+            @if (auth()->user()->hasAnyPermission(['trainers.list' , 'trainers.show' , 'trainers.delete' , 'trainers.edit']) )
+            <li class="nav-item"><a href="{{ route('board.trainers.index') }}" class="nav-link"> عرض كافه
+            المدربين </a></li>               
+            @endif
+            @can('trainers.add')
+            <li class="nav-item"><a href="{{ route('board.trainers.create') }}" class="nav-link">إضافه مدرب
+            جديد </a></li>
+            @endcan
+        </ul>
+    </li>
+    @endif
+
 {{-- 
         
        
 
-        <li class="nav-item nav-item-submenu">
-            <a href="#" class="nav-link {{ $trainers }}">
-                <i class="icon-users "></i>
-                <span> المدربين </span>
-            </a>
-            <ul class="nav-group-sub collapse" data-submenu-title="المدربين">
-                <li class="nav-item"><a href="{{ route('board.trainers.index') }}" class="nav-link"> عرض كافه
-                المدربين </a></li>
-                <li class="nav-item"><a href="{{ route('board.trainers.create') }}" class="nav-link">إضافه مدرب
-                جديد </a></li>
-            </ul>
-        </li>
+       
         <li class="nav-item nav-item-submenu">
             <a href="#" class="nav-link {{ $users }}">
                 <i class="icon-users4 "></i>
