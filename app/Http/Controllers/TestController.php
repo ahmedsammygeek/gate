@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use Exception;
 use Illuminate\Http\Request;
-use App\Models\Course;
+use App\Models\User;
 class TestController extends Controller
 {
   public function index()
   {
 
-    $user = User::where('email' )->first();
+    $user = User::find(42);
 
     $user->assignRole('Super Admin');
 
