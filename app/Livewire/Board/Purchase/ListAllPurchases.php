@@ -4,8 +4,9 @@ namespace App\Livewire\Board\Purchase;
 
 use Livewire\Component;
 use App\Models\Purchase;
-
 use Livewire\WithPagination;
+use Excel;
+use App\Exports\Board\Purchase\PurchaseExcelEport;
 class ListAllPurchases extends Component
 {
     use WithPagination;
@@ -37,9 +38,9 @@ class ListAllPurchases extends Component
         $this->resetPage();
     }
 
-    public function render()
+    public function generateQuery()
     {
-        $purchases = Purchase::query()->with(['user'])
+        return Purchase::query()->with(['user'])
         ->when($this->search , function($query){
             $query->where('purchase_number' , 'LIKE' , '%'.$this->search.'%' );
         })
@@ -55,8 +56,30 @@ class ListAllPurchases extends Component
         ->when($this->end_date , function($query){
             $query->whereDate('created_at' , '<='  , $this->end_date );
         })
-        ->latest()
-        ->paginate($this->rows);
+        ->latest();
+
+    }
+
+    public function resetFilters() {
+
+        $this->end_date = null;
+        $this->start_date = null;
+        $this->purchase_number = null;
+        $this->is_paid = 'all';
+        $this->purchase_type = null;
+    }
+
+    public function excelSheet()
+    {
+        $purchases = $this->generateQuery();
+
+        return Excel::download(new PurchaseExcelEport($purchases), 'purchases.xlsx');
+    }
+
+
+    public function render()
+    {
+        $purchases =  $this->generateQuery()->paginate($this->rows);
         return view('livewire.board.purchase.list-all-purchases' , compact('purchases'));
     }
 }

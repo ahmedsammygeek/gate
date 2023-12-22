@@ -170,6 +170,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         Vimeo\Laravel\VimeoServiceProvider::class , 
+            Maatwebsite\Excel\ExcelServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -185,7 +186,8 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
-        'Vimeo' => Vimeo\Laravel\Facades\Vimeo::class
+        'Vimeo' => Vimeo\Laravel\Facades\Vimeo::class , 
+            'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ])->toArray(),
 
 ];

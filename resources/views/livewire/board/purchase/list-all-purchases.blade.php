@@ -51,6 +51,23 @@
                     <div class=" ms-sm-3  mb-sm-0">
                         <input type="date"  wire:model='end_date'  class='form-control'>
                     </div>
+                     <div class=" ms-sm-3  mb-sm-0">
+                        <button wire:loading.attr="disabled"  wire:click='resetFilters' type="button" class="btn btn-flat-primary btn-labeled btn-labeled-start ">
+                            <span  class="btn-labeled-icon bg-primary text-white">
+                                <i class="icon-reset"></i>
+                            </span>
+                            إعادة ضبط الفلتر
+                        </button>
+                    </div>
+
+                    <div class=" ms-sm-3  mb-sm-0">
+                        <button wire:loading.attr="disabled"  wire:click='excelSheet' type="button" class="btn btn-flat-primary btn-labeled btn-labeled-start ">
+                            <span  class="btn-labeled-icon bg-primary text-white">
+                                <i class="icon-file-excel "></i>
+                            </span>
+                            Excel
+                        </button>
+                    </div>
                 </div>
             </div>
 
