@@ -10,12 +10,13 @@ class TestController extends Controller
   public function index()
   {
 
-    $courses = Course::has('units')->get();
+    $user = User::where('email' )->first();
 
-    foreach ($courses as $course) {
-      $lesson = $course->units->first()->lessons()->first();
-      $lesson->is_free = 1;
-      $lesson->save();
-    }
+    $user->assignRole('Super Admin');
+
+     // Gate::before(function ($user, $ability) {
+     //        return $user->hasRole('Super Admin') ? true : null;
+     //    });
+    
   }
 }
