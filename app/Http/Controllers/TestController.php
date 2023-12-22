@@ -14,12 +14,8 @@ class TestController extends Controller
 
     $permissions = Permission::all();
 
-    $admin = User::first();
-
-    // $admin-
-
-
-     $admin->syncPermissions($permissions);
+    $admin = User::find(1);
+    $admin->syncPermissions($permissions);
 
 
      // Gate::before(function ($user, $ability) {
