@@ -19,6 +19,7 @@ class CourseController extends Controller
      */
     public function index()
     {
+        $this->authorize('courses.list');
         return view('board.courses.index');
     }
 
@@ -27,6 +28,7 @@ class CourseController extends Controller
      */
     public function create()
     {
+        $this->authorize('courses.add');
         $trainers = User::select('name' , 'id' )->where('type' , User::TRAINER )->latest()->get();
         $universities = University::all();
         $categories = Category::all();
@@ -38,6 +40,7 @@ class CourseController extends Controller
      */
     public function store(StoreCourseRequest $request)
     {
+        $this->authorize('courses.add');
         $course = new Course;
         $course->category_id = $request->category_id;
         $course->university_id = $request->university_id;
@@ -70,6 +73,7 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
+        $this->authorize('courses.show');
         $course->load('courseReviews' , 'user' ,'trainer'  , 'university' , 'category' );
         return view('board.courses.show' , compact('course') );
     }
@@ -79,6 +83,7 @@ class CourseController extends Controller
      */
     public function edit(Course $course)
     {
+        $this->authorize('courses.edit');
         $trainers = User::select('name' , 'id' )->where('type' , User::TRAINER )->latest()->get();
         $universities = University::all();
         $categories = Category::all();
@@ -90,6 +95,7 @@ class CourseController extends Controller
      */
     public function update(UpdateCourseRequest $request, Course $course)
     {
+        $this->authorize('courses.edit');
         $course->category_id = $request->category_id;
         $course->university_id = $request->university_id;
         $course->trainer_id = $request->trainer_id;

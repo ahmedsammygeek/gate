@@ -181,16 +181,35 @@ switch (Request::segment(2)) {
     @endif
 
     @if (auth()->user()->hasAnyPermission(['users.list' , 'users.show' , 'users.delete' , 'users.edit' ]))
-        <li class="nav-item nav-item-submenu">
-            <a href="#" class="nav-link {{ $users }}">
-                <i class="icon-users4 "></i>
-                <span> المستخدمين </span>
-            </a>
-            <ul class="nav-group-sub collapse" data-submenu-title="المستخدمين">
-                <li class="nav-item"><a href="{{ route('board.users.index') }}" class="nav-link"> عرض كافه
-                المستخدمين </a></li>
-            </ul>
-        </li>
+    <li class="nav-item nav-item-submenu">
+        <a href="#" class="nav-link {{ $users }}">
+            <i class="icon-users4 "></i>
+            <span> المستخدمين </span>
+        </a>
+        <ul class="nav-group-sub collapse" data-submenu-title="المستخدمين">
+            <li class="nav-item"><a href="{{ route('board.users.index') }}" class="nav-link"> عرض كافه
+            المستخدمين </a></li>
+        </ul>
+    </li>
+    @endif
+
+    @if (auth()->user()->hasAnyPermission(['courses.list' , 'courses.show' , 'courses.delete' , 'courses.edit' , 'courses.add' ]))
+    <li class="nav-item nav-item-submenu">
+        <a href="#" class="nav-link {{ $courses }}">
+            <i class="icon-typewriter "></i>
+            <span> الكورسات </span>
+        </a>
+        <ul class="nav-group-sub collapse" data-submenu-title="الكورسات">
+            @if (auth()->user()->hasAnyPermission(['courses.list' , 'courses.show' , 'courses.delete' , 'courses.edit' ]))
+            <li class="nav-item"><a href="{{ route('board.courses.index') }}" class="nav-link"> عرض كافه
+            الكورسات </a></li>
+            @endif
+            @can('courses.add')
+            <li class="nav-item"><a href="{{ route('board.courses.create') }}" class="nav-link">إضافه كورس
+            جديد </a></li>
+            @endcan
+        </ul>
+    </li>
     @endif
 
 {{-- 
@@ -198,18 +217,6 @@ switch (Request::segment(2)) {
        
 
        
-        <li class="nav-item nav-item-submenu">
-            <a href="#" class="nav-link {{ $courses }}">
-                <i class="icon-typewriter "></i>
-                <span> الكورسات </span>
-            </a>
-            <ul class="nav-group-sub collapse" data-submenu-title="الكورسات">
-                <li class="nav-item"><a href="{{ route('board.courses.index') }}" class="nav-link"> عرض كافه
-                الكورسات </a></li>
-                <li class="nav-item"><a href="{{ route('board.courses.create') }}" class="nav-link">إضافه كورس
-                جديد </a></li>
-            </ul>
-        </li>
         <li class="nav-item nav-item-submenu">
             <a href="#" class="nav-link {{ $packages }}">
                 <i class="icon-package "></i>
