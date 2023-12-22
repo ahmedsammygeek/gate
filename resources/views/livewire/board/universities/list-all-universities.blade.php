@@ -1,6 +1,8 @@
 <div class="row">
     <div class="col-md-12">
+        @can('universities.add')
         <a href="{{ route('board.universities.create') }}" class="btn btn-primary mb-2" style="float: left;">  <i class="icon-plus3  me-2"></i>  إضافه جامعه جديده </a>
+        @endcan
     </div>
 
 
@@ -71,15 +73,21 @@
 
 
                             <td class="text-center">
+                                @can('universities.show')
                                 <a  href="{{ route('board.universities.show'  , $university ) }}"  class="btn btn-sm btn-primary  ">
                                     <i class="icon-eye  "></i>
                                 </a>
+                                @endcan
+                                @can('universities.edit')
                                 <a href="{{ route('board.universities.edit'  , $university ) }}"  class="btn btn-sm btn-warning ">
                                     <i class="icon-database-edit2  "></i>
                                 </a>
+                                @endcan
+                                @can('universities.delete', Model::class)
                                 <a data-item_id='{{ $university->id }}' class="btn btn-danger btn-sm delete_item">
                                     <i class="icon-trash  "></i>
                                 </a>
+                                @endcan
                             </td>
                         </tr>
                         @endforeach

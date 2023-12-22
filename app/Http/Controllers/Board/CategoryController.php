@@ -15,6 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        $this->authorize('categories.list');
         return view('board.categories.index');
     }
 
@@ -23,6 +24,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        $this->authorize('categories.add');
         return view('board.categories.create');
     }
 
@@ -31,6 +33,7 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
+        $this->authorize('categories.add');
         $category = new Category;
         $category->user_id = Auth::id();
         $category->setTranslation('name' , 'ar' , $request->name_ar);
@@ -46,6 +49,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
+        $this->authorize('categories.show');
         return view('board.categories.show' , compact('category') );
     }
 
@@ -54,6 +58,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
+        $this->authorize('categories.edit');
         return view('board.categories.edit' , compact('category') );
     }
 
@@ -62,6 +67,7 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
+        $this->authorize('categories.edit');
         $category->user_id = Auth::id();
         $category->setTranslation('name' , 'ar' , $request->name_ar);
         $category->setTranslation('name' , 'en' , $request->name_en);

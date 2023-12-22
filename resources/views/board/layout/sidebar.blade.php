@@ -82,68 +82,87 @@ switch (Request::segment(2)) {
                 <span> المشرفين </span>
             </a>
             <ul class="nav-group-sub collapse" data-submenu-title="المشرفين">
-                <li class="nav-item"><a href="{{ route('board.admins.index') }}" class="nav-link"> عرض كافه
-                المشرفين </a></li>            
-                @can('admins.add')
-                <li class="nav-item"><a href="{{ route('board.admins.create') }}" class="nav-link"> إضافه مشرف
-                جديد </a></li>
-                @endcan
+               @if (auth()->user()->hasAnyPermission(['admins.list' , 'admins.show' , 'admins.delete' , 'admins.edit' ]) )
+               <li class="nav-item"><a href="{{ route('board.admins.index') }}" class="nav-link"> عرض كافه
+               المشرفين </a></li>          
+               @endif  
+               @can('admins.add')
+               <li class="nav-item"><a href="{{ route('board.admins.create') }}" class="nav-link"> إضافه مشرف
+               جديد </a></li>
+               @endcan
 
-            </ul>
-        </li>
-        @endif
+           </ul>
+       </li>
+       @endif
 
 
-        @if (auth()->user()->hasAnyPermission(['countries.list' , 'countries.show' , 'countries.delete' , 'countries.edit' , 'countries.add' ]) )
-        <li class="nav-item nav-item-submenu">
-            <a href="#" class="nav-link {{ $countries }}">
-                <i class="icon-location3 "></i>
-                <span> الدول </span>
-            </a>
-            <ul class="nav-group-sub collapse" data-submenu-title="الدول ">
-                <li class="nav-item">
-                    <a href="{{ route('board.countries.index') }}" class="nav-link"> 
-                        عرض كافه الدول 
-                    </a>
-                </li>
+       @if (auth()->user()->hasAnyPermission(['countries.list' , 'countries.show' , 'countries.delete' , 'countries.edit' , 'countries.add' ]) )
+       <li class="nav-item nav-item-submenu">
+        <a href="#" class="nav-link {{ $countries }}">
+            <i class="icon-location3 "></i>
+            <span> الدول </span>
+        </a>
+        <ul class="nav-group-sub collapse" data-submenu-title="الدول ">
+            @if (auth()->user()->hasAnyPermission(['countries.list' , 'countries.show' , 'countries.delete' , 'countries.edit']) )
+            <li class="nav-item">
+                <a href="{{ route('board.countries.index') }}" class="nav-link"> 
+                    عرض كافه الدول 
+                </a>
+            </li>
+            @endif
 
-                @can('countries.add')
-                   <li class="nav-item"><a href="{{ route('board.countries.create') }}" class="nav-link"> إضافه
-                دوله جديده </a></li>
+            @can('countries.add')
+            <li class="nav-item"><a href="{{ route('board.countries.create') }}" class="nav-link"> إضافه
+            دوله جديده </a></li>
+            @endcan
+        </ul>
+    </li>
+    @endif
 
-                @endcan
-                
-            </ul>
-        </li>
-        @endif
+    @if (auth()->user()->hasAnyPermission(['categories.list' , 'categories.show' , 'categories.delete' , 'categories.edit' , 'categories.add' ]) )
+    <li class="nav-item nav-item-submenu">
+        <a href="#" class="nav-link {{ $categories }}">
+            <i class="ph-swatches"></i>
+            <span> التصنيفات </span>
+        </a>
+        <ul class="nav-group-sub collapse" data-submenu-title="التصنيفات">
+            @if (auth()->user()->hasAnyPermission(['categories.list' , 'categories.show' , 'categories.delete' , 'categories.edit' ]) )
+            <li class="nav-item"><a href="{{ route('board.categories.index') }}" class="nav-link "> عرض كافه
+            التصنيفات </a></li>
+            @endif
+
+
+            @can('categories.add')
+            <li class="nav-item"><a href="{{ route('board.categories.create') }}" class="nav-link ">إضافه
+            تصنيف جديد</a></li>
+            @endcan
+        </ul>
+    </li>
+    @endif
+
+
+    @if (auth()->user()->hasAnyPermission(['universities.list' , 'universities.show' , 'universities.delete' , 'universities.edit' , 'universities.add' ]) )
+    <li class="nav-item nav-item-submenu">
+        <a href="#" class="nav-link {{ $universities }}">
+            <i class="icon-office "></i>
+            <span> الجامعات </span>
+        </a>
+        <ul class="nav-group-sub collapse" data-submenu-title="الجمعات">
+            @if (auth()->user()->hasAnyPermission(['universities.list' , 'universities.show' , 'universities.delete' , 'universities.edit' ]) )
+            <li class="nav-item"><a href="{{ route('board.universities.index') }}" class="nav-link"> عرض
+            كافه الجامعات </a></li>
+            @endif
+            @can('universities.add')
+            <li class="nav-item"><a href="{{ route('board.universities.create') }}" class="nav-link">إضافه
+            جامعه جديده </a></li>
+            @endcan
+        </ul>
+    </li>
+    @endif
 
 {{-- 
         
-        <li class="nav-item nav-item-submenu">
-            <a href="#" class="nav-link {{ $categories }}">
-                <i class="ph-swatches"></i>
-                <span> التصنيفات </span>
-            </a>
-            <ul class="nav-group-sub collapse" data-submenu-title="التصنيفات">
-                <li class="nav-item"><a href="{{ route('board.categories.index') }}" class="nav-link "> عرض كافه
-                التصنيفات </a></li>
-                <li class="nav-item"><a href="{{ route('board.categories.create') }}" class="nav-link ">إضافه
-                تصنيف جديد</a></li>
-            </ul>
-        </li>
-
-        <li class="nav-item nav-item-submenu">
-            <a href="#" class="nav-link {{ $universities }}">
-                <i class="icon-office "></i>
-                <span> الجامعات </span>
-            </a>
-            <ul class="nav-group-sub collapse" data-submenu-title="الجمعات">
-                <li class="nav-item"><a href="{{ route('board.universities.index') }}" class="nav-link"> عرض
-                كافه الجامعات </a></li>
-                <li class="nav-item"><a href="{{ route('board.universities.create') }}" class="nav-link">إضافه
-                جامعه جديده </a></li>
-            </ul>
-        </li>
+       
 
         <li class="nav-item nav-item-submenu">
             <a href="#" class="nav-link {{ $trainers }}">

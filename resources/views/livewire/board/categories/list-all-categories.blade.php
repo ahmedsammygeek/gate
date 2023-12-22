@@ -1,6 +1,8 @@
 <div class="row">
     <div class="col-md-12">
-        <a href="{{ route('board.categories.create') }}" class="btn btn-primary mb-2" style="float: left;">  <i class="icon-plus3  me-2"></i>  إضافه تصنيف جديد </a>
+      @can('categories.add')
+           <a href="{{ route('board.categories.create') }}" class="btn btn-primary mb-2" style="float: left;">  <i class="icon-plus3  me-2"></i>  إضافه تصنيف جديد </a>
+      @endcan
     </div>
 
 
@@ -69,15 +71,21 @@
 
 
                             <td class="text-center">
-                                <a  href="{{ route('board.categories.show'  , $category ) }}"  class="btn btn-sm btn-primary  ">
+                                @can('categories.show')
+                                    <a  href="{{ route('board.categories.show'  , $category ) }}"  class="btn btn-sm btn-primary  ">
                                     <i class="icon-eye  "></i>
                                 </a>
-                                <a href="{{ route('board.categories.edit'  , $category ) }}"  class="btn btn-sm btn-warning ">
+                                @endcan
+                                @can('categories.edit')
+                                    <a href="{{ route('board.categories.edit'  , $category ) }}"  class="btn btn-sm btn-warning ">
                                     <i class="icon-database-edit2  "></i>
                                 </a>
-                                <a data-item_id='{{ $category->id }}' class="btn btn-danger btn-sm delete_item">
+                                @endcan
+                                @can('categories.delete')
+                                   <a data-item_id='{{ $category->id }}' class="btn btn-danger btn-sm delete_item">
                                     <i class="icon-trash  "></i>
                                 </a>
+                                @endcan
                             </td>
                         </tr>
                         @endforeach

@@ -16,6 +16,7 @@ class UniversityController extends Controller
      */
     public function index()
     {
+        $this->authorize('universities.list');
         return view('board.universities.index');
     }
 
@@ -24,6 +25,7 @@ class UniversityController extends Controller
      */
     public function create()
     {
+        $this->authorize('universities.add');
         $countries = Country::get();
         return view('board.universities.create' , compact('countries') );
     }
@@ -33,6 +35,7 @@ class UniversityController extends Controller
      */
     public function store(StoreUniversityRequest $request)
     {
+        $this->authorize('universities.add');
         $university = new University;
         $university->setTranslation('title' , 'ar' , $request->title_ar );
         $university->setTranslation('title' , 'en' , $request->title_en );
@@ -46,7 +49,7 @@ class UniversityController extends Controller
         $university->is_active = $request->filled('active') ? 1 : 0;
         $university->save();
 
-        return redirect(route('board.universities.index'))->with('success' , 'تم إضافه الجامعه بنجاح' );
+        return redirect(route('board.universities.create'))->with('success' , 'تم إضافه الجامعه بنجاح' );
     }
 
     /**
@@ -54,6 +57,7 @@ class UniversityController extends Controller
      */
     public function show(University $university)
     {
+        $this->authorize('universities.show');
         $countries = Country::get();
         
         return view('board.universities.show' , compact('university' , 'countries' ) );
@@ -64,6 +68,7 @@ class UniversityController extends Controller
      */
     public function edit(University $university)
     {
+        $this->authorize('universities.edit');
         $countries = Country::get();
 
         return view('board.universities.edit' , compact('university' , 'countries' ) );
@@ -74,6 +79,7 @@ class UniversityController extends Controller
      */
     public function update(UpdateUniversityRequest $request, University $university)
     {
+        $this->authorize('universities.edit');
         $university->setTranslation('title' , 'ar' , $request->title_ar );
         $university->setTranslation('title' , 'en' , $request->title_en );
         $university->setTranslation('content' , 'ar' , $request->content_ar );
@@ -89,7 +95,7 @@ class UniversityController extends Controller
         $university->is_active = $request->filled('active') ? 1 : 0;
         $university->save();
 
-        return redirect(route('board.universities.index'))->with('success' , 'تم تعديل الجامعه بنجاح' );
+        return redirect(route('board.universities.edit' , $university ))->with('success' , 'تم تعديل الجامعه بنجاح' );
     }
 
     /**
