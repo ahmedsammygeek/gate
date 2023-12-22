@@ -6,11 +6,14 @@ use Exception;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Spatie\Permission\Models\Permission;
-
+use Auth;
 class TestController extends Controller
 {
   public function index()
   {
+
+
+    dd(Auth::user()->permissions);
 
     $permissions = Permission::all();
 
