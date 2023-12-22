@@ -73,9 +73,6 @@ Route::group(['prefix' => 'Board' , 'as' => 'board.'  ], function() {
         Route::get('users/{user}/purchases' , [UserController::class , 'purchases'] )->name('users.purchases');
         Route::get('users/{user}/transactions' , [UserController::class , 'transactions'] )->name('users.transactions');
         Route::get('users/{user}/installments' , [UserController::class , 'installments'] )->name('users.installments');
-
-
-
     });
 });
 

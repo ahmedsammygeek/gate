@@ -9,6 +9,9 @@ use App\Models\Category;
 use App\Models\Course;
 use App\Models\Country;
 use App\Models\University;
+use App\Models\Purchase;
+use App\Models\Transaction;
+use Carbon\Carbon;
 class BoardController extends Controller
 {
     /**
@@ -16,14 +19,18 @@ class BoardController extends Controller
      */
     public function index()
     {
+        $today_users_count = User::where('type' , User::USER )->whereDate('created_at' , Carbon::today() )->count();
+        $transactions_sum = Transaction::whereDate('created_at' , Carbon::today() )->sum('amount');
+        $purchases_count = Purchase::whereDate('created_at' , Carbon::today() )->count();
         $trainers_count = User::where('type' , User::TRAINER )->count();
         $students_count = User::where('type' , User::USER )->count();
+        $admins_count = User::where('type' , User::ADMIN )->count();
         $categories_count = Category::count();
         $universities_count = University::count();
-        $courses_count = Course::count();
-        $countries_count = Country::count();
-        
-        return view('board.index' , compact('trainers_count' , 'students_count' , 'categories_count' , 'universities_count' , 'courses_count' , 'countries_count' ) );
+        $courses_count = Course::where('type' , 1 )->count();
+        $packages_count = Course::where('type' , 2 )->count();
+        $countries_count = Country::count();        
+        return view('board.index' , compact('trainers_count' , 'today_users_count' , 'transactions_sum' , 'purchases_count' , 'packages_count'  , 'admins_count' , 'students_count' , 'categories_count' , 'universities_count' , 'courses_count' , 'countries_count' ) );
     }
 
     /**
