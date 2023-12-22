@@ -18,17 +18,20 @@ class PackageController extends Controller
 
     public function index()
     {
+        $this->authorize('packages.list');
         return view('board.packages.index');
     }
 
 
     public function show(Course $package)
     {
+        $this->authorize('packages.show');
         return view('board.packages.show' , compact('package') );
     }
 
     public function create()
     {
+        $this->authorize('packages.add');
         $courses = Course::where('type' ,Course::COURSE)->get();
         $universities = University::all();
         $categories = Category::all();
@@ -40,6 +43,7 @@ class PackageController extends Controller
      */
     public function store(StorePackageRequest $request )
     {
+        $this->authorize('packages.add');
         $package = new Course;
         $package->category_id = $request->category_id;
         $package->university_id = $request->university_id;
@@ -77,6 +81,7 @@ class PackageController extends Controller
 
     public function edit(Course $package)
     {
+        $this->authorize('packages.edit');
         $courses = Course::where('type' ,Course::COURSE)->select('id' , 'title' )->get();
         $universities = University::all();
         $categories = Category::all();
@@ -90,6 +95,7 @@ class PackageController extends Controller
 
     public function update(UpdatePackageRequest  $request  , Course $package)
     {
+        $this->authorize('packages.edit');
         $package->category_id = $request->category_id;
         $package->university_id = $request->university_id;
         $package->ends_at = $request->ends_at;

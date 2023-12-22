@@ -212,23 +212,31 @@ switch (Request::segment(2)) {
     </li>
     @endif
 
-{{-- 
-        
-       
-
-       
-        <li class="nav-item nav-item-submenu">
+    @if (auth()->user()->hasAnyPermission(['packages.list' , 'packages.show' , 'packages.delete' , 'packages.edit' , 'packages.add' ]))
+               <li class="nav-item nav-item-submenu">
             <a href="#" class="nav-link {{ $packages }}">
                 <i class="icon-package "></i>
                 <span> الباقات </span>
             </a>
             <ul class="nav-group-sub collapse" data-submenu-title="الباقات">
-                <li class="nav-item"><a href="{{ route('board.packages.index') }}" class="nav-link"> عرض كافه
+               @if (auth()->user()->hasAnyPermission(['packages.list' , 'packages.show' , 'packages.delete' , 'packages.edit']))
+                    <li class="nav-item"><a href="{{ route('board.packages.index') }}" class="nav-link"> عرض كافه
                 الباقات </a></li>
-                <li class="nav-item"><a href="{{ route('board.packages.create') }}" class="nav-link">إضافه باقه
+               @endif
+                @can('packages.add', Model::class)
+                    <li class="nav-item"><a href="{{ route('board.packages.create') }}" class="nav-link">إضافه باقه
                 جديد </a></li>
+                @endcan
             </ul>
         </li>
+    @endif
+
+{{-- 
+        
+       
+
+       
+
         <li class="nav-item nav-item-submenu">
             <a href="#" class="nav-link {{ $purchases }}">
                 <i class="icon-cart "></i>
