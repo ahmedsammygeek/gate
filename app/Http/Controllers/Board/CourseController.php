@@ -129,7 +129,16 @@ class CourseController extends Controller
      */
     public function students(Course $course)
     {
-    return view('board.courses.students' , compact('course') );
+        return view('board.courses.students' , compact('course') );
+    }
+
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function reviews(Course $course)
+    {
+        return view('board.courses.reviews' , compact('course') );
     }
 
 
