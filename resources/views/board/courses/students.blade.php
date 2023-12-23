@@ -20,6 +20,6 @@
 	</div>
 </div>
 <!-- Main charts -->
-@livewire('board.courses.list-course-student' , ['course'  => $course ] )
+@livewire('board.courses.list-all-course-students' , ['course'  => $course ] )
 
 @endsection
