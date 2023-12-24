@@ -30,9 +30,13 @@ class BoardController extends Controller
         $universities_count = University::count();
         $courses_count = Course::where('type' , 1 )->count();
         $packages_count = Course::where('type' , 2 )->count();
-        $countries_count = Country::count();        
+        $countries_count = Country::count();     
+
+        $active_users_count = User::whereHas('courses' , function($query){
+            $query->whereDate('expires_at' , '>=' , Carbon::today() );
+        })->count();   
         $installment_due_today_count = UserInstallments::whereDate('due_date' , Carbon::today() )->count();
-        return view('board.index' , compact('trainers_count' , 'today_users_count' , 'transactions_sum' , 'purchases_count' , 'packages_count'  , 'admins_count' , 'installment_due_today_count' , 'students_count' , 'categories_count' , 'universities_count' , 'courses_count' , 'countries_count' ) );
+        return view('board.index' , compact('trainers_count' , 'today_users_count' , 'transactions_sum' , 'purchases_count' , 'packages_count'  , 'admins_count' , 'installment_due_today_count' , 'students_count' , 'categories_count' , 'universities_count' , 'courses_count' , 'active_users_count' , 'countries_count' ) );
     }
 
     /**

@@ -34,6 +34,13 @@
 						</tr>
 
 						<tr>
+							<th> عدد الكورسات الخاص به  </th>
+							<td> 
+								{{ $trainer->coursesAsTrainer()->count() }}
+							</td>
+						</tr>
+
+						<tr>
 							<th> الاسم </th>
 							<td> {{ $trainer->name }} </td>
 						</tr>
@@ -73,6 +80,18 @@
 							</td>
 						</tr>
 
+
+						<tr>
+							<th> الكورسات الخاصه به </th>
+							<td>
+								<ul>
+									@foreach ($trainer->coursesAsTrainer as $trainer_course)
+										<li> <a href="{{ route('board.courses.show' , $trainer_course->id ) }}">  {{ $trainer_course->title }} </a> </li>
+									@endforeach
+								</ul>
+							</td>
+						</tr>
+
 						<tr>
 							<th> الصوره الشخصيه الحاليه </th>
 							<td>
@@ -90,6 +109,8 @@
                                 </div>
                              </td>
 						</tr>
+
+
 					</tbody>
 				</table>
 			</div>

@@ -64,7 +64,7 @@
 
 <div class="row">
     <legend> احصائيات عامه للمشروع </legend>
-    <div class="col-sm-6 col-xl-3">
+    <div class="col-sm-6 col-xl-2">
         <div class="card card-body bg-info text-white">
             <a href="{{ route('board.admins.index') }}" style="text-decoration: none; color: inherit;">
                 <div class="d-flex align-items-center">
@@ -77,7 +77,7 @@
             </a>
         </div>
     </div>
-    <div class="col-sm-6 col-xl-3">
+    <div class="col-sm-6 col-xl-2">
         <div class="card card-body bg-primary text-white">
             <a href="{{ route('board.trainers.index') }}" style="text-decoration: none; color: inherit;">
                 <div class="d-flex align-items-center">
@@ -90,7 +90,7 @@
             </a>
         </div>
     </div>
-    <div class="col-sm-6 col-xl-3">
+    <div class="col-sm-6 col-xl-2">
         <div class="card card-body bg-danger text-white">
             <a href="{{ route('board.users.index') }}" style="text-decoration: none; color: inherit;">
                 <div class="d-flex align-items-center">
@@ -104,7 +104,21 @@
         </div>
     </div>
 
-    <div class="col-sm-6 col-xl-3">
+    <div class="col-sm-6 col-xl-2">
+        <div class="card card-body bg-danger text-white">
+            <a href="{{ route('board.users.index') }}" style="text-decoration: none; color: inherit;">
+                <div class="d-flex align-items-center">
+                    <div class="flex-fill">
+                        <h4 class="mb-0">{{ $active_users_count }}</h4>
+                        الطلاب النشطين
+                    </div>
+                    <i class="ph-users-four ph-2x opacity-75 ms-3"></i>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="col-sm-6 col-xl-2">
         <div class="card card-body bg-success text-white">
             <a href="{{ route('board.categories.index') }}" style="text-decoration: none;color: inherit;">
                 <div class="d-flex align-items-center">
@@ -118,7 +132,7 @@
         </div>
     </div>
 
-    <div class="col-sm-6 col-xl-3">
+    <div class="col-sm-6 col-xl-2">
         <div class="card card-body bg-primary text-white">
             <a href="{{ route('board.courses.index') }}" style="text-decoration: none;color: inherit;">
                 <div class="d-flex align-items-center">
@@ -131,7 +145,7 @@
             </a>
         </div>
     </div> 
-    <div class="col-sm-6 col-xl-3">
+    <div class="col-sm-6 col-xl-2">
         <div class="card card-body bg-indigo text-white">
             <a href="{{ route('board.packages.index') }}" style="text-decoration: none;color: inherit;">
                 <div class="d-flex align-items-center">
@@ -145,7 +159,7 @@
         </div>
     </div>
 
-    <div class="col-sm-6 col-xl-3">
+    <div class="col-sm-6 col-xl-2">
         <div class="card card-body bg-primary text-white">
             <a href="{{ route('board.universities.index') }}" style="text-decoration: none;color: inherit;">
                 <div class="d-flex align-items-center">
@@ -159,7 +173,7 @@
         </div>
     </div>
 
-    <div class="col-sm-6 col-xl-3">
+    <div class="col-sm-6 col-xl-2">
         <div class="card card-body bg-danger text-white">
             <a href="{{ route('board.countries.index') }}" style="text-decoration: none;color: inherit;">
                 <div class="d-flex align-items-center">
