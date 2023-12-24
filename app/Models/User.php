@@ -74,8 +74,17 @@ class User extends Authenticatable
         return $this->hasMany(Purchase::class , 'user_id');
     }
 
-     public function transactions()
+    public function transactions()
     {
         return $this->hasMany(Transaction::class , 'user_id');
+    }
+
+    public function studyTypeAsText()
+    {
+        if ($this->study_type == 1 ) {
+            return  'تخصصى';
+        }
+
+        return 'تحضيرى';
     }
 }

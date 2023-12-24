@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Models\University;
 use App\Models\Course;
 use Livewire\WithPagination;
+use Excel;
+use App\Exports\UsersExport;
 class ListAllUsers extends Component
 {
     use WithPagination;
@@ -42,7 +44,6 @@ class ListAllUsers extends Component
         $this->resetPage();
     }
 
-
     public function resetFilters()
     {
         $this->user_type = 'all';
@@ -54,9 +55,9 @@ class ListAllUsers extends Component
         $this->rows = 30;
     }
 
-    public function render()
+    public function generateQuery()
     {
-        $users = User::query()->with('university')
+        return User::query()->with('university')
         ->where(function($query){
             $query->where('type' , User::USER );
         })
@@ -89,8 +90,18 @@ class ListAllUsers extends Component
                 $query->where('course_id' , $this->course_id );
             });
         })
-        ->latest()
-        ->paginate($this->rows);
+        ->latest();
+    }
+
+    public function excelSheet()
+    {
+        $users = $this->generateQuery();
+        return Excel::download(new UsersExport($users), 'users.xlsx');
+    }
+
+    public function render()
+    {
+        $users = $this->generateQuery()->paginate($this->rows);
         return view('livewire.board.users.list-all-users' , compact('users'));
     }
 }
