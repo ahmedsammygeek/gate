@@ -1,5 +1,6 @@
 @extends('board.layout.master')
 
+@section('page_title' , 'الرئيسيه' )
 @section('content')
 <div class="row">
     <legend> احصائيات اليوم </legend>
@@ -11,7 +12,7 @@
                         <h4 class="mb-0">{{ $purchases_count }} <span > عمليه </span> </h4>
                         عمليات الشراء اليوم
                     </div>
-                    <i class="ph-users  ph-2x opacity-75 ms-3"></i>
+                    <i class="ph-shopping-cart   ph-2x opacity-75 ms-3"></i>
                 </div>
             </a>
         </div>
@@ -45,10 +46,19 @@
         </div>
     </div>
 
-
-
-
-
+    <div class="col-sm-6 col-xl-3">
+        <div class="card card-body bg-info text-white">
+            <a href="{{ route('board.installments.index') }}" style="text-decoration: none; color: inherit;">
+                <div class="d-flex align-items-center">
+                    <div class="flex-fill">
+                        <h4 class="mb-0">{{ $installment_due_today_count }} <span > قسط </span> </h4>
+                        عدد الاقساط المستحقه اليوم
+                    </div>
+                    <i class="ph-list-numbers ph-2x opacity-75 ms-3"></i>
+                </div>
+            </a>
+        </div>
+    </div>
 </div>
 
 
@@ -162,6 +172,8 @@
             </a>
         </div>
     </div>
+
+    
 
 
 

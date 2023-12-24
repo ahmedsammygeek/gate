@@ -62,6 +62,10 @@
                                     <th> slug بالعربيه </th>
                                     <td> {{ $package->getTranslation('slug', 'ar') }} </td>
                                 </tr>
+                                <tr>
+                                    <th> تاريخ انتهاء الباقه </th>
+                                    <td> {{ $package->ends_at->toDateString() }} - <span class='text-muted' > {{ $package->ends_at->diffForHumans() }} </span> </td>
+                                </tr>
 
                                 <tr>
                                     <th> slug بالانجليزيه </th>
@@ -111,6 +115,7 @@
                                     <th> المنهج بالانجليزيه </th>
                                     <td> {!! $package->getTranslation('curriculum', 'en') !!} </td>
                                 </tr>
+
 
                                 <tr>
                                     <th> الجامعه </th>

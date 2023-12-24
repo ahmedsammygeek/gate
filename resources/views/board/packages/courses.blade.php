@@ -15,9 +15,11 @@
 		<a href="{{ route('board.packages.index') }}" class="btn btn-primary mb-2" style="float: left;">
 			عرض كافه الباقات <i class="icon-arrow-left7"></i>
 		</a>
-		<a href='{{ route('board.packages.courses.create' , $package ) }}' class="btn btn-primary mb-2" style="float: left;margin-left:  20px;">
+		@can('packages.edit')
+			<a href='{{ route('board.packages.courses.create' , $package ) }}' class="btn btn-primary mb-2" style="float: left;margin-left:  20px;">
 			إضافه كورس  جديد للباقه <i class="icon-plus3 "></i>
 		</a>
+		@endcan
 	</div>
 	<div class="col-md-12">
 		<ul class="nav nav-tabs nav-tabs-highlight nav-justified">
@@ -32,6 +34,5 @@
 		</ul>
 	</div>
 </div>
-@livewire('board.courses.list-packge-courses' , ['course'  => $package ] )
-
+@livewire('board.packages.list-all-package-courses' , ['course'  => $package ] )
 @endsection

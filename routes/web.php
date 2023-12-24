@@ -64,6 +64,7 @@ Route::group(['prefix' => 'Board' , 'as' => 'board.'  ], function() {
         Route::get('/courses/{course}/installments/{installment}/edit' , [CourseInstallmentController::class , 'edit'] )->name('courses.installments.edit');
         Route::patch('/courses/{course}/installments/{installment}' , [CourseInstallmentController::class , 'update'] )->name('courses.installments.update');
         Route::get('/courses/{course}/installments/{installment}', [CourseInstallmentController::class , 'show'] )->name('courses.installments.show');
+        
         Route::get('/packages/{package}/courses/create' , [PackageController::class , 'add_course_to_package'] )->name('packages.courses.create');
         Route::get('/packages/{package}/courses' , [PackageController::class , 'show_packge_courses'] )->name('packages.courses.index');
         Route::post('/packages/{package}/courses' , [PackageController::class , 'store_course_to_package'] )->name('packages.courses.store');
@@ -73,6 +74,13 @@ Route::group(['prefix' => 'Board' , 'as' => 'board.'  ], function() {
         Route::get('users/{user}/purchases' , [UserController::class , 'purchases'] )->name('users.purchases');
         Route::get('users/{user}/transactions' , [UserController::class , 'transactions'] )->name('users.transactions');
         Route::get('users/{user}/installments' , [UserController::class , 'installments'] )->name('users.installments');
+
+
+
+        // Route::get('purchases/report');
+
+
+
     });
 });
 

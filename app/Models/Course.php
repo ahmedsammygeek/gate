@@ -20,6 +20,11 @@ class Course extends Model
     const COURSE = 1 ;
     const PACKAGE = 2 ;
 
+    protected $casts = [
+
+        'ends_at' => 'date' ,
+    ];
+
     public $translatable = ['title' , 'subtitle' , 'slug' , 'content' , 'curriculum' ];
 
 
