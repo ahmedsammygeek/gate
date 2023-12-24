@@ -24,6 +24,80 @@
                         </select>
                     </div>
                 </div>
+                <div class="d-sm-flex align-items-sm-start mt-2">
+
+                    <div class="dropdown ms-md-3  mb-sm-0">
+                        <select wire:model='university_id' class="form-select">
+                            <option value=""> جميع الجامعات </option>
+                            @foreach ($universities as $university)
+                            <option value="{{ $university->id }}"> {{ $university->title }} </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="dropdown ms-md-3  mb-sm-0">
+                        <select wire:model='user_type' class="form-select">
+                            <option value="all"> جميع الطلاب </option>
+                            <option value="active"> النشطين </option>
+                            <option value="inactive"> غير النشطين </option>
+
+                        </select>
+                    </div>
+                    <div class="dropdown ms-md-3  mb-sm-0">
+                        <select wire:model='study_type' class="form-select">
+                            <option value="all"> جميع انواع الدرسه </option>
+                            <option value="1"> تخصصى </option>
+                            <option value="2"> تحضيرى </option>
+                        </select>
+                    </div>
+
+                    <div class="dropdown ms-md-3  mb-sm-0">
+                        <select wire:model='course_id' class="form-select">
+                            <option value=""> جميع مشتركى الدورات </option>
+                            @foreach ($courses as $course)
+                            <option value="{{ $course->id }}"> {{ $course->title }} </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="dropdown ms-md-3  mb-sm-0">
+                        <select wire:model='is_paid' class="form-select">
+                            <option value="all"> جميع عمليات الشراء </option>
+                            <option value="0"> عمليات لم يتم دفعها بعد  </option>
+                            <option value="1"> عمليات تمت الدفع بشكل جزءى </option>
+                            <option value="2"> عمليات تم تسديدها بالكامل </option>
+                        </select>
+                    </div>
+
+
+
+                    {{--                      --}}
+
+
+{{--                    
+                    <div class="dropdown ms-sm-3  mb-sm-0">
+                        <input type="date"  wire:model='start_date'  class='form-control'>
+                    </div>
+                    <div class=" ms-sm-3  mb-sm-0">
+                        <input type="date"  wire:model='end_date'  class='form-control'>
+                    </div> --}}
+                    <div class=" ms-sm-3  mb-sm-0">
+                        <button wire:loading.attr="disabled"  wire:click='resetFilters' type="button" class="btn btn-flat-primary btn-labeled btn-labeled-start ">
+                            <span  class="btn-labeled-icon bg-primary text-white">
+                                <i class="icon-reset"></i>
+                            </span>
+                            إعادة ضبط الفلتر
+                        </button>
+                    </div>
+
+                    <div class=" ms-sm-3  mb-sm-0">
+                        <button wire:loading.attr="disabled"  wire:click='excelSheet' type="button" class="btn btn-flat-primary btn-labeled btn-labeled-start ">
+                            <span  class="btn-labeled-icon bg-primary text-white">
+                                <i class="icon-file-excel "></i>
+                            </span>
+                            Excel
+                        </button>
+                    </div>
+                </div>
             </div>
 
             <div class="table-responsive">
@@ -64,9 +138,9 @@
 
                             <td>
                                 @if ($user->courses->count())
-                                    <span class="badge bg-primary"> مشترك </span>
+                                <span class="badge bg-primary"> مشترك </span>
                                 @else
-                                 <span class="badge bg-warning"> غير مشترك </span>
+                                <span class="badge bg-warning"> غير مشترك </span>
                                 @endif
                             </td>
                             
