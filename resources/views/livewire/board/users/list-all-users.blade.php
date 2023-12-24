@@ -30,10 +30,12 @@
                 <table class="table text-nowrap">
                     <thead>
                         <tr>
-                            <th > صوره المستخدم </th>
                             <th > اسم المستخدم </th>
                             <th>البريد الكاترونى </th>
-                            <th>رقم الجوال</th>
+                            <th>رقم الواتس</th>
+                            <th>الجامعه</th>
+                            <th>نوع الدراسه</th>
+                            <th> التفاعل </th>
                             <th>السماح بدخول النظام</th>
                             <th class="text-center" style="width: 20px;">خصائص</th>
                         </tr>
@@ -42,41 +44,51 @@
 
                         @foreach ($users as $user)
                         <tr>
-                            <td class="pe-0">
-                                <div class="col-sm-6 col-lg-5">
-                                    <div class="card">
-                                        <div class="card-img-actions m-1">
-                                         <a href="{{ Storage::url('users/'.$user->image) }}" class="btn btn-outline-white btn-icon rounded-pill" data-bs-popup="lightbox" data-gallery="gallery1">
-                                            <img src="{{ Storage::url('users/'.$user->image) }}" class="card-img " width="60" height="60" alt="">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <a href="{{ route('board.admins.show' , $user ) }}" class="d-block fw-semibold">{{ $user->name }}</a>
-                            <span class="fs-sm text-muted">{{ $user->created_at->toFormattedDateString() }}</span>
-                        </td>
-                        <td>{{ $user->email }}</td>
-                        <td>{{ $user->phone }}</td>
-                        <td>
-                            @switch($user->is_banned )
-                            @case(0)
-                            <span class="badge bg-primary"> نعم </span>
-                            @break
-                            @case(1)
-                            <span class="badge bg-danger"> لا</span>
-                            @break
-                            @endswitch
-                        </td>
+                            <td>
+                                <a href="{{ route('board.admins.show' , $user ) }}" class="d-block fw-semibold">{{ $user->name }}</a>
+                                <span class="fs-sm text-muted">{{ $user->created_at->toFormattedDateString() }}</span>
+                            </td>
+                            <td>{{ $user->email }}</td>
+                            <td>{{ $user->phone }}</td>
+                            <td>{{ $user->university?->title }}</td>
+                            <td>
+                                @switch($user->study_type )
+                                @case(1)
+                                <span class="badge bg-primary"> تخصصى </span>
+                                @break
+                                @case(2)
+                                <span class="badge bg-info"> تحضيرى </span>
+                                @break
+                                @endswitch
+                            </td>
+
+                            <td>
+                                @if ($user->courses->count())
+                                    <span class="badge bg-primary"> مشترك </span>
+                                @else
+                                 <span class="badge bg-warning"> غير مشترك </span>
+                                @endif
+                            </td>
+                            
+
+                            <td>
+                                @switch($user->is_banned )
+                                @case(0)
+                                <span class="badge bg-success"> نعم </span>
+                                @break
+                                @case(1)
+                                <span class="badge bg-danger"> لا</span>
+                                @break
+                                @endswitch
+                            </td>
 
 
-                        <td class="text-center">
-                            @can('users.show')
-                            <a  href="{{ route('board.users.show'  , $user ) }}"  class="btn btn-sm btn-primary  ">
-                                <i class="icon-eye  "></i>
-                            </a>
-                            @endcan
+                            <td class="text-center">
+                                @can('users.show')
+                                <a  href="{{ route('board.users.show'  , $user ) }}"  class="btn btn-sm btn-primary  ">
+                                    <i class="icon-eye  "></i>
+                                </a>
+                                @endcan
 {{--                             <a href="{{ route('board.admins.edit'  , $admin ) }}"  class="btn btn-sm btn-warning ">
                                 <i class="icon-database-edit2  "></i>
                             </a> --}}

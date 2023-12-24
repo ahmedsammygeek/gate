@@ -35,7 +35,8 @@ class ListAllUsers extends Component
 
     public function render()
     {
-        $users = User::where(function($query){
+        $users = User::query()->with('university')
+        ->where(function($query){
             $query->where('type' , User::USER );
         })
         ->when($this->search , function($query){
