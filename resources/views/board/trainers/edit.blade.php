@@ -45,8 +45,8 @@
 					<div class="row mb-3">
 						<label class="col-form-label col-lg-2"> السيرة الذاتية <span class="text-danger">*</span></label>
 						<div class="col-lg-10">
-							<textarea name="bio" class='form-control textarea' cols="30" rows="10">{{ $trainer->bio }}</textarea>
-							@error('job_title')
+							<textarea name="bio" class='form-control textarea @error('bio')  is-invalid @enderror' cols="30" rows="10">{{ $trainer->bio }}</textarea>
+							@error('bio')
 							<p class='text-danger' > {{ $message }} </p>
 							@enderror
 						</div>

@@ -24,7 +24,7 @@
 						<div class="row mb-3">
 
 							<div class="col-md-3">
-								<label class="col-lg-12 col-form-label pt-0"> صوره الباقه
+								<label class="col-lg-12 col-form-label"> صوره الباقه
 								</label>
 								<div class="col-lg-12">
 									<input type="file" name="image" class="form-control"  >
@@ -64,7 +64,7 @@
 
 
 							<div class="col-md-3">
-								<label class="col-lg-12 col-form-label pt-0"> تاريخ انتهاء الباقه
+								<label class="col-lg-12 col-form-label "> تاريخ انتهاء الباقه
 									<span class="text-danger">*</span>
 								</label>
 								<div class="col-lg-12">
