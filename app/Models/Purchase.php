@@ -15,6 +15,16 @@ class Purchase extends Model
     }
 
 
+    public function directTransaction()
+    {
+        return $this->hasOne(Transaction::class , 'purchase_id')->where('user_installment_id' , null )->orderBy('created_at' , 'ASC' );
+    }
+
+    // public function transaction()
+    // {
+    //     return $this->
+    // }
+
     public function items()
     {
         return $this->hasMany(PurchaseItem::class);
@@ -24,13 +34,13 @@ class Purchase extends Model
     {
         switch ($this->purchase_type) {
             case 'one_later_installment':
-                return 'دفه واحده مؤجله';
+            return 'دفه واحده مؤجله';
             break;
             case 'installments':
-                return 'اقساط';
+            return 'اقساط';
             break;
             case 'total_amount':
-                return 'دفع المبلغ كامل';
+            return 'دفع المبلغ كامل';
             break;
             break;
         }
@@ -41,13 +51,13 @@ class Purchase extends Model
     {
         switch ($this->is_paid) {
             case 0:
-                return 'لم يتم الدفع';
+            return 'لم يتم الدفع';
             break;
             case 1:
-                return 'تم الدفع بشكل جزئى';
+            return 'تم الدفع بشكل جزئى';
             break;
             case 2:
-                return 'تم الدفع بشكل كامل';
+            return 'تم الدفع بشكل كامل';
             break;
             break;
         }

@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\ForgetPasswordController;
 use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\CheckoutController;
 Route::prefix("v1")->group(function () {
 
     Route::post('register', [RegisterController::class, 'register']);
@@ -19,7 +20,6 @@ Route::prefix("v1")->group(function () {
     Route::post('validate_phone', [RegisterController::class, 'validate_phone']);
     Route::post('login', [AuthController::class, 'login']);
     Route::post('contact'  , [ContactController::class , 'store'] );
-
     Route::get('categories', [CategoryController::class, 'index']);
     Route::get('universities', [UniversityController::class, 'index']);
     Route::get('universities/{identifier}', [UniversityController::class, 'show']);
@@ -40,6 +40,9 @@ Route::prefix("v1")->group(function () {
         Route::post('logout', [AuthController::class, 'logout']);
         Route::get('notifications' , [NotificationController::class , 'index'] );
         Route::patch('notifications' , [NotificationController::class , 'update'] );
+        Route::get('checkout' , [CheckoutController::class , 'index'] );
+        Route::post('checkout' , [CheckoutController::class , 'checkout'] );
+
     });
 
 });

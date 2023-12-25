@@ -36,4 +36,11 @@ class PurchaseController extends Controller
         return view('board.purchases.show' , compact('purchase') );
     }
 
+    public function transaction(Purchase $purchase)
+    {
+        $this->authorize('purchases.show');
+        $purchase->load(['user' , 'items.course' , 'directTransaction' ]);
+        return view('board.purchases.transaction' , compact('purchase') );
+    }
+
 }

@@ -44,12 +44,8 @@ class MyFatoorahController extends Controller {
             //For example: pmid=0 for MyFatoorah invoice or pmid=1 for Knet in test mode
             $paymentId = request('pmid') ?: 0;
             $sessionId = request('sid') ?: null;
-
-
-
             $orderId  = request('oid') ?: 147;
             $curlData = $this->getPayLoadData($orderId);
-
             $mfObj   = new MyFatoorahPayment($this->mfConfig);
             $payment = $mfObj->getInvoiceURL($curlData, $paymentId, $orderId, $sessionId);
 
@@ -74,19 +70,19 @@ class MyFatoorahController extends Controller {
         $callbackURL = route('myfatoorah.callback');
 
         //You can get the data using the order object in your system
-        $order = $this->getTestOrderData($orderId);
+        // $order = $this->getTestOrderData($orderId);
 
         return [
             'CustomerName'       => 'FName LName',
-            'InvoiceValue'       => $order['total'],
-            'DisplayCurrencyIso' => $order['currency'],
+            'InvoiceValue'       => 1599,
+            'DisplayCurrencyIso' => 'EGP',
             'CustomerEmail'      => 'test@test.com',
             'CallBackUrl'        => $callbackURL,
             'ErrorUrl'           => $callbackURL,
             'MobileCountryCode'  => '+20',
             'CustomerMobile'     => '01014340346',
             'Language'           => 'ar',
-            'CustomerReference'  => $orderId,
+            'CustomerReference'  => 1235465489798,
             'SourceInfo'         => 'Laravel ' . app()::VERSION . ' - MyFatoorah Package ' . MYFATOORAH_LARAVEL_PACKAGE_VERSION
         ];
     }
@@ -128,109 +124,109 @@ class MyFatoorahController extends Controller {
      * 
      * @return View
      */
-    public function checkout() {
-        try {
-            //You can get the data using the order object in your system
-            $orderId = request('oid') ?: 147;
-            $order   = $this->getTestOrderData($orderId);
+    // public function checkout() {
+    //     try {
+    //         //You can get the data using the order object in your system
+    //         $orderId = request('oid') ?: 147;
+    //         $order   = $this->getTestOrderData($orderId);
 
-            //You can replace this variable with customer Id in your system
-            $customerId = request('customerId');
+    //         //You can replace this variable with customer Id in your system
+    //         $customerId = request('customerId');
 
-            //You can use the user defined field if you want to save card
-            $userDefinedField = config('myfatoorah.save_card') && $customerId ? "CK-$customerId" : '';
+    //         //You can use the user defined field if you want to save card
+    //         $userDefinedField = config('myfatoorah.save_card') && $customerId ? "CK-$customerId" : '';
 
-            //Get the enabled gateways at your MyFatoorah acount to be displayed on checkout page
-            $mfObj          = new MyFatoorahPaymentEmbedded($this->mfConfig);
-            $paymentMethods = $mfObj->getCheckoutGateways($order['total'], $order['currency'], config('myfatoorah.register_apple_pay'));
+    //         //Get the enabled gateways at your MyFatoorah acount to be displayed on checkout page
+    //         $mfObj          = new MyFatoorahPaymentEmbedded($this->mfConfig);
+    //         $paymentMethods = $mfObj->getCheckoutGateways($order['total'], $order['currency'], config('myfatoorah.register_apple_pay'));
 
-            if (empty($paymentMethods['all'])) {
-                throw new Exception('noPaymentGateways');
-            }
+    //         if (empty($paymentMethods['all'])) {
+    //             throw new Exception('noPaymentGateways');
+    //         }
 
-            //Generate MyFatoorah session for embedded payment
-            $mfSession = $mfObj->getEmbeddedSession($userDefinedField);
+    //         //Generate MyFatoorah session for embedded payment
+    //         $mfSession = $mfObj->getEmbeddedSession($userDefinedField);
 
-            //Get Environment url
-            $isTest = $this->mfConfig['isTest'];
-            $vcCode = $this->mfConfig['countryCode'];
+    //         //Get Environment url
+    //         $isTest = $this->mfConfig['isTest'];
+    //         $vcCode = $this->mfConfig['countryCode'];
 
-            $countries = MyFatoorah::getMFCountries();
-            $jsDomain  = ($isTest) ? $countries[$vcCode]['testPortal'] : $countries[$vcCode]['portal'];
+    //         $countries = MyFatoorah::getMFCountries();
+    //         $jsDomain  = ($isTest) ? $countries[$vcCode]['testPortal'] : $countries[$vcCode]['portal'];
 
-            return view('myfatoorah.checkout', compact('mfSession', 'paymentMethods', 'jsDomain', 'userDefinedField'));
-        } catch (Exception $ex) {
-            $exMessage = __('myfatoorah.' . $ex->getMessage());
-            return view('myfatoorah.error', compact('exMessage'));
-        }
-    }
+    //         return view('myfatoorah.checkout', compact('mfSession', 'paymentMethods', 'jsDomain', 'userDefinedField'));
+    //     } catch (Exception $ex) {
+    //         $exMessage = __('myfatoorah.' . $ex->getMessage());
+    //         return view('myfatoorah.error', compact('exMessage'));
+    //     }
+    // }
 
 //-----------------------------------------------------------------------------------------------------------------------------------------
 
     /**
      * Example on how the webhook is working when MyFatoorah try to notify your system about any transaction status update
      */
-    public function webhook(Request $request) {
-        try {
-            //Validate webhook_secret_key
-            $secretKey = config('myfatoorah.webhook_secret_key');
-            if (empty($secretKey)) {
-                return response(null, 404);
-            }
+    // public function webhook(Request $request) {
+    //     try {
+    //         //Validate webhook_secret_key
+    //         $secretKey = config('myfatoorah.webhook_secret_key');
+    //         if (empty($secretKey)) {
+    //             return response(null, 404);
+    //         }
 
-            //Validate MyFatoorah-Signature
-            $mfSignature = $request->header('MyFatoorah-Signature');
-            if (empty($mfSignature)) {
-                return response(null, 404);
-            }
+    //         //Validate MyFatoorah-Signature
+    //         $mfSignature = $request->header('MyFatoorah-Signature');
+    //         if (empty($mfSignature)) {
+    //             return response(null, 404);
+    //         }
 
-            //Validate input
-            $body  = $request->getContent();
-            $input = json_decode($body, true);
-            if (empty($input['Data']) || empty($input['EventType']) || $input['EventType'] != 1) {
-                return response(null, 404);
-            }
+    //         //Validate input
+    //         $body  = $request->getContent();
+    //         $input = json_decode($body, true);
+    //         if (empty($input['Data']) || empty($input['EventType']) || $input['EventType'] != 1) {
+    //             return response(null, 404);
+    //         }
 
-            //Validate Signature
-            if (!MyFatoorah::isSignatureValid($input['Data'], $secretKey, $mfSignature, $input['EventType'])) {
-                return response(null, 404);
-            }
+    //         //Validate Signature
+    //         if (!MyFatoorah::isSignatureValid($input['Data'], $secretKey, $mfSignature, $input['EventType'])) {
+    //             return response(null, 404);
+    //         }
 
-            //Update Transaction status on your system
-            $result = $this->changeTransactionStatus($input['Data']);
+    //         //Update Transaction status on your system
+    //         $result = $this->changeTransactionStatus($input['Data']);
 
-            return response()->json($result);
-        } catch (Exception $ex) {
-            $exMessage = __('myfatoorah.' . $ex->getMessage());
-            return response()->json(['IsSuccess' => false, 'Message' => $exMessage]);
-        }
-    }
+    //         return response()->json($result);
+    //     } catch (Exception $ex) {
+    //         $exMessage = __('myfatoorah.' . $ex->getMessage());
+    //         return response()->json(['IsSuccess' => false, 'Message' => $exMessage]);
+    //     }
+    // }
 
 //-----------------------------------------------------------------------------------------------------------------------------------------
-    private function changeTransactionStatus($inputData) {
-        //1. Check if orderId is valid on your system.
-        $orderId = $inputData['CustomerReference'];
+    // private function changeTransactionStatus($inputData) {
+    //     //1. Check if orderId is valid on your system.
+    //     $orderId = $inputData['CustomerReference'];
 
-        //2. Get MyFatoorah invoice id
-        $invoiceId = $inputData['InvoiceId'];
+    //     //2. Get MyFatoorah invoice id
+    //     $invoiceId = $inputData['InvoiceId'];
 
-        //3. Check order status at MyFatoorah side
-        if ($inputData['TransactionStatus'] == 'SUCCESS') {
-            $status = 'Paid';
-            $error  = '';
-        } else {
-            $mfObj = new MyFatoorahPaymentStatus($this->mfConfig);
-            $data  = $mfObj->getPaymentStatus($invoiceId, 'InvoiceId');
+    //     //3. Check order status at MyFatoorah side
+    //     if ($inputData['TransactionStatus'] == 'SUCCESS') {
+    //         $status = 'Paid';
+    //         $error  = '';
+    //     } else {
+    //         $mfObj = new MyFatoorahPaymentStatus($this->mfConfig);
+    //         $data  = $mfObj->getPaymentStatus($invoiceId, 'InvoiceId');
 
-            $status = $data->InvoiceStatus;
-            $error  = $data->InvoiceError;
-        }
+    //         $status = $data->InvoiceStatus;
+    //         $error  = $data->InvoiceError;
+    //     }
 
-        $message = $this->getTestMessage($status, $error);
+    //     $message = $this->getTestMessage($status, $error);
 
-        //4. Update order transaction status on your system
-        return ['IsSuccess' => true, 'Message' => $message, 'Data' => $inputData];
-    }
+    //     //4. Update order transaction status on your system
+    //     return ['IsSuccess' => true, 'Message' => $message, 'Data' => $inputData];
+    // }
 
 //-----------------------------------------------------------------------------------------------------------------------------------------
     private function getTestOrderData($orderId) {

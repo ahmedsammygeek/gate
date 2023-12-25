@@ -22,7 +22,7 @@ use App\Http\Controllers\Board\TransactionController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\MyFatoorahController;
 Route::get('/test' ,[TestController::class , 'index'] );
-// Route::get('/test' ,[MyFatoorahController::class , 'index'] );
+Route::get('/test' ,[MyFatoorahController::class , 'index'] );
 Route::get('/myfatoorah/callback' ,[MyFatoorahController::class , 'callback'] )->name('myfatoorah.callback');
 Route::group(['prefix' => 'Board' , 'as' => 'board.'  ], function() {
     Route::group(['middleware' => 'auth'], function() {
@@ -46,6 +46,7 @@ Route::group(['prefix' => 'Board' , 'as' => 'board.'  ], function() {
         Route::get('purchases' , [PurchaseController::class ,'index'] )->name('purchases.index');
         Route::get('purchases/{purchase}' , [PurchaseController::class ,'show'] )->name('purchases.show');
         Route::get('purchases/{purchase}/installments' , [PurchaseController::class ,'installments'] )->name('purchases.installments');
+        Route::get('purchases/{purchase}/transaction' , [PurchaseController::class ,'transaction'] )->name('purchases.transaction');
         Route::get('purchases/{purchase}/transactions' , [PurchaseController::class ,'transactions'] )->name('purchases.transactions');
 
         Route::get('transactions' , [TransactionController::class , 'index'] )->name('transactions.index');

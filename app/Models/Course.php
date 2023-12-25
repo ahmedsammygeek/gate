@@ -75,6 +75,11 @@ class Course extends Model
         return $this->hasMany(CourseUnit::class, 'course_id');
     }
 
+    public function installments($value='')
+    {
+        return $this->hasMany(CourseInstallment::class , 'course_id');
+    }
+
 
     public function lessons()
     {

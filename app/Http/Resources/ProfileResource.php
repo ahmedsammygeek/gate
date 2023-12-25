@@ -12,7 +12,6 @@ use App\Http\Resources\Api\UserCourseProgressResource;
 use App\Models\UserCourseProgress;
 class ProfileResource extends JsonResource
 {
-
     public function toArray(Request $request): array
     {
         return [

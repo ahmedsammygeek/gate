@@ -20,14 +20,14 @@
         <ul class="nav nav-tabs nav-tabs-highlight nav-justified">
 
             <li class="nav-item">
-                <a href="#" class="nav-link "> بيانات عمليه الشراء </a>
+                <a href="{{ route('board.purchases.show' , $purchase->id ) }}" class="nav-link "> بيانات عمليه الشراء </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link"> بيانات الدفع </a>
+                <a href="{{ route('board.purchases.transaction' , $purchase->id ) }}" class="nav-link"> بيانات الدفع </a>
 
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link active"> الاقساط الخاصه بعمليه الشراء </a>
+                <a href="{{ route('board.purchases.installments' , $purchase->id ) }}" class="nav-link active"> الاقساط الخاصه بعمليه الشراء </a>
             </li>
         </ul>
     </div>
