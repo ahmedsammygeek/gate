@@ -20,7 +20,6 @@ Route::prefix("v1")->group(function () {
     Route::post('login', [AuthController::class, 'login']);
     Route::post('contact'  , [ContactController::class , 'store'] );
 
-
     Route::get('categories', [CategoryController::class, 'index']);
     Route::get('universities', [UniversityController::class, 'index']);
     Route::get('universities/{identifier}', [UniversityController::class, 'show']);

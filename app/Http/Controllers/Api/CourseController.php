@@ -103,7 +103,7 @@ class CourseController extends Controller
 
     public function lesson(Course $course , Lesson $lesson)
     {
-        // we need first to check if this lesson s free or not 
+        
 
         if ($lesson->is_free == 1 ) {
             return response()->json([
