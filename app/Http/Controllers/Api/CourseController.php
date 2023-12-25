@@ -13,6 +13,7 @@ use App\Http\Resources\Api\PackageDetailsResource;
 use App\Http\Resources\DetailedCourseResource;
 use Auth;
 use App\Http\Resources\Api\LessonDetailsResource;
+use App\Jobs\Api\AddLessonToUserViewJob;
 use App\Http\Resources\CourseUnitResource;
 
 class CourseController extends Controller
@@ -103,8 +104,10 @@ class CourseController extends Controller
 
     public function lesson(Course $course , Lesson $lesson)
     {
-        
 
+
+        AddLessonToUserViewJob::dispatch(Auth::user() , $lesson )->delay(now()->addSeconds(3));
+        
         if ($lesson->is_free == 1 ) {
             return response()->json([
                 'status' => true,
@@ -137,6 +140,8 @@ class CourseController extends Controller
                 "data" => []
             ] , 403); 
         }
+
+
 
         return response()->json([
             'status' => true,
