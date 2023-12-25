@@ -83,7 +83,7 @@
                                     <i class="icon-database-edit2  "></i>
                                 </a>
                                 @endcan
-                                @can('universities.delete', Model::class)
+                                @can('universities.delete')
                                 <a data-item_id='{{ $university->id }}' class="btn btn-danger btn-sm delete_item">
                                     <i class="icon-trash  "></i>
                                 </a>
