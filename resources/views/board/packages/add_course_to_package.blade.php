@@ -28,14 +28,15 @@
 			<form  method="POST" action="{{ route('board.packages.courses.store' , $package ) }}" enctype="multipart/form-data" >
 				<div class="card-body">
 					@csrf
+					
 					<div class="mb-4">
 						<div class="fw-bold border-bottom pb-2 mb-3"> بيانات الكورس </div>
 						<div class="row mb-3">
 							<label class="col-form-label col-lg-2"> الكورسات <span class="text-danger">*</span></label>
 							<div class="col-lg-10">
-								<select name="courses[]" class='form-control form-select' required='required' multiple="" id="">
+								<select name="courses[]" class='form-control form-select select' required='required' multiple="" id="">
 									@foreach ($courses as $one_course)
-									<option value="{{ $one_course->id }}" {{ in_array($one_course->id, $course_sub_courses) ? 'selected' : '' }} > {{ $one_course->title }} </option>
+									<option value="{{ $one_course->id }}" {{ in_array($one_course->id, $course_sub_courses) ? 'selected="selected"' : '' }} > {{ $one_course->title }} </option>
 									@endforeach
 								</select>
 								@error('courses')
@@ -56,3 +57,9 @@
 </div>
 
 @endsection
+
+@section('scripts')
+<script src="{{ asset('board_assets/js/vendor/forms/selects/select2.min.js') }}"></script>
+<script src="{{ asset('board_assets/demo/pages/form_select2.js') }}"></script>
+@endsection
+

@@ -48,7 +48,7 @@
                         </tr>
 
                         <tr>
-                            <th> ابمستخدم  </th>
+                            <th> المستخدم  </th>
                             <td>  <a href="{{ route('board.users.show', $purchase->user_id) }}"> {{ $purchase->user?->name }} </a> </td>
                         </tr>
                         <tr>

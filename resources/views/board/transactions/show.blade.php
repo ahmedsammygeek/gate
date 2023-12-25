@@ -12,13 +12,18 @@
 
 <div class="row">
     <div class="col-md-12">
+        <a href="{{ route('board.transactions.index') }}" class="btn btn-primary mb-2 " style="float: left;">
+            العود الى جميع المعاملات <i class="icon-arrow-left7 "></i>
+        </a>
+    </div>
+    <div class="col-md-12">
         <div class="card">
 
             <div class='card-body'>
                 <table class='table table-bordered table-responsive table-striped'>
                     <tbody>
                         <tr>
-                            <th> تاريخ المعالمه  </th>
+                            <th> تاريخ المعامله  </th>
                             <td>
                                 {{ $transaction->payment_date }} <span class='text-muted'>{{ $transaction->payment_date->diffForHumans() }} </span> 
                             </td>

@@ -223,7 +223,7 @@ switch (Request::segment(2)) {
                 <li class="nav-item"><a href="{{ route('board.packages.index') }}" class="nav-link"> عرض كافه
                 الباقات </a></li>
                 @endif
-                @can('packages.add', Model::class)
+                @can('packages.add')
                 <li class="nav-item"><a href="{{ route('board.packages.create') }}" class="nav-link">إضافه باقه
                 جديد </a></li>
                 @endcan

@@ -10,7 +10,13 @@
 @section('content')
 
 
+
 <div class="row">
+    <div class="col-md-12">
+        <a href="{{ route('board.installments.index') }}" class="btn btn-primary mb-2 " style="float: left;">
+            العود الى الاقساط <i class="icon-arrow-left7 "></i>
+        </a>
+    </div>
     <div class="col-md-12">
         <div class="card">
 
