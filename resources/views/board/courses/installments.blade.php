@@ -21,26 +21,12 @@
 	</div>
 	<div class="col-md-12">
 		<ul class="nav nav-tabs nav-tabs-highlight nav-justified">
+			 <li class="nav-item"><a href="{{ route('board.courses.show' , $course ) }}" class="nav-link "> تفاصيل الكورس </a></li>
 			 <li class="nav-item">
-                <a href="{{ route('board.courses.show', $course) }}" class="nav-link active"> 
-                    @if ($course->type == App\Models\Course::PACKAGE )
-                    تفاصيل   الباقه
-                    @else
-                    تفاصيل   الكورس
-                    @endif
-                </a>
-            </li>
-            @if ($course->type == App\Models\Course::PACKAGE )
-            <li class="nav-item">
-                <a href="{{ route('board.courses.courses.index', $course) }}" class="nav-link ">  الكورسات التى تحتوى عليها الباقه </a>
-            </li>
-            @else
-            <li class="nav-item">
                 <a href="{{ route('board.courses.units.index', $course) }}" class="nav-link "> الوحدات </a>
             </li>
-            @endif
 			<li class="nav-item"><a href="{{ route('board.courses.students' , $course ) }}" class="nav-link "> الطلبه </a></li>
-			<li class="nav-item"><a href="#" class="nav-link"> التقييمات </a></li>
+			<li class="nav-item"><a href="{{ route('board.courses.reviews' , $course ) }}" class="nav-link"> التقييمات </a></li>
 			<li class="nav-item"><a href="{{ route('board.courses.installments.index', $course) }}" class="nav-link active">الاقساط </a></li>
 		</ul>
 	</div>
