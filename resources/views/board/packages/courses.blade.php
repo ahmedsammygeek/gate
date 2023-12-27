@@ -38,6 +38,9 @@
             <li class="nav-item">
                 <a href="{{ route('board.packages.students', $package) }}" class="nav-link ">الطلبه </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('board.packages.reviews', $package) }}" class="nav-link "> التقييمات </a>
+            </li>
 		</ul>
 	</div>
 </div>

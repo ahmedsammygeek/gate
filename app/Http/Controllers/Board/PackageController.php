@@ -164,4 +164,9 @@ class PackageController extends Controller
     {
         return view('board.packages.students' , compact('package') );
     }
+
+    public function reviews(Course $package)
+    {
+        return view('board.packages.reviews' , compact('package') );
+    }
 }
