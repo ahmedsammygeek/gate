@@ -10,6 +10,11 @@
 @section('content')
 
 <div class="row">
+	 <div class="col-md-12">
+        <a href="{{ route('board.courses.index') }}" class="btn btn-primary mb-2 " style="float: left;">
+            عرض كافه الكورسات <i class="icon-arrow-left7 "></i>
+        </a>
+    </div>
 	<div class="col-md-12">
 		<ul class="nav nav-tabs nav-tabs-highlight nav-justified">
 			<li class="nav-item"><a href="{{ route('board.courses.show' , $course ) }}" class="nav-link "> تفاصيل الكورس </a></li>
