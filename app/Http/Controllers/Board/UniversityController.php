@@ -95,7 +95,7 @@ class UniversityController extends Controller
         $university->is_active = $request->filled('active') ? 1 : 0;
         $university->save();
 
-        return redirect(route('board.universities.edit' , $university ))->with('success' , 'تم تعديل الجامعه بنجاح' );
+        return redirect(route('board.universities.index' , $university ))->with('success' , 'تم تعديل الجامعه بنجاح' );
     }
 
     /**
