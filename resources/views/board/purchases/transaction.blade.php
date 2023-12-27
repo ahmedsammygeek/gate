@@ -42,7 +42,7 @@
 
                        
                        <tr>
-                            <th> تاريخ المعالمه  </th>
+                            <th> تاريخ المعامله  </th>
                             <td>
                                 {{ $purchase->directTransaction->payment_date }} <span class='text-muted'>{{ $purchase->directTransaction->payment_date->diffForHumans() }} </span> 
                             </td>

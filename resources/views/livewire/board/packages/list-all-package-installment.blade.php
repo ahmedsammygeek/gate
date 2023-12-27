@@ -23,10 +23,10 @@
                                 {{ $installment->days }} <span class='text-muted' > يوم بعد عمليه الشراء </span>
                             </td>
                             <td class="text-center">
-                                <a  href="{{ route('board.courses.installments.show'  , ['course' => $course , 'installment' => $installment ] ) }}"  class="btn btn-sm btn-primary  ">
+                                <a  href="{{ route('board.packages.installments.show'  , ['package' => $course , 'installment' => $installment ] ) }}"  class="btn btn-sm btn-primary  ">
                                     <i class="icon-eye "></i>
                                 </a>
-                                <a href="{{ route('board.courses.installments.edit'  ,['course' => $course , 'installment' => $installment ] ) }}"  class="btn btn-sm btn-warning ">
+                                <a href="{{ route('board.packages.installments.edit'  ,['package' => $course , 'installment' => $installment ] ) }}"  class="btn btn-sm btn-warning ">
                                     <i class="icon-database-edit2  "></i>
                                 </a>
                                 <a data-item_id='{{ $installment->id }}' class="btn btn-danger btn-sm delete_item">
@@ -51,8 +51,9 @@
         <br>
         <div class="alert alert-warning alert-dismissible fade show">
             <span class="fw-semibold"> لا يوجد اقساط حاليا للعرض داخل الكورس !</span> 
+
         </div>
-    </div>   
+    </div> 
     @endif
 </div>
 

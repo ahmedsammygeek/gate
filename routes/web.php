@@ -19,6 +19,8 @@ use App\Http\Controllers\Board\PurchaseController;
 use App\Http\Controllers\Board\UploadLessonVideoController;
 use App\Http\Controllers\Board\UserInstallmentController;
 use App\Http\Controllers\Board\TransactionController;
+use App\Http\Controllers\Board\PackageInstallmentController;
+
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\MyFatoorahController;
 Route::get('/test' ,[TestController::class , 'index'] );
@@ -61,7 +63,6 @@ Route::group(['prefix' => 'Board' , 'as' => 'board.'  ], function() {
         Route::get('courses/{course}/installments' , [CourseInstallmentController::class , 'index'] )->name('courses.installments.index');
         Route::get('/courses/{course}/installments/create' , [CourseInstallmentController::class , 'create'] )->name('courses.installments.create');
         Route::post('/courses/{course}/installments' , [CourseInstallmentController::class , 'store'] )->name('courses.installments.store');
-
         Route::get('/courses/{course}/installments/{installment}/edit' , [CourseInstallmentController::class , 'edit'] )->name('courses.installments.edit');
         Route::patch('/courses/{course}/installments/{installment}' , [CourseInstallmentController::class , 'update'] )->name('courses.installments.update');
         Route::get('/courses/{course}/installments/{installment}', [CourseInstallmentController::class , 'show'] )->name('courses.installments.show');
@@ -77,6 +78,7 @@ Route::group(['prefix' => 'Board' , 'as' => 'board.'  ], function() {
         Route::get('users/{user}/installments' , [UserController::class , 'installments'] )->name('users.installments');
 
 
+        Route::resource('packages.installments', PackageInstallmentController::class);
 
         // Route::get('purchases/report');
 
