@@ -1,7 +1,7 @@
 <div class="row">
-    <div class="col-md-12">
+    @if (count($package_courses))
+        <div class="col-md-12">
         <div class="card">
-
             <div class="card-body">
                 <div class="d-sm-flex align-items-sm-start">
                     <div class="form-control-feedback form-control-feedback-start flex-grow-1 mb-3 mb-sm-0">
@@ -100,6 +100,15 @@
             </div>
         </div>
     </div>
+    @else
+    <div class="col-lg-12">
+        <br>
+        <br>
+        <div class="alert alert-warning alert-dismissible fade show">
+            <span class="fw-semibold"> لا يوجد كورسات داخل الباقه حتى الان !</span> 
+        </div>
+    </div>   
+    @endif
 </div>
 
 @section('scripts')
