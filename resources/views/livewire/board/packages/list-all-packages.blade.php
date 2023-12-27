@@ -108,7 +108,7 @@
                             </div>
                         </td>
                         <td class="text-wrap">
-                            <a href="{{ route('board.courses.show', $package->id) }}" class="d-block fw-semibold">
+                            <a href="{{ route('board.packages.show', $package->id) }}" class="d-block fw-semibold">
                                 {{ Str::limit($package->title, 30, '.....') }}</a>
                                 <span class="fs-sm text-muted">{{ $package->created_at->toFormattedDateString() }}</span>
                             </td>
