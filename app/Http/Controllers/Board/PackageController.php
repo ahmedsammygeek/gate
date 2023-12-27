@@ -158,4 +158,10 @@ class PackageController extends Controller
         $package->courses()->saveMany($package_courses);
         return redirect(route('board.packages.courses.index' , $package ))->with('success' , 'تم إاضفه الكورسات الى الباتقه بنجاح' );
     }
+
+
+    public function students(Course $package)
+    {
+        return view('board.packages.students' , compact('package') );
+    }
 }

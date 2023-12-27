@@ -32,6 +32,9 @@
             <li class="nav-item">
                 <a href="{{ route('board.packages.installments.index', $package) }}" class="nav-link active">الاقساط </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('board.packages.students', $package) }}" class="nav-link ">الطلبه </a>
+            </li>
 		</ul>
 	</div>
 </div>
