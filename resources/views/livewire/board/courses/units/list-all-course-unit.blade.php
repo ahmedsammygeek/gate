@@ -56,8 +56,8 @@
                             <td class="text-wrap">
                                 {{ $unit->getTranslation('title' , 'ar' ) }}
                             </td>
-                           
-                            <td> 50 </td>
+
+                            <td> {{ $unit->lessons()->count() }} </td>
                             <td>
                                 @switch($unit->is_active )
                                 @case(1)
@@ -68,7 +68,7 @@
                                 @break
                                 @endswitch
                             </td>
-                           
+
 
                             <td class="text-center">
                                 <a  href="{{ route('board.courses.units.show'  ,  ['course' => $course  , 'unit' => $unit ] ) }}"  class="btn btn-sm btn-primary  ">

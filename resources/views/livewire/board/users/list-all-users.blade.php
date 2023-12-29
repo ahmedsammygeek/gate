@@ -108,7 +108,7 @@
                         @foreach ($users as $user)
                         <tr>
                             <td>
-                                <a href="{{ route('board.admins.show' , $user ) }}" class="d-block fw-semibold">{{ $user->name }}</a>
+                                <a href="{{ route('board.users.show' , $user ) }}" class="d-block fw-semibold">{{ $user->name }}</a>
                                 <span class="fs-sm text-muted">{{ $user->created_at->toFormattedDateString() }}</span>
                             </td>
                             <td>{{ $user->email }}</td>
@@ -132,7 +132,7 @@
                                 <span class="badge bg-warning"> غير مشترك </span>
                                 @endif
                             </td>
-                            
+
 
                             <td>
                                 @switch($user->is_banned )
