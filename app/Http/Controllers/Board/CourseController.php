@@ -11,6 +11,7 @@ use App\Models\Course;
 use App\Http\Requests\Board\Courses\StoreCourseRequest;
 use App\Http\Requests\Board\Courses\UpdateCourseRequest;
 use Auth;
+use Str;
 
 class CourseController extends Controller
 {
@@ -48,6 +49,8 @@ class CourseController extends Controller
         $course->ends_at = $request->ends_at;
         $course->type = Course::COURSE ;
         $course->user_id = Auth::id();
+        $course->setTranslation('slug' , 'ar'  , Str::slug($request->title_ar, '-') );
+        $course->setTranslation('slug' , 'en'  , Str::slug($request->title_en, '-') );
         $course->setTranslation('title' , 'ar' , $request->title_ar );
         $course->setTranslation('title' , 'en' , $request->title_en );
         $course->setTranslation('subtitle' , 'ar' , $request->subtitle_ar );

@@ -9,6 +9,7 @@ use App\Models\University;
 use App\Http\Requests\Board\Universities\StoreUniversityRequest;
 use App\Http\Requests\Board\Universities\UpdateUniversityRequest;
 use Auth;
+use Str;
 class UniversityController extends Controller
 {
     /**
@@ -37,6 +38,8 @@ class UniversityController extends Controller
     {
         $this->authorize('universities.add');
         $university = new University;
+        $university->setTranslation('slug' , 'ar'  , Str::slug($request->title_ar, '-') );
+        $university->setTranslation('slug' , 'en'  , Str::slug($request->title_en, '-') );
         $university->setTranslation('title' , 'ar' , $request->title_ar );
         $university->setTranslation('title' , 'en' , $request->title_en );
         $university->setTranslation('content' , 'ar' , $request->content_ar );

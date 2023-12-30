@@ -10,6 +10,7 @@ use App\Models\University;
 use App\Models\Category;
 use App\Models\Package;
 use Auth;
+use Str;
 use App\Http\Requests\Board\Packages\StorePackageRequest;
 use App\Http\Requests\Board\Packages\UpdatePackageRequest;
 class PackageController extends Controller
@@ -50,6 +51,8 @@ class PackageController extends Controller
         $package->type = Course::PACKAGE ;
         $package->user_id = Auth::id();
         $package->ends_at = $request->ends_at;
+        $package->setTranslation('slug' , 'ar'  , Str::slug($request->title_ar, '-') );
+        $package->setTranslation('slug' , 'en'  , Str::slug($request->title_en, '-') );
         $package->setTranslation('title' , 'ar' , $request->title_ar );
         $package->setTranslation('title' , 'en' , $request->title_en );
         $package->setTranslation('subtitle' , 'ar' , $request->subtitle_ar );
