@@ -1,22 +1,8 @@
 <div class="row">
-    <div class="col-md-12">
-        <a href="{{ route('board.courses.units.create' , $course ) }}" class="btn btn-primary mb-2" style="float: left;">  <i class="icon-plus3  me-2"></i>  إضافه وحده جديده </a>
-
-        <a href="{{ route('board.courses.show' , $course ) }}" class="btn btn-primary mb-2 " style="float: left;margin-left:10px;">
-            <span style='margin-left:10px' > العوده الى الكورس </span>  <i class="icon-arrow-left7"></i>
-        </a>
-
-        <a href="{{ route('board.courses.index') }}" class="btn btn-primary mb-2" style="float: left;margin-left:10px;">
-            <span style='margin-left:10px' > العوده الى جميع الكورسات </span>  <i class="icon-arrow-left7"></i>
-        </a>
-    </div>
-
+    
     <div class="col-md-12">
         <div class="card">
-            <div class="card-header bg-primary">
-                <h5 class="mb-0 text-white">عرض كافه وحدات الكورس : {{ $course->title }}</h5>
-            </div>
-
+            
             <div class="card-body">
                 <div class="d-sm-flex align-items-sm-start">
                     <div class="form-control-feedback form-control-feedback-start flex-grow-1 mb-3 mb-sm-0">
@@ -41,63 +27,71 @@
             <div class="table-responsive">
                 <table class="table text-nowrap">
                     <thead>
-                        <tr>
-                            <th > اسم الوحده بالعربيه </th>
-                            <th >  عدد الدروس داخل الوحده </th>
-                            <th >  السماح بالعرض </th>
+                     @if (count($units))
+                     <tr>
+                        <th > اسم الوحده بالعربيه </th>
+                        <th >  عدد الدروس داخل الوحده </th>
+                        <th >  السماح بالعرض </th>
+                        <th class="text-center" style="width: 20px;">خصائص</th>
+                    </tr>
+                    @endif
+                </thead>
+                <tbody>
 
-                            <th class="text-center" style="width: 20px;">خصائص</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                    @if (count($units))
+                    @foreach ($units as $unit)
+                    <tr>
+                        <td class="text-wrap">
+                            {{ $unit->getTranslation('title' , 'ar' ) }}
+                        </td>
 
-                        @foreach ($units as $unit)
-                        <tr>
-                            <td class="text-wrap">
-                                {{ $unit->getTranslation('title' , 'ar' ) }}
-                            </td>
-
-                            <td> {{ $unit->lessons()->count() }} </td>
-                            <td>
-                                @switch($unit->is_active )
-                                @case(1)
-                                <span class="badge bg-success"> نعم </span>
-                                @break
-                                @case(0)
-                                <span class="badge bg-danger"> لا</span>
-                                @break
-                                @endswitch
-                            </td>
-
-
-                            <td class="text-center">
-                                <a  href="{{ route('board.courses.units.show'  ,  ['course' => $course  , 'unit' => $unit ] ) }}"  class="btn btn-sm btn-primary  ">
-                                    <i class="icon-eye  "></i>
-                                </a>
-                                <a  href="{{ route('board.courses.units.lessons.index'  ,  ['course' => $course  , 'unit' => $unit ] ) }}"  class="btn btn-sm btn-info  ">
-                                    <i class="icon-video-camera "></i>
-                                </a>
-                                <a href="{{ route('board.courses.units.edit'  ,  ['course' => $course  , 'unit' => $unit ] ) }}"  class="btn btn-sm btn-warning ">
-                                    <i class="icon-database-edit2  "></i>
-                                </a>
-                                <a data-item_id='{{ $unit->id }}' class="btn btn-danger btn-sm delete_item">
-                                    <i class="icon-trash  "></i>
-                                </a>
-                            </td>
-                        </tr>
-                        @endforeach
+                        <td> {{ $unit->lessons()->count() }} </td>
+                        <td>
+                            @switch($unit->is_active )
+                            @case(1)
+                            <span class="badge bg-success"> نعم </span>
+                            @break
+                            @case(0)
+                            <span class="badge bg-danger"> لا</span>
+                            @break
+                            @endswitch
+                        </td>
 
 
+                        <td class="text-center">
+                            <a  href="{{ route('board.courses.units.show'  ,  ['course' => $course  , 'unit' => $unit ] ) }}"  class="btn btn-sm btn-primary  ">
+                                <i class="icon-eye  "></i>
+                            </a>
+                            <a  href="{{ route('board.courses.units.lessons.index'  ,  ['course' => $course  , 'unit' => $unit ] ) }}"  class="btn btn-sm btn-info  ">
+                                <i class="icon-video-camera "></i>
+                            </a>
+                            <a href="{{ route('board.courses.units.edit'  ,  ['course' => $course  , 'unit' => $unit ] ) }}"  class="btn btn-sm btn-warning ">
+                                <i class="icon-database-edit2  "></i>
+                            </a>
+                            <a data-item_id='{{ $unit->id }}' class="btn btn-danger btn-sm delete_item">
+                                <i class="icon-trash  "></i>
+                            </a>
+                        </td>
+                    </tr>
+                    @endforeach
+                   
 
-                    </tbody>
-                </table>
-            </div>
+                    @else
+ <tr>
+                        <td class="text-center text-danger" colspan="5"> لا يوجد بيانات  </td>
+                    </tr>
+                    @endif
 
-            <div class="card-footer d-flex justify-content-end ">
-                {{ $units->links() }}
-            </div>
+
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card-footer d-flex justify-content-end ">
+            {{ $units->links() }}
         </div>
     </div>
+</div>
 </div>
 
 @section('scripts')

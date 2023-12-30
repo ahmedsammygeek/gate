@@ -24,14 +24,15 @@
             <li class="nav-item">
                 <a href="{{ route('board.packages.courses.index', $package) }}" class="nav-link ">  الكورسات داخل الباقه </a>
             </li> 
-            <li class="nav-item">
-                <a href="{{ route('board.packages.installments.index', $package) }}" class="nav-link">الاقساط </a>
-            </li>
+           
             <li class="nav-item">
                 <a href="{{ route('board.packages.students', $package) }}" class="nav-link ">الطلبه </a>
             </li>
             <li class="nav-item">
                 <a href="{{ route('board.packages.reviews', $package) }}" class="nav-link "> التقييمات </a>
+            </li>
+             <li class="nav-item">
+                <a href="{{ route('board.packages.installments.index', $package) }}" class="nav-link">الاقساط </a>
             </li>
         </ul>
     </div>
