@@ -33,6 +33,7 @@ class ListAllUniversities extends Component
         $this->resetPage();
     }
 
+
     public function render()
     {
         $universities = University::with('user')->when($this->search , function($query){

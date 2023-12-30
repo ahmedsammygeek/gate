@@ -7,7 +7,7 @@
         @endcan
     </div>
 
-@if (count($trainers))
+
       <div class="col-md-12">
         <div class="card">
             <div class="card-header bg-primary">
@@ -39,17 +39,20 @@
             <div class="table-responsive">
                 <table class="table text-nowrap">
                     <thead>
-                        <tr>
+                       @if (count($trainers))
+                           <tr>
                             <th> صوره المدرب </th>
                             <th> اسم المدرب </th>
                             <th> عدد الكورسات </th>
                             <th> عرض داخل الصفحه الرئيسيه </th>
                             <th class="text-center" style="width: 20px;">خصائص</th>
                         </tr>
+                       @endif
                     </thead>
                     <tbody>
 
-                        @foreach ($trainers as $trainer)
+                       @if (count($trainers))
+                           @foreach ($trainers as $trainer)
                         <tr>
                             <td class="pe-0">
                                 <div class="col-sm-6 col-lg-5">
@@ -108,6 +111,11 @@
                             </td>
                         </tr>
                         @endforeach
+                        @else
+                        <tr>
+                            <td class="text-center text-danger" colspan="5"> لا يوجد بيانات  </td>
+                        </tr>
+                       @endif
 
 
 
@@ -120,15 +128,8 @@
             </div>
         </div>
     </div>
-    @else
-     <div class="col-lg-12">
-    <br>
-    <br>
-    <div class="alert alert-warning alert-dismissible fade show">
-        <span class="fw-semibold"> لا يوجد مدربين للعرض  حاليا </span> 
-    </div>
-</div>
-@endif
+  
+
 </div>
 
 @section('scripts')

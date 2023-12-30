@@ -1,5 +1,6 @@
 <div>
-    <div class="col-md-12">
+    @if (count($user_courses))
+        <div class="col-md-12">
         <div class="card">
 
 
@@ -56,6 +57,15 @@
             </div>
         </div>
     </div>
+    @else
+    <div class="col-lg-12">
+    <br>
+    <br>
+    <div class="alert alert-warning alert-dismissible fade show">
+        <span class="fw-semibold"> لا يوجد كورسات حاليا للمستخدم  </span> 
+    </div>
+</div>
+    @endif
 
     <div id="modal_form_vertical" wire:ignore.self class="modal fade" tabindex="-1">
         <div class="modal-dialog">

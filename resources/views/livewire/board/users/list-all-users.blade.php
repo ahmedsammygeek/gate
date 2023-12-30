@@ -1,6 +1,6 @@
 <div class="row">
-    @if ($rows_count)
-            <div class="col-md-12">
+
+    <div class="col-md-12">
         <div class="card">
             <div class="card-header bg-primary">
                 <h5 class="mb-0 text-white">عرض كافه المستخدمين</h5>
@@ -93,7 +93,8 @@
             <div class="table-responsive">
                 <table class="table text-nowrap">
                     <thead>
-                        <tr>
+                        @if (count($users))
+                           <tr>
                             <th > اسم المستخدم </th>
                             <th>البريد الكاترونى </th>
                             <th>رقم الواتس</th>
@@ -103,10 +104,12 @@
                             <th>السماح بدخول النظام</th>
                             <th class="text-center" style="width: 20px;">خصائص</th>
                         </tr>
+                        @endif
                     </thead>
                     <tbody>
 
-                        @foreach ($users as $user)
+                        @if (count($users))
+                            @foreach ($users as $user)
                         <tr>
                             <td>
                                 <a href="{{ route('board.users.show' , $user ) }}" class="d-block fw-semibold">{{ $user->name }}</a>
@@ -161,6 +164,11 @@
                             </td>
                         </tr>
                         @endforeach
+                        @else
+                        <tr>
+                            <td class="text-center text-danger" colspan="5"> لا يوجد بيانات  </td>
+                        </tr>
+                        @endif
                     </tbody>
                 </table>
             </div>
@@ -170,15 +178,7 @@
             </div>
         </div>
     </div>
-    @else
-     <div class="col-lg-12">
-    <br>
-    <br>
-    <div class="alert alert-warning alert-dismissible fade show">
-        <span class="fw-semibold"> لا يوجد مستخدمين للعرض  حاليا </span> 
-    </div>
-</div>
-    @endif
+
 </div>
 
 @section('scripts')

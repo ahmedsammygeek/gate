@@ -6,7 +6,7 @@
     </div>
 
 
-    @if (count($universities))
+
     <div class="col-md-12">
         <div class="card">
             <div class="card-header bg-primary">
@@ -36,7 +36,8 @@
 
             <div class="table-responsive">
                 <table class="table text-nowrap">
-                    <thead>
+                    @if (count($universities))
+                        <thead>
                         <tr>
                             <th > اسم الجامعه بالعربيه </th>
                             <th > اسم الجامعه بالانجليزيه </th>
@@ -45,8 +46,12 @@
                             <th class="text-center" style="width: 20px;">خصائص</th>
                         </tr>
                     </thead>
+                    @endif
                     <tbody>
 
+
+
+                        @if (count($universities))
                         @foreach ($universities as $university)
                         <tr>
 
@@ -92,9 +97,11 @@
                             </td>
                         </tr>
                         @endforeach
-
-
-
+                        @else
+                        <tr>
+                            <td class="text-center text-danger" colspan="5"> لا يوجد بيانات  </td>
+                        </tr>
+                        @endif            
                     </tbody>
                 </table>
             </div>
@@ -104,16 +111,7 @@
             </div>
         </div>
     </div>
-    @else
-    <div class="col-lg-12">
-        <br>
-        <br>
-        <div class="alert alert-warning alert-dismissible fade show">
-            <span class="fw-semibold"> لا يوجد جامعات للعرض حاليا  </span> 
-
-        </div>
-    </div>
-    @endif
+    
 </div>
 
 @section('scripts')

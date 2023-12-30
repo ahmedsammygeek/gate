@@ -1,5 +1,7 @@
 <div>
-    <div class="col-md-12">
+
+    @if (count($user->installments))
+       <div class="col-md-12">
         <div class="card">
 
 
@@ -47,6 +49,16 @@
             </div>
         </div>
     </div>
+    @else
+    <div class="col-lg-12">
+    <br>
+    <br>
+    <div class="alert alert-warning alert-dismissible fade show">
+        <span class="fw-semibold"> لا يوجد اقساط للعرض  حاليا </span> 
+    </div>
+</div>
+    @endif
+    
 </div>
 
 <script src="{{ Storage::url('board_assets/js/vendor/notifications/sweet_alert.min.js') }}"></script>

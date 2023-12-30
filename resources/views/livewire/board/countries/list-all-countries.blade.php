@@ -6,7 +6,7 @@
     </div>
 
 
-    @if ($rows_count)
+
     <div class="col-md-12">
         <div class="card">
             <div class="card-header bg-primary">
@@ -36,6 +36,7 @@
 
             <div class="table-responsive">
                 <table class="table text-nowrap">
+                    @if (count($countries))
                     <thead>
                         <tr>
                             <th> كود الدوله </th>
@@ -45,8 +46,11 @@
                             <th class="text-center" style="width: 20px;">خصائص</th>
                         </tr>
                     </thead>
+
+                    @endif
                     <tbody>
 
+                        @if (count($countries))
                         @foreach ($countries as $country)
                         <tr>
 
@@ -91,6 +95,11 @@
                             </td>
                         </tr>
                         @endforeach
+                        @else
+                        <tr>
+                            <td class="text-center text-danger" colspan="5"> لا يوجد بيانات  </td>
+                        </tr>
+                        @endif
 
 
 
@@ -103,16 +112,7 @@
             </div>
         </div>
     </div>
-    @else
-    <div class="col-lg-12">
-        <br>
-        <br>
-        <div class="alert alert-warning alert-dismissible fade show">
-            <span class="fw-semibold"> لا يوجد دول للعرض  </span> 
 
-        </div>
-    </div>
-    @endif
 </div>
 
 @section('scripts')
