@@ -55,6 +55,21 @@ class Course extends Model
     }
 
 
+    public function getOldPrice()
+    {
+        return $this->price;
+    }
+
+
+    public function hasDiscount()
+    {
+        if ($this->price_after_discount) {
+            return true;
+        }
+
+        return false;
+    }
+
     public function getPrice()
     {
         if ($this->price_after_discount) {

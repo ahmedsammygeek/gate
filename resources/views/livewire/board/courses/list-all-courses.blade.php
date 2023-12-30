@@ -86,7 +86,7 @@
                 <table class="table text-nowrap">
                     <thead>
                         @if (count($courses))
-                           <tr>
+                        <tr>
                             <th > صوره الكورس </th>
                             <th > اسم الكورس </th>
                             <th >  التصنيف </th>
@@ -101,7 +101,7 @@
                     <tbody>
 
                         @if (count($courses))
-                           @foreach ($courses as $course)
+                        @foreach ($courses as $course)
                         <tr>
                             <td class="pe-0">
                                 <div class="col-sm-6 col-lg-9">
@@ -133,7 +133,17 @@
                                     <a href="{{ route('board.universities.show' , $course->university_id ) }}"> {{ $course->university?->title }} </a>
                                     @endif
                                 </td>
-                                <td> {{ $course->getPrice() }} <span class='text-muted' >  ر.س </span>  </td>
+                                <td> 
+                                    @if ($course->hasDiscount())
+                                    <del>
+                                        {{ $course->getOldPrice() }} <span class='text-muted' >  ر.س </span>
+                                    </del> <br>
+                                    
+                                    {{ $course->getPrice() }} <span class='text-muted' >  ر.س </span>
+                                    @else
+                                    {{ $course->getPrice() }} <span class='text-muted' >  ر.س </span>
+                                    @endif
+                                </td>
                                 <td>
                                     @switch($course->show_in_home )
                                     @case(1)
@@ -178,9 +188,9 @@
                             @endforeach
                             @else
                             <tr>
-                            <td class="text-center text-danger" colspan="8"> لا يوجد بيانات  </td>
-                        </tr>
-                        @endif
+                                <td class="text-center text-danger" colspan="8"> لا يوجد بيانات  </td>
+                            </tr>
+                            @endif
 
 
 

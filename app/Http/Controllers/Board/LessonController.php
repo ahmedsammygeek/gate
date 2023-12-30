@@ -61,7 +61,6 @@ class LessonController extends Controller
         $lesson->is_active = $request->filled('is_active') ? 1 : 0;
         $lesson->course_unit_id = $unit->id;
         $lesson->user_id = Auth::id();
-
         $lesson->save();
 
         Bus::chain([
@@ -69,6 +68,18 @@ class LessonController extends Controller
             new DeleteLocalVideoAfterUploadToViemoJob($request->video),
             new UpdateVideoTitleAndDescriptionInViemoJob($lesson),
         ])->dispatch();
+
+        if ($request->hasFile('files')) {
+            $lesson_files = [];
+            for ($i=0; $i < count($request->file('files')); $i++) { 
+                $lesson_files[] = new LessonFile([
+                    'file' => basename($request->file('files.'.$i)->store('lesson_files')) , 
+                    'user_id' => Auth::id(), 
+                    'file_name' => $request->file('files.'.$i)->getClientOriginalName() , 
+                ]);
+            }
+            $lesson->files()->saveMany($lesson_files);
+        }
 
 
         return redirect(route('board.courses.units.lessons.index' , ['course' => $course , 'unit' => $unit ] ))->with('success' , 'تم إضافه الدرس بنجاح' );
