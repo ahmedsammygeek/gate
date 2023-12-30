@@ -43,7 +43,10 @@ class CountryController extends Controller
         $country->is_active = $request->filled('active') ? 1 : 0;
         $country->save();
 
-        return redirect(route('board.countries.index'))->with('success' , 'تم إضافه الدوله بنجاح');
+        if (Auth::user()->can('countries.list')) {
+             return redirect(route('board.countries.index'))->with('success' , 'تم إضافه الدوله بنجاح');
+        }
+        return redirect(route('board.countries.create'))->with('success' , 'تم إضافه الدوله بنجاح');
     }
 
     /**

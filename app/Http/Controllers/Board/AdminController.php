@@ -54,6 +54,9 @@ class AdminController extends Controller
             }
             $admin->syncPermissions($request->permissions);
         }
+        if (Auth::user()->can('admins.list')) {
+            return redirect(route('board.admins.index'))->with('success' , 'تم إضافه المشرف بنجاح');
+        }
         return redirect(route('board.admins.create'))->with('success' , 'تم إضافه المشرف بنجاح');
     }
 
@@ -74,7 +77,6 @@ class AdminController extends Controller
     {
         $this->authorize('admins.edit');
         $user_permissions = $admin->permissions()->pluck('name')->toArray();
-        // dd($user_permissions);
         return view('board.admins.edit' , compact('admin' ,'user_permissions' ) );
     }
 

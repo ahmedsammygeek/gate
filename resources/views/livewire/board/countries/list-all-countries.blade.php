@@ -6,7 +6,8 @@
     </div>
 
 
-    <div class="col-md-12">
+    @if (count($countries))
+        <div class="col-md-12">
         <div class="card">
             <div class="card-header bg-primary">
                 <h5 class="mb-0 text-white">عرض كافه الدول</h5>
@@ -102,6 +103,16 @@
             </div>
         </div>
     </div>
+    @else
+     <div class="col-lg-12">
+        <br>
+        <br>
+        <div class="alert alert-warning alert-dismissible fade show">
+            <span class="fw-semibold"> لا يوجد دول للعرض  </span> 
+
+        </div>
+    </div>
+    @endif
 </div>
 
 @section('scripts')
