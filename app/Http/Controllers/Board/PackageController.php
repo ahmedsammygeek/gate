@@ -76,7 +76,10 @@ class PackageController extends Controller
             ]);
         }
         $package->courses()->saveMany($package_courses);
-        return redirect(route('board.packages.index'))->with('success' , 'تم إاضفه الباقه بنجاح' );
+        if (Auth::user()->can('packages.list')) {
+           return redirect(route('board.packages.index'))->with('success' , 'تم إاضفه الباقه بنجاح' );
+        }
+        return redirect(route('board.packages.create'))->with('success' , 'تم إاضفه الباقه بنجاح' );
     }
 
     public function edit(Course $package)

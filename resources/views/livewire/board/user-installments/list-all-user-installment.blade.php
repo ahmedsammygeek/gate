@@ -68,6 +68,7 @@
             <div class="table-responsive">
                 <table class="table text-nowrap">
                     <thead>
+                        @if (count($installments))
                         <tr>
                             <th > رقم القسط  </th>
                             <th > المستخدم </th>
@@ -76,44 +77,51 @@
                             <th >  هل تم الدفع  </th>
                             <th class="text-center" style="width: 20px;">خصائص</th>
                         </tr>
+                        @endif
                     </thead>
                     <tbody>
-                        @foreach ($installments as $installment)
-                        <tr>
-                            <td> {{ $installment->installment_number }} </td>
-                            <td> <a href="{{ route('board.users.show' , $installment->user_id ) }}"> {{ $installment->user?->name }} </a> </td>
+                     @if (count($installments))
+                     @foreach ($installments as $installment)
+                     <tr>
+                        <td> {{ $installment->installment_number }} </td>
+                        <td> <a href="{{ route('board.users.show' , $installment->user_id ) }}"> {{ $installment->user?->name }} </a> </td>
+                        
+                        <td> {{ $installment->amount }} <span class='text-muted' >  ريال سعودى </span> </td>
+                        <td> {{ $installment->due_date->toDateString() }} - <span class='text-muted'> {{ $installment->due_date->diffForHumans() }} </span>  </td>
+
+                        <td>
+                            @switch($installment->status)
+                            @case(0)
+                            <span class='badge bg-danger' > لم يتم الدفع بعد </span>
+                            @break
+                            @case(1)
+                            <span class='badge bg-success' > تم الدفع </span>
+                            @break
                             
-                            <td> {{ $installment->amount }} <span class='text-muted' >  ريال سعودى </span> </td>
-                            <td> {{ $installment->due_date->toDateString() }} - <span class='text-muted'> {{ $installment->due_date->diffForHumans() }} </span>  </td>
+                            @endswitch
+                        </td>
+                        <td class="text-center">
+                            @can('installments.show')
+                            <a  href="{{ route('board.installments.show'  , $installment ) }}"  class="btn btn-sm btn-primary  ">
+                                <i class="icon-eye  "></i>
+                            </a>
+                            @endcan
+                        </td>
+                    </tr>
+                    @endforeach
+                    @else
+                    <tr>
+                        <td class="text-center text-danger" colspan="5"> لا يوجد بيانات  </td>
+                    </tr>
+                    @endif
+                </tbody>
+            </table>
+        </div>
 
-                            <td>
-                                @switch($installment->status)
-                                @case(0)
-                                <span class='badge bg-danger' > لم يتم الدفع بعد </span>
-                                @break
-                                @case(1)
-                                <span class='badge bg-success' > تم الدفع </span>
-                                @break
-                                
-                                @endswitch
-                            </td>
-                            <td class="text-center">
-                                @can('installments.show')
-                                   <a  href="{{ route('board.installments.show'  , $installment ) }}"  class="btn btn-sm btn-primary  ">
-                                    <i class="icon-eye  "></i>
-                                </a>
-                                @endcan
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="card-footer d-flex justify-content-end ">
-                {{ $installments->links() }}
-            </div>
+        <div class="card-footer d-flex justify-content-end ">
+            {{ $installments->links() }}
         </div>
     </div>
+</div>
 </div>
 

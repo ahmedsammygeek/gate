@@ -49,7 +49,7 @@
                     <div class=" ms-sm-3  mb-sm-0">
                         <input type="date"  wire:model='end_date'  class='form-control'>
                     </div>
-                     <div class=" ms-sm-3  mb-sm-0">
+                    <div class=" ms-sm-3  mb-sm-0">
                         <button wire:loading.attr="disabled"  wire:click='resetFilters' type="button" class="btn btn-flat-primary btn-labeled btn-labeled-start ">
                             <span  class="btn-labeled-icon bg-primary text-white">
                                 <i class="icon-reset"></i>
@@ -72,67 +72,76 @@
             <div class="table-responsive">
                 <table class="table text-nowrap">
                     <thead>
-                        <tr>
-                            <th > رقم عمليه الشراء </th>
-                            <th > المستخدم </th>
-                            <th >  قيمه عمليه الشراء </th>
-                            <th >  نوع عمليه الشراء  </th>
-                            <th >  هل تم الدفع  </th>
-                            <th class="text-center" style="width: 20px;">خصائص</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($purchases as $purchase)
-                        <tr>
-                            <td> {{ $purchase->purchase_number }} </td>
-                            <td> <a href="{{ route('board.users.show' , $purchase->user_id ) }}"> {{ $purchase->user?->name }} </a> </td>
-                            <td> {{ $purchase->total }} <span class='text-muted' >  ريال سعودى </span> </td>
-                            <td> 
-                                @switch($purchase->purchase_type)
-                                @case('one_later_installment')
-                                <span class='badge bg-primary' > قسط واحد مؤجل </span>
-                                @break
-                                @case('installments')
-                                <span class='badge bg-success' > اقساط </span>
-                                @break
-                                @case('total_amount')
-                                <span class='badge bg-info' > المبلغ كامل </span>
-                                @break
-                                @default
-                                @endswitch
-                            </td>
-                            <td>
-                                @switch($purchase->is_paid)
-                                @case(0)
-                                <span class='badge bg-warning' > لم يتم الدفع بعد </span>
-                                @break
-                                @case(1)
-                                <span class='badge bg-black' > تم الدفع بشكل جزئى </span>
-                                @break
-                                @case(2)
-                                <span class='badge bg-gradient' > تم دفع كامل المبلغ </span>
-                                @break
-                                @default
-                                @endswitch
-                            </td>
-                            <td class="text-center">
-                               @can('purchases.show')
-                                   <a  href="{{ route('board.purchases.show'  , $purchase ) }}"  class="btn btn-sm btn-primary  ">
-                                    <i class="icon-eye  "></i>
-                                </a>
-                               @endcan
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+                       @if (count($purchases))
+                       <tr>
+                        <th > رقم عمليه الشراء </th>
+                        <th > المستخدم </th>
+                        <th >  قيمه عمليه الشراء </th>
+                        <th >  نوع عمليه الشراء  </th>
+                        <th >  هل تم الدفع  </th>
+                        <th class="text-center" style="width: 20px;">خصائص</th>
+                    </tr>
+                    @endif
+                </thead>
+                <tbody>
+                 @if (count($purchases))
+                 @foreach ($purchases as $purchase)
+                 <tr>
+                    <td> {{ $purchase->purchase_number }} </td>
+                    <td> <a href="{{ route('board.users.show' , $purchase->user_id ) }}"> {{ $purchase->user?->name }} </a> </td>
+                    <td> {{ $purchase->total }} <span class='text-muted' >  ريال سعودى </span> </td>
+                    <td> 
+                        @switch($purchase->purchase_type)
+                        @case('one_later_installment')
+                        <span class='badge bg-primary' > قسط واحد مؤجل </span>
+                        @break
+                        @case('installments')
+                        <span class='badge bg-success' > اقساط </span>
+                        @break
+                        @case('total_amount')
+                        <span class='badge bg-info' > المبلغ كامل </span>
+                        @break
+                        @default
+                        @endswitch
+                    </td>
+                    <td>
+                        @switch($purchase->is_paid)
+                        @case(0)
+                        <span class='badge bg-warning' > لم يتم الدفع بعد </span>
+                        @break
+                        @case(1)
+                        <span class='badge bg-black' > تم الدفع بشكل جزئى </span>
+                        @break
+                        @case(2)
+                        <span class='badge bg-gradient' > تم دفع كامل المبلغ </span>
+                        @break
+                        @default
+                        @endswitch
+                    </td>
+                    <td class="text-center">
+                       @can('purchases.show')
+                       <a  href="{{ route('board.purchases.show'  , $purchase ) }}"  class="btn btn-sm btn-primary  ">
+                        <i class="icon-eye  "></i>
+                    </a>
+                    @endcan
+                </td>
+            </tr>
+            @endforeach
+            @else
+            <tr>
+                <td class="text-center text-danger" colspan="5"> لا يوجد بيانات  </td>
+            </tr>
+            @endif
 
-            <div class="card-footer d-flex justify-content-end ">
-                {{ $purchases->links() }}
-            </div>
-        </div>
-    </div>
+        </tbody>
+    </table>
+</div>
+
+<div class="card-footer d-flex justify-content-end ">
+    {{ $purchases->links() }}
+</div>
+</div>
+</div>
 </div>
 
 @section('scripts')

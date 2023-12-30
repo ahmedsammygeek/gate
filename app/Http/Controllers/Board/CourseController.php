@@ -65,7 +65,11 @@ class CourseController extends Controller
         $course->is_active = $request->filled('active') ? 1 : 0;
         $course->image = basename($request->file('image')->store('courses'));
         $course->save();
-        return redirect(route('board.courses.index'))->with('success' , 'تم إاضفه الكورس بنجاح' );
+        if (Auth::user()->can('courses.list')) {
+            return redirect(route('board.courses.index'))->with('success' , 'تم إاضفه الكورس بنجاح' );
+        }
+        return redirect(route('board.courses.create'))->with('success' , 'تم إاضفه الكورس بنجاح' );
+        
     }
 
     /**

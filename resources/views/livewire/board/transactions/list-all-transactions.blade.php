@@ -45,7 +45,8 @@
             <div class="table-responsive">
                 <table class="table text-nowrap">
                     <thead>
-                        <tr>
+                        @if (count($transactions))
+                           <tr>
                             <th > رقم المعامله  </th>
                             <th > المستخدم </th>
                             <th >  قيمه المعامله </th>
@@ -53,9 +54,11 @@
                             <th >  طريقه الدفع  </th>
                             <th class="text-center" style="width: 20px;">خصائص</th>
                         </tr>
+                        @endif
                     </thead>
                     <tbody>
-                        @foreach ($transactions as $transaction)
+                       @if (count($transactions))
+                           @foreach ($transactions as $transaction)
                         <tr>
                             <td> {{ $transaction->payment_id }} </td>
                             <td> <a href="{{ route('board.users.show' , $transaction->user_id ) }}"> {{ $transaction->user?->name }} </a> </td>
@@ -86,6 +89,11 @@
                             </td>
                         </tr>
                         @endforeach
+                        @else
+                        <tr>
+                            <td class="text-center text-danger" colspan="5"> لا يوجد بيانات  </td>
+                        </tr>
+                       @endif
                     </tbody>
                 </table>
             </div>
