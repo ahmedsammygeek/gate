@@ -47,7 +47,11 @@ class TrainerController extends Controller
         $trainer->show_in_home = $request->filled('show_in_home') ? 1 : 0 ;
         $trainer->image = basename($request->file('image')->store('trainers'));
         $trainer->save();
-        return redirect(route('board.trainers.index'))->with('success' , 'تم إضافه المدرب بنجاح' );
+        
+        if (Auth::user()->can('trainers.list')) {
+            return redirect(route('board.trainers.index'))->with('success' , 'تم إضافه المدرب بنجاح' );
+        }
+        return redirect(route('board.trainers.create'))->with('success' , 'تم إضافه المدرب بنجاح' );
     }
 
     /**

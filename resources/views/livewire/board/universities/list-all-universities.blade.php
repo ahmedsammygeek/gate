@@ -6,6 +6,7 @@
     </div>
 
 
+    @if (count($universities))
     <div class="col-md-12">
         <div class="card">
             <div class="card-header bg-primary">
@@ -103,6 +104,16 @@
             </div>
         </div>
     </div>
+    @else
+    <div class="col-lg-12">
+        <br>
+        <br>
+        <div class="alert alert-warning alert-dismissible fade show">
+            <span class="fw-semibold"> لا يوجد جامعات للعرض حاليا  </span> 
+
+        </div>
+    </div>
+    @endif
 </div>
 
 @section('scripts')

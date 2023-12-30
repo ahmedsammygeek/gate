@@ -11,6 +11,7 @@ class ListAllCategories extends Component
     protected $paginationTheme = 'bootstrap';
     public $rows;
     public $search;
+    public $rows_count;
     public $showDeletionConfirmationModal = false;
     protected $listeners   = ['deleteItem'];
 
@@ -21,6 +22,12 @@ class ListAllCategories extends Component
             $item->delete();
             $this->emit('itemDeleted');
         }
+    }
+
+
+    public function mount()
+    {
+        $this->rows_count  = Category::count();
     }
 
     public function updatedRows()

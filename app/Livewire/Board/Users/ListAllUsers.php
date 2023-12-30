@@ -21,6 +21,7 @@ class ListAllUsers extends Component
     public $is_paid = 'all';
     public $university_id;
     public $course_id;
+    public $rows_count;
     public $showDeletionConfirmationModal = false;
     protected $listeners   = ['deleteItem'];
 
@@ -35,6 +36,7 @@ class ListAllUsers extends Component
 
     public function mount()
     {
+        $this->rows_count  = User::where('type' , User::USER )->count();
         $this->universities = University::all();
         $this->courses = Course::all();
     }

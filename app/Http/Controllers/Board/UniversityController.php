@@ -49,7 +49,10 @@ class UniversityController extends Controller
         $university->is_active = $request->filled('active') ? 1 : 0;
         $university->save();
 
-        return redirect(route('board.universities.index'))->with('success' , 'تم إضافه الجامعه بنجاح' );
+        if (Auth::user()->can('universities.list')) {
+            return redirect(route('board.universities.index'))->with('success' , 'تم إضافه الجامعه بنجاح' );
+        }
+        return redirect(route('board.universities.create'))->with('success' , 'تم إضافه الجامعه بنجاح' );
     }
 
     /**

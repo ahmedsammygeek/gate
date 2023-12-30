@@ -1,11 +1,12 @@
 <div class="row">
     <div class="col-md-12">
-      @can('categories.add')
-           <a href="{{ route('board.categories.create') }}" class="btn btn-primary mb-2" style="float: left;">  <i class="icon-plus3  me-2"></i>  إضافه تصنيف جديد </a>
-      @endcan
+        @can('categories.add')
+        <a href="{{ route('board.categories.create') }}" class="btn btn-primary mb-2" style="float: left;">  <i class="icon-plus3  me-2"></i>  إضافه تصنيف جديد </a>
+        @endcan
     </div>
 
 
+    @if ($rows_count)
     <div class="col-md-12">
         <div class="card">
             <div class="card-header bg-primary">
@@ -72,17 +73,17 @@
 
                             <td class="text-center">
                                 @can('categories.show')
-                                    <a  href="{{ route('board.categories.show'  , $category ) }}"  class="btn btn-sm btn-primary  ">
+                                <a  href="{{ route('board.categories.show'  , $category ) }}"  class="btn btn-sm btn-primary  ">
                                     <i class="icon-eye  "></i>
                                 </a>
                                 @endcan
                                 @can('categories.edit')
-                                    <a href="{{ route('board.categories.edit'  , $category ) }}"  class="btn btn-sm btn-warning ">
+                                <a href="{{ route('board.categories.edit'  , $category ) }}"  class="btn btn-sm btn-warning ">
                                     <i class="icon-database-edit2  "></i>
                                 </a>
                                 @endcan
                                 @can('categories.delete')
-                                   <a data-item_id='{{ $category->id }}' class="btn btn-danger btn-sm delete_item">
+                                <a data-item_id='{{ $category->id }}' class="btn btn-danger btn-sm delete_item">
                                     <i class="icon-trash  "></i>
                                 </a>
                                 @endcan
@@ -101,6 +102,16 @@
             </div>
         </div>
     </div>
+    @else
+    <div class="col-lg-12">
+        <br>
+        <br>
+        <div class="alert alert-warning alert-dismissible fade show">
+            <span class="fw-semibold"> لا يوجد تصنيفات  للعرض  حاليا </span> 
+
+        </div>
+    </div>
+    @endif
 </div>
 
 @section('scripts')

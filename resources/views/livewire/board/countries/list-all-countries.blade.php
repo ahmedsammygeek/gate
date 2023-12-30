@@ -1,13 +1,13 @@
 <div class="row">
     <div class="col-md-12">
-       @can('countries.add')
-           <a href="{{ route('board.countries.create') }}" class="btn btn-primary mb-2" style="float: left;">  <i class="icon-plus3  me-2"></i>  إضافه دوله جديده </a>
-       @endcan
+        @can('countries.add')
+        <a href="{{ route('board.countries.create') }}" class="btn btn-primary mb-2" style="float: left;">  <i class="icon-plus3  me-2"></i>  إضافه دوله جديده </a>
+        @endcan
     </div>
 
 
-    @if (count($countries))
-        <div class="col-md-12">
+    @if ($rows_count)
+    <div class="col-md-12">
         <div class="card">
             <div class="card-header bg-primary">
                 <h5 class="mb-0 text-white">عرض كافه الدول</h5>
@@ -74,17 +74,17 @@
 
                             <td class="text-center">
                                 @can('countries.show')
-                                    <a  href="{{ route('board.countries.show'  , $country ) }}"  class="btn btn-sm btn-primary  ">
+                                <a  href="{{ route('board.countries.show'  , $country ) }}"  class="btn btn-sm btn-primary  ">
                                     <i class="icon-eye  "></i>
                                 </a>
                                 @endcan
-                               @can('countries.edit')
-                                   <a href="{{ route('board.countries.edit'  , $country ) }}"  class="btn btn-sm btn-warning ">
+                                @can('countries.edit')
+                                <a href="{{ route('board.countries.edit'  , $country ) }}"  class="btn btn-sm btn-warning ">
                                     <i class="icon-database-edit2  "></i>
                                 </a>
-                               @endcan
+                                @endcan
                                 @can('countries.delete')
-                                    <a data-item_id='{{ $country->id }}' class="btn btn-danger btn-sm delete_item">
+                                <a data-item_id='{{ $country->id }}' class="btn btn-danger btn-sm delete_item">
                                     <i class="icon-trash  "></i>
                                 </a>
                                 @endcan
@@ -104,7 +104,7 @@
         </div>
     </div>
     @else
-     <div class="col-lg-12">
+    <div class="col-lg-12">
         <br>
         <br>
         <div class="alert alert-warning alert-dismissible fade show">

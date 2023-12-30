@@ -40,8 +40,10 @@ class CategoryController extends Controller
         $category->setTranslation('name' , 'en' , $request->name_en);
         $category->is_active = $request->filled('active') ? 1 : 0;
         $category->save();
-
-        return redirect(route('board.categories.index'))->with('success' , 'تم إضافه التصنيف بنجاح' );
+        if (Auth::user()->can('categories.list')) {
+            return redirect(route('board.categories.index'))->with('success' , 'تم إضافه التصنيف بنجاح' );
+        }
+        return redirect(route('board.categories.create'))->with('success' , 'تم إضافه التصنيف بنجاح' );
     }
 
     /**

@@ -5,7 +5,7 @@
         @endcan
     </div>
 
-    @if (count($admins))
+    @if ($rows_count)
     <div class="col-md-12">
         <div class="card">
             <div class="card-header bg-primary">

@@ -1,5 +1,6 @@
 <div class="row">
-    <div class="col-md-12">
+    @if ($rows_count)
+            <div class="col-md-12">
         <div class="card">
             <div class="card-header bg-primary">
                 <h5 class="mb-0 text-white">عرض كافه المستخدمين</h5>
@@ -152,29 +153,32 @@
                                     <i class="icon-eye  "></i>
                                 </a>
                                 @endcan
-{{--                             <a href="{{ route('board.admins.edit'  , $admin ) }}"  class="btn btn-sm btn-warning ">
-                                <i class="icon-database-edit2  "></i>
-                            </a> --}}
-                            @can('users.delete')
-                            <a data-item_id='{{ $user->id }}' class="btn btn-danger btn-sm delete_item">
-                                <i class="icon-trash  "></i>
-                            </a>
-                            @endcan
-                        </td>
-                    </tr>
-                    @endforeach
+                                @can('users.delete')
+                                <a data-item_id='{{ $user->id }}' class="btn btn-danger btn-sm delete_item">
+                                    <i class="icon-trash  "></i>
+                                </a>
+                                @endcan
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
 
-
-
-                </tbody>
-            </table>
-        </div>
-
-        <div class="card-footer d-flex justify-content-end ">
-            {{ $users->links() }}
+            <div class="card-footer d-flex justify-content-end ">
+                {{ $users->links() }}
+            </div>
         </div>
     </div>
+    @else
+     <div class="col-lg-12">
+    <br>
+    <br>
+    <div class="alert alert-warning alert-dismissible fade show">
+        <span class="fw-semibold"> لا يوجد مستخدمين للعرض  حاليا </span> 
+    </div>
 </div>
+    @endif
 </div>
 
 @section('scripts')
