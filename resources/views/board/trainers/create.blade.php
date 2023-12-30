@@ -27,7 +27,7 @@
                                         class="text-danger">*</span></label>
                                 <div class="col-lg-10">
                                     <input type="text" name="name" value="{{ old('name') }}"
-                                        class="form-control @error('name')  is-invalid @enderror" required
+                                        class="form-control @error('name')  is-invalid @enderror" 
                                         placeholder="اسم المدرب">
                                     @error('name')
                                         <p class='text-danger'> {{ $message }} </p>
@@ -40,12 +40,13 @@
                                         class="text-danger">*</span></label>
                                 <div class="col-lg-10">
                                     <input type="text" name="job_title" value='{{ old('job_title') }}'
-                                        class="form-control @error('job_title')  is-invalid @enderror" required
+                                        class="form-control @error('job_title')  is-invalid @enderror" 
                                         placeholder='المسمى الوظيفى'>
-                                </div>
-                                @error('job_title')
+                                        @error('job_title')
                                     <p class='text-danger'> {{ $message }} </p>
                                 @enderror
+                                </div>
+                                
                             </div>
                         </div>
 
