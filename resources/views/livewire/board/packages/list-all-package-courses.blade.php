@@ -44,10 +44,10 @@
                                 <div class="col-sm-6 col-lg-9">
                                     <div class="card">
                                         <div class="card-img-actions m-1">
-                                            <a href="{{ Storage::url('courses/'.$package_course->mainCourse?->image) }}"
+                                            <a href="{{ Storage::url('courses/'.$package_course->subCourse?->image) }}"
                                                 class="btn btn-outline-white btn-icon rounded-pill"
                                                 data-bs-popup="lightbox" data-gallery="gallery1">
-                                                <img src="{{ Storage::url('courses/'.$package_course->mainCourse?->image) }}"
+                                                <img src="{{ Storage::url('courses/'.$package_course->subCourse?->image) }}"
                                                 class="card-img " width="60" height="60" alt="">
                                             </a>
                                         </div>
@@ -56,19 +56,19 @@
                             </td>
 
                             <td class="text-wrap">
-                                <a href="{{ route('board.courses.show', $package_course->mainCourse?->id) }}" class="d-block fw-semibold">
-                                    {{ Str::limit($package_course->mainCourse?->title, 30, '.....') }}</a>
+                                <a href="{{ route('board.courses.show', $package_course->subCourse?->id) }}" class="d-block fw-semibold">
+                                    {{ Str::limit($package_course->subCourse?->title, 30, '.....') }}</a>
                                     <span class="fs-sm text-muted">{{ $package_course->created_at->toFormattedDateString() }}</span>
                                 </td>
 
                                 <td>
-                                    @if ($package_course->mainCourse?->category_id)
-                                    <a href="{{ route('board.categories.show' , $package_course->mainCourse?->category_id ) }}"> {{ $package_course->mainCourse?->category?->name }} </a>
+                                    @if ($package_course->subCourse?->category_id)
+                                    <a href="{{ route('board.categories.show' , $package_course->subCourse?->category_id ) }}"> {{ $package_course->subCourse?->category?->name }} </a>
                                     @endif
                                 </td>
                                 <td>
-                                    @if ($package_course->mainCourse?->university_id)
-                                    <a href="{{ route('board.universities.show' , $package_course->mainCourse?->university_id ) }}"> {{ $package_course->mainCourse?->university?->title }} </a>
+                                    @if ($package_course->subCourse?->university_id)
+                                    <a href="{{ route('board.universities.show' , $package_course->subCourse?->university_id ) }}"> {{ $package_course->subCourse?->university?->title }} </a>
                                     @endif
                                 </td>
                                 <td>
