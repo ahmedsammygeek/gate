@@ -49,7 +49,7 @@ class UniversityController extends Controller
         $university->is_active = $request->filled('active') ? 1 : 0;
         $university->save();
 
-        return redirect(route('board.universities.create'))->with('success' , 'تم إضافه الجامعه بنجاح' );
+        return redirect(route('board.universities.index'))->with('success' , 'تم إضافه الجامعه بنجاح' );
     }
 
     /**
@@ -59,7 +59,7 @@ class UniversityController extends Controller
     {
         $this->authorize('universities.show');
         $countries = Country::get();
-        
+
         return view('board.universities.show' , compact('university' , 'countries' ) );
     }
 

@@ -18,7 +18,7 @@
 				<div class="card-body">
 					@csrf
 					@method("PATCH")
-					<div class="mb-4">
+					<div class="mb-4">  
 						<div class="fw-bold border-bottom pb-2 mb-3"> بيانات الباقه </div>
 
 						<div class="row mb-3">
@@ -63,17 +63,17 @@
 							</div>
 
 
-							<div class="col-md-3">
-								<label class="col-lg-12 col-form-label "> تاريخ انتهاء الباقه
-									<span class="text-danger">*</span>
-								</label>
-								<div class="col-lg-12">
-									<input type="date" name="ends_at" value="{{ $package->ends_at }}" class="form-control"  >
-									@error('ends_at')
-									<p class='text-danger' > {{ $message }} </p>
-									@enderror
-								</div>
-							</div>
+                            <div class="col-md-3">
+                                <label class="col-lg-12 col-form-label">تاريخ انتهاء الباقة
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-12">
+                                    <input type="date" name="ends_at" value="{{ $package->ends_at ? $package->ends_at->format('Y-m-d') : '' }}" class="form-control">
+                                    @error('ends_at')
+                                    <p class="text-danger">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                            </div>
 
 						</div>
 
@@ -237,7 +237,7 @@
 								<select name="courses[]" id="" class='form-control select' multiple="" >
 									@foreach ($courses as $course)
 									<option value="{{ $course->id }}" {{ in_array($course->id, $package_courses) ? 'selected' : '' }} >
-										{{ $course->title }} 
+										{{ $course->title }}
 									</option>
 									@endforeach
 								</select>

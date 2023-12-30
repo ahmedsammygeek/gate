@@ -38,6 +38,7 @@ class ListAllCourseUnit extends Component
     {
 
         $units = CourseUnit::query()
+        ->with('lessons')
         ->where(function($query){
             $query->where('course_id' ,  '='  , $this->course->id );
         })

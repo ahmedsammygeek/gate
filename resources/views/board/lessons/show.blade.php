@@ -37,9 +37,9 @@
 
                         <tr class='row'>
                             <th class='col-md-2'> تاريخ الاضافه </th>
-                            <td class='col-md-10'> {{ $lesson->created_at }} 
+                            <td class='col-md-10'> {{ $lesson->created_at }}
                                 <span class='text-muted'>
-                                    {{ $lesson->created_at->diffForHumans() }} 
+                                    {{ $lesson->created_at->diffForHumans() }}
                                 </span>
                             </td>
                         </tr>
@@ -52,9 +52,9 @@
 
                             <tr class='row'>
                                 <th class='col-md-2'> الوحده </th>
-                                <td class='col-md-10'> 
-                                    <a href="{{ route('board.courses.units.show' , ['course' => $course  , 'unit' => $unit ] ) }}">  
-                                        {{ $lesson->unit?->title }} 
+                                <td class='col-md-10'>
+                                    <a href="{{ route('board.courses.units.show' , ['course' => $course  , 'unit' => $unit ] ) }}">
+                                        {{ $lesson->unit?->title }}
                                     </a>
                                 </td>
                             </tr>
@@ -70,14 +70,14 @@
                             </tr>
 
                             <tr class='row'>
-                                <th class='col-md-2'> رابط الدرس </th>
+                                <th class='col-md-2'> رابط الدرس vimeo </th>
                                 <td class='col-md-10'> <a target="_blank" href="https://vimeo.com/{{ $lesson->vimeo_number }}"> https://vimeo.com/{{ $lesson->vimeo_number }} </a>  </td>
                             </tr>
 
 
                             <tr class='row'>
                                 <th class='col-md-2'> السماح بالعرض </th>
-                                <td class='col-md-10'> 
+                                <td class='col-md-10'>
                                     @switch($lesson->is_active )
                                     @case(1)
                                     <span class="badge bg-success"> نعم </span>
@@ -91,7 +91,7 @@
 
                             <tr class='row'>
                                 <th class='col-md-2'> هل الدرس مجانى </th>
-                                <td class='col-md-10'> 
+                                <td class='col-md-10'>
                                     @switch($lesson->is_free )
                                     @case(1)
                                     <span class="badge bg-success"> نعم </span>
@@ -105,7 +105,7 @@
 
                             <tr class='row'>
                                 <th class='col-md-2'> ملفات الدرس </th>
-                                <td class='col-md-10'> 
+                                <td class='col-md-10'>
                                     @switch($lesson->is_free )
                                     @case(1)
                                     <span class="badge bg-success"> نعم </span>

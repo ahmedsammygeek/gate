@@ -31,7 +31,7 @@
                                 <select name="category_id" class='form-control form-select select' id="">
                                     @foreach ($categories as $category)
                                     <option value="{{ $category->id }}" {{ $category->id == $course->category_id ? 'selected="selected"' : '' }}>
-                                        {{ $category->name }} 
+                                        {{ $category->name }}
                                     </option>
                                     @endforeach
                                 </select>
@@ -60,7 +60,7 @@
                                     <select name="trainer_id" class='form-control form-select' id="">
                                         @foreach ($trainers as $trainer)
                                         <option value="{{ $trainer->id }}" {{ $trainer->id == $course->trainer_id ? 'selected="selected"' : '' }}>
-                                            {{ $trainer->name }} 
+                                            {{ $trainer->name }}
                                         </option>
                                         @endforeach
                                     </select>
@@ -70,11 +70,11 @@
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <label class="col-lg-12 col-form-label pt-0"> تاريخ انتهاء الكورس
+                                <label class="col-form-label col-lg-12"> تاريخ انتهاء الكورس
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-lg-12">
-                                    <input type="date" name="ends_at" value="{{ $course->ends_at }}" class="form-control"  >
+                                    <input type="date" name="ends_at"  class="form-control"  value="{{ $course->ends_at ? $course->ends_at->format('Y-m-d') : '' }}" >
                                     @error('ends_at')
                                     <p class='text-danger' > {{ $message }} </p>
                                     @enderror
@@ -87,7 +87,7 @@
 
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label class="col-form-label col-lg-12"> عنوان الكورس بالعربيه 
+                                <label class="col-form-label col-lg-12"> عنوان الكورس بالعربيه
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-lg-12">
@@ -117,7 +117,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label class="col-form-label col-lg-12"> نبذه تعريفيه عن الكورس بالعربيه 
+                            <label class="col-form-label col-lg-12"> نبذه تعريفيه عن الكورس بالعربيه
                                 <span  class="text-danger">*</span>
                             </label>
                             <div class="col-lg-12">
@@ -132,7 +132,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label class="col-form-label col-lg-12"> نبذه تعريفيه عن الكورس بالانجليزيه 
+                            <label class="col-form-label col-lg-12"> نبذه تعريفيه عن الكورس بالانجليزيه
                                 <span  class="text-danger">*</span>
                             </label>
                             <div class="col-lg-12">
@@ -159,7 +159,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label class="col-form-label col-lg-12"> نظره عامه بالانجليزيه 
+                            <label class="col-form-label col-lg-12"> نظره عامه بالانجليزيه
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="col-lg-12">
