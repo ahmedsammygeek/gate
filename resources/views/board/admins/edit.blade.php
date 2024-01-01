@@ -390,6 +390,33 @@
                                                 </div>
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
+                                                        <p class="fw-semibold"> صلاحيات صفحات الموقع </p>
+                                                        <div class="border p-3 rounded">
+                                                            <div class="form-check text-start mb-2">
+                                                                <input type="checkbox" name='permissions[]' value="pages.list" class="form-check-input" id="pages.list"  {{ in_array('pages.list', $user_permissions ) ? 'checked' : '' }}  >
+                                                                <label class="form-check-label" for="pages.list"> عرض كافه الصفحات </label>
+                                                            </div>
+                                                            <div class="form-check text-start mb-2">
+                                                                <input type="checkbox" name='permissions[]' value="pages.show" class="form-check-input" id="pages.show"  {{ in_array('pages.show', $user_permissions ) ? 'checked' : '' }}  >
+                                                                <label class="form-check-label" for="pages.show"> عرض بيانات الصفحه </label>
+                                                            </div>
+                                                            <div class="form-check text-start mb-2">
+                                                                <input type="checkbox" name='permissions[]' value="pages.add" class="form-check-input" id="pages.add"  {{ in_array('pages.add', $user_permissions ) ? 'checked' : '' }}  >
+                                                                <label class="form-check-label" for="pages.add"> إضافه صفحه جديده </label>
+                                                            </div>
+                                                            <div class="form-check text-start mb-2">
+                                                                <input type="checkbox" name='permissions[]' value="pages.delete" class="form-check-input" id="pages.delete"  {{ in_array('pages.delete', $user_permissions ) ? 'checked' : '' }}  >
+                                                                <label class="form-check-label" for="pages.delete"> حذف الصفحه </label>
+                                                            </div>
+                                                            <div class="form-check text-start mb-2">
+                                                                <input type="checkbox" name='permissions[]' value="pages.edit" class="form-check-input" id="pages.edit"  {{ in_array('pages.edit', $user_permissions ) ? 'checked' : '' }}  >
+                                                                <label class="form-check-label" for="pages.edit"> تعديل بيانات الصفحه </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
                                                         <p class="fw-semibold"> صلاحيات عمليات الشراء </p>
                                                         <div class="border p-3 rounded">
                                                             <div class="form-check text-start mb-2">

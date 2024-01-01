@@ -20,11 +20,12 @@ use App\Http\Controllers\Board\UploadLessonVideoController;
 use App\Http\Controllers\Board\UserInstallmentController;
 use App\Http\Controllers\Board\TransactionController;
 use App\Http\Controllers\Board\PackageInstallmentController;
+use App\Http\Controllers\Board\PageController;
 
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\MyFatoorahController;
 Route::get('/test' ,[TestController::class , 'index'] );
-Route::get('/test' ,[MyFatoorahController::class , 'index'] );
+// Route::get('/test' ,[MyFatoorahController::class , 'index'] );
 Route::get('/myfatoorah/callback' ,[MyFatoorahController::class , 'callback'] )->name('myfatoorah.callback');
 Route::group(['prefix' => 'Board' , 'as' => 'board.'  ], function() {
     Route::group(['middleware' => 'auth'], function() {
@@ -44,6 +45,7 @@ Route::group(['prefix' => 'Board' , 'as' => 'board.'  ], function() {
         Route::resource('trainers', TrainerController::class);  // done
         Route::resource('courses.units', CourseUnitController::class);  // done
         Route::resource('courses.units.lessons', LessonController::class);  // done
+        Route::resource('pages', PageController::class);  // done
 
         Route::get('purchases' , [PurchaseController::class ,'index'] )->name('purchases.index');
         Route::get('purchases/{purchase}' , [PurchaseController::class ,'show'] )->name('purchases.show');

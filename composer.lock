@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fd46cac53a19057a7970fd90f484f860",
+    "content-hash": "e9dad78d322ab56b57aacfeda0c872ac",
     "packages": [
         {
             "name": "ankitpokhrel/tus-php",
@@ -927,6 +927,75 @@
             "time": "2023-10-06T06:47:41+00:00"
         },
         {
+            "name": "elsayed85/banquemisr",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/elsayed85/banquemisr.git",
+                "reference": "b985aa665c40234cb55bcdf4e0883b19e2e1d094"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/elsayed85/banquemisr/zipball/b985aa665c40234cb55bcdf4e0883b19e2e1d094",
+                "reference": "b985aa665c40234cb55bcdf4e0883b19e2e1d094",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^10.0",
+                "php": "^8.1",
+                "spatie/laravel-package-tools": "^1.14.0"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0",
+                "nunomaduro/collision": "^7.9",
+                "orchestra/testbench": "^8.0",
+                "pestphp/pest": "^2.0",
+                "pestphp/pest-plugin-arch": "^2.0",
+                "pestphp/pest-plugin-laravel": "^2.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Elsayed85\\Banquemisr\\BanquemisrServiceProvider"
+                    ],
+                    "aliases": {
+                        "Banquemisr": "Elsayed85\\Banquemisr\\Facades\\Banquemisr"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Elsayed85\\Banquemisr\\": "src",
+                    "Elsayed85\\Banquemisr\\Database\\Factories\\": "database/factories"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Elsayed Kamal",
+                    "email": "elsayedkamal581999@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "This is my package banquemisr",
+            "homepage": "https://github.com/elsayed85/banquemisr",
+            "keywords": [
+                "banquemisr",
+                "elsayed85",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/elsayed85/banquemisr/issues",
+                "source": "https://github.com/elsayed85/banquemisr/tree/main"
+            },
+            "time": "2023-03-06T20:15:38+00:00"
+        },
+        {
             "name": "ezyang/htmlpurifier",
             "version": "v4.17.0",
             "source": {
@@ -1720,6 +1789,80 @@
                 }
             ],
             "time": "2023-08-27T10:19:19+00:00"
+        },
+        {
+            "name": "laravel-pay/bank-misr",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel-pay/bank-misr.git",
+                "reference": "46876a1318e8b1cddb8170154680793d36b5a146"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel-pay/bank-misr/zipball/46876a1318e8b1cddb8170154680793d36b5a146",
+                "reference": "46876a1318e8b1cddb8170154680793d36b5a146",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^10.0",
+                "php": "^8.1",
+                "spatie/laravel-package-tools": "^1.14.0"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0",
+                "nunomaduro/collision": "^7.8",
+                "nunomaduro/larastan": "^2.0.1",
+                "orchestra/testbench": "^8.0",
+                "pestphp/pest": "^2.0",
+                "pestphp/pest-plugin-arch": "^2.0",
+                "pestphp/pest-plugin-laravel": "^2.0",
+                "phpstan/extension-installer": "^1.1",
+                "phpstan/phpstan-deprecation-rules": "^1.0",
+                "phpstan/phpstan-phpunit": "^1.0",
+                "spatie/laravel-ray": "^1.26"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "LaravelPay\\BankMisr\\BankMisrServiceProvider"
+                    ],
+                    "aliases": {
+                        "BankMisr": "LaravelPay\\BankMisr\\Facades\\BankMisr"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "LaravelPay\\BankMisr\\": "src/",
+                    "LaravelPay\\BankMisr\\Database\\Factories\\": "database/factories/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "laravel-pay",
+                    "email": "laravel_pay_4all@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "This is my package bank-misr",
+            "homepage": "https://github.com/laravel-pay/bank-misr",
+            "keywords": [
+                "bank-misr",
+                "laravel",
+                "laravel-pay"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel-pay/bank-misr/issues",
+                "source": "https://github.com/laravel-pay/bank-misr/tree/master"
+            },
+            "time": "2023-08-25T06:28:29+00:00"
         },
         {
             "name": "laravel/breeze",
@@ -11091,8 +11234,11 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "beta",
-    "stability-flags": [],
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "elsayed85/banquemisr": 20,
+        "laravel-pay/bank-misr": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

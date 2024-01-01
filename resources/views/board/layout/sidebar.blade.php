@@ -17,7 +17,7 @@
 </div>
 
 @php
-$home = $admins = $countries = $transactions = $users = $installments = $purchases =  $universities = $courses = $packages = $categories = $trainers = '';
+$home = $admins = $countries = $pages = $transactions = $users = $installments = $purchases =  $universities = $courses = $packages = $categories = $trainers = '';
 switch (Request::segment(2)) {
     case 'admins':
     $admins = 'active';
@@ -271,6 +271,26 @@ switch (Request::segment(2)) {
                 <li class="nav-item"><a href="{{ route('board.transactions.index') }}" class="nav-link"> عرض كافه
                 المعاملات  </a></li>
 
+            </ul>
+        </li>
+        @endif
+
+
+        @if (auth()->user()->hasAnyPermission(['pages.list' , 'pages.show' , 'pages.delete' , 'pages.edit' , 'pages.add' ]))
+        <li class="nav-item nav-item-submenu">
+            <a href="#" class="nav-link {{ $pages }}">
+                <i class="icon-package "></i>
+                <span> صفحات الموقع </span>
+            </a>
+            <ul class="nav-group-sub collapse" data-submenu-title="صفحات الموقع">
+                @if (auth()->user()->hasAnyPermission(['pages.list' , 'pages.show' , 'pages.delete' , 'pages.edit']))
+                <li class="nav-item"><a href="{{ route('board.pages.index') }}" class="nav-link"> عرض كافه
+                صفحات الموقع </a></li>
+                @endif
+                @can('pages.add')
+                <li class="nav-item"><a href="{{ route('board.pages.create') }}" class="nav-link">إضافه صفحه
+                جديده </a></li>
+                @endcan
             </ul>
         </li>
         @endif
