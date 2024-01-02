@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Board\Admins\StoreAdminRequest;
 use App\Http\Requests\Board\Admins\UpdateAdminRequest;
 use Spatie\Permission\Models\Permission;
+use Auth;
 class AdminController extends Controller
 {
     /**
@@ -32,7 +33,7 @@ class AdminController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreAdminRequest $request)
     {
         $this->authorize('admins.add');
         $admin = new User;

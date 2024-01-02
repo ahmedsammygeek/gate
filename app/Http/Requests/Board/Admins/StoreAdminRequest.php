@@ -27,7 +27,8 @@ class StoreAdminRequest extends FormRequest
             'email' => 'required|email|unique:users,email' , 
             'phone' => 'nullable|unique:users,phone' , 
             'image' => 'nullable|image' , 
-            'active' => 'nullable'
+            'active' => 'nullable' , 
+            'is_super_admin' => 'nullable'
         ];
     }
 }
