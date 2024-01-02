@@ -33,10 +33,9 @@ class PackageController extends Controller
     public function create()
     {
         $this->authorize('packages.add');
-        $courses = Course::where('type' ,Course::COURSE)->get();
         $universities = University::all();
         $categories = Category::all();
-        return view('board.packages.create' , compact('courses'  , 'universities'  , 'categories' ) );
+        return view('board.packages.create' , compact( 'universities'  , 'categories' ) );
     }
 
     /**

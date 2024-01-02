@@ -50,7 +50,7 @@
 							<div class="col-md-3">
 								<label class="col-form-label col-lg-12"> الجامعه <span class="text-danger">*</span></label>
 								<div class="col-lg-12">
-									<select name="university_id" class='form-control form-select select' id="">
+									<select name="university_id" class='form-control form-select select' id="university_id">
 										<option value=""> اختر الجامعه </option>
 										@foreach ($universities as $university)
 										<option value="{{ $university->id }}" {{ old('university_id') == $university->id ? 'selected' : '' }}> {{ $university->title }} </option>
@@ -234,10 +234,10 @@
 						<div class="col-md-12">
 							<label class="col-form-label col-lg-12"> اختيار الكورسات داخل الباقه  <span class="text-danger">*</span> </label>
 							<div class="col-lg-12">
-								<select name="courses[]" id="" class='form-control select' multiple="" >
-									@foreach ($courses as $course)
-										<option value="{{ $course->id }}"> {{ $course->title }} </option>
-									@endforeach
+								<select name="courses[]" id="package_courses" class='form-control select' multiple="" >
+									{{-- @foreach ($courses as $course)
+									<option value="{{ $course->id }}"> {{ $course->title }} </option>
+									@endforeach --}}
 								</select>
 								@error('courses')
 								<p class='text-danger' > {{ $message }} </p>
@@ -271,14 +271,32 @@
 
 <script>
 	$(document).ready(function() {
+
+
+		$('select#university_id').on('change', function(event) {
+			event.preventDefault();
+			var selected_value = $(this).val();
+			$.ajax({
+				url: '{{ route('board.get_courses_depend_on_university_id') }}',
+				type: 'get',
+				data: {
+					university_id:selected_value
+				},
+				success: function (data) {
+					$('select#package_courses').val(null).empty().select2('destroy')
+					$("select#package_courses").select2({
+						data: data.courses
+					})
+				}
+			});
+		});
+
 		tinymce.init({
 			selector: '#enTextarea',
 			plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
 			toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
 		});
-	});
 
-	$(document).ready(function() {
 		tinymce.init({
 			selector: '#arTextarea',
 			plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
@@ -286,7 +304,6 @@
 			language : 'ar'
 		});
 	});
-
 
 
 </script>

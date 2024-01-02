@@ -21,6 +21,7 @@ use App\Http\Controllers\Board\UserInstallmentController;
 use App\Http\Controllers\Board\TransactionController;
 use App\Http\Controllers\Board\PackageInstallmentController;
 use App\Http\Controllers\Board\PageController;
+use App\Http\Controllers\Board\AjaxController;
 
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\MyFatoorahController;
@@ -81,6 +82,8 @@ Route::group(['prefix' => 'Board' , 'as' => 'board.'  ], function() {
         Route::resource('packages.installments', PackageInstallmentController::class);
         Route::get('packages/{package}/students' , [PackageController::class , 'students'] )->name('packages.students');
         Route::get('packages/{package}/reviews' , [PackageController::class , 'reviews'] )->name('packages.reviews');
+
+        Route::get('get_courses_depend_on_university_id' , [AjaxController::class , 'get_courses_depend_on_university_id'] )->name('get_courses_depend_on_university_id');
     });
 });
 
