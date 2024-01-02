@@ -108,6 +108,7 @@
 
 
 	@include('board.layout.footer')
+	@include('board.layout.notifications')
 
 </body>
 </html>

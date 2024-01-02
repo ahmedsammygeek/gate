@@ -464,6 +464,40 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="row mb-3">
+                                        <label class="col-lg-2 col-form-label pt-0">  التنبيهات </label>
+                                        <div class="col-lg-10">
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <div class="mb-3">
+                                                        <div class="border p-3 rounded">
+                                                            <div class="form-check text-start mb-2">
+                                                                <input type="checkbox" name='permissions[]' value="notifications.purchases.new" class="form-check-input" id="notifications.purchases.new" {{ in_array('notifications.purchases.new', $user_permissions) ? 'checked' : '' }}  >
+                                                                <label class="form-check-label" for="notifications.purchases.new"> استقبال تنبيه بعمليات الشراء الجديده </label>
+                                                            </div>
+                                                            <div class="form-check text-start mb-2">
+                                                                <input type="checkbox" name='permissions[]' value="notifications.transactions.new" class="form-check-input" id="notifications.transactions.new" {{ in_array('notifications.transactions.new', $user_permissions) ? 'checked' : '' }}  >
+                                                                <label class="form-check-label" for="notifications.transactions.new"> استقبال تنبيه بعمليات الدفع الجديده </label>
+                                                            </div>
+                                                            <div class="form-check text-start mb-2">
+                                                                <input type="checkbox" name='permissions[]' value="notifications.user_installments.due" class="form-check-input" id="notifications.user_installments.due" {{ in_array('notifications.user_installments.due', $user_permissions) ? 'checked' : '' }}  >
+                                                                <label class="form-check-label" for="notifications.user_installments.due"> استقبال تنبيه بانتهاء موعد دفع قسط </label>
+                                                            </div>
+                                                            <div class="form-check text-start mb-2">
+                                                                <input type="checkbox" name='permissions[]' value="notifications.packages.expired" class="form-check-input" id="notifications.packages.expired" {{ in_array('notifications.packages.expired', $user_permissions) ? 'checked' : '' }}  >
+                                                                <label class="form-check-label" for="notifications.packages.expired"> استقبال تنبيه عند انتهاء موعد باقه </label>
+                                                            </div>
+                                                            <div class="form-check text-start mb-2">
+                                                                <input type="checkbox" name='permissions[]' value="notifications.courses.expired" class="form-check-input" id="notifications.courses.expired" {{ in_array('notifications.courses.expired', $user_permissions) ? 'checked' : '' }}  >
+                                                                <label class="form-check-label" for="notifications.courses.expired"> استقبال تنبيه عند انتهاء موعد كورس </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <div class="row mb-3">
                                         <label class="col-lg-2 col-form-label pt-0"> الصوره الشخصيه الحاليه </label>
@@ -500,7 +534,7 @@
                 <script src="{{ asset('board_assets/js/vendor/notifications/sweet_alert.min.js') }}"></script>
                 <script src="{{ asset('board_assets/demo/pages/gallery.js') }}"></script>
                 <script>
-                   function showPassword() {
+                 function showPassword() {
                     var x = document.getElementById("passwordInput");
                     var passEye = document.getElementById("passEye");
 

@@ -11,12 +11,14 @@ class NotifyAdminWithNewPurchase extends Notification
 {
     use Queueable;
 
+    public $purchase;
+
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct($purchase)
     {
-        //
+        $this->purchase = $purchase;
     }
 
     /**
@@ -26,19 +28,10 @@ class NotifyAdminWithNewPurchase extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['mail'];
+        return ['database'];
     }
 
-    /**
-     * Get the mail representation of the notification.
-     */
-    public function toMail(object $notifiable): MailMessage
-    {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
-    }
+
 
     /**
      * Get the array representation of the notification.
@@ -48,7 +41,10 @@ class NotifyAdminWithNewPurchase extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            //
-        ];
+            'type' => 'purchase' , 
+            'title' => 'عمليه شراء جديده ' , 
+            'content' => 'لقد تمت عمليه شراء جديده برقم : '.$this->purchase->purchase_number.' بمبلغ : '.$this->purchase->total, 
+            'url'  => route('board.purchases.show' , $this->purchase->id ) ,
+        ];  
     }
 }

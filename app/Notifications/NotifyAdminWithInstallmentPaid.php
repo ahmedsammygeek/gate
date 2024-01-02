@@ -10,13 +10,14 @@ use Illuminate\Notifications\Notification;
 class NotifyAdminWithInstallmentPaid extends Notification
 {
     use Queueable;
+    public $installment;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct($installment)
     {
-        //
+        $this->installment = $installment;
     }
 
     /**
@@ -26,19 +27,9 @@ class NotifyAdminWithInstallmentPaid extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['mail'];
+        return ['database'];
     }
 
-    /**
-     * Get the mail representation of the notification.
-     */
-    public function toMail(object $notifiable): MailMessage
-    {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
-    }
 
     /**
      * Get the array representation of the notification.
@@ -48,7 +39,10 @@ class NotifyAdminWithInstallmentPaid extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            //
+            'type' => 'piad_installment' , 
+            'title' => 'سداد قسط جديد' , 
+            'content' => 'تم تسديد القسط رقم .'.$this->installment->installment_number.' بملغ قيمته '.$this->installment->amount, 
+            'url' => route('board.installments.show' , $this->installment->id ) , 
         ];
     }
 }

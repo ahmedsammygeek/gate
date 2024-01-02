@@ -391,32 +391,32 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <p class="fw-semibold"> صلاحيات صفحات الموقع </p>
-                                                        <div class="border p-3 rounded">
-                                                            <div class="form-check text-start mb-2">
-                                                                <input type="checkbox" name='permissions[]' value="pages.list" class="form-check-input" id="pages.list"    >
-                                                                <label class="form-check-label" for="pages.list"> عرض كافه الصفحات </label>
-                                                            </div>
-                                                            <div class="form-check text-start mb-2">
-                                                                <input type="checkbox" name='permissions[]' value="pages.show" class="form-check-input" id="pages.show"  >
-                                                                <label class="form-check-label" for="pages.show"> عرض بيانات الصفحه </label>
-                                                            </div>
-                                                            <div class="form-check text-start mb-2">
-                                                                <input type="checkbox" name='permissions[]' value="pages.add" class="form-check-input" id="pages.add"   >
-                                                                <label class="form-check-label" for="pages.add"> إضافه صفحه جديده </label>
-                                                            </div>
-                                                            <div class="form-check text-start mb-2">
-                                                                <input type="checkbox" name='permissions[]' value="pages.delete" class="form-check-input" id="pages.delete"    >
-                                                                <label class="form-check-label" for="pages.delete"> حذف الصفحه </label>
-                                                            </div>
-                                                            <div class="form-check text-start mb-2">
-                                                                <input type="checkbox" name='permissions[]' value="pages.edit" class="form-check-input" id="pages.edit"   >
-                                                                <label class="form-check-label" for="pages.edit"> تعديل بيانات الصفحه </label>
-                                                            </div>
-                                                        </div>
+                                            <div class="mb-3">
+                                                <p class="fw-semibold"> صلاحيات صفحات الموقع </p>
+                                                <div class="border p-3 rounded">
+                                                    <div class="form-check text-start mb-2">
+                                                        <input type="checkbox" name='permissions[]' value="pages.list" class="form-check-input" id="pages.list"    >
+                                                        <label class="form-check-label" for="pages.list"> عرض كافه الصفحات </label>
+                                                    </div>
+                                                    <div class="form-check text-start mb-2">
+                                                        <input type="checkbox" name='permissions[]' value="pages.show" class="form-check-input" id="pages.show"  >
+                                                        <label class="form-check-label" for="pages.show"> عرض بيانات الصفحه </label>
+                                                    </div>
+                                                    <div class="form-check text-start mb-2">
+                                                        <input type="checkbox" name='permissions[]' value="pages.add" class="form-check-input" id="pages.add"   >
+                                                        <label class="form-check-label" for="pages.add"> إضافه صفحه جديده </label>
+                                                    </div>
+                                                    <div class="form-check text-start mb-2">
+                                                        <input type="checkbox" name='permissions[]' value="pages.delete" class="form-check-input" id="pages.delete"    >
+                                                        <label class="form-check-label" for="pages.delete"> حذف الصفحه </label>
+                                                    </div>
+                                                    <div class="form-check text-start mb-2">
+                                                        <input type="checkbox" name='permissions[]' value="pages.edit" class="form-check-input" id="pages.edit"   >
+                                                        <label class="form-check-label" for="pages.edit"> تعديل بيانات الصفحه </label>
                                                     </div>
                                                 </div>
+                                            </div>
+                                        </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <p class="fw-semibold"> صلاحيات عمليات الشراء </p>
@@ -458,6 +458,39 @@
                                                     <div class="form-check text-start mb-2">
                                                         <input type="checkbox" name='permissions[]' value="transactions.show" class="form-check-input" id="transactions.show" >
                                                         <label class="form-check-label" for="transactions.show"> عرض بيانات المعامله </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-lg-2 col-form-label pt-0">  التنبيهات </label>
+                                <div class="col-lg-10">
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <div class="border p-3 rounded">
+                                                    <div class="form-check text-start mb-2">
+                                                        <input type="checkbox" name='permissions[]' value="notifications.purchases.new" class="form-check-input" id="notifications.purchases.new" >
+                                                        <label class="form-check-label" for="notifications.purchases.new"> استقبال تنبيه بعمليات الشراء الجديده </label>
+                                                    </div>
+                                                    <div class="form-check text-start mb-2">
+                                                        <input type="checkbox" name='permissions[]' value="notifications.transactions.new" class="form-check-input" id="notifications.transactions.new" >
+                                                        <label class="form-check-label" for="notifications.transactions.new"> استقبال تنبيه بعمليات الدفع الجديده </label>
+                                                    </div>
+                                                    <div class="form-check text-start mb-2">
+                                                        <input type="checkbox" name='permissions[]' value="notifications.user_installments.due" class="form-check-input" id="notifications.user_installments.due" >
+                                                        <label class="form-check-label" for="notifications.user_installments.due"> استقبال تنبيه بانتهاء موعد دفع قسط </label>
+                                                    </div>
+                                                    <div class="form-check text-start mb-2">
+                                                        <input type="checkbox" name='permissions[]' value="notifications.packages.expired" class="form-check-input" id="notifications.packages.expired" >
+                                                        <label class="form-check-label" for="notifications.packages.expired"> استقبال تنبيه عند انتهاء موعد باقه </label>
+                                                    </div>
+                                                    <div class="form-check text-start mb-2">
+                                                        <input type="checkbox" name='permissions[]' value="notifications.courses.expired" class="form-check-input" id="notifications.courses.expired" >
+                                                        <label class="form-check-label" for="notifications.courses.expired"> استقبال تنبيه عند انتهاء موعد كورس </label>
                                                     </div>
                                                 </div>
                                             </div>

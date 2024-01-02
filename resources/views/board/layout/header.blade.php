@@ -8,8 +8,7 @@
 
 			<div class="navbar-brand flex-1 flex-lg-0">
 				<a href="{{ route('board.index') }}" class="d-inline-flex align-items-center">
-					<img src="{{ Storage::url('board_assets/images/logo_icon.svg') }}" alt="">
-					<img src="{{ Storage::url('board_assets/images/logo_text_light.svg') }}" class="d-none d-sm-inline-block h-16px ms-3" alt="">
+					<img src="{{ asset('board_assets/images/logo.png') }}" alt="">
 				</a>
 			</div>
 
@@ -36,7 +35,7 @@
 				<li class="nav-item ms-lg-2">
 					<a href="#" class="navbar-nav-link navbar-nav-link-icon rounded-pill" data-bs-toggle="offcanvas" data-bs-target="#notifications">
 						<i class="ph-bell"></i>
-						<span class="badge bg-yellow text-black position-absolute top-0 end-0 translate-middle-top zindex-1 rounded-pill mt-1 me-1">2</span>
+						<span class="badge bg-yellow text-black position-absolute top-0 end-0 translate-middle-top zindex-1 rounded-pill mt-1 me-1">{{ Auth::user()->unreadNotifications()->count() }}</span>
 					</a>
 				</li>
 
