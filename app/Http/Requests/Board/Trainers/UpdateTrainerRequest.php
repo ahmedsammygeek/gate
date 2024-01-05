@@ -22,10 +22,10 @@ class UpdateTrainerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'facebook' => 'nullable|url' ,
-            'youtube' => 'nullable|url' ,
-            'twitter' => 'nullable|url' ,
-            'instagram' => 'nullable|url' ,
+            'facebook' => 'nullable|string' ,
+            'youtube' => 'nullable|string' ,
+            'twitter' => 'nullable|string' ,
+            'instagram' => 'nullable|string' ,
             'name' => 'required' ,
             'image'=> 'nullable|image' ,
             'job_title' => 'required' ,

@@ -42,6 +42,13 @@ class CourseController extends Controller
     public function store(StoreCourseRequest $request)
     {
         $this->authorize('courses.add');
+        
+        if ($request->filled('discount_end_at')) {
+            if ($request->discount_end_at > $request->ends_at) {
+                return redirect()->back()->with('error' , 'لا يمكن تحديد تاريخ انتهاء الخصم بعد تاريخ انتهاء الكورس' );
+            }
+        }
+
         $course = new Course;
         $course->category_id = $request->category_id;
         $course->university_id = $request->university_id;

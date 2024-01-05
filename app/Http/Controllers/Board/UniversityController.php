@@ -86,6 +86,8 @@ class UniversityController extends Controller
     public function update(UpdateUniversityRequest $request, University $university)
     {
         $this->authorize('universities.edit');
+        $university->setTranslation('slug' , 'ar'  , Str::slug($request->title_ar, '-') );
+        $university->setTranslation('slug' , 'en'  , Str::slug($request->title_en, '-') );
         $university->setTranslation('title' , 'ar' , $request->title_ar );
         $university->setTranslation('title' , 'en' , $request->title_en );
         $university->setTranslation('content' , 'ar' , $request->content_ar );

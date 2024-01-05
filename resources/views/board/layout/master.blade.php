@@ -24,10 +24,11 @@
 	@yield('styles')
 	@livewireStyles
 
-	<script
+		<script src="{{ asset('board_assets/js/jquery/jquery.min.js') }}"></script>
+	{{-- <script
 	src="https://code.jquery.com/jquery-3.7.1.min.js"
 	integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-	crossorigin="anonymous"></script>
+	crossorigin="anonymous"></script> --}}
 	<script src="{{ asset('board_assets/js/sweetalert.js') }}"></script>
 	<script src="{{ asset('board_assets/js/bootstrap/bootstrap.bundle.min.js') }}"></script>
 	<script src="{{ asset('board_assets/js/vendor/visualization/d3/d3.min.js') }}"></script>
