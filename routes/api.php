@@ -13,8 +13,8 @@ use App\Http\Controllers\Api\ForgetPasswordController;
 use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\CheckoutController;
+use App\Http\Controllers\Api\SettingsController;
 Route::prefix("v1")->group(function () {
-
     Route::post('register', [RegisterController::class, 'register']);
     Route::post('check_register', [RegisterController::class, 'check_register']);
     Route::post('validate_phone', [RegisterController::class, 'validate_phone']);
@@ -42,8 +42,9 @@ Route::prefix("v1")->group(function () {
         Route::patch('notifications' , [NotificationController::class , 'update'] );
         Route::get('checkout' , [CheckoutController::class , 'index'] );
         Route::post('checkout' , [CheckoutController::class , 'checkout'] );
-
     });
 
+    Route::get('settings/social' , [SettingsController::class , 'social'] );
+    Route::get('settings/payments' , [SettingsController::class , 'payments'] );
 });
 
