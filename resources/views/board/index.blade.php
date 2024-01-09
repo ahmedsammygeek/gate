@@ -2,20 +2,7 @@
 
 @section('page_title' , 'الرئيسيه' )
 @section('content')
-<div class="row">
-    <div class="col-md-6">
-        <div class="box-style">
-            <div class="title-chart"><h5> احصائيات اشتراكات الطلاب  </h5></div>
-            <div class="chart-style" id="chart"></div>
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="box-style">
-            <div class="title-chart"><h5> احصائيات عمليات الشراء  </h5></div>
-            <div class="chart-style" id="chart2"></div>
-        </div>
-    </div>
-</div>
+
 <div class="row">
     <legend> احصائيات اليوم </legend>
     <div class="col-sm-6 col-xl-3">
@@ -37,42 +24,42 @@
             <a href="{{ route('board.transactions.index') }}" style="text-decoration: none;color: inherit;">
                 <div class="d-flex align-items-center">
                     <div class="flex-fill">
-                     <h4 class="mb-0"> {{ $transactions_sum }}  <span > ريال </span> </h4> 
-                     مدوفعات اليوم
-                 </div>
-                 <i class="ph-currency-circle-dollar  ph-2x opacity-75 ms-3"></i>
-             </div>
-         </a>
-     </div>
- </div>
-
- <div class="col-sm-6 col-xl-3">
-    <div class="card card-body bg-info text-white">
-        <a href="{{ route('board.users.index') }}" style="text-decoration: none; color: inherit;">
-            <div class="d-flex align-items-center">
-                <div class="flex-fill">
-                    <h4 class="mb-0">{{ $today_users_count }} <span > مستخدم </span> </h4>
-                    العملاء المشتركين اليوم
+                        <h4 class="mb-0"> {{ $transactions_sum }}  <span > ريال </span> </h4> 
+                        مدوفعات اليوم
+                    </div>
+                    <i class="ph-currency-circle-dollar  ph-2x opacity-75 ms-3"></i>
                 </div>
-                <i class="ph-users  ph-2x opacity-75 ms-3"></i>
-            </div>
-        </a>
+            </a>
+        </div>
     </div>
-</div>
 
-<div class="col-sm-6 col-xl-3">
-    <div class="card card-body bg-info text-white">
-        <a href="{{ route('board.installments.index') }}" style="text-decoration: none; color: inherit;">
-            <div class="d-flex align-items-center">
-                <div class="flex-fill">
-                    <h4 class="mb-0">{{ $installment_due_today_count }} <span > قسط </span> </h4>
-                    عدد الاقساط المستحقه اليوم
+    <div class="col-sm-6 col-xl-3">
+        <div class="card card-body bg-info text-white">
+            <a href="{{ route('board.users.index') }}" style="text-decoration: none; color: inherit;">
+                <div class="d-flex align-items-center">
+                    <div class="flex-fill">
+                        <h4 class="mb-0">{{ $today_users_count }} <span > مستخدم </span> </h4>
+                        العملاء المشتركين اليوم
+                    </div>
+                    <i class="ph-users  ph-2x opacity-75 ms-3"></i>
                 </div>
-                <i class="ph-list-numbers ph-2x opacity-75 ms-3"></i>
-            </div>
-        </a>
+            </a>
+        </div>
     </div>
-</div>
+
+    <div class="col-sm-6 col-xl-3">
+        <div class="card card-body bg-info text-white">
+            <a href="{{ route('board.installments.index') }}" style="text-decoration: none; color: inherit;">
+                <div class="d-flex align-items-center">
+                    <div class="flex-fill">
+                        <h4 class="mb-0">{{ $installment_due_today_count }} <span > قسط </span> </h4>
+                        عدد الاقساط المستحقه اليوم
+                    </div>
+                    <i class="ph-list-numbers ph-2x opacity-75 ms-3"></i>
+                </div>
+            </a>
+        </div>
+    </div>
 </div>
 
 
@@ -198,6 +185,20 @@
                     <i class="ph-map-pin  ph-2x opacity-75 ms-3"></i>
                 </div>
             </a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="box-style">
+            <div class="title-chart"><h5> احصائيات اشتراكات الطلاب  </h5></div>
+            <div class="chart-style" id="chart"></div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="box-style">
+            <div class="title-chart"><h5> احصائيات عمليات الشراء  </h5></div>
+            <div class="chart-style" id="chart2"></div>
         </div>
     </div>
 </div>
