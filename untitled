@@ -1,0 +1,21 @@
+
+#GATEWAY_BASE_URL=https://banquemisr.gateway.mastercard.com
+#GATEWAY_URL=https://banquemisr.gateway.mastercard.com/api/rest
+#GATEWAY_HOSTED_SESSION_URL=https://banquemisr.gateway.mastercard.com/form
+#GATEWAY_MERCHANT_ID=TESTTHEGATE_ACAD
+#GATEWAY_API_USERNAME=Merchant.TESTTHEGATE_ACAD
+#GATEWAY_API_PASSWORD=28c84d5aa95f3c8149cee8aa68173240
+#GATEWAY_DEFAULT_CURRENCY=SAR
+#GATEWAY_API_VERSION=62
+
+GATEWAY_BASE_URL=https://banquemisr.gateway.mastercard.com
+GATEWAY_URL=https://banquemisr.gateway.mastercard.com/api/rest
+GATEWAY_HOSTED_SESSION_URL=https://banquemisr.gateway.mastercard.com/form
+GATEWAY_MERCHANT_ID=THEGATE_ACAD
+GATEWAY_API_USERNAME=Merchant.THEGATE_ACAD
+GATEWAY_API_PASSWORD=d3fe0777fc7aae46c1ec3da91273c820
+GATEWAY_DEFAULT_CURRENCY=SAR
+GATEWAY_API_VERSION=62
+
+
+Checkout.configure({merchant: '" . self::$merchantID . "',order: {amount: function() {return '" . self::$totalPrice . "';},currency: 'EGP',description: 'Order Number: " . self::$orderID . "',id: '" . self::$orderID . "'},session: {id: '" . self::$sessionID . "'},interaction: {merchant: {name: '" . self::$siteName . "',address: {line1: '" . self::$siteAddress . "'},email  : '" . self::$siteEmail . "',phone  : '" . self::$sitePhone . "',logo   : '" . self::$siteLogoURL . "'},locale : 'en_US',theme : 'default',}});</script>

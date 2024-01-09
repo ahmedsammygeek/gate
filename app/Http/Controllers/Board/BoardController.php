@@ -13,6 +13,7 @@ use App\Models\Purchase;
 use App\Models\Transaction;
 use App\Models\UserInstallments;
 use Carbon\Carbon;
+use DB;
 class BoardController extends Controller
 {
     /**
@@ -36,7 +37,47 @@ class BoardController extends Controller
             $query->whereDate('expires_at' , '>=' , Carbon::today() );
         })->count();   
         $installment_due_today_count = UserInstallments::whereDate('due_date' , Carbon::today() )->count();
-        return view('board.index' , compact('trainers_count' , 'today_users_count' , 'transactions_sum' , 'purchases_count' , 'packages_count'  , 'admins_count' , 'installment_due_today_count' , 'students_count' , 'categories_count' , 'universities_count' , 'courses_count' , 'active_users_count' , 'countries_count' ) );
+        // $users_data = User::select(\DB::raw(' MONTH(created_at) as month, count(id) as total '))
+        // ->where('type' , User::USER )
+        // ->whereBetween('created_at', [today()->startOfYear(), today()->endOfYear() ])
+        // ->groupBy('month')
+        // ->orderBy('month' , 'ASC')
+        // ->pluck('total', 'month')
+        // ->all();
+
+        $users_data = User::query()
+        ->selectRaw('COUNT(CASE WHEN MONTH(created_at)  = 1 THEN 1 END) as studentCountforMonth1')
+        ->selectRaw('COUNT(CASE WHEN MONTH(created_at)  = 2 THEN 2 END) as studentCountforMonth2')
+        ->selectRaw('COUNT(CASE WHEN MONTH(created_at)  = 3 THEN 3 END) as studentCountforMonth3')
+        ->selectRaw('COUNT(CASE WHEN MONTH(created_at)  = 4 THEN 4 END) as studentCountforMonth4')
+        ->selectRaw('COUNT(CASE WHEN MONTH(created_at)  = 5 THEN 5 END) as studentCountforMonth5')
+        ->selectRaw('COUNT(CASE WHEN MONTH(created_at)  = 6 THEN 6 END) as studentCountforMonth6')
+        ->selectRaw('COUNT(CASE WHEN MONTH(created_at)  = 7 THEN 7 END) as studentCountforMonth7')
+        ->selectRaw('COUNT(CASE WHEN MONTH(created_at)  = 8 THEN 8 END) as studentCountforMonth8')
+        ->selectRaw('COUNT(CASE WHEN MONTH(created_at)  = 9 THEN 9 END) as studentCountforMonth9')
+        ->selectRaw('COUNT(CASE WHEN MONTH(created_at)  = 10 THEN 10 END) as studentCountforMonth10')
+        ->selectRaw('COUNT(CASE WHEN MONTH(created_at)  = 11 THEN 11 END) as studentCountforMonth11')
+        ->selectRaw('COUNT(CASE WHEN MONTH(created_at)  = 12 THEN 12 END) as studentCountforMonth12')
+        ->whereBetween('created_at', [today()->startOfYear(), today()->endOfYear() ])
+        ->get();
+
+        $purchases_data = Purchase::query()
+        ->selectRaw('COUNT(CASE WHEN MONTH(created_at)  = 1 THEN 1 END) as purchasesForMonth1')
+        ->selectRaw('COUNT(CASE WHEN MONTH(created_at)  = 2 THEN 2 END) as purchasesForMonth2')
+        ->selectRaw('COUNT(CASE WHEN MONTH(created_at)  = 3 THEN 3 END) as purchasesForMonth3')
+        ->selectRaw('COUNT(CASE WHEN MONTH(created_at)  = 4 THEN 4 END) as purchasesForMonth4')
+        ->selectRaw('COUNT(CASE WHEN MONTH(created_at)  = 5 THEN 5 END) as purchasesForMonth5')
+        ->selectRaw('COUNT(CASE WHEN MONTH(created_at)  = 6 THEN 6 END) as purchasesForMonth6')
+        ->selectRaw('COUNT(CASE WHEN MONTH(created_at)  = 7 THEN 7 END) as purchasesForMonth7')
+        ->selectRaw('COUNT(CASE WHEN MONTH(created_at)  = 8 THEN 8 END) as purchasesForMonth8')
+        ->selectRaw('COUNT(CASE WHEN MONTH(created_at)  = 9 THEN 9 END) as purchasesForMonth9')
+        ->selectRaw('COUNT(CASE WHEN MONTH(created_at)  = 10 THEN 10 END) as purchasesForMonth10')
+        ->selectRaw('COUNT(CASE WHEN MONTH(created_at)  = 11 THEN 11 END) as purchasesForMonth11')
+        ->selectRaw('COUNT(CASE WHEN MONTH(created_at)  = 12 THEN 12 END) as purchasesForMonth12')
+        ->whereBetween('created_at', [today()->startOfYear(), today()->endOfYear() ])
+        ->get();
+
+        return view('board.index' , compact( 'users_data' , 'purchases_data' ,  'trainers_count' , 'today_users_count' , 'transactions_sum' , 'purchases_count' , 'packages_count'  , 'admins_count' , 'installment_due_today_count' , 'students_count' , 'categories_count' , 'universities_count' , 'courses_count' , 'active_users_count' , 'countries_count' ) );
     }
 
     /**

@@ -3,6 +3,20 @@
 @section('page_title' , 'الرئيسيه' )
 @section('content')
 <div class="row">
+    <div class="col-md-6">
+        <div class="box-style">
+            <div class="title-chart"><h5> احصائيات اشتراكات الطلاب  </h5></div>
+            <div class="chart-style" id="chart"></div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="box-style">
+            <div class="title-chart"><h5> احصائيات عمليات الشراء  </h5></div>
+            <div class="chart-style" id="chart2"></div>
+        </div>
+    </div>
+</div>
+<div class="row">
     <legend> احصائيات اليوم </legend>
     <div class="col-sm-6 col-xl-3">
         <div class="card card-body bg-info text-white">
@@ -23,42 +37,42 @@
             <a href="{{ route('board.transactions.index') }}" style="text-decoration: none;color: inherit;">
                 <div class="d-flex align-items-center">
                     <div class="flex-fill">
-                         <h4 class="mb-0"> {{ $transactions_sum }}  <span > ريال </span> </h4> 
-                        مدوفعات اليوم
-                    </div>
-                    <i class="ph-currency-circle-dollar  ph-2x opacity-75 ms-3"></i>
-                </div>
-            </a>
-        </div>
-    </div>
+                     <h4 class="mb-0"> {{ $transactions_sum }}  <span > ريال </span> </h4> 
+                     مدوفعات اليوم
+                 </div>
+                 <i class="ph-currency-circle-dollar  ph-2x opacity-75 ms-3"></i>
+             </div>
+         </a>
+     </div>
+ </div>
 
-    <div class="col-sm-6 col-xl-3">
-        <div class="card card-body bg-info text-white">
-            <a href="{{ route('board.users.index') }}" style="text-decoration: none; color: inherit;">
-                <div class="d-flex align-items-center">
-                    <div class="flex-fill">
-                        <h4 class="mb-0">{{ $today_users_count }} <span > مستخدم </span> </h4>
-                        العملاء المشتركين اليوم
-                    </div>
-                    <i class="ph-users  ph-2x opacity-75 ms-3"></i>
+ <div class="col-sm-6 col-xl-3">
+    <div class="card card-body bg-info text-white">
+        <a href="{{ route('board.users.index') }}" style="text-decoration: none; color: inherit;">
+            <div class="d-flex align-items-center">
+                <div class="flex-fill">
+                    <h4 class="mb-0">{{ $today_users_count }} <span > مستخدم </span> </h4>
+                    العملاء المشتركين اليوم
                 </div>
-            </a>
-        </div>
+                <i class="ph-users  ph-2x opacity-75 ms-3"></i>
+            </div>
+        </a>
     </div>
+</div>
 
-    <div class="col-sm-6 col-xl-3">
-        <div class="card card-body bg-info text-white">
-            <a href="{{ route('board.installments.index') }}" style="text-decoration: none; color: inherit;">
-                <div class="d-flex align-items-center">
-                    <div class="flex-fill">
-                        <h4 class="mb-0">{{ $installment_due_today_count }} <span > قسط </span> </h4>
-                        عدد الاقساط المستحقه اليوم
-                    </div>
-                    <i class="ph-list-numbers ph-2x opacity-75 ms-3"></i>
+<div class="col-sm-6 col-xl-3">
+    <div class="card card-body bg-info text-white">
+        <a href="{{ route('board.installments.index') }}" style="text-decoration: none; color: inherit;">
+            <div class="d-flex align-items-center">
+                <div class="flex-fill">
+                    <h4 class="mb-0">{{ $installment_due_today_count }} <span > قسط </span> </h4>
+                    عدد الاقساط المستحقه اليوم
                 </div>
-            </a>
-        </div>
+                <i class="ph-list-numbers ph-2x opacity-75 ms-3"></i>
+            </div>
+        </a>
     </div>
+</div>
 </div>
 
 
@@ -188,4 +202,141 @@
     </div>
 </div>
 
+@endsection
+
+
+@section('scripts')
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script>
+    $(document).ready(function() {
+        var options = {
+            series: [{
+                name: "طالب",
+                data: [
+                    {{ $users_data[0]['studentCountforMonth1'] }},
+                    {{ $users_data[0]['studentCountforMonth2'] }},
+                    {{ $users_data[0]['studentCountforMonth3'] }},
+                    {{ $users_data[0]['studentCountforMonth4'] }},
+                    {{ $users_data[0]['studentCountforMonth5'] }},
+                    {{ $users_data[0]['studentCountforMonth6'] }},
+                    {{ $users_data[0]['studentCountforMonth7'] }},
+                    {{ $users_data[0]['studentCountforMonth8'] }},
+                    {{ $users_data[0]['studentCountforMonth9'] }},
+                    {{ $users_data[0]['studentCountforMonth10'] }},
+                    {{ $users_data[0]['studentCountforMonth11'] }},
+                    {{ $users_data[0]['studentCountforMonth12'] }},
+                    ]
+            }],
+            chart: {
+                height: 350,
+                type: 'bar',
+                events: {
+                    click: function(chart, w, e) {
+                        console.log(chart, w, e)
+                    }
+                }
+            },
+            plotOptions: {
+                bar: {
+                    columnWidth: '45%',
+                    distributed: true,
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            legend: {
+                show: false
+            },
+            xaxis: {
+                categories: [
+                    ['ينانير'],
+                    ['فبراير  '],
+                    ['مارس'] , 
+                    ['ابريل'] , 
+                    ['مايو']  , 
+                    ['يونيو'] , 
+                    ['يوليه'] , 
+                    ['اغسطس'] , 
+                    ['سبتمبر'] , 
+                    ['اكتوبر'] , 
+                    ['نوفمر'] , 
+                    ['ديسمبر'] , 
+                    ],
+                labels: {
+                    style: {
+                        fontSize: '12px'
+                    }
+                }
+            }
+        };
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+
+
+        var options2 = {
+            series: [{
+                name: "عمليه شراء",
+                data: [
+                    {{ $purchases_data[0]['purchasesForMonth1'] }},
+                    {{ $purchases_data[0]['purchasesForMonth2'] }},
+                    {{ $purchases_data[0]['purchasesForMonth3'] }},
+                    {{ $purchases_data[0]['purchasesForMonth4'] }},
+                    {{ $purchases_data[0]['purchasesForMonth5'] }},
+                    {{ $purchases_data[0]['purchasesForMonth6'] }},
+                    {{ $purchases_data[0]['purchasesForMonth7'] }},
+                    {{ $purchases_data[0]['purchasesForMonth8'] }},
+                    {{ $purchases_data[0]['purchasesForMonth9'] }},
+                    {{ $purchases_data[0]['purchasesForMonth10'] }},
+                    {{ $purchases_data[0]['purchasesForMonth11'] }},
+                    {{ $purchases_data[0]['purchasesForMonth12'] }},
+                    ]
+            }],
+            chart: {
+                height: 350,
+                type: 'bar',
+                events: {
+                    click: function(chart, w, e) {
+                        console.log(chart, w, e)
+                    }
+                }
+            },
+            plotOptions: {
+                bar: {
+                    columnWidth: '45%',
+                    distributed: true,
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            legend: {
+                show: false
+            },
+            xaxis: {
+                categories: [
+                    ['ينانير'],
+                    ['فبراير  '],
+                    ['مارس'] , 
+                    ['ابريل'] , 
+                    ['مايو']  , 
+                    ['يونيو'] , 
+                    ['يوليه'] , 
+                    ['اغسطس'] , 
+                    ['سبتمبر'] , 
+                    ['اكتوبر'] , 
+                    ['نوفمر'] , 
+                    ['ديسمبر'] , 
+                    ],
+                labels: {
+                    style: {
+                        fontSize: '12px'
+                    }
+                }
+            }
+        };
+        var chart = new ApexCharts(document.querySelector("#chart2"), options2);
+        chart.render();
+    });
+</script>
 @endsection

@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Board\BoardController;
 use App\Http\Controllers\Board\ProfileController;
@@ -25,7 +25,14 @@ use App\Http\Controllers\Board\AjaxController;
 
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\MyFatoorahController;
+
+Route::get('error' , function(Request $request){
+
+    dd($request->all());
+});
+
 Route::get('/test' ,[TestController::class , 'index'] );
+Route::get('/test2' ,[TestController::class , 'index2'] );
 // Route::get('/test' ,[MyFatoorahController::class , 'index'] );
 Route::get('/myfatoorah/callback' ,[MyFatoorahController::class , 'callback'] )->name('myfatoorah.callback');
 Route::group(['prefix' => 'Board' , 'as' => 'board.'  ], function() {
