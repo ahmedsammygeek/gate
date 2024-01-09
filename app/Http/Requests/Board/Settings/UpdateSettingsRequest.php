@@ -24,17 +24,13 @@ class UpdateSettingsRequest extends FormRequest
         return [
             'email' => 'required|email' , 
             'mobile' => 'required' , 
-            'whatsup' => 'required|url' , 
+            'youtube' => 'required|url' , 
             'facebook' => 'required|url' , 
-            'telegram' => 'required|url' , 
+            'youtube_video_link' => 'required|url' , 
             'instagram' => 'required|url' , 
             'twitter' => 'required|url' , 
-            'about_ar' => 'required' , 
-            'about_en' => 'required' , 
-            'terms_ar' => 'required' , 
-            'terms_en' => 'required' , 
-            'privacy_ar' => 'required' , 
-            'privacy_en' => 'required' , 
+            'footer_text_ar' => 'required' , 
+            'footer_text_en' => 'required' , 
         ];
     }
 }

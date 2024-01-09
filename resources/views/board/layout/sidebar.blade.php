@@ -17,7 +17,7 @@
 </div>
 
 @php
-$home = $admins = $countries = $pages = $transactions = $users = $installments = $purchases =  $universities = $courses = $packages = $categories = $trainers = '';
+$home = $admins = $countries = $settings = $pages = $transactions = $users = $installments = $purchases =  $universities = $courses = $packages = $categories = $trainers = '';
 switch (Request::segment(2)) {
     case 'admins':
     $admins = 'active';
@@ -52,6 +52,9 @@ switch (Request::segment(2)) {
     case 'users':
     $users = 'active';
     break;
+    case 'settings':
+    $settings = 'active';
+    break;
     default:
     $home = 'active';
     break;
@@ -73,6 +76,24 @@ switch (Request::segment(2)) {
                     الرئيسيه
                 </span>
             </a>
+        </li>
+
+         <li class="nav-item nav-item-submenu">
+            <a href="{{ route('board.index') }}" class="nav-link {{ $settings }}">
+                <i class="ph-gear"></i>
+                <span>
+                    الاعدادات
+                </span>
+            </a>
+            <ul class="nav-group-sub collapse" data-submenu-title="المشرفين">
+                {{-- @if (auth()->user()->hasAnyPermission(['admins.list' , 'admins.show' , 'admins.delete' , 'admins.edit' ]) ) --}}
+                <li class="nav-item"><a href="{{ route('board.settings.social.edit') }}" class="nav-link"> اعددادت التواصل </a></li>          
+                {{-- @endif   --}}
+                {{-- @can('admins.add') --}}
+                <li class="nav-item"><a href="{{ route('board.settings.payments.edit') }}" class="nav-link"> اعدادت الدفع </a></li>
+                {{-- @endcan --}}
+
+            </ul>
         </li>
 
         @if(auth()->user()->hasAnyPermission(['admins.list' , 'admins.show' , 'admins.delete' , 'admins.edit' , 'admins.add' ]) )

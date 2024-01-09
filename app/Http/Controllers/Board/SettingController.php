@@ -17,6 +17,14 @@ class SettingController extends Controller
         return view('board.settings.edit' , compact('info'));
     }
 
+
+    public function edit_payments()
+    {
+        $info = Setting::first();
+        return view('board.settings.edit_payments' , compact('info'));
+    }
+
+
     /**
      * Update the specified resource in storage.
      */
@@ -24,20 +32,26 @@ class SettingController extends Controller
     {
         $info = Setting::first();
         $info->email = $request->email;
-        $info->mobile = $request->mobile ;
+        $info->phone = $request->mobile ;
         $info->facebook = $request->facebook ;
         $info->twitter = $request->twitter ;
         $info->instagram = $request->instagram ;
-        $info->telegram = $request->telegram ;
-        $info->whatsup = $request->whatsup ;
-        $info->setTranslation('about' , 'ar' , $request->about_ar );
-        $info->setTranslation('about' , 'en' , $request->about_en );
-        $info->setTranslation('terms' , 'ar' , $request->terms_ar );
-        $info->setTranslation('terms' , 'en' , $request->terms_en );
-        $info->setTranslation('privacy' , 'ar' , $request->privacy_ar );
-        $info->setTranslation('privacy' , 'en' , $request->privacy_en );
+        $info->youtube = $request->youtube ;
+        $info->youtube_video_link = $request->youtube_video_link ;
+        $info->setTranslation('footer_text' , 'ar' , $request->footer_text_ar );
+        $info->setTranslation('footer_text' , 'en' , $request->footer_text_en );
+        $info->setTranslation('address' , 'ar' , $request->address_ar );
+        $info->setTranslation('address' , 'en' , $request->address_en );
         $info->save();
+        return redirect()->back()->with('success' , 'تم التعديل بنجاح' );
+    }
 
+    public function update_payments(Request $request)
+    {
+        $info = Setting::first();
+        $info->bank_misr = $request->bank_misr;
+        $info->my_fatoora = $request->my_fatoora ;
+        $info->save();
         return redirect()->back()->with('success' , 'تم التعديل بنجاح' );
     }
 
