@@ -224,18 +224,18 @@
             series: [{
                 name: "طالب",
                 data: [
-                    {{ $users_data[0]['studentCountforMonth1'] }},
-                    {{ $users_data[0]['studentCountforMonth2'] }},
-                    {{ $users_data[0]['studentCountforMonth3'] }},
-                    {{ $users_data[0]['studentCountforMonth4'] }},
-                    {{ $users_data[0]['studentCountforMonth5'] }},
-                    {{ $users_data[0]['studentCountforMonth6'] }},
-                    {{ $users_data[0]['studentCountforMonth7'] }},
-                    {{ $users_data[0]['studentCountforMonth8'] }},
-                    {{ $users_data[0]['studentCountforMonth9'] }},
-                    {{ $users_data[0]['studentCountforMonth10'] }},
-                    {{ $users_data[0]['studentCountforMonth11'] }},
                     {{ $users_data[0]['studentCountforMonth12'] }},
+                    {{ $users_data[0]['studentCountforMonth11'] }},
+                    {{ $users_data[0]['studentCountforMonth10'] }},
+                    {{ $users_data[0]['studentCountforMonth9'] }},
+                    {{ $users_data[0]['studentCountforMonth8'] }},
+                    {{ $users_data[0]['studentCountforMonth7'] }},
+                    {{ $users_data[0]['studentCountforMonth6'] }},
+                    {{ $users_data[0]['studentCountforMonth5'] }},
+                    {{ $users_data[0]['studentCountforMonth4'] }},
+                    {{ $users_data[0]['studentCountforMonth3'] }},
+                    {{ $users_data[0]['studentCountforMonth2'] }},
+                    {{ $users_data[0]['studentCountforMonth1'] }},
                     ]
             }],
             chart: {
@@ -264,19 +264,19 @@
             },
             xaxis: {
                 categories: [
-                 ['ديسمبر'] , 
-                 ['نوفمر'] , 
-                 ['اكتوبر'] , 
-                 ['سبتمبر'] , 
-                 ['اغسطس'] , 
-                 ['يوليه'] , 
-                 ['يونيو'] , 
-                 ['مايو']  , 
-                 ['ابريل'] , 
-                 ['مارس'] , 
-                 ['فبراير'],
-                 ['ينانير'],
-                 ],
+                   ['ديسمبر'] , 
+                   ['نوفمر'] , 
+                   ['اكتوبر'] , 
+                   ['سبتمبر'] , 
+                   ['اغسطس'] , 
+                   ['يوليه'] , 
+                   ['يونيو'] , 
+                   ['مايو']  , 
+                   ['ابريل'] , 
+                   ['مارس'] , 
+                   ['فبراير'],
+                   ['ينانير'],
+                   ],
                 labels: {
                     style: {
                         fontSize: '12px'
@@ -373,6 +373,9 @@
                     {{ $transactions_data[0]['transactionsForMonth3'] }},
                     {{ $transactions_data[0]['transactionsForMonth2'] }},
                     {{ $transactions_data[0]['transactionsForMonth1'] }},
+
+
+
                     ]
             }],
             chart: {
