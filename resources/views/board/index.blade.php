@@ -198,7 +198,7 @@
 
 </div>
 
-<div class="row">
+<div class="row" >
     <div class="col-md-6">
         <div class="box-style">
             <div class="title-chart"><h5> احصائيات اشتراكات الطلاب  </h5></div>
@@ -241,6 +241,9 @@
             chart: {
                 height: 350,
                 type: 'bar',
+                style:{
+                    direction: 'rtl'
+                },
                 events: {
                     click: function(chart, w, e) {
                         console.log(chart, w, e)
@@ -261,19 +264,19 @@
             },
             xaxis: {
                 categories: [
-                    ['ينانير'],
-                    ['فبراير  '],
-                    ['مارس'] , 
-                    ['ابريل'] , 
-                    ['مايو']  , 
-                    ['يونيو'] , 
-                    ['يوليه'] , 
-                    ['اغسطس'] , 
-                    ['سبتمبر'] , 
-                    ['اكتوبر'] , 
-                    ['نوفمر'] , 
-                    ['ديسمبر'] , 
-                    ],
+                 ['ديسمبر'] , 
+                 ['نوفمر'] , 
+                 ['اكتوبر'] , 
+                 ['سبتمبر'] , 
+                 ['اغسطس'] , 
+                 ['يوليه'] , 
+                 ['يونيو'] , 
+                 ['مايو']  , 
+                 ['ابريل'] , 
+                 ['مارس'] , 
+                 ['فبراير'],
+                 ['ينانير'],
+                 ],
                 labels: {
                     style: {
                         fontSize: '12px'
@@ -289,18 +292,21 @@
             series: [{
                 name: "عمليه شراء",
                 data: [
-                    {{ $purchases_data[0]['purchasesForMonth1'] }},
-                    {{ $purchases_data[0]['purchasesForMonth2'] }},
-                    {{ $purchases_data[0]['purchasesForMonth3'] }},
-                    {{ $purchases_data[0]['purchasesForMonth4'] }},
-                    {{ $purchases_data[0]['purchasesForMonth5'] }},
-                    {{ $purchases_data[0]['purchasesForMonth6'] }},
-                    {{ $purchases_data[0]['purchasesForMonth7'] }},
-                    {{ $purchases_data[0]['purchasesForMonth8'] }},
-                    {{ $purchases_data[0]['purchasesForMonth9'] }},
-                    {{ $purchases_data[0]['purchasesForMonth10'] }},
-                    {{ $purchases_data[0]['purchasesForMonth11'] }},
+
                     {{ $purchases_data[0]['purchasesForMonth12'] }},
+                    {{ $purchases_data[0]['purchasesForMonth11'] }},
+                    {{ $purchases_data[0]['purchasesForMonth10'] }},
+                    {{ $purchases_data[0]['purchasesForMonth9'] }},
+                    {{ $purchases_data[0]['purchasesForMonth8'] }},
+                    {{ $purchases_data[0]['purchasesForMonth7'] }},
+                    {{ $purchases_data[0]['purchasesForMonth6'] }},
+                    {{ $purchases_data[0]['purchasesForMonth5'] }},
+                    {{ $purchases_data[0]['purchasesForMonth4'] }},
+                    {{ $purchases_data[0]['purchasesForMonth3'] }},
+                    {{ $purchases_data[0]['purchasesForMonth2'] }},
+                    {{ $purchases_data[0]['purchasesForMonth1'] }},
+
+
                     ]
             }],
             chart: {
@@ -326,19 +332,19 @@
             },
             xaxis: {
                 categories: [
-                    ['ينانير'],
-                    ['فبراير  '],
-                    ['مارس'] , 
-                    ['ابريل'] , 
-                    ['مايو']  , 
-                    ['يونيو'] , 
-                    ['يوليه'] , 
-                    ['اغسطس'] , 
-                    ['سبتمبر'] , 
-                    ['اكتوبر'] , 
-                    ['نوفمر'] , 
-                    ['ديسمبر'] , 
-                    ],
+                  ['ديسمبر'] , 
+                  ['نوفمر'] , 
+                  ['اكتوبر'] , 
+                  ['سبتمبر'] , 
+                  ['اغسطس'] , 
+                  ['يوليه'] , 
+                  ['يونيو'] , 
+                  ['مايو']  , 
+                  ['ابريل'] , 
+                  ['مارس'] , 
+                  ['فبراير'],
+                  ['ينانير'],
+                  ],
                 labels: {
                     style: {
                         fontSize: '12px'
@@ -355,21 +361,22 @@
             series: [{
                 name: "ريال",
                 data: [
-                    {{ $transactions_data[0]['transactionsForMonth1'] }},
-                    {{ $transactions_data[0]['transactionsForMonth2'] }},
-                    {{ $transactions_data[0]['transactionsForMonth3'] }},
-                    {{ $transactions_data[0]['transactionsForMonth4'] }},
-                    {{ $transactions_data[0]['transactionsForMonth5'] }},
-                    {{ $transactions_data[0]['transactionsForMonth6'] }},
-                    {{ $transactions_data[0]['transactionsForMonth7'] }},
-                    {{ $transactions_data[0]['transactionsForMonth8'] }},
-                    {{ $transactions_data[0]['transactionsForMonth9'] }},
-                    {{ $transactions_data[0]['transactionsForMonth10'] }},
-                    {{ $transactions_data[0]['transactionsForMonth11'] }},
                     {{ $transactions_data[0]['transactionsForMonth12'] }},
+                    {{ $transactions_data[0]['transactionsForMonth11'] }},
+                    {{ $transactions_data[0]['transactionsForMonth10'] }},
+                    {{ $transactions_data[0]['transactionsForMonth9'] }},
+                    {{ $transactions_data[0]['transactionsForMonth8'] }},
+                    {{ $transactions_data[0]['transactionsForMonth7'] }},
+                    {{ $transactions_data[0]['transactionsForMonth6'] }},
+                    {{ $transactions_data[0]['transactionsForMonth5'] }},
+                    {{ $transactions_data[0]['transactionsForMonth4'] }},
+                    {{ $transactions_data[0]['transactionsForMonth3'] }},
+                    {{ $transactions_data[0]['transactionsForMonth2'] }},
+                    {{ $transactions_data[0]['transactionsForMonth1'] }},
                     ]
             }],
             chart: {
+                // defaultLocale: 'ar',
                 height: 350,
                 type: 'bar',
                 events: {
@@ -392,18 +399,18 @@
             },
             xaxis: {
                 categories: [
-                    ['ينانير'],
-                    ['فبراير  '],
-                    ['مارس'] , 
-                    ['ابريل'] , 
-                    ['مايو']  , 
-                    ['يونيو'] , 
-                    ['يوليه'] , 
-                    ['اغسطس'] , 
-                    ['سبتمبر'] , 
-                    ['اكتوبر'] , 
-                    ['نوفمر'] , 
                     ['ديسمبر'] , 
+                    ['نوفمر'] , 
+                    ['اكتوبر'] , 
+                    ['سبتمبر'] , 
+                    ['اغسطس'] , 
+                    ['يوليه'] , 
+                    ['يونيو'] , 
+                    ['مايو']  , 
+                    ['ابريل'] , 
+                    ['مارس'] , 
+                    ['فبراير'],
+                    ['ينانير'],
                     ],
                 labels: {
                     style: {
