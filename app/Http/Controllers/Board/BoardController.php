@@ -77,7 +77,24 @@ class BoardController extends Controller
         ->whereBetween('created_at', [today()->startOfYear(), today()->endOfYear() ])
         ->get();
 
-        return view('board.index' , compact( 'users_data' , 'purchases_data' ,  'trainers_count' , 'today_users_count' , 'transactions_sum' , 'purchases_count' , 'packages_count'  , 'admins_count' , 'installment_due_today_count' , 'students_count' , 'categories_count' , 'universities_count' , 'courses_count' , 'active_users_count' , 'countries_count' ) );
+        $transactions_data = Transaction::query()
+        ->selectRaw('SUM(CASE WHEN MONTH(created_at)  = 1 THEN amount ELSE 0 END) as transactionsForMonth1')
+        ->selectRaw('SUM(CASE WHEN MONTH(created_at)  = 2 THEN amount ELSE 0 END) as transactionsForMonth2')
+        ->selectRaw('SUM(CASE WHEN MONTH(created_at)  = 3 THEN amount ELSE 0 END) as transactionsForMonth3')
+        ->selectRaw('SUM(CASE WHEN MONTH(created_at)  = 4 THEN amount ELSE 0 END) as transactionsForMonth4')
+        ->selectRaw('SUM(CASE WHEN MONTH(created_at)  = 5 THEN amount ELSE 0 END) as transactionsForMonth5')
+        ->selectRaw('SUM(CASE WHEN MONTH(created_at)  = 6 THEN amount ELSE 0 END) as transactionsForMonth6')
+        ->selectRaw('SUM(CASE WHEN MONTH(created_at)  = 7 THEN amount ELSE 0 END) as transactionsForMonth7')
+        ->selectRaw('SUM(CASE WHEN MONTH(created_at)  = 8 THEN amount ELSE 0 END) as transactionsForMonth8')
+        ->selectRaw('SUM(CASE WHEN MONTH(created_at)  = 9 THEN amount ELSE 0 END) as transactionsForMonth9')
+        ->selectRaw('SUM(CASE WHEN MONTH(created_at)  = 10 THEN amount ELSE 0 END) as transactionsForMonth10')
+        ->selectRaw('SUM(CASE WHEN MONTH(created_at)  = 11 THEN amount ELSE 0 END) as transactionsForMonth11')
+        ->selectRaw('SUM(CASE WHEN MONTH(created_at)  = 12 THEN amount ELSE 0 END) as transactionsForMonth12')
+        ->whereBetween('created_at', [today()->startOfYear(), today()->endOfYear() ])
+        ->get();
+
+        // dd($transactions_data);
+        return view('board.index' , compact( 'transactions_data' , 'users_data' , 'purchases_data' ,  'trainers_count' , 'today_users_count' , 'transactions_sum' , 'purchases_count' , 'packages_count'  , 'admins_count' , 'installment_due_today_count' , 'students_count' , 'categories_count' , 'universities_count' , 'courses_count' , 'active_users_count' , 'countries_count' ) );
     }
 
     /**

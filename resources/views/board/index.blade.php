@@ -189,6 +189,16 @@
     </div>
 </div>
 <div class="row">
+    <div class="col-md-12">
+        <div class="box-style">
+            <div class="title-chart"><h5> احصائيات المدفوعات  </h5></div>
+            <div class="chart-style" id="chart3"></div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
     <div class="col-md-6">
         <div class="box-style">
             <div class="title-chart"><h5> احصائيات اشتراكات الطلاب  </h5></div>
@@ -337,6 +347,72 @@
             }
         };
         var chart = new ApexCharts(document.querySelector("#chart2"), options2);
+        chart.render();
+
+
+
+        var options3 = {
+            series: [{
+                name: "ريال",
+                data: [
+                    {{ $transactions_data[0]['transactionsForMonth1'] }},
+                    {{ $transactions_data[0]['transactionsForMonth2'] }},
+                    {{ $transactions_data[0]['transactionsForMonth3'] }},
+                    {{ $transactions_data[0]['transactionsForMonth4'] }},
+                    {{ $transactions_data[0]['transactionsForMonth5'] }},
+                    {{ $transactions_data[0]['transactionsForMonth6'] }},
+                    {{ $transactions_data[0]['transactionsForMonth7'] }},
+                    {{ $transactions_data[0]['transactionsForMonth8'] }},
+                    {{ $transactions_data[0]['transactionsForMonth9'] }},
+                    {{ $transactions_data[0]['transactionsForMonth10'] }},
+                    {{ $transactions_data[0]['transactionsForMonth11'] }},
+                    {{ $transactions_data[0]['transactionsForMonth12'] }},
+                    ]
+            }],
+            chart: {
+                height: 350,
+                type: 'bar',
+                events: {
+                    click: function(chart, w, e) {
+                        console.log(chart, w, e)
+                    }
+                }
+            },
+            plotOptions: {
+                bar: {
+                    columnWidth: '45%',
+                    distributed: true,
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            legend: {
+                show: false
+            },
+            xaxis: {
+                categories: [
+                    ['ينانير'],
+                    ['فبراير  '],
+                    ['مارس'] , 
+                    ['ابريل'] , 
+                    ['مايو']  , 
+                    ['يونيو'] , 
+                    ['يوليه'] , 
+                    ['اغسطس'] , 
+                    ['سبتمبر'] , 
+                    ['اكتوبر'] , 
+                    ['نوفمر'] , 
+                    ['ديسمبر'] , 
+                    ],
+                labels: {
+                    style: {
+                        fontSize: '12px'
+                    }
+                }
+            }
+        };
+        var chart = new ApexCharts(document.querySelector("#chart3"), options3);
         chart.render();
     });
 </script>
