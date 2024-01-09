@@ -463,6 +463,21 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <p class="fw-semibold"> صلاحيات الاعدادات  </p>
+                                                <div class="border p-3 rounded">
+                                                    <div class="form-check text-start mb-2">
+                                                        <input type="checkbox" name='permissions[]' value="settings.social.edit" class="form-check-input" id="settings.social.edit" >
+                                                        <label class="form-check-label" for="settings.social.edit"> تعديل الاعدادات العامه </label>
+                                                    </div>
+                                                    <div class="form-check text-start mb-2">
+                                                        <input type="checkbox" name='permissions[]' value="settings.payments.edit" class="form-check-input" id="settings.payments.edit" >
+                                                        <label class="form-check-label" for="settings.payments.edit"> تعديل اعدادات الدفع </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

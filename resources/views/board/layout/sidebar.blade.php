@@ -78,7 +78,8 @@ switch (Request::segment(2)) {
             </a>
         </li>
 
-         <li class="nav-item nav-item-submenu">
+        @if (auth()->user()->hasAnyPermission(['settings.social.edit' , 'settings.payments.edit']) )
+        <li class="nav-item nav-item-submenu">
             <a href="{{ route('board.index') }}" class="nav-link {{ $settings }}">
                 <i class="ph-gear"></i>
                 <span>
@@ -86,15 +87,17 @@ switch (Request::segment(2)) {
                 </span>
             </a>
             <ul class="nav-group-sub collapse" data-submenu-title="المشرفين">
-                {{-- @if (auth()->user()->hasAnyPermission(['admins.list' , 'admins.show' , 'admins.delete' , 'admins.edit' ]) ) --}}
+             
+                @can('settings.social.edit')
                 <li class="nav-item"><a href="{{ route('board.settings.social.edit') }}" class="nav-link"> اعددادت التواصل </a></li>          
-                {{-- @endif   --}}
-                {{-- @can('admins.add') --}}
+                @endcan
+                @can('settings.payments.edit')
                 <li class="nav-item"><a href="{{ route('board.settings.payments.edit') }}" class="nav-link"> اعدادت الدفع </a></li>
-                {{-- @endcan --}}
+                @endcan
 
             </ul>
         </li>
+        @endif
 
         @if(auth()->user()->hasAnyPermission(['admins.list' , 'admins.show' , 'admins.delete' , 'admins.edit' , 'admins.add' ]) )
         <li class="nav-item nav-item-submenu">
