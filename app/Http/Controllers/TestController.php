@@ -79,15 +79,7 @@ class TestController extends Controller
     $response = curl_exec($curl);
     curl_close($curl);
     $jsonData = json_decode($response);
-
-    // dd($jsonData);
-
     $sessionID  = $jsonData->session->id; 
-
-
-    // dd($sessionID);
-
-
     return view('test' , compact('sessionID') );
     
   }

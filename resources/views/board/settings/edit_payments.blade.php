@@ -53,6 +53,21 @@
 								</div>
 							</div>
 						</div>
+						<div class="row mb-3">
+							<label class="col-form-label col-lg-2"> تفعيل التحويل البنكى </label>
+							<div class="col-lg-10">
+								<div class="border p-3 rounded">
+									<div class="d-inline-flex align-items-center me-3">
+										<input type="radio" name="bank_transfer" value="1" id="dr_li_c" {{ $info->bank_transfer == 1 ? 'checked' : '' }}   >
+										<label class="ms-2" for="dr_li_c"> نعم </label>
+									</div>
+									<div class="d-inline-flex align-items-center">
+										<input type="radio" name="bank_transfer" value="0" id="dr_li_u"  {{ $info->bank_transfer == 0 ? 'checked' : '' }} >
+										<label class="ms-2" for="dr_li_u"> لا </label>
+									</div>
+								</div>
+							</div>
+						</div>
 
 
 						

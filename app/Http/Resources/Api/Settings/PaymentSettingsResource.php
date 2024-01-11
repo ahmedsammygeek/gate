@@ -17,6 +17,7 @@ class PaymentSettingsResource extends JsonResource
         return [
             'my_fatoora' => $this->my_fatoora == 0 ? false : true , 
             'bank_misr' => $this->bank_misr == 0 ? false : true , 
+            'bank_transfer' => $this->bank_transfer == 0 ? false : true , 
         ];
     }
 }

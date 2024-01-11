@@ -51,6 +51,7 @@ class SettingController extends Controller
         $info = Setting::first();
         $info->bank_misr = $request->bank_misr;
         $info->my_fatoora = $request->my_fatoora ;
+        $info->bank_transfer = $request->bank_transfer ;
         $info->save();
         return redirect()->back()->with('success' , 'تم التعديل بنجاح' );
     }

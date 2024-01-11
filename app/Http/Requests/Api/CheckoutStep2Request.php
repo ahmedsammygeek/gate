@@ -26,6 +26,10 @@ class CheckoutStep2Request extends FormRequest
             'payment_type' => [
                 'required' , 
                 Rule::in(['one_payment', 'one_later_installment' , 'installments' ]),
+            ] , 
+            'payment_method' => [
+                'required_if:payment_type,installments,one_payment' , 
+                Rule::in([1, 2 , 3 ]),
             ]
         ];
     }

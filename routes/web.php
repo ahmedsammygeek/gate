@@ -24,11 +24,12 @@ use App\Http\Controllers\Board\PageController;
 use App\Http\Controllers\Board\AjaxController;
 
 
+
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\MyFatoorahController;
 
 Route::get('error' , function(Request $request){
-
     dd($request->all());
 });
 
@@ -42,8 +43,6 @@ Route::group(['prefix' => 'Board' , 'as' => 'board.'  ], function() {
         Route::get('/profile' , [ProfileController::class , 'index'] )->name('profile');
         Route::patch('/profile' , [ProfileController::class , 'update'] )->name('profile.update');
         Route::get('/logout' , [ProfileController::class , 'logout'] )->name('profile.logout');
-        // Route::get('/settings/edit' , [SettingController::class , 'edit'] )->name('settings.edit');
-        // Route::patch('/settings' , [SettingController::class , 'update'] )->name('settings.update');
         Route::resource('admins', AdminController::class); // done
         Route::resource('users', UserController::class); // done
         Route::resource('categories', CategoryController::class); // done
@@ -90,19 +89,18 @@ Route::group(['prefix' => 'Board' , 'as' => 'board.'  ], function() {
         Route::resource('packages.installments', PackageInstallmentController::class);
         Route::get('packages/{package}/students' , [PackageController::class , 'students'] )->name('packages.students');
         Route::get('packages/{package}/reviews' , [PackageController::class , 'reviews'] )->name('packages.reviews');
-
         Route::get('get_courses_depend_on_university_id' , [AjaxController::class , 'get_courses_depend_on_university_id'] )->name('get_courses_depend_on_university_id');
-
-
-
         Route::get('settings/social' , [SettingController::class , 'edit'] )->name('settings.social.edit');
         Route::patch('settings/social' , [SettingController::class , 'update'] )->name('settings.social.update');
         Route::get('settings/payments' , [SettingController::class , 'edit_payments'] )->name('settings.payments.edit');
         Route::patch('settings/payments' , [SettingController::class , 'update_payments'] )->name('settings.payments.update');
-
-
     });
 });
+
+
+
+Route::get('orders/{order}/pay' , [CheckoutController::class , 'pay' ]  )->name('orders.pay');
+
 
 require __DIR__.'/auth.php';
 
