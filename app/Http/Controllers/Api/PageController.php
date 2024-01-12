@@ -16,7 +16,7 @@ class PageController extends Controller
     {
         $pages = Page::where('is_active' , 1 )->get();
 
-         return response()->json([
+        return response()->json([
             'status' => true,
             'message' => 'success',
             'data' =>  [

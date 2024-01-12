@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\CheckoutController;
 use App\Http\Controllers\Api\SettingsController;
 use App\Http\Controllers\Api\PageController;
+use App\Http\Controllers\Api\OrderController;
 Route::prefix("v1")->group(function () {
     Route::post('register', [RegisterController::class, 'register']);
     Route::post('check_register', [RegisterController::class, 'check_register']);
@@ -49,5 +50,6 @@ Route::prefix("v1")->group(function () {
     Route::get('settings/payments' , [SettingsController::class , 'payments'] );
     Route::get('pages' , [PageController::class , 'index'] );
     Route::get('pages/{identifier}' , [PageController::class , 'show'] );
+    Route::get('orders/{order:order_number}' , [OrderController::class , 'show'] );
 });
 
