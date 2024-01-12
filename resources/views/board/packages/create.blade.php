@@ -200,7 +200,7 @@
 					</div>
 
 					<div class="row mb-3 ">
-						<div class="col-md-4">
+						<div class="col-md-3">
 							<label class="col-form-label col-lg-12">  سعر الباقه فى حاله الدفعه المؤجله  <span class="text-danger">*</span> </label>
 							<div class="col-lg-12">
 								<input type="number" name="price_later" value='{{ old('price_later') }}' class="form-control @error('price_later')  is-invalid @enderror"  placeholder='' >
@@ -209,7 +209,17 @@
 								@enderror
 							</div>
 						</div>
-						<div class="col-md-4 mt-4">
+						<div class="col-md-3">
+							<label class="col-form-label col-lg-12"> عدد الايام قبل المطالبه بالدفه المؤجله </label>
+							<div class="col-lg-12">
+								<input type="number" name="days" value='{{ old('days') }}'
+								class="form-control @error('days')  is-invalid @enderror" placeholder=''>
+								@error('days')
+								<p class='text-danger'> {{ $message }} </p>
+								@enderror
+							</div>
+						</div>
+						<div class="col-md-3 mt-4">
 							<label class="col-lg-12 col-form-label pt-0"> عرض داخل الصفحه الرئيسيه </label>
 							<div class="col-lg-12">
 								<label class="form-check form-switch">
@@ -218,7 +228,7 @@
 								</label>
 							</div>
 						</div>
-						<div class="col-md-4 mt-4">
+						<div class="col-md-3 mt-4">
 							<label class="col-lg-12 col-form-label pt-0"> السماح بالاشتراك فى الباقه </label>
 							<div class="col-lg-12">
 								<label class="form-check form-switch">

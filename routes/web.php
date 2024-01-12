@@ -36,7 +36,7 @@ Route::get('error' , function(Request $request){
 Route::get('/test' ,[TestController::class , 'index'] );
 Route::get('/test2' ,[TestController::class , 'index2'] );
 // Route::get('/test' ,[MyFatoorahController::class , 'index'] );
-Route::get('/myfatoorah/callback' ,[MyFatoorahController::class , 'callback'] )->name('myfatoorah.callback');
+
 Route::group(['prefix' => 'Board' , 'as' => 'board.'  ], function() {
     Route::group(['middleware' => 'auth'], function() {
         Route::get('/' , [BoardController::class , 'index'] )->name('index');
@@ -99,7 +99,9 @@ Route::group(['prefix' => 'Board' , 'as' => 'board.'  ], function() {
 
 
 
-Route::get('orders/{order}/pay' , [CheckoutController::class , 'pay' ]  )->name('orders.pay');
+Route::get('orders/{order:order_number}/pay' , [CheckoutController::class , 'pay' ]  )->name('orders.pay');
+Route::get('orders/{order:order_number}/myfatoorah/callback' , [CheckoutController::class , 'myfatoorah_callback' ]  )->name('myfatoorah.callback');
+Route::get('orders/{order:order_number}/bank_misr/callback' , [CheckoutController::class , 'bank_misr_callback' ]  )->name('bank_misr_callback.callback');
 
 
 require __DIR__.'/auth.php';

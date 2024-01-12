@@ -62,6 +62,7 @@ class PackageController extends Controller
         $package->setTranslation('curriculum' , 'en' , $request->curriculum_en );
         $package->price = $request->price;
         $package->price_later = $request->price_later;
+        $package->days = $request->days;
         $package->discount_percentage = $request->discount_percentage;
         $package->discount_end_at = $request->discount_end_at;
         $package->price_after_discount = $request->price_after_discount;
@@ -114,6 +115,7 @@ class PackageController extends Controller
         $package->setTranslation('curriculum' , 'en' , $request->curriculum_en );
         $package->price = $request->price;
         $package->price_later = $request->price_later;
+        $package->days = $request->days;
         $package->discount_percentage = $request->discount_percentage;
         $package->discount_end_at = $request->discount_end_at;
         $package->price_after_discount = $request->price_after_discount;

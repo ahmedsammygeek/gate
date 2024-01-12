@@ -15,7 +15,6 @@ class Transaction extends Model
     use HasFactory;
 
     // payment methods
-    const CASHE = 'cashe';
     const BANK_TRANSFER = 'bank_transfer';
     const MY_FATOORAH = 'my_fatoorah';
     const BANK_MISR  = 'bank_misr';

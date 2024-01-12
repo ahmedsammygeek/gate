@@ -41,7 +41,8 @@ class StorePackageRequest extends FormRequest
             'discount_percentage' => 'nullable', 
             'discount_end_at' => 'nullable' , 
             'show_in_home' => 'nullable' , 
-            'active' => 'nullable' ,  
+            'active' => 'nullable' , 
+            'days' => 'nullable' 
         ];
     }
 }

@@ -10,6 +10,8 @@ class PurchaseItem extends Model
     use HasFactory;
 
 
+    protected $fillable = ['item_id' , 'course_original_price' , 'course_purchase_price' , 'notes' , 'system_details' , 'item_type' ];
+
     public function course()
     {
         return $this->belongsTo(Course::class , 'item_id');

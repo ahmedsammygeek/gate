@@ -11,7 +11,6 @@ class TestController extends Controller
 {
   public function index()
   {
-
     $merchantID = 'TESTTHEGATE_ACAD' ;
     $merchantPassword = '28c84d5aa95f3c8149cee8aa68173240' ;
 

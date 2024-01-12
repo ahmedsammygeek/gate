@@ -262,6 +262,16 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="col-md-3">
+                                <label class="col-form-label col-lg-12"> عدد الايام قبل المطالبه بالدفه المؤجله </label>
+                                <div class="col-lg-12">
+                                    <input type="number" name="days" value='{{ old('days') }}'
+                                        class="form-control @error('days')  is-invalid @enderror" placeholder=''>
+                                    @error('days')
+                                        <p class='text-danger'> {{ $message }} </p>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
 
 
