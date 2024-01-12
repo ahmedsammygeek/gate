@@ -12,6 +12,7 @@ class UserInstallments extends Model
         'due_date' => 'date',
     ];
 
+    protected $fillable = ['user_id' , 'installment_number' , 'course_id' , 'amount' , 'due_date' , 'status' , 'purchase_id'];
 
     use HasFactory;
 

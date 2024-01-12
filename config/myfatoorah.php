@@ -17,13 +17,13 @@ return [
      * Country ISO Code (string)
      * Accepted value: KWT, SAU, ARE, QAT, BHR, OMN, JOD, or EGY.
      */
-    'country_iso' => 'EGY',
+    'country_iso' => 'SAU',
     /**
      * Save card (boolean)
      * Accepted value: true if you want to enable save card options.
      * You should contact your account manager to enable this feature in your MyFatoorah account as well.
      */
-    'save_card' => true,
+    'save_card' => false,
     /**
      * Webhook secret key (string)
      * Enable webhook on your MyFatoorah account setting then paste the secret key here.

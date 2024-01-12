@@ -30,7 +30,9 @@ use App\Http\Controllers\TestController;
 use App\Http\Controllers\MyFatoorahController;
 
 Route::get('error' , function(Request $request){
-    dd($request->all());
+     $status = 'error';
+            $message = 'تم الدفع بنجاح';
+            return redirect(url('https://frontend.thegatelearning.com/confirm?message='.$message.'&status='.$status));
 });
 
 Route::get('/test' ,[TestController::class , 'index'] );

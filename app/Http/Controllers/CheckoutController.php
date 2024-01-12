@@ -11,6 +11,7 @@ use MyFatoorah\Library\API\Payment\MyFatoorahPayment;
 use MyFatoorah\Library\API\Payment\MyFatoorahPaymentEmbedded;
 use MyFatoorah\Library\API\Payment\MyFatoorahPaymentStatus;
 use Exception;
+use Str;
 use Carbon\Carbon;
 use App\Models\Order;
 use App\Models\Purchase;
@@ -18,6 +19,8 @@ use App\Models\PurchaseItem;
 use App\Models\Transaction;
 use App\Models\Course;
 use App\Models\UserCourse;
+use App\Models\UserInstallments;
+
 class CheckoutController extends Controller
 {
 
@@ -29,21 +32,38 @@ class CheckoutController extends Controller
     public function pay(Order $order)
     {
 
-        $order->load(['course'  , 'user' ]);
-        switch ($order->payment_method) {
-            case 1:
-            return $this->preparBankMisrPaymentLink($order);
-            break;
-            case 2:
-            return $this->preparMyFatooraPaymentLink($order);
-            break;
-            case 3:
-            return $this->preparBankTransfer($order);
-            break;
+        if ($order->is_paid == 1 ) {
+            return redirect(url('https://frontend.thegatelearning.com/confirm' , ['status' => 'error' , 'message' => 'هذا الطلب مدفوع' ] ));
+        }        
 
-            default:
-            break;
+        $order->load(['course'  , 'user' ]);
+        if ($order->payment_type == 'one_payment' || $order->payment_type == 'installments' ) {
+            switch ($order->payment_method) {
+                case 1:
+                return $this->preparBankMisrPaymentLink($order);
+                break;
+                case 2:
+                return $this->preparMyFatooraPaymentLink($order);
+                break;
+                case 3:
+                return $this->preparBankTransferPayment($order);
+                break;
+                default:
+                break;
+            }
+        } else {
+            return $this->preparBankTransferPayment($order); 
         }
+    }
+
+
+    private function preparBankTransferPayment($order)
+    {
+        $this->addPurchaseToUser($order);
+        $message = 'تمت عمليه الشراء بنجاح';
+        $status = 'success';
+        return redirect(url('https://frontend.thegatelearning.com/confirm?message='.$message.'&status='.$status));
+
     }
 
 
@@ -96,15 +116,20 @@ class CheckoutController extends Controller
                 $order->payment_id = $paymentId;
                 $order->response_data = json_encode($data);
                 $order->save();
+                $this->addPurchaseToUser($order);
+                $message = 'حدث خطا اثنائ عمليه الدفع برجاء المحاوله مره اخرى';
+                $status = 'fail';
+                return redirect(url('https://frontend.thegatelearning.com/confirm?message='.$message.'&status='.$status));
             }
-            $this->addPurchaseToUser($order);
+            $message = 'تم الدفع بنجاح';
+            $status = 'success';
+            return redirect(url('https://frontend.thegatelearning.com/confirm?message='.$message.'&status='.$status));
         }
 
-        dd($data);
-
-        // here we need to redirect the data to vuejs
+        $message = 'لم يتم العثور على الطلب';
+        $status = 'error';
+        return redirect(url('https://frontend.thegatelearning.com/confirm?message='.$message.'&status='.$status));
     }
-
 
     private function preparBankMisrPaymentLink($order)
     {
@@ -165,8 +190,6 @@ class CheckoutController extends Controller
             ),
         );
 
-        // dd($data);
-
         curl_setopt($curl, CURLOPT_URL, 'https://banquemisr.gateway.mastercard.com/api/rest/version/72/merchant/'.$merchantID.'/session');
         curl_setopt($curl, CURLOPT_USERPWD, 'merchant.' . $merchantID . ':' . $merchantPassword . '');
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -200,24 +223,41 @@ class CheckoutController extends Controller
         curl_close($curl);
         $jsonData = json_decode($response);
 
-        dd($jsonData);
+        if ($jsonData->status  != 'CAPTURED'  ) {
+            $status = 'error';
+            $message = 'تم الدفع بنجاح';
+            return redirect(url('https://frontend.thegatelearning.com/confirm?message='.$message.'&status='.$status));
+        }
+
+        $order->is_paid = 1;
+        $order->invoice_id = null ;
+        $order->payment_id = $request->resultIndicator ;
+        $order->response_data = json_encode($jsonData);
+        $order->save();
+        $this->addPurchaseToUser($order);
+        $status = 'success';
+        $message = 'تمت عمليه الدفع بنجاح';
+        return redirect(url('https://frontend.thegatelearning.com/confirm?message='.$message.'&status='.$status));
+
 
     }
 
 
     public  function saveTransactionDetails(Order $order , Purchase $purchase)
     {
-        $transaction = new Transaction;
-        $transaction->user_id = $order->user_id;
-        $transaction->purchase_id = $purchase->id;
-        $transaction->amount = $order->amount;
-        $transaction->payment_method = ($order->payment_method == 1 ? 'bank_misr' : 'my_fatoorah') ;
-        $transaction->payment_id = $order->payment_id;
-        $transaction->invoice_id = $order->invoice_id;
-        $transaction->payment_date = Carbon::now();
-        $transaction->added_by = $order->user_id;
-        $transaction->payment_response = $order->response_data;
-        $transaction->save();
+        if ($order->payment_method == 1 ||  $order->payment_method == 2 ) {
+            $transaction = new Transaction;
+            $transaction->user_id = $order->user_id;
+            $transaction->purchase_id = $purchase->id;
+            $transaction->amount = $order->amount;
+            $transaction->payment_method = ($order->payment_method == 1 ? 'bank_misr' : 'my_fatoorah') ;
+            $transaction->payment_id = $order->payment_id;
+            $transaction->invoice_id = $order->invoice_id;
+            $transaction->payment_date = Carbon::now();
+            $transaction->added_by = $order->user_id;
+            $transaction->payment_response = $order->response_data;
+            $transaction->save();
+        }
         return true;
     }
 
@@ -230,7 +270,6 @@ class CheckoutController extends Controller
         $purchase->subtotal = $order->amount;
         $purchase->total = $order->amount;
         $purchase->purchase_type = $order->payment_type;
-
         switch ($order->payment_type) {
             case 'installments':
             $purchase->is_paid = 1 ;
@@ -243,9 +282,7 @@ class CheckoutController extends Controller
             break;
         }
         $purchase->save();
-
         $purchase_items = [];
-
         $purchase_items[] = new PurchaseItem([
             'item_id' => $order->course_id , 
             'course_original_price' =>   $order->amount , 
@@ -256,6 +293,41 @@ class CheckoutController extends Controller
         $purchase->items()->saveMany($purchase_items); 
         $this->saveTransactionDetails($order ,  $purchase);
         $this->addCoursesToUser($purchase);
+
+
+        if ($order->payment_type == 'installments' ) {
+            $course_installments = $order->course?->installments()->where('days' , '!=' , 0 )->get();
+            $user_installments = [];
+            foreach ($course_installments as $course_installment) {
+                $user_installments[] = new UserInstallments([
+                    'user_id' => $order->user_id , 
+                    'installment_number' => Str::uuid() , 
+                    'course_id' => $order->course_id , 
+                    'amount' => $course_installment->amount , 
+                    'due_date' => Carbon::today()->addDays($course_installment->days) , 
+                    'status' => 0 , 
+                    'purchase_id' => $purchase->id , 
+                ]);
+            }
+            $order->user->installments()->saveMany($user_installments);
+        }
+        if ($order->payment_type == 'one_later_installment') {
+            $user_installments = [];
+            $user_installments[] = new UserInstallments([
+                'user_id' => $order->user_id , 
+                'installment_number' => Str::uuid() , 
+                'course_id' => $order->course_id , 
+                'amount' => $order->course?->price_later , 
+                'due_date' => Carbon::today()->addDays($order->course?->days) , 
+                'status' => 0 , 
+                'purchase_id' => $purchase->id , 
+            ]);
+            $order->user->installments()->saveMany($user_installments);
+        }
+
+
+
+
         return true;       
     }
 
