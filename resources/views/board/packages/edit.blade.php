@@ -63,17 +63,17 @@
 							</div>
 
 
-                            <div class="col-md-3">
-                                <label class="col-lg-12 col-form-label">تاريخ انتهاء الباقة
-                                    <span class="text-danger">*</span>
-                                </label>
-                                <div class="col-lg-12">
-                                    <input type="date" name="ends_at" value="{{ $package->ends_at ? $package->ends_at->format('Y-m-d') : '' }}" class="form-control">
-                                    @error('ends_at')
-                                    <p class="text-danger">{{ $message }}</p>
-                                    @enderror
-                                </div>
-                            </div>
+							<div class="col-md-3">
+								<label class="col-lg-12 col-form-label">تاريخ انتهاء الباقة
+									<span class="text-danger">*</span>
+								</label>
+								<div class="col-lg-12">
+									<input type="date" name="ends_at" value="{{ $package->ends_at ? $package->ends_at->format('Y-m-d') : '' }}" class="form-control">
+									@error('ends_at')
+									<p class="text-danger">{{ $message }}</p>
+									@enderror
+								</div>
+							</div>
 
 						</div>
 
@@ -210,15 +210,20 @@
 							</div>
 						</div>
 						<div class="col-md-3">
-                                <label class="col-form-label col-lg-12"> عدد الايام قبل المطالبه بالدفه المؤجله </label>
-                                <div class="col-lg-12">
-                                    <input type="number" name="days" value='{{ $package->days }}'
-                                        class="form-control @error('days')  is-invalid @enderror" placeholder=''>
-                                    @error('days')
-                                        <p class='text-danger'> {{ $message }} </p>
-                                    @enderror
-                                </div>
-                            </div>
+							<label class="col-form-label col-lg-12"> عدد الايام قبل المطالبه بالدفعه المؤجله </label>
+							<div class="row">
+								<div class="col-lg-9">
+									<input type="number" name="days" value='{{ $package->days }}'
+									class="form-control @error('days')  is-invalid @enderror" placeholder=''>
+									@error('days')
+									<p class='text-danger'> {{ $message }} </p>
+									@enderror
+								</div>
+								<div class="col-lg-3">
+									<input type="number" class="form-control" disabled="" placeholder="يوم">
+								</div>
+							</div>
+						</div>
 						<div class="col-md-3 mt-4">
 							<label class="col-lg-12 col-form-label pt-0"> عرض داخل الصفحه الرئيسيه </label>
 							<div class="col-lg-12">
