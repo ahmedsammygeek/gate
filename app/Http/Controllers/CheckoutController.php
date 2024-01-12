@@ -33,7 +33,10 @@ class CheckoutController extends Controller
     {
 
         if ($order->is_paid == 1 ) {
-            return redirect(url('https://frontend.thegatelearning.com/confirm' , ['status' => 'error' , 'message' => 'هذا الطلب مدفوع' ] ));
+            $status = 'success';
+            $message = 'تم دفع الطلب بالفعل';
+            $order_number = $order->order_number;
+            return redirect(url('https://frontend.thegatelearning.com/confirm?message='.$message.'&status='.$status.'&order='.$order_number));
         }        
 
         $order->load(['course'  , 'user' ]);
@@ -62,7 +65,8 @@ class CheckoutController extends Controller
         $this->addPurchaseToUser($order);
         $message = 'تمت عمليه الشراء بنجاح';
         $status = 'success';
-        return redirect(url('https://frontend.thegatelearning.com/confirm?message='.$message.'&status='.$status));
+        $order_number = $order->order_number;
+        return redirect(url('https://frontend.thegatelearning.com/confirm?message='.$message.'&status='.$status.'&order='.$order_number));
 
     }
 
@@ -119,11 +123,13 @@ class CheckoutController extends Controller
                 $this->addPurchaseToUser($order);
                 $message = 'حدث خطا اثنائ عمليه الدفع برجاء المحاوله مره اخرى';
                 $status = 'fail';
-                return redirect(url('https://frontend.thegatelearning.com/confirm?message='.$message.'&status='.$status));
+                $order_number = $order->order_number;
+                return redirect(url('https://frontend.thegatelearning.com/confirm?message='.$message.'&status='.$status.'&order='.$order_number));
             }
             $message = 'تم الدفع بنجاح';
             $status = 'success';
-            return redirect(url('https://frontend.thegatelearning.com/confirm?message='.$message.'&status='.$status));
+            $order_number = $order->order_number;
+            return redirect(url('https://frontend.thegatelearning.com/confirm?message='.$message.'&status='.$status.'&order='.$order_number));
         }
 
         $message = 'لم يتم العثور على الطلب';
@@ -226,7 +232,8 @@ class CheckoutController extends Controller
         if ($jsonData->status  != 'CAPTURED'  ) {
             $status = 'error';
             $message = 'تم الدفع بنجاح';
-            return redirect(url('https://frontend.thegatelearning.com/confirm?message='.$message.'&status='.$status));
+            $order_number = $order->order_number;
+            return redirect(url('https://frontend.thegatelearning.com/confirm?message='.$message.'&status='.$status.'&order='.$order_number));
         }
 
         $order->is_paid = 1;
@@ -237,7 +244,8 @@ class CheckoutController extends Controller
         $this->addPurchaseToUser($order);
         $status = 'success';
         $message = 'تمت عمليه الدفع بنجاح';
-        return redirect(url('https://frontend.thegatelearning.com/confirm?message='.$message.'&status='.$status));
+        $order_number = $order->order_number;
+        return redirect(url('https://frontend.thegatelearning.com/confirm?message='.$message.'&status='.$status.'&order='.$order_number));
 
 
     }
