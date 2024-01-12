@@ -30,7 +30,7 @@
                             <option value=""> جميع انواع الشراء </option>
                             <option value="one_later_installment">  قسط واحد مؤجل </option>
                             <option value="installments"> اقساط </option>
-                            <option value="total_amount"> المبلغ كامل </option>
+                            <option value="one_payment"> المبلغ كامل </option>
                         </select>
                     </div>
 
@@ -98,7 +98,7 @@
                         @case('installments')
                         <span class='badge bg-success' > اقساط </span>
                         @break
-                        @case('total_amount')
+                        @case('one_payment')
                         <span class='badge bg-info' > المبلغ كامل </span>
                         @break
                         @default
@@ -113,7 +113,7 @@
                         <span class='badge bg-black' > تم الدفع بشكل جزئى </span>
                         @break
                         @case(2)
-                        <span class='badge bg-gradient' > تم دفع كامل المبلغ </span>
+                        <span class='badge bg-success' > تم دفع كامل المبلغ </span>
                         @break
                         @default
                         @endswitch
