@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class UserCourse extends Model
 {
     use HasFactory;
-    protected $fillable = ['course_id' , 'expires_at' , 'course_type'  , 'related_package_id'];
+    protected $fillable = ['course_id' , 'expires_at' , 'course_type' , 'allowed'  , 'related_package_id'];
 
     protected $casts = [
         'expires_at' => 'date' , 

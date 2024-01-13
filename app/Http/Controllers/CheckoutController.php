@@ -40,29 +40,27 @@ class CheckoutController extends Controller
         }        
 
         $order->load(['course'  , 'user' ]);
-        if ($order->payment_type == 'one_payment' || $order->payment_type == 'installments' ) {
-            switch ($order->payment_method) {
-                case 1:
-                return $this->preparBankMisrPaymentLink($order);
-                break;
-                case 2:
-                return $this->preparMyFatooraPaymentLink($order);
-                break;
-                case 3:
-                return $this->preparBankTransferPayment($order);
-                break;
-                default:
-                break;
-            }
-        } else {
-            return $this->preparBankTransferPayment($order); 
+        switch ($order->payment_method) {
+            case 1:
+            return $this->preparBankMisrPaymentLink($order);
+            break;
+            case 2:
+            return $this->preparMyFatooraPaymentLink($order);
+            break;
+            case 3:
+            return $this->preparBankTransferPayment($order);
+            break;
+            default:
+            break;
         }
     }
 
 
     private function preparBankTransferPayment($order)
     {
-        $this->addPurchaseToUser($order);
+        $purchase =  $this->addPurchaseToUser($order);
+        $this->addCoursesToUser($purchase);
+
         $message = 'تمت عمليه الشراء بنجاح';
         $status = 'success';
         $order_number = $order->order_number;
@@ -272,8 +270,8 @@ class CheckoutController extends Controller
     public function addPurchaseToUser(Order $order)
     {
         $purchase = new Purchase;
+        $purchase->order_id = $order->id;
         $purchase->purchase_number = time().$order->id.$order->user_id;
-
         $purchase->user_id = $order->user_id;
         $purchase->subtotal = $order->amount;
         $purchase->total = $order->amount;
@@ -297,50 +295,13 @@ class CheckoutController extends Controller
             'course_purchase_price' =>  $order->amount , 
             'item_type' => $order->course?->type , 
         ]);
-
         $purchase->items()->saveMany($purchase_items); 
-        $this->saveTransactionDetails($order ,  $purchase);
-        $this->addCoursesToUser($purchase);
-
-
-        if ($order->payment_type == 'installments' ) {
-            $course_installments = $order->course?->installments()->where('days' , '!=' , 0 )->get();
-            $user_installments = [];
-            foreach ($course_installments as $course_installment) {
-                $user_installments[] = new UserInstallments([
-                    'user_id' => $order->user_id , 
-                    'installment_number' => Str::uuid() , 
-                    'course_id' => $order->course_id , 
-                    'amount' => $course_installment->amount , 
-                    'due_date' => Carbon::today()->addDays($course_installment->days) , 
-                    'status' => 0 , 
-                    'purchase_id' => $purchase->id , 
-                ]);
-            }
-            $order->user->installments()->saveMany($user_installments);
-        }
-        if ($order->payment_type == 'one_later_installment') {
-            $user_installments = [];
-            $user_installments[] = new UserInstallments([
-                'user_id' => $order->user_id , 
-                'installment_number' => Str::uuid() , 
-                'course_id' => $order->course_id , 
-                'amount' => $order->course?->price_later , 
-                'due_date' => Carbon::today()->addDays($order->course?->days) , 
-                'status' => 0 , 
-                'purchase_id' => $purchase->id , 
-            ]);
-            $order->user->installments()->saveMany($user_installments);
-        }
-
-
-
-
-        return true;       
+        return $purchase;       
     }
 
     public function addCoursesToUser(Purchase $purchase)
     {
+        $purchase->load('order');
         // we need to get items from this purchase
         $purchase->load(['items' , 'user']);
         foreach ($purchase->items as $purchase_item) {
@@ -351,7 +312,8 @@ class CheckoutController extends Controller
                 $user_courses[] = new UserCourse([
                     'course_id' => $purchase_item->item_id , 
                     'expires_at' => $course->ends_at,
-                    'course_type' => 1
+                    'course_type' => 1 , 
+                    'allowed' => ($purchase->order?->payment_method == 3 ? 0 : 1 ), 
                 ]);
 
                 $purchase->user->courses()->saveMany($user_courses);
@@ -363,6 +325,7 @@ class CheckoutController extends Controller
                     'course_id' => $package->id , 
                     'expires_at' => $package->ends_at,
                     'course_type' => 2 , 
+                    'allowed' => ($purchase->order?->payment_method == 3 ? 0 : 1 ), 
                 ]);
                 foreach ($package->courses as $package_course) {
                     $user_courses[] = new UserCourse([
@@ -370,6 +333,7 @@ class CheckoutController extends Controller
                         'expires_at' => $package->ends_at,
                         'course_type' => 1 , 
                         'related_package_id' => $package->id , 
+                        'allowed' => ($purchase->order?->payment_method == 3 ? 0 : 1 ), 
                     ]);
                 }
                 $purchase->user->courses()->saveMany($user_courses);
