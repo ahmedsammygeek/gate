@@ -198,9 +198,7 @@
                                         <label class="col-form-label col-lg-12"> سعر الكورس <span class="text-danger">*</span>
                                         </label>
                                         <div class="col-lg-12">
-                                            <input type="number" name="price" value='{{ $course->price }}'
-                                            class="form-control @error('price')  is-invalid @enderror" required
-                                            placeholder=''>
+                                            <input type="number" name="price" value='{{ $course->price }}' class="form-control @error('price') is-invalid @enderror" placeholder=''>
                                             @error('price')
                                             <p class='text-danger'> {{ $message }} </p>
                                             @enderror
@@ -210,9 +208,7 @@
                                         <label class="col-form-label col-lg-12"> سعر بعد الخصم (فى حاله وجود خصم) </label>
                                         <div class="col-lg-12">
                                             <input type="number" name="price_after_discount"
-                                            value='{{ $course->price_after_discount }}'
-                                            class="form-control @error('price_after_discount')  is-invalid @enderror"
-                                            placeholder=''>
+                                            value='{{ $course->price_after_discount }}'   class="form-control @error('price_after_discount')  is-invalid @enderror"  placeholder=''>
                                             @error('price_after_discount')
                                             <p class='text-danger'> {{ $message }} </p>
                                             @enderror

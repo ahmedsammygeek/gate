@@ -35,7 +35,7 @@ class StoreCourseRequest extends FormRequest
             'curriculum_ar' => 'required' , 
             'curriculum_en' => 'required' , 
             'price' => 'required' , 
-            'price_later' => 'required' , 
+            'price_later' => 'nullable' , 
             'price_after_discount' => 'nullable' ,
             'discount_percentage' => 'nullable', 
             'discount_end_at' => 'nullable' , 
