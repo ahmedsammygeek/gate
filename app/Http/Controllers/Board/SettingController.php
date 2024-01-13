@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Setting;
 use App\Http\Requests\Board\Settings\UpdateSettingsRequest;
+use App\Http\Requests\Board\Settings\UpdatePaymentSettingsRequest;
 class SettingController extends Controller
 {
 
@@ -46,12 +47,18 @@ class SettingController extends Controller
         return redirect()->back()->with('success' , 'تم التعديل بنجاح' );
     }
 
-    public function update_payments(Request $request)
+    public function update_payments(UpdatePaymentSettingsRequest $request)
     {
         $info = Setting::first();
         $info->bank_misr = $request->bank_misr;
         $info->my_fatoora = $request->my_fatoora ;
         $info->bank_transfer = $request->bank_transfer ;
+        $info->bank_name = $request->bank_name ;
+        $info->swift_code = $request->swift_code ;
+        $info->iban = $request->iban ;
+        if ($request->hasFile('bank_logo')) {
+            $info->bank_logo = basename($request->file('bank_logo')->store('settings'));
+        }
         $info->save();
         return redirect()->back()->with('success' , 'تم التعديل بنجاح' );
     }

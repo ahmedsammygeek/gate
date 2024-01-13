@@ -21,8 +21,7 @@
 					@csrf
 					@method('PATCH')
 					<div class="mb-4">
-						<div class="fw-bold border-bottom pb-2 mb-3"> بيانات التواصل </div>
-
+						<div class="fw-bold border-bottom pb-2 mb-3"> اعدادات بوابات الدفع </div>
 						<div class="row mb-3">
 							<label class="col-form-label col-lg-2">  تفعيل الدفع عن طريق بنك مصر </label>
 							<div class="col-lg-10">
@@ -67,10 +66,58 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div>					
+					</div>
+					<div class="mb-4">
+						<div class="fw-bold border-bottom pb-2 mb-3"> بيانات التحويل البنكى </div>
 
+						<div class="row mb-3">
+							<label class="col-form-label col-lg-2">  شعار البنك  </label>
+							<div class="col-lg-10">
+								<input type="file" class="form-control @error('bank_logo') is-invalid @enderror " name='bank_logo'  >
+							</div>
+							@error('bank_logo')
+							<p class="text-danger"> {{ $message }} </p> 
+							@enderror
+						</div>	
 
-						
+						<div class="row mb-3">
+							<label class="col-form-label col-lg-2">  اسم البنك  </label>
+							<div class="col-lg-10">
+								<input type="text" class="form-control" name='bank_name' value="{{ $info->bank_name }}" placeholder="البنك العربى الافريقى" >
+								@error('bank_name')
+							<p class="text-danger"> {{ $message }} </p> 
+							@enderror
+							</div>
+							
+						</div>		
+						<div class="row mb-3">
+							<label class="col-form-label col-lg-2">  swift code  </label>
+							<div class="col-lg-10">
+								<input type="text" class="form-control" name='swift_code' value="{{ $info->swift_code }}" placeholder='ARB123' >
+								@error('swift_code')
+							<p class="text-danger"> {{ $message }} </p> 
+							@enderror
+							</div>
+							
+						</div>	
+						<div class="row mb-3">
+							<label class="col-form-label col-lg-2">  رقم IBAN  </label>
+							<div class="col-lg-10">
+								<input type="text" class="form-control" name='iban' value="{{ $info->iban }}" placeholder='EG01000222546987442114' >
+								@error('iban')
+							<p class="text-danger"> {{ $message }} </p> 
+							@enderror
+							</div>
+						</div>		
+						<div class="row mb-3">
+							<label class="col-form-label col-lg-2">  شعار البنك الحالى </label>
+							<div class="col-lg-10">
+								<img src="{{ Storage::url('settings/'.$info->bank_logo) }}" alt="">
+							</div>
+							
+						</div>	
+			
 					</div>
 				</div>
 
@@ -83,17 +130,4 @@
 	</div>
 </div>
 
-@endsection
-
-@section('scripts')
-<script src="https://cdn.tiny.cloud/1/ic4s7prz04qh4jzykmzgizzo1lize2ckglkcjr9ci9sgkbuc/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-<script>
-	$(function() {
-		tinymce.init({
-			selector: 'textarea',
-			plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
-			toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
-		});
-	});
-</script>
 @endsection

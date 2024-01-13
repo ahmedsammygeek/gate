@@ -7,10 +7,18 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Banquemisr;
+use Vimeo;
 class TestController extends Controller
 {
   public function index()
   {
+
+
+    $response = Vimeo::request('/videos/898829175', ['per_page' => 10], 'GET');
+
+    dd($response);
+
+
     $merchantID = 'TESTTHEGATE_ACAD' ;
     $merchantPassword = '28c84d5aa95f3c8149cee8aa68173240' ;
 
