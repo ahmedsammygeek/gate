@@ -90,6 +90,9 @@ class LessonController extends Controller
      */
     public function show(Course $course ,  CourseUnit $unit , Lesson $lesson)
     {
+        // $response = Vimeo::request('/videos/898829175', [], 'GET');
+
+    // dd($response);
         return view('board.lessons.show' , compact('course' , 'unit' , 'lesson' ) );
     }
 

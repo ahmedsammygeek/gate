@@ -117,6 +117,13 @@
                                 </td>
                             </tr>
 
+                            <tr class='row'>
+                                <th class='col-md-2'> شاهد الدرس </th>
+                                <td class='col-md-10'>
+                                   <iframe src="https://player.vimeo.com/video/898829175?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=281923" width="1920" height="1080" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" title="الدرس الأول"></iframe>
+                                </td>
+                            </tr>
+
                         </tbody>
                     </table>
                 </div>

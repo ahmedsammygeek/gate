@@ -31,13 +31,25 @@ class CheckoutController extends Controller
      */
     public function pay(Order $order)
     {
-
+        // this order is already paid
         if ($order->is_paid == 1 ) {
             $status = 'success';
             $message = 'تم دفع الطلب بالفعل';
             $order_number = $order->order_number;
             return redirect(url('https://frontend.thegatelearning.com/confirm?message='.$message.'&status='.$status.'&order='.$order_number));
-        }        
+        } 
+
+        // in case of the course is free
+        if ($order->amount == 0 ) {
+            $order->is_paid = 1;
+            $order->save();
+            $purchase = $this->addPurchaseToUser($order);
+            $this->addCoursesToUser($purchase);
+            $status = 'success';
+            $message = 'تم دفع الطلب بالفعل';
+            $order_number = $order->order_number;
+            return redirect(url('https://frontend.thegatelearning.com/confirm?message='.$message.'&status='.$status.'&order='.$order_number));
+        }
 
         $order->load(['course'  , 'user' ]);
         switch ($order->payment_method) {
@@ -60,6 +72,9 @@ class CheckoutController extends Controller
     {
         $purchase =  $this->addPurchaseToUser($order);
         $this->addCoursesToUser($purchase);
+        // if ($order->) {
+        //     // code...
+        // }
 
         $message = 'تمت عمليه الشراء بنجاح';
         $status = 'success';
@@ -233,13 +248,17 @@ class CheckoutController extends Controller
             $order_number = $order->order_number;
             return redirect(url('https://frontend.thegatelearning.com/confirm?message='.$message.'&status='.$status.'&order='.$order_number));
         }
-
         $order->is_paid = 1;
         $order->invoice_id = null ;
         $order->payment_id = $request->resultIndicator ;
         $order->response_data = json_encode($jsonData);
         $order->save();
         $this->addPurchaseToUser($order);
+        $this->saveTransactionDetails($purchase);
+        $this->addInstallmentsToUser();
+        $this->addCoursesToUser();
+
+        dd('done now bank_misr cllable')
         $status = 'success';
         $message = 'تمت عمليه الدفع بنجاح';
         $order_number = $order->order_number;
@@ -249,9 +268,9 @@ class CheckoutController extends Controller
     }
 
 
-    public  function saveTransactionDetails(Order $order , Purchase $purchase)
+    public  function saveTransactionDetails(Purchase $purchase)
     {
-        if ($order->payment_method == 1 ||  $order->payment_method == 2 ) {
+        if ($purchase->order->payment_method == 1 ||  $purchase->order->payment_method == 2 ) {
             $transaction = new Transaction;
             $transaction->user_id = $order->user_id;
             $transaction->purchase_id = $purchase->id;
@@ -339,8 +358,91 @@ class CheckoutController extends Controller
                 $purchase->user->courses()->saveMany($user_courses);
             }
         }
+
+        return true;
     }
 
 
+    private function addInstallmentsToUser($order)
+    {
+        // this means he will pay with installments and with bank transfer
+
+
+        switch ($order->payment_method) {
+            // bank transfer payment
+            case 3:
+            $user_installments = [];
+            switch ($order->payment_type) {
+                case 'installments':
+                $course_installments = $order->course?->installments()->get();
+                foreach ($course_installments as $course_installment) {
+                    $user_installments[] = new UserInstallments([
+                        'user_id' => $order->user_id , 
+                        'installment_number' => Str::uuid() , 
+                        'course_id' => $order->course_id , 
+                        'amount' => $course_installment->amount , 
+                        'due_date' => Carbon::today()->addDays($course_installment->days) , 
+                        'status' => 0 , 
+                        'purchase_id' => $purchase->id , 
+                    ]);
+                }
+                break;
+                case 'one_later_installment':
+                $user_installments[] = new UserInstallments([
+                    'user_id' => $order->user_id , 
+                    'installment_number' => Str::uuid() , 
+                    'course_id' => $order->course_id , 
+                    'amount' => $order->course?->price_later , 
+                    'due_date' => Carbon::today()->addDays($order->course?->days) , 
+                    'status' => 0 , 
+                    'purchase_id' => $purchase->id , 
+                ]);
+                break;
+                default:
+                break;
+            }
+            $order->user->installments()->saveMany($user_installments);
+            break;
+            // my fatorah payment method
+            case 2:
+            $user_installments = [];
+            switch ($order->payment_type) {
+                case 'installments':
+                $course_installments = $order->course?->installments()->get();
+                foreach ($course_installments as $course_installment) {
+                    $user_installments[] = new UserInstallments([
+                        'user_id' => $order->user_id , 
+                        'installment_number' => Str::uuid() , 
+                        'course_id' => $order->course_id , 
+                        'amount' => $course_installment->amount , 
+                        'due_date' => Carbon::today()->addDays($course_installment->days) , 
+                        'status' => 0 , 
+                        'purchase_id' => $purchase->id , 
+                    ]);
+                }
+                break;
+                case 'one_later_installment':
+                $user_installments[] = new UserInstallments([
+                    'user_id' => $order->user_id , 
+                    'installment_number' => Str::uuid() , 
+                    'course_id' => $order->course_id , 
+                    'amount' => $order->course?->price_later , 
+                    'due_date' => Carbon::today()->addDays($order->course?->days) , 
+                    'status' => 0 , 
+                    'purchase_id' => $purchase->id , 
+                ]);
+                break;
+                default:
+                break;
+            }
+            $order->user->installments()->saveMany($user_installments);
+            break;
+            
+            default:
+                // code...
+            break;
+        }
+        return true;
+    }
 
 }

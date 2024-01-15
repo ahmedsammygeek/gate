@@ -62,19 +62,23 @@ class CheckoutController extends Controller
         $amount = 0;
         $course = Course::find($request->course_id);
 
-        switch ($request->payment_type) {
-            case 'one_payment':
+        if ($course->getPrice() == 0 ) {
             $amount = $course->getPrice();
-            break;
-            case 'one_later_installment':
-            $amount = $course->price_later;
-            break;
-            case 'installments':
-            $installment = $course->installments()->select('amount' , 'days' )->orderBy('days' , 'ASC' )->first();
-            $amount = $installment->amount ;
-            break;
-            default:
-            break;
+        } else {
+            switch ($request->payment_type) {
+                case 'one_payment':
+                $amount = $course->getPrice();
+                break;
+                case 'one_later_installment':
+                $amount = $course->price_later;
+                break;
+                case 'installments':
+                $installment = $course->installments()->select('amount' , 'days' )->orderBy('days' , 'ASC' )->first();
+                $amount = $installment->amount ;
+                break;
+                default:
+                break;
+            }
         }
 
 
