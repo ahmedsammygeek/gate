@@ -33,8 +33,21 @@ class UploadVideoToViemoJob implements ShouldQueue
      */
     public function handle(): void
     {
-        
-        $video_path = Vimeo::upload(storage_path().'/app/public/'.$this->video_temp_path );
+
+        $video_path = Vimeo::upload(storage_path().'/app/public/'.$this->video_temp_path , [
+            'privacy' => [
+                'embed' => 'whitelist' , 
+                'download' => false , 
+                'view' => 'disable'
+            ] , 
+            'embed_domains' => [
+                'localhost:8000' , 
+                'https://thegatelearning.com/' ,
+                'http://thegateacadmey.com/' ,
+                'https://backend.thegatelearning.com' ,
+                'https://facebook.com' ,
+            ]
+        ] );
         $this->lesson->vimeo_number = explode('videos/', $video_path)[1];
         $this->lesson->save();
 

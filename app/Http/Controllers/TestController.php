@@ -8,16 +8,11 @@ use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Banquemisr;
 use Vimeo;
+use Http;
 class TestController extends Controller
 {
   public function index()
   {
-
-
-    $response = Vimeo::request('/videos/898829175', ['per_page' => 10], 'GET');
-
-    dd($response);
-
 
     $merchantID = 'TESTTHEGATE_ACAD' ;
     $merchantPassword = '28c84d5aa95f3c8149cee8aa68173240' ;
@@ -100,11 +95,11 @@ class TestController extends Controller
 
     $curl = curl_init();
     $data = [
-        'apiOperation' =>   'CAPTURE' , 
-        'transaction' => [
-          'amount' => '123.60' ,
-          'currency' => 'SAR'
-        ], 
+      'apiOperation' =>   'CAPTURE' , 
+      'transaction' => [
+        'amount' => '123.60' ,
+        'currency' => 'SAR'
+      ], 
     ];
     curl_setopt($curl, CURLOPT_URL, 'https://banquemisr.gateway.mastercard.com/api/rest/version/77/merchant/'.$merchantID.'/order/ORDER-4142773a-ac2e1111');
     curl_setopt($curl, CURLOPT_USERPWD, 'merchant.' . $merchantID . ':' . $merchantPassword . '');
