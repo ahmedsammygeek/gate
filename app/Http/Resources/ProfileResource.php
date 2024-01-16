@@ -30,11 +30,7 @@ class ProfileResource extends JsonResource
             'unread_notifications_count' => $this->unreadNotifications->count() , 
             'courses_count' => $this->courses()->count() , 
             'eligible_installments' => $this->installments()->whereDate('due_date' , '>=' , Carbon::today() )->count() , 
-            'course_progress' => UserCourseProgressResource::collection(Auth::user()->courses->map(function($item){
-                $course_progress = UserCourseProgress::where('user_course_id'  , $item->course_id )->where('user_id'  , $item->user_id )->first();
-                $item->progress = $course_progress ? $course_progress->progress : 0;
-                return $item;
-            }))
+            'course_progress' => UserCourseProgressResource::collection(Auth::user()->courses)
         ];
     }
 }
