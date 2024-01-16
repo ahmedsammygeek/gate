@@ -40,7 +40,7 @@ class CheckoutController extends Controller
         } 
 
         // in case of the course is free
-        if ($order->amount == 0 ) {
+        if (($order->amount_due_today == 0 ) && ($order->amount == 0 )) {
             $order->is_paid = 1;
             $order->save();
             $purchase = $this->addPurchaseToUser($order);
@@ -51,10 +51,22 @@ class CheckoutController extends Controller
             return redirect(url('https://frontend.thegatelearning.com/confirm?message='.$message.'&status='.$status.'&order='.$order_number));
         }
 
+        if ($order->amount_due_today == 0 ) {
+            $purchase = $this->addPurchaseToUser($order);
+            $this->addCoursesToUser($purchase);
+            $status = 'success';
+            $message = 'تمت عملهه الشراء بنجاح';
+            $order_number = $order->order_number;
+            return redirect(url('https://frontend.thegatelearning.com/confirm?message='.$message.'&status='.$status.'&order='.$order_number));
+        }
+
+
+
         // if he choosed one_later_installment it means we do not need a payment method to choose
         if ($order->payment_type == 'one_later_installment' ) {
             $purchase = $this->addPurchaseToUser($order);
             $this->addCoursesToUser($purchase);
+            $this->addInstallmentsToUser( $order , $purchase);
             $status = 'success';
             $message = 'تمت عملهه الشراء بنجاح';
             $order_number = $order->order_number;
@@ -82,9 +94,7 @@ class CheckoutController extends Controller
     {
         $purchase =  $this->addPurchaseToUser($order);
         $this->addCoursesToUser($purchase);
-        // if ($order->) {
-        //     // code...
-        // }
+        $this->addInstallmentsToUser($order , $purchase );
 
         $message = 'تمت عمليه الشراء بنجاح';
         $status = 'success';
@@ -106,7 +116,7 @@ class CheckoutController extends Controller
         $orderId  = $order->order_number ;
         $curlData = [
             'CustomerName'       => $order->user?->name,
-            'InvoiceValue'       => $order->amount,
+            'InvoiceValue'       => $order->amount_due_today,
             'DisplayCurrencyIso' => 'SAR',
             'CustomerEmail'      => $order->user?->email,
             'CallBackUrl'        => route('myfatoorah.callback' , $order ),
@@ -207,7 +217,7 @@ class CheckoutController extends Controller
             ),
             'order' => 
             array (
-                'amount' => $order->amount ,
+                'amount' => $order->amount_due_today ,
                 'currency' => 'SAR',
                 'description' => 'PURCHASE course :'.$order->course?->title,
                 'id' => $order->order_number ,
@@ -244,7 +254,7 @@ class CheckoutController extends Controller
         $data = [
             'apiOperation' =>   'CAPTURE' , 
             'transaction' => [
-                'amount' => $order->amount ,
+                'amount' => $order->amount_due_today ,
                 'currency' => 'SAR'
             ], 
         ];
@@ -288,7 +298,7 @@ class CheckoutController extends Controller
             $transaction = new Transaction;
             $transaction->user_id = $purchase->order->user_id;
             $transaction->purchase_id = $purchase->id;
-            $transaction->amount = $purchase->order?->amount;
+            $transaction->amount = $purchase->order?->amount_due_today;
             $transaction->payment_method = ($purchase->order->payment_method == 1 ? 'bank_misr' : 'my_fatoorah') ;
             $transaction->payment_id = $purchase->order?->payment_id;
             $transaction->invoice_id = $purchase->order?->invoice_id;
@@ -447,7 +457,7 @@ class CheckoutController extends Controller
             $user_installments = [];
             switch ($order->payment_type) {
                 case 'installments':
-                $course_installments = $order->course?->installments()->where('days' , '!=' , 0 )->get();
+                $course_installments = $order->course?->installments()->get();
                 foreach ($course_installments as $course_installment) {
                     $user_installments[] = new UserInstallments([
                         'user_id' => $order->user_id , 

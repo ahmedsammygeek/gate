@@ -93,21 +93,28 @@ class CheckoutController extends Controller
 
 
         $amount = 0;
-        
-
+        $amount_due_today = 0;
         if ($course->getPrice() == 0 ) {
-            $amount = $course->getPrice();
+            $amount = 0;
+            $amount_due_today = 0;
         } else {
             switch ($request->payment_type) {
                 case 'one_payment':
                 $amount = $course->getPrice();
+                $amount_due_today = $course->getPrice();
                 break;
                 case 'one_later_installment':
                 $amount = $course->price_later;
+                $amount_due_today = $course->price_later;
                 break;
                 case 'installments':
-                $installment = $course->installments()->select('amount' , 'days' )->orderBy('days' , 'ASC' )->first();
-                $amount = $installment->amount ;
+                if ($installment = $course->installments()->where('days'  , 0 )->first() ) {
+                    $amount =  $course->installments()->sum('amount') ;
+                    $amount_due_today = $installment->amount ;
+                } else {
+                    $amount = $course->installments()->sum('amount');
+                    $amount_due_today =  0 ;
+                }
                 break;
                 default:
                 break;
@@ -122,12 +129,15 @@ class CheckoutController extends Controller
         $order->payment_method = $request->payment_method;
         $order->order_number = Str::uuid();
         $order->amount = $amount;
+        $order->amount_due_today = $amount_due_today;
         $order->save();
         $url = route('orders.pay' , $order );
         return response()->json([
             'status' => true,
             'message' => 'success',
             'data' =>  (object) [
+                'total' => $order->amount , 
+                'amount_due_today' => $order->amount_due_today , 
                 'payment_link' => $url , 
             ] , 
         ]);
