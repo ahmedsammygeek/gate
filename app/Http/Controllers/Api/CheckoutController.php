@@ -59,8 +59,41 @@ class CheckoutController extends Controller
      */
     public function checkout(CheckoutStep2Request $request)
     {
-        $amount = 0;
         $course = Course::find($request->course_id);
+        if (!$course) {
+            return response()->json([
+                'status' => true,
+                'message' => 'success',
+                'data' =>  []
+            ]);
+        }
+
+        switch ($request->payment_type) {
+            case 'installments':
+            // here we need to check if the course has installments or not
+            if ($course->installments()->count() == 0 ) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'error this item has no installments',
+                    'data' => [] 
+                ]);
+            }
+            break;
+            case 'one_later_installment':
+            // here we need to check if the course has installments or not
+            if ( ( $course->price_later == null ) || ( $course->price_later == 0 ) ) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'error this item has no one later payment ',
+                    'data' => [] 
+                ]);
+            }
+            break;
+        }
+
+
+        $amount = 0;
+        
 
         if ($course->getPrice() == 0 ) {
             $amount = $course->getPrice();
@@ -90,7 +123,6 @@ class CheckoutController extends Controller
         $order->order_number = Str::uuid();
         $order->amount = $amount;
         $order->save();
-
         $url = route('orders.pay' , $order );
         return response()->json([
             'status' => true,

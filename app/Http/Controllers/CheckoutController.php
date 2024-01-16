@@ -31,7 +31,7 @@ class CheckoutController extends Controller
      */
     public function pay(Order $order)
     {
-        // this order is already paid
+        // check if  this order is already paid
         if ($order->is_paid == 1 ) {
             $status = 'success';
             $message = 'تم دفع الطلب بالفعل';
@@ -46,7 +46,17 @@ class CheckoutController extends Controller
             $purchase = $this->addPurchaseToUser($order);
             $this->addCoursesToUser($purchase);
             $status = 'success';
-            $message = 'تم دفع الطلب بالفعل';
+            $message = 'تمت عملهه الشراء بنجاح';
+            $order_number = $order->order_number;
+            return redirect(url('https://frontend.thegatelearning.com/confirm?message='.$message.'&status='.$status.'&order='.$order_number));
+        }
+
+        // if he choosed one_later_installment it means we do not need a payment method to choose
+        if ($order->payment_type == 'one_later_installment' ) {
+            $purchase = $this->addPurchaseToUser($order);
+            $this->addCoursesToUser($purchase);
+            $status = 'success';
+            $message = 'تمت عملهه الشراء بنجاح';
             $order_number = $order->order_number;
             return redirect(url('https://frontend.thegatelearning.com/confirm?message='.$message.'&status='.$status.'&order='.$order_number));
         }
@@ -133,9 +143,12 @@ class CheckoutController extends Controller
                 $order->payment_id = $paymentId;
                 $order->response_data = json_encode($data);
                 $order->save();
-                $this->addPurchaseToUser($order);
-                $message = 'حدث خطا اثنائ عمليه الدفع برجاء المحاوله مره اخرى';
-                $status = 'fail';
+                $purchase = $this->addPurchaseToUser($order);
+                $this->saveTransactionDetails($purchase);
+                $this->addInstallmentsToUser($order);
+                $this->addCoursesToUser($purchase);
+                $message = 'تمت عليه الدفع بنجاح';
+                $status = 'success';
                 $order_number = $order->order_number;
                 return redirect(url('https://frontend.thegatelearning.com/confirm?message='.$message.'&status='.$status.'&order='.$order_number));
             }
@@ -253,12 +266,12 @@ class CheckoutController extends Controller
         $order->payment_id = $request->resultIndicator ;
         $order->response_data = json_encode($jsonData);
         $order->save();
-        $this->addPurchaseToUser($order);
+        $purchase = $this->addPurchaseToUser($order);
         $this->saveTransactionDetails($purchase);
-        $this->addInstallmentsToUser();
-        $this->addCoursesToUser();
+        $this->addInstallmentsToUser($order);
+        $this->addCoursesToUser($purchase);
 
-        dd('done now bank_misr cllable')
+        // dd('done now bank_misr cllable')
         $status = 'success';
         $message = 'تمت عمليه الدفع بنجاح';
         $order_number = $order->order_number;
@@ -270,17 +283,18 @@ class CheckoutController extends Controller
 
     public  function saveTransactionDetails(Purchase $purchase)
     {
+        $purchase->load('order');
         if ($purchase->order->payment_method == 1 ||  $purchase->order->payment_method == 2 ) {
             $transaction = new Transaction;
-            $transaction->user_id = $order->user_id;
+            $transaction->user_id = $purchase->order->user_id;
             $transaction->purchase_id = $purchase->id;
-            $transaction->amount = $order->amount;
-            $transaction->payment_method = ($order->payment_method == 1 ? 'bank_misr' : 'my_fatoorah') ;
-            $transaction->payment_id = $order->payment_id;
-            $transaction->invoice_id = $order->invoice_id;
+            $transaction->amount = $purchase->order?->amount;
+            $transaction->payment_method = ($purchase->order->payment_method == 1 ? 'bank_misr' : 'my_fatoorah') ;
+            $transaction->payment_id = $purchase->order?->payment_id;
+            $transaction->invoice_id = $purchase->order?->invoice_id;
             $transaction->payment_date = Carbon::now();
-            $transaction->added_by = $order->user_id;
-            $transaction->payment_response = $order->response_data;
+            $transaction->added_by = $purchase->order->user_id;
+            $transaction->payment_response = $purchase->order->response_data;
             $transaction->save();
         }
         return true;
@@ -297,13 +311,33 @@ class CheckoutController extends Controller
         $purchase->purchase_type = $order->payment_type;
         switch ($order->payment_type) {
             case 'installments':
-            $purchase->is_paid = 1 ;
+            switch ($purchase->order->payment_method) {
+                case 3:
+                $purchase->is_paid = 0 ;
+                break;
+                case 2:
+                $purchase->is_paid = 1 ;
+                break;
+                case 1:
+                $purchase->is_paid = 1 ;
+                break;
+            }
             break;
             case 'one_later_installment':
             $purchase->is_paid = 0 ;
             break;
             case 'one_payment':
-            $purchase->is_paid = 2 ;
+            switch ($purchase->order->payment_method) {
+                case 3:
+                $purchase->is_paid = 0 ;
+                break;
+                case 2:
+                $purchase->is_paid = 2 ;
+                break;
+                case 1:
+                $purchase->is_paid = 2 ;
+                break;
+            }
             break;
         }
         $purchase->save();
@@ -320,9 +354,42 @@ class CheckoutController extends Controller
 
     public function addCoursesToUser(Purchase $purchase)
     {
-        $purchase->load('order');
+        $purchase->load(['items' , 'order' , 'user']);
+        
+
+        switch ($purchase->order->payment_type) {
+            case 'installments':
+            switch ($purchase->order->payment_method) {
+                case 3:
+                $allowed = 0 ;
+                break;
+                case 2:
+                $allowed = 1 ;
+                break;
+                case 1:
+                $allowed = 1 ;
+                break;
+            }
+            break;
+            case 'one_later_installment':
+            $allowed = 1 ;
+            break;
+            case 'one_payment':
+            switch ($purchase->order->payment_method) {
+                case 3:
+                $allowed = 0 ;
+                break;
+                case 2:
+                $allowed = 1 ;
+                break;
+                case 1:
+                $allowed = 1 ;
+                break;
+            }
+            break;
+        }
+
         // we need to get items from this purchase
-        $purchase->load(['items' , 'user']);
         foreach ($purchase->items as $purchase_item) {
             if ($purchase_item->item_type == 1 ) {
                 $user_courses = [];
@@ -332,7 +399,7 @@ class CheckoutController extends Controller
                     'course_id' => $purchase_item->item_id , 
                     'expires_at' => $course->ends_at,
                     'course_type' => 1 , 
-                    'allowed' => ($purchase->order?->payment_method == 3 ? 0 : 1 ), 
+                    'allowed' => $allowed , 
                 ]);
 
                 $purchase->user->courses()->saveMany($user_courses);
@@ -344,7 +411,7 @@ class CheckoutController extends Controller
                     'course_id' => $package->id , 
                     'expires_at' => $package->ends_at,
                     'course_type' => 2 , 
-                    'allowed' => ($purchase->order?->payment_method == 3 ? 0 : 1 ), 
+                    'allowed' => $allowed , 
                 ]);
                 foreach ($package->courses as $package_course) {
                     $user_courses[] = new UserCourse([
@@ -352,7 +419,7 @@ class CheckoutController extends Controller
                         'expires_at' => $package->ends_at,
                         'course_type' => 1 , 
                         'related_package_id' => $package->id , 
-                        'allowed' => ($purchase->order?->payment_method == 3 ? 0 : 1 ), 
+                        'allowed' => $allowed , 
                     ]);
                 }
                 $purchase->user->courses()->saveMany($user_courses);
