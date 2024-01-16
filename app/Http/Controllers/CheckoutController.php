@@ -145,7 +145,7 @@ class CheckoutController extends Controller
                 $order->save();
                 $purchase = $this->addPurchaseToUser($order);
                 $this->saveTransactionDetails($purchase);
-                $this->addInstallmentsToUser($order);
+                $this->addInstallmentsToUser($order , $purchase );
                 $this->addCoursesToUser($purchase);
                 $message = 'تمت عليه الدفع بنجاح';
                 $status = 'success';
@@ -268,7 +268,7 @@ class CheckoutController extends Controller
         $order->save();
         $purchase = $this->addPurchaseToUser($order);
         $this->saveTransactionDetails($purchase);
-        $this->addInstallmentsToUser($order);
+        $this->addInstallmentsToUser($order , $purchase );
         $this->addCoursesToUser($purchase);
 
         // dd('done now bank_misr cllable')
@@ -295,6 +295,12 @@ class CheckoutController extends Controller
             $transaction->payment_date = Carbon::now();
             $transaction->added_by = $purchase->order->user_id;
             $transaction->payment_response = $purchase->order->response_data;
+            if ($purchase->order->payment_type == 'installments' ) {
+                // we need first to check if first installment need to pay today or not (days will be 0)
+                if ($purchase->order->course->installments()->where('days' , 0 )->first() ) {
+                    $transaction->user_installment_id = $purchase->order->course->installments()->where('days' , 0 )->first()?->id;
+                }
+            }
             $transaction->save();
         }
         return true;
@@ -430,7 +436,7 @@ class CheckoutController extends Controller
     }
 
 
-    private function addInstallmentsToUser($order)
+    private function addInstallmentsToUser($order , $purchase )
     {
         // this means he will pay with installments and with bank transfer
 
@@ -441,7 +447,7 @@ class CheckoutController extends Controller
             $user_installments = [];
             switch ($order->payment_type) {
                 case 'installments':
-                $course_installments = $order->course?->installments()->get();
+                $course_installments = $order->course?->installments()->where('days' , '!=' , 0 )->get();
                 foreach ($course_installments as $course_installment) {
                     $user_installments[] = new UserInstallments([
                         'user_id' => $order->user_id , 
@@ -455,6 +461,7 @@ class CheckoutController extends Controller
                 }
                 break;
                 case 'one_later_installment':
+                case 'one_payment':
                 $user_installments[] = new UserInstallments([
                     'user_id' => $order->user_id , 
                     'installment_number' => Str::uuid() , 
@@ -472,10 +479,11 @@ class CheckoutController extends Controller
             break;
             // my fatorah payment method
             case 2:
+            case 1:
             $user_installments = [];
             switch ($order->payment_type) {
                 case 'installments':
-                $course_installments = $order->course?->installments()->get();
+                $course_installments = $order->course?->installments()->where('days' , '!=' , 0 )->get();
                 foreach ($course_installments as $course_installment) {
                     $user_installments[] = new UserInstallments([
                         'user_id' => $order->user_id , 
