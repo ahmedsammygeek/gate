@@ -33,7 +33,7 @@ class CheckoutController extends Controller
             'one_payment' => $course->getPrice() , 
         ];
 
-        if ($course->one_later_installment_count) {
+        if ($course->price_later) {
             $payment_types['one_later_installment']  = $course->price_later ;
         }
 
