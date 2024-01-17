@@ -34,12 +34,12 @@ class CheckoutController extends Controller
 
         $payment_types['one_payment']['total'] =  $course->getPrice();
         $payment_types['one_payment']['amount_due_today'] = $course->getPrice();
-        $payment_types['one_payment']['payment_date'] = Carbon::today()->toDateString();
+        $payment_types['one_payment']['first_payment_date'] = Carbon::today()->toDateString();
 
         if ($course->price_later) {
             $payment_types['one_later_installment']['total']  = $course->price_later ;
             $payment_types['one_later_installment']['amount_due_today']  = 0 ;
-            $payment_types['one_later_installment']['payment_date'] = Carbon::today()->addDay($course->days)->toDateString();
+            $payment_types['one_later_installment']['first_payment_date'] = Carbon::today()->addDay($course->days)->toDateString();
         }
 
         if ($course->installments->count()) {
@@ -47,6 +47,13 @@ class CheckoutController extends Controller
             $payment_types['installments']['installments_details']  = CourseInstallmentResource::collection( $course->installments()->orderBy('days' , 'ASC' )->get()) ;
             $first_installment = $course->installments()->where('days' , 0 )->first();
             $payment_types['installments']['amount_due_today']  = $first_installment ? $first_installment->amount : 0 ;
+            if ($first_installment) {
+                 $payment_types['installments']['first_payment_date']  = Carbon::today()->toDateString();
+            } else {
+                $first_installment =  $course->installments()->orderBy('days' , 'ASC' )->first();
+                $payment_types['installments']['first_payment_date']  = Carbon::today()->addDay($first_installment->days)->toDateString();
+            }
+            
         }
 
         $info = Setting::first();
