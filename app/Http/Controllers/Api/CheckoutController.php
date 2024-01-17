@@ -13,6 +13,7 @@ use App\Http\Resources\BasicCourseResource;
 use App\Http\Resources\Api\Settings\PaymentSettingsResource;
 use Str;
 use Auth;
+use Carbon\Carbon;
 use App\Http\Resources\Api\CourseInstallmentResource;
 class CheckoutController extends Controller
 {
@@ -33,10 +34,12 @@ class CheckoutController extends Controller
 
         $payment_types['one_payment']['total'] =  $course->getPrice();
         $payment_types['one_payment']['amount_due_today'] = $course->getPrice();
+        $payment_types['one_payment']['payment_date'] = Carbon::today()->toDateString();
 
         if ($course->price_later) {
             $payment_types['one_later_installment']['total']  = $course->price_later ;
             $payment_types['one_later_installment']['amount_due_today']  = 0 ;
+            $payment_types['one_later_installment']['payment_date'] = Carbon::today()->addDay($course->days)->toDateString();
         }
 
         if ($course->installments->count()) {
