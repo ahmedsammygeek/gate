@@ -13,6 +13,7 @@ use App\Http\Resources\BasicCourseResource;
 use App\Http\Resources\Api\Settings\PaymentSettingsResource;
 use Str;
 use Auth;
+use App\Http\Resources\Api\CourseInstallmentResource;
 class CheckoutController extends Controller
 {
 
@@ -38,7 +39,7 @@ class CheckoutController extends Controller
         }
 
         if ($course->installments->count()) {
-            $payment_types['installments']  = $course->installments()->select('amount' , 'days' )->orderBy('days' , 'ASC' )->get() ;
+            $payment_types['installments']  = CourseInstallmentResource::collection( $course->installments()->orderBy('days' , 'ASC' )->get()) ;
         }
 
         $info = Setting::first();
