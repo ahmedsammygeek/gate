@@ -30,16 +30,20 @@ class CheckoutController extends Controller
             ]);
         }
 
-        $payment_types = [
-            'one_payment' => $course->getPrice() , 
-        ];
+
+        $payment_types['one_payment']['total'] =  $course->getPrice();
+        $payment_types['one_payment']['amount_due_today'] = $course->getPrice();
 
         if ($course->price_later) {
-            $payment_types['one_later_installment']  = $course->price_later ;
+            $payment_types['one_later_installment']['total']  = $course->price_later ;
+            $payment_types['one_later_installment']['amount_due_today']  = 0 ;
         }
 
         if ($course->installments->count()) {
-            $payment_types['installments']  = CourseInstallmentResource::collection( $course->installments()->orderBy('days' , 'ASC' )->get()) ;
+            $payment_types['installments']['total']  =$course->installments()->sum('amount');
+            $payment_types['installments']['installments_details']  = CourseInstallmentResource::collection( $course->installments()->orderBy('days' , 'ASC' )->get()) ;
+            $first_installment = $course->installments()->where('days' , 0 )->first();
+            $payment_types['installments']['amount_due_today']  = $first_installment ? $first_installment->amount : 0 ;
         }
 
         $info = Setting::first();
