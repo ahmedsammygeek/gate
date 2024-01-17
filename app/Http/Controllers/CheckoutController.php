@@ -373,6 +373,8 @@ class CheckoutController extends Controller
         $purchase->load(['items' , 'order' , 'user']);
         
 
+        $allowed = 1;
+
         switch ($purchase->order->payment_type) {
             case 'installments':
             switch ($purchase->order->payment_method) {
@@ -449,8 +451,6 @@ class CheckoutController extends Controller
     private function addInstallmentsToUser($order , $purchase )
     {
         // this means he will pay with installments and with bank transfer
-
-
         switch ($order->payment_method) {
             // bank transfer payment
             case 3:
