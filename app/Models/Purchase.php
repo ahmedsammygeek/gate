@@ -14,6 +14,13 @@ class Purchase extends Model
         return $this->belongsTo(User::class);
     }
 
+
+
+    public function installments()
+    {
+        return $this->hasMany(UserInstallments::class , 'purchase_id');
+    }
+
     public function order() {
 
         return $this->belongsTo(Order::class);
