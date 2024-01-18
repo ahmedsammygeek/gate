@@ -85,9 +85,6 @@ class CheckoutController extends Controller
             case 3:
             return $this->preparBankTransferPayment($order);
             break;
-            case 0:
-            return dd('ffffffff');
-            break;
             default:
             break;
         }

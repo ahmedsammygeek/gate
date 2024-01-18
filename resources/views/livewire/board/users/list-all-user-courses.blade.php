@@ -39,7 +39,7 @@
                                 <span class='text-muted' > {{ $user_course->expires_at->diffForHumans() }} </span>
                             </td>
 
-                            <td> <span class='badge bg-info'> {{ $user_course->progress?->progress }} % </span>  </td>
+                            <td> <span class='badge bg-info'> {{ $user_course->progress }} % </span>  </td>
 
 
                             <td class="text-center">
