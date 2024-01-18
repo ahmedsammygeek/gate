@@ -50,7 +50,7 @@
                                 @case('installments')
                                 <span class='badge bg-success' > الدفع على عده اقساط </span>
                                 @break
-                                @case('total_amount')
+                                @case('one_payment')
                                 <span class='badge bg-primary' >  دفع القميه مباشرا </span>
                                 @break
                                 @endswitch

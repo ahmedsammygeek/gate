@@ -54,6 +54,7 @@ class CheckoutController extends Controller
         if ($order->amount_due_today == 0 ) {
             $purchase = $this->addPurchaseToUser($order);
             $this->addCoursesToUser($purchase);
+            $this->addInstallmentsToUser($order, $purchase );
             $status = 'success';
             $message = 'تمت عملهه الشراء بنجاح';
             $order_number = $order->order_number;
@@ -83,6 +84,9 @@ class CheckoutController extends Controller
             break;
             case 3:
             return $this->preparBankTransferPayment($order);
+            break;
+            case 0:
+            return dd('ffffffff');
             break;
             default:
             break;
