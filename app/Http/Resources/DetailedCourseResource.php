@@ -32,7 +32,7 @@ class DetailedCourseResource extends JsonResource
             'course_reviews' => ReviewResource::collection($this->whenLoaded('courseReviews')),
             'lessons_count' => $this->lessons()->count() , 
             'units_count' => $this->units()->count() , 
-            'ends_at' => $this->ends_at
+            'ends_at' => $this->ends_at->toDateString() , 
         ];
 
         if ($request->bearerToken() != null ) {
