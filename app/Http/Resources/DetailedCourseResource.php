@@ -30,8 +30,9 @@ class DetailedCourseResource extends JsonResource
             'category' => BasicDataResource::make($this->whenLoaded('category')),
             'units' => CourseUnitResource::collection($this->whenLoaded('units')),
             'course_reviews' => ReviewResource::collection($this->whenLoaded('courseReviews')),
-            'lessons_count' => 90 , 
-            'units_count' => $this->units->count() , 
+            'lessons_count' => $this->lessons()->count() , 
+            'units_count' => $this->units()->count() , 
+            'ends_at' => $this->ends_at
         ];
 
         if ($request->bearerToken() != null ) {
