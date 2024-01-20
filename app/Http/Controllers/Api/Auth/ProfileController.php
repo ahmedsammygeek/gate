@@ -14,6 +14,8 @@ use App\Http\Requests\Api\Auth\ChangePasswordRequest;
 use Auth;
 use App\Http\Resources\Api\UserCourseRecourse;
 use App\Models\UserCourse;
+use App\Models\UserInstallments;
+use App\Http\Resources\Api\UserInstallmentResource;
 class ProfileController extends Controller
 {
     public function index()
@@ -55,6 +57,7 @@ class ProfileController extends Controller
     public function courses()
     {
         $user = Auth::user();
+        
         return response()->json([
             'status' => true,
             'message' => '',
@@ -131,5 +134,23 @@ class ProfileController extends Controller
     }
 
 
+
+    public function installments() {
+
+        $installments = UserInstallments::where('user_id' , Auth::id() )->get();
+
+         return response()->json([
+            'status' => true,
+            'message' => 'success',
+            'data' => [
+                'user_installments' => UserInstallmentResource::collection($installments) ,
+            ]
+        ]);
+
+
+
+
+        return $installments ;
+    }
 
 }

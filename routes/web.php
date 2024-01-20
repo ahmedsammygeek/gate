@@ -30,9 +30,9 @@ use App\Http\Controllers\TestController;
 use App\Http\Controllers\MyFatoorahController;
 
 Route::get('error' , function(Request $request){
-     $status = 'error';
-            $message = 'تم الدفع بنجاح';
-            return redirect(url('https://frontend.thegatelearning.com/confirm?message='.$message.'&status='.$status));
+   $status = 'error';
+   $message = 'تم الدفع بنجاح';
+   return redirect(url('https://frontend.thegatelearning.com/confirm?message='.$message.'&status='.$status));
 });
 
 Route::get('/test' ,[TestController::class , 'index'] );
@@ -102,8 +102,8 @@ Route::group(['prefix' => 'Board' , 'as' => 'board.'  ], function() {
 
 
 Route::get('orders/{order:order_number}/pay' , [CheckoutController::class , 'pay' ]  )->name('orders.pay');
-Route::get('orders/{order:order_number}/myfatoorah/callback' , [CheckoutController::class , 'myfatoorah_callback' ]  )->name('myfatoorah.callback');
-Route::get('orders/{order:order_number}/bank_misr/callback' , [CheckoutController::class , 'bank_misr_callback' ]  )->name('bank_misr_callback.callback');
+Route::get('orders/{order:order_number}/myfatoorah/callback' , [CheckoutController::class , 'myfatoorah_callback'])->name('myfatoorah.callback');
+Route::get('orders/{order:order_number}/bank_misr/callback' , [CheckoutController::class , 'bank_misr_callback' ])->name('bank_misr_callback.callback');
 
 
 require __DIR__.'/auth.php';

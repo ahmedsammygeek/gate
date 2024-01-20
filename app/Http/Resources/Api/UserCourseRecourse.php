@@ -24,6 +24,7 @@ class UserCourseRecourse extends JsonResource
             'course_viewed_lessons' => UserLessonView::where('course_id' , $this->course_id )->where('user_id' , Auth::id() )->count() , 
             'status' => 'active' , 
             'price' => rand(200 , 4000) , 
+            'allowd' => $this->allowed ? true : false , 
         ];
     }
 }
