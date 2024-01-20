@@ -25,6 +25,7 @@ class UserCourseRecourse extends JsonResource
             'status' => 'active' , 
             'price' => rand(200 , 4000) , 
             'is_allowd' => $this->allowed ? true : false , 
-        ];
+            'item_type' => $this->course_type == 1 ? 'course' : 'package' , 
+        ]; 
     }
 }
