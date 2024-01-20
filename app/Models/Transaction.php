@@ -20,6 +20,27 @@ class Transaction extends Model
     const BANK_MISR  = 'bank_misr';
 
 
+    public function paymentMethodAsText() {
+
+
+
+        switch ($this->payment_method) {
+            case Transaction::BANK_TRANSFER:
+            return 'تحويل بنكى';
+            break;
+            case Transaction::MY_FATOORAH:
+            return 'ماى فاتوره';
+            break;
+            case Transaction::BANK_MISR:
+            return 'بنك مصر';
+            break;
+            
+            default:
+                // code...
+            break;
+        }
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

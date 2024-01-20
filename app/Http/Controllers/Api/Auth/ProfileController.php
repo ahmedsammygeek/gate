@@ -15,9 +15,11 @@ use Auth;
 use App\Http\Resources\Api\UserCourseRecourse;
 use App\Models\UserCourse;
 use App\Models\Purchase;
+use App\Models\Transaction;
 use App\Models\UserInstallments;
 use App\Http\Resources\Api\UserInstallmentResource;
 use App\Http\Resources\Api\UserPurchaseResource;
+use App\Http\Resources\Api\UserTransactionResource;
 class ProfileController extends Controller
 {
     public function index()
@@ -160,6 +162,21 @@ class ProfileController extends Controller
             'message' => '',
             'data' => [
                 'user_purchases' => UserPurchaseResource::collection($purchases) ,
+            ]
+        ]);
+    }
+
+
+        public function transactions() {
+
+        $transactions = Transaction::with(['purchase' , 'installment' ])->where('user_id' , Auth::id() )->latest()->get();
+
+        // return $transactions;
+        return response()->json([
+            'status' => true,
+            'message' => '',
+            'data' => [
+                'user_transactions' => UserTransactionResource::collection($transactions) ,
             ]
         ]);
     }
