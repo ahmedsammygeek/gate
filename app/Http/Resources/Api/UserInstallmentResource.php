@@ -20,7 +20,6 @@ class UserInstallmentResource extends JsonResource
             'due_date' => $this->due_date->toDateString() , 
             'due_date_for_human' => $this->due_date->diffForHumans() , 
             'is_paid' => $this->transaction_id ? true : false ,
-            // 'purchase' => $this->purchase
             'course' => new BasicCourseResource($this->purchase?->order?->course ) , 
         ];
     }
