@@ -26,6 +26,7 @@ class OrderResource extends JsonResource
             'payment_type' => $this->payment_type , 
             'payment_method' => $this->payment_method , 
             'course' => new BasicCourseResource($this->course) , 
+            'item_type' => $this->course?->type == 1 ? 'course' : 'package' , 
         ];
         if ($this->is_paid == 1 ) {
             switch ($this->payment_type) {
