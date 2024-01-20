@@ -37,6 +37,8 @@ Route::prefix("v1")->group(function () {
         Route::post('profile', [ProfileController::class, 'store']);
         Route::get('profile/courses', [ProfileController::class, 'courses']);
         Route::get('profile/installments', [ProfileController::class, 'installments']);
+        Route::get('profile/purchases', [ProfileController::class, 'purchases']);
+        Route::get('profile/transactions', [ProfileController::class, 'transactions']);
         Route::post('profile/password', [ProfileController::class, 'changePassword']);
         Route::post('profile/validate/number', [ProfileController::class, 'sendOtp']);
         Route::put('profile/number', [ProfileController::class, 'changeWtsNumber']);

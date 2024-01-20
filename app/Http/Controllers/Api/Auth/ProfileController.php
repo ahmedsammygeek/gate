@@ -14,8 +14,10 @@ use App\Http\Requests\Api\Auth\ChangePasswordRequest;
 use Auth;
 use App\Http\Resources\Api\UserCourseRecourse;
 use App\Models\UserCourse;
+use App\Models\Purchase;
 use App\Models\UserInstallments;
 use App\Http\Resources\Api\UserInstallmentResource;
+use App\Http\Resources\Api\UserPurchaseResource;
 class ProfileController extends Controller
 {
     public function index()
@@ -57,7 +59,7 @@ class ProfileController extends Controller
     public function courses()
     {
         $user = Auth::user();
-        
+
         return response()->json([
             'status' => true,
             'message' => '',
@@ -139,18 +141,26 @@ class ProfileController extends Controller
 
         $installments = UserInstallments::where('user_id' , Auth::id() )->get();
 
-         return response()->json([
+        return response()->json([
             'status' => true,
-            'message' => 'success',
+            'message' => '',
             'data' => [
                 'user_installments' => UserInstallmentResource::collection($installments) ,
             ]
         ]);
-
-
-
-
-        return $installments ;
     }
 
+
+    public function purchases() {
+
+        $purchases = Purchase::with('order.course')->where('user_id' , Auth::id() )->latest()->get();
+
+        return response()->json([
+            'status' => true,
+            'message' => '',
+            'data' => [
+                'user_purchases' => UserPurchaseResource::collection($purchases) ,
+            ]
+        ]);
+    }
 }
