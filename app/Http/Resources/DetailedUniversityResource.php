@@ -8,7 +8,7 @@ use App\Http\Resources\BasicDataResource;
 use App\Http\Resources\BasicUserResource;
 use App\Http\Resources\BasicCourseResource;
 use Illuminate\Http\Resources\Json\JsonResource;
-
+use App\Http\Resources\Api\PackageDetailsResource;
 class DetailedUniversityResource extends JsonResource
 {
 
@@ -25,7 +25,7 @@ class DetailedUniversityResource extends JsonResource
             'country' => BasicDataResource::make($this->country),
             'trainer' => BasicUserResource::make($this->trainer),
             'courses' => BasicCourseResource::collection($this->courses()->where('type' , 1 )->get()),
-            'packages' => BasicCourseResource::collection($this->courses()->where('type' , 2 )->get()),
+            'packages' => PackageDetailsResource::collection($this->courses()->where('type' , 2 )->get()),
         ];
     }
 }

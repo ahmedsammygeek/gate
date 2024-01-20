@@ -32,6 +32,7 @@ class PackageDetailsResource extends JsonResource
             'students_number' => $this->students_number , 
             'course_reviews' => ReviewResource::collection($this->courseReviews) , 
             'package_courses' => PackageCourseResource::collection($this->courses) , 
+            'courses_count' => $this->courses->count() , 
         ];
     }
 }
