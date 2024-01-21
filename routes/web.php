@@ -28,6 +28,7 @@ use App\Http\Controllers\Board\AjaxController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\MyFatoorahController;
+use App\Http\Controllers\PayInstallmentController;
 
 Route::get('error' , function(Request $request){
    $status = 'error';
@@ -104,7 +105,12 @@ Route::group(['prefix' => 'Board' , 'as' => 'board.'  ], function() {
 Route::get('orders/{order:order_number}/pay' , [CheckoutController::class , 'pay' ]  )->name('orders.pay');
 Route::get('orders/{order:order_number}/myfatoorah/callback' , [CheckoutController::class , 'myfatoorah_callback'])->name('myfatoorah.callback');
 Route::get('orders/{order:order_number}/bank_misr/callback' , [CheckoutController::class , 'bank_misr_callback' ])->name('bank_misr_callback.callback');
+    
+Route::get('installments/{installment:installment_number}/myfatoorah/pay' , [PayInstallmentController::class , 'pay_with_myfatoorah'] )->name('installments.myfatoorah.pay');
+Route::get('installments/{installment:installment_number}/myfatoorah/callback',[PayInstallmentController::class , 'myfatoorah_callback'] )->name('myfatoorah.installments.callback');
+Route::get('installments/{installment:installment_number}/myfatoorah/error/callback',[PayInstallmentController::class , 'myfatoorah_errorcallback'] )->name('myfatoorah.installments.errorCallback');
 
+// Route::get('installments/{installment:installment_number}/bank-misr/pay' , [PayInstallmentController::class , 'pay_with_bank_misr'] )->name('installments.bank_misr.pay');
 
 require __DIR__.'/auth.php';
 

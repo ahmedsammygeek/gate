@@ -152,7 +152,7 @@ class CheckoutController extends Controller
                 $order->is_paid = 1;
                 $order->invoice_id = $data->InvoiceId;
                 $order->payment_id = $paymentId;
-                $order->response_data = json_encode($data);
+                $order->response_data = json_encode($data); 
                 $order->save();
                 $purchase = $this->addPurchaseToUser($order);
                 $this->saveTransactionDetails($purchase);

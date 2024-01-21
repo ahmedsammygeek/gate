@@ -48,7 +48,6 @@ Route::prefix("v1")->group(function () {
         Route::get('checkout' , [CheckoutController::class , 'index'] );
         Route::post('checkout' , [CheckoutController::class , 'checkout'] );
     });
-
     Route::get('settings/social' , [SettingsController::class , 'social'] );
     Route::get('settings/payments' , [SettingsController::class , 'payments'] );
     Route::get('pages' , [PageController::class , 'index'] );
