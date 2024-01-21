@@ -92,45 +92,26 @@ class PayInstallmentController extends Controller
                 // now we need to check the purchase is completely paid or still there is installments 
 
                 // count all installments in the same purchase id 
-
                 $installments_count_of_this_purchase = UserInstallments::where('purchase_id' , $installment->purchase_id )->count();
                 $unpaid_installments_count_of_this_purchase = UserInstallments::where('purchase_id' , $installment->purchase_id )->where('status' , 0 )->count();
-
-
-
-                // 4464040000000007
                 if ($unpaid_installments_count_of_this_purchase == 0 ) {
                     $purchase = $installment->purchase;
                     $purchase->is_paid = 2;
                     $purchase->save();
                 }
 
-
-
-
-                dd('done successfully');
-                // $order->invoice_id = $data->InvoiceId;
-                // $order->payment_id = $paymentId;
-                // $order->response_data = json_encode($data);
-                // $order->save();
-
-
-
                 $message = 'تمت عليه الدفع بنجاح';
                 $status = 'success';
-                $order_number = $order->order_number;
-                return redirect(url('https://frontend.thegatelearning.com/confirm?message='.$message.'&status='.$status.'&order='.$order_number));
+                return redirect(url('https://frontend.thegatelearning.com/installment-confirm?message='.$message.'&status='.$status));
             }
             $message = 'تم الدفع بنجاح';
             $status = 'success';
-            $order_number = $order->order_number;
-            return redirect(url('https://frontend.thegatelearning.com/confirm?message='.$message.'&status='.$status.'&order='.$order_number));
+            return redirect(url('https://frontend.thegatelearning.com/installment-confirm?message='.$message.'&status='.$status));
         }
 
         $message = 'لم يتم العثور على القسط...برجاء التواصل مع الدعم';
         $status = 'error';
-        dd($message , $status );
-        // return redirect(url('https://frontend.thegatelearning.com/confirm?message='.$message.'&status='.$status));
+        return redirect(url('https://frontend.thegatelearning.com/installment-confirm?message='.$message.'&status='.$status));
     }
 
 
