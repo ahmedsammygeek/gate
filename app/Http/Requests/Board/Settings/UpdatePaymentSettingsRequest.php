@@ -29,6 +29,8 @@ class UpdatePaymentSettingsRequest extends FormRequest
             'bank_transfer' => 'required' , 
             'swift_code' => 'required' , 
             'iban' => 'required' , 
+            'bank_transfer_message_ar' => 'required' , 
+            'bank_transfer_message_en' => 'required' , 
         ];
     }
 }

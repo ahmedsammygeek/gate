@@ -109,13 +109,30 @@
 							<p class="text-danger"> {{ $message }} </p> 
 							@enderror
 							</div>
+						</div>	
+						<div class="row mb-3">
+							<label class="col-form-label col-lg-3">  رسال الدفع عبر التحويل البنكى بالعربيه  </label>
+							<div class="col-lg-9">
+								<input type="text" class="form-control" name='bank_transfer_message_ar' value="{{ $info->getTranslation('bank_transfer_message' , 'ar' ) }}" placeholder='' >
+								@error('bank_transfer_message_ar')
+							<p class="text-danger"> {{ $message }} </p> 
+							@enderror
+							</div>
+						</div>	
+						<div class="row mb-3">
+							<label class="col-form-label col-lg-3">  رسال الدفع عبر التحويل البنكى بالانجليزيه  </label>
+							<div class="col-lg-9">
+								<input type="text" class="form-control" name='bank_transfer_message_en' value="{{ $info->getTranslation('bank_transfer_message' , 'en' ) }}" placeholder='' >
+								@error('bank_transfer_message_en')
+							<p class="text-danger"> {{ $message }} </p> 
+							@enderror
+							</div>
 						</div>		
 						<div class="row mb-3">
 							<label class="col-form-label col-lg-2">  شعار البنك الحالى </label>
 							<div class="col-lg-10">
 								<img src="{{ Storage::url('settings/'.$info->bank_logo) }}" alt="">
 							</div>
-							
 						</div>	
 			
 					</div>

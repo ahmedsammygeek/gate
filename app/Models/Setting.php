@@ -10,5 +10,5 @@ class Setting extends Model
     use HasFactory;
     use HasTranslations;
 
-    public $translatable = ['address' , 'footer_text' ];
+    public $translatable = ['address' , 'footer_text' , 'bank_transfer_message' ];
 }

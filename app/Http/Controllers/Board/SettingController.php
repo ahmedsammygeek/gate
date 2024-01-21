@@ -55,6 +55,8 @@ class SettingController extends Controller
         $info->bank_transfer = $request->bank_transfer ;
         $info->bank_name = $request->bank_name ;
         $info->swift_code = $request->swift_code ;
+        $info->setTranslation('bank_transfer_message' , 'ar' , $request->bank_transfer_message_ar );
+        $info->setTranslation('bank_transfer_message' , 'en' , $request->bank_transfer_message_en );
         $info->iban = $request->iban ;
         if ($request->hasFile('bank_logo')) {
             $info->bank_logo = basename($request->file('bank_logo')->store('settings'));
