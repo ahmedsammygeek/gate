@@ -110,7 +110,8 @@ Route::get('installments/{installment:installment_number}/myfatoorah/pay' , [Pay
 Route::get('installments/{installment:installment_number}/myfatoorah/callback',[PayInstallmentController::class , 'myfatoorah_callback'] )->name('myfatoorah.installments.callback');
 Route::get('installments/{installment:installment_number}/myfatoorah/error/callback',[PayInstallmentController::class , 'myfatoorah_errorcallback'] )->name('myfatoorah.installments.errorCallback');
 
-// Route::get('installments/{installment:installment_number}/bank-misr/pay' , [PayInstallmentController::class , 'pay_with_bank_misr'] )->name('installments.bank_misr.pay');
+Route::get('installments/{installment:installment_number}/bank-misr/pay' , [PayInstallmentController::class , 'pay_with_bank_misr'] )->name('installments.bank_misr.pay');
+Route::get('installments/{installment:installment_number}/bank-misr/callback' , [PayInstallmentController::class , 'bank_misr_callback'] )->name('bank_misr_callback.installments.callback');
 
 require __DIR__.'/auth.php';
 

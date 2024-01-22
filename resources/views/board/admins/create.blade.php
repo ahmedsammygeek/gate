@@ -497,6 +497,10 @@
                                                         <label class="form-check-label" for="notifications.transactions.new"> استقبال تنبيه بعمليات الدفع الجديده </label>
                                                     </div>
                                                     <div class="form-check text-start mb-2">
+                                                        <input type="checkbox" name='permissions[]' value="notifications.installments.pay" class="form-check-input" id="notifications.installments.pay"   >
+                                                        <label class="form-check-label" for="notifications.installments.pay"> استقبال تنبيه بتسديد قسط  </label>
+                                                    </div>
+                                                    <div class="form-check text-start mb-2">
                                                         <input type="checkbox" name='permissions[]' value="notifications.user_installments.due" class="form-check-input" id="notifications.user_installments.due" >
                                                         <label class="form-check-label" for="notifications.user_installments.due"> استقبال تنبيه بانتهاء موعد دفع قسط </label>
                                                     </div>
