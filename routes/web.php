@@ -40,6 +40,17 @@ Route::get('/test' ,[TestController::class , 'index'] );
 Route::get('/test2' ,[TestController::class , 'index2'] );
 // Route::get('/test' ,[MyFatoorahController::class , 'index'] );
 
+Route::get('/' , function(){
+
+    if (Auth::check()) {
+        return redirect(route('board.index'));
+    }
+
+    return redirect(route('login'));
+
+});
+
+
 Route::group(['prefix' => 'Board' , 'as' => 'board.'  ], function() {
     Route::group(['middleware' => 'auth'], function() {
         Route::get('/' , [BoardController::class , 'index'] )->name('index');
