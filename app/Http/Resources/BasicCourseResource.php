@@ -23,6 +23,7 @@ class BasicCourseResource extends JsonResource
             'reviews' => $this->reviews,
             'trainer' => BasicUserResource::make($this->trainer),
             'category' => BasicDataResource::make($this->category),
+            'item_type' => $this->type == 1 ? 'course' : 'package' , 
         ];
     }
 }
