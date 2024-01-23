@@ -16,6 +16,8 @@ use App\Http\Controllers\Api\CheckoutController;
 use App\Http\Controllers\Api\SettingsController;
 use App\Http\Controllers\Api\PageController;
 use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\RateController;
+
 Route::prefix("v1")->group(function () {
     Route::post('register', [RegisterController::class, 'register']);
     Route::post('check_register', [RegisterController::class, 'check_register']);
@@ -46,7 +48,8 @@ Route::prefix("v1")->group(function () {
         Route::get('notifications' , [NotificationController::class , 'index'] );
         Route::patch('notifications' , [NotificationController::class , 'update'] );
         Route::get('checkout' , [CheckoutController::class , 'index'] );
-        Route::post('checkout' , [CheckoutController::class , 'checkout'] );
+        Route::post('checkout' , [CheckoutController::class , 'checkout']);
+        Route::post('courses/{identifier}/rate', [RateController::class, 'store']);
     });
     Route::get('settings/social' , [SettingsController::class , 'social'] );
     Route::get('settings/payments' , [SettingsController::class , 'payments'] );
