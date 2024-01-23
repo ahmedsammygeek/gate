@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Setting;
 use App\Http\Requests\Board\Settings\UpdateSettingsRequest;
 use App\Http\Requests\Board\Settings\UpdatePaymentSettingsRequest;
+use App\Http\Requests\Board\Settings\UpdateReviewSettingsRequest;
 class SettingController extends Controller
 {
 
@@ -23,6 +24,12 @@ class SettingController extends Controller
     {
         $info = Setting::first();
         return view('board.settings.edit_payments' , compact('info'));
+    }
+
+    public function edit_reviews()
+    {
+        $info = Setting::first();
+        return view('board.settings.edit_reviews' , compact('info'));
     }
 
 
@@ -61,6 +68,15 @@ class SettingController extends Controller
         if ($request->hasFile('bank_logo')) {
             $info->bank_logo = basename($request->file('bank_logo')->store('settings'));
         }
+        $info->save();
+        return redirect()->back()->with('success' , 'تم التعديل بنجاح' );
+    }
+
+    public function update_reviews(UpdateReviewSettingsRequest $request)
+    {
+        $info = Setting::first();
+        $info->reviews_default_approve_value = $request->reviews_default_approve_value;
+        $info->comment_default_approve_value = $request->comment_default_approve_value ;
         $info->save();
         return redirect()->back()->with('success' , 'تم التعديل بنجاح' );
     }

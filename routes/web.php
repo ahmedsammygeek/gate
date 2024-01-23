@@ -108,6 +108,8 @@ Route::group(['prefix' => 'Board' , 'as' => 'board.'  ], function() {
         Route::patch('settings/social' , [SettingController::class , 'update'] )->name('settings.social.update');
         Route::get('settings/payments' , [SettingController::class , 'edit_payments'] )->name('settings.payments.edit');
         Route::patch('settings/payments' , [SettingController::class , 'update_payments'] )->name('settings.payments.update');
+        Route::get('settings/reviews' , [SettingController::class , 'edit_reviews'] )->name('settings.reviews.edit');
+        Route::patch('settings/reviews' , [SettingController::class , 'update_reviews'] )->name('settings.reviews.update');
     });
 });
 
