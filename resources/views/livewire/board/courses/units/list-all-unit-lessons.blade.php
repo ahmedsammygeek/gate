@@ -25,7 +25,7 @@
             <div class="card-body">
                 <div class="d-sm-flex align-items-sm-start">
                     <div class="form-control-feedback form-control-feedback-start flex-grow-1 mb-3 mb-sm-0">
-                        <input type="text" wire:model='search' class="form-control" placeholder="البحث داخل الوحدات">
+                        <input type="text" wire:model='search' class="form-control" placeholder="البحث داخل دروس الوحده {{ $unit->title }}">
                         <div class="form-control-feedback-icon">
                             <i class="ph-magnifying-glass"></i>
                         </div>
@@ -54,14 +54,11 @@
                         </tr>
                     </thead>
                     <tbody>
-
                         @foreach ($lessons as $lesson)
                         <tr>
-
                             <td class="text-wrap">
                                 {{ $lesson->getTranslation('title' , 'ar' ) }}
                             </td>
-
                             <td>
                                 @switch($lesson->is_active )
                                 @case(1)
@@ -72,7 +69,6 @@
                                 @break
                                 @endswitch
                             </td>
-
                             <td>
                                 @switch($lesson->is_free )
                                 @case(1)
@@ -83,14 +79,10 @@
                                 @break
                                 @endswitch
                             </td>
-
-
-
                             <td class="text-center">
                                 <a  href="{{ route('board.courses.units.lessons.show'  ,  ['course' => $course  , 'unit' => $unit , 'lesson' => $lesson  ] ) }}"  class="btn btn-sm btn-primary  ">
                                     <i class="icon-eye  "></i>
                                 </a>
-
                                 <a href="{{ route('board.courses.units.lessons.edit'  ,  ['course' => $course  , 'unit' => $unit , 'lesson' => $lesson  ] ) }}"  class="btn btn-sm btn-warning ">
                                     <i class="icon-database-edit2  "></i>
                                 </a>
