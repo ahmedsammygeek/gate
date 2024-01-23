@@ -59,6 +59,7 @@ class LessonController extends Controller
         $lesson->setTranslation('description' , 'ar' , $request->description_ar );
         $lesson->setTranslation('description' , 'en' , $request->description_en );
         $lesson->is_active = $request->filled('is_active') ? 1 : 0;
+        $lesson->is_free = $request->filled('is_free') ? 1 : 0;
         $lesson->course_unit_id = $unit->id;
         $lesson->user_id = Auth::id();
         $lesson->save();
@@ -121,6 +122,7 @@ class LessonController extends Controller
         $lesson->setTranslation('description' , 'ar' , $request->description_ar );
         $lesson->setTranslation('description' , 'en' , $request->description_en );
         $lesson->is_active = $request->filled('is_active') ? 1 : 0;
+        $lesson->is_free = $request->filled('is_free') ? 1 : 0;
         $lesson->course_unit_id = $unit->id;
         $lesson->save();
 

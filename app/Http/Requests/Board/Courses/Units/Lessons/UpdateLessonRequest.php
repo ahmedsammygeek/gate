@@ -27,6 +27,7 @@ class UpdateLessonRequest extends FormRequest
             'description_ar' => 'required' , 
             'description_en' => 'required' ,
             'is_active' => 'nullable' , 
+            'is_free' => 'nullable' , 
             'video' => 'nullable|mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi' ,  
             'files' => 'nullable' , 
             'files.*' => 'mimes:jpg,png,zip,rar,pdf,doc,docx,jpeg',

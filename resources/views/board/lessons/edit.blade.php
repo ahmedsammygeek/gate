@@ -91,6 +91,17 @@
 							</div>
 						</div>
 
+						<div class="row mb-3">
+							<label class="col-lg-2 col-form-label pt-0"> درس مجانى  </label>
+							<div class="col-lg-10">
+								<label class="form-check form-switch">
+									<input type="checkbox" value='1' class="form-check-input" name="is_free" {{ $lesson->is_free == 1 ? 'checked' : '' }} >
+									<span class="form-check-label"> نعم </span>
+								</label>
+							</div>
+						</div>
+
+
 
 						<div class="row mb-3">
 							<label class="col-lg-2 col-form-label pt-0"> السماح بالعرض </label>

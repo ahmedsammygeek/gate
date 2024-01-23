@@ -27,6 +27,7 @@ class StoreLessonRequest extends FormRequest
             'description_ar' => 'required' , 
             'description_en' => 'required' ,
             'is_active' => 'nullable' , 
+            'is_free' => 'nullable' , 
             'video' => 'required' ,  
             'files' => 'nullable' , 
             'files.*' => 'mimes:jpg,png,zip,rar,pdf,doc,docx,jpeg',

@@ -49,7 +49,7 @@
                         <tr>
                             <th > عنوان الدرس </th>
                             <th >  السماح بالعرض </th>
-
+                            <th >  هل الدرس مجانى </th>
                             <th class="text-center" style="width: 20px;">خصائص</th>
                         </tr>
                     </thead>
@@ -72,6 +72,18 @@
                                 @break
                                 @endswitch
                             </td>
+
+                            <td>
+                                @switch($lesson->is_free )
+                                @case(1)
+                                <span class="badge bg-success"> نعم </span>
+                                @break
+                                @case(0)
+                                <span class="badge bg-danger"> لا</span>
+                                @break
+                                @endswitch
+                            </td>
+
 
 
                             <td class="text-center">
