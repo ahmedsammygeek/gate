@@ -17,7 +17,7 @@
 </div>
 
 @php
-$home = $admins = $countries = $settings = $pages = $transactions = $users = $installments = $purchases =  $universities = $courses = $packages = $categories = $trainers = '';
+$home = $admins = $countries = $settings = $reviews = $pages = $transactions = $users = $installments = $purchases =  $universities = $courses = $packages = $categories = $trainers = '';
 switch (Request::segment(2)) {
     case 'admins':
     $admins = 'active';
@@ -55,6 +55,9 @@ switch (Request::segment(2)) {
     case 'settings':
     $settings = 'active';
     break;
+    case 'reviews':
+    $reviews = 'active';
+    break;
     default:
     $home = 'active';
     break;
@@ -87,7 +90,7 @@ switch (Request::segment(2)) {
                 </span>
             </a>
             <ul class="nav-group-sub collapse" data-submenu-title="المشرفين">
-             
+
                 @can('settings.social.edit')
                 <li class="nav-item"><a href="{{ route('board.settings.social.edit') }}" class="nav-link"> اعددادت التواصل </a></li>          
                 @endcan
@@ -119,6 +122,20 @@ switch (Request::segment(2)) {
                 @endcan
 
             </ul>
+        </li>
+        @endif
+
+        @if (auth()->user()->hasAnyPermission(['reviews.approve' , 'reviews.delete' ]))
+        <li class="nav-item">
+            <a href="{{ route('board.reviews.index') }}" class="nav-link {{ $reviews }}">
+                <i class="icon-comment-discussion "></i>
+                <span>
+                    تقييمات تحتاج الى موافقه
+                </span>
+                <span class="badge bg-primary align-self-center rounded-pill ms-auto">
+                    {{ App\Models\CourseReview::where('is_active' , 0 )->count()  }}
+                </span>
+            </a>
         </li>
         @endif
 
@@ -321,6 +338,9 @@ switch (Request::segment(2)) {
             </ul>
         </li>
         @endif
+
+
+
 
 
     </ul>

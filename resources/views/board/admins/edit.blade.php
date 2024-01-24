@@ -17,143 +17,143 @@
             </div>
 
             <form class="" method="POST" action="{{ route('board.admins.update', $admin) }}"  enctype="multipart/form-data">
-            <div class="card-body">
-                @csrf
-                @method('PATCH')
-                <div class="mb-4">
-                    <div class="fw-bold border-bottom pb-2 mb-3"> بيانات المشرف </div>
-                    <div class="row mb-3">
-                        <label class="col-form-label col-lg-2"> اسم المشرف <span
-                            class="text-danger">*</span></label>
-                            <div class="col-lg-10">
-                                <input autocomplete="off" type="text" name="name" value="{{ $admin->name }}"
-                                class="form-control @error('name')  is-invalid @enderror" required
-                                placeholder="اسم المشرف">
-                                @error('name')
-                                <p class='text-danger'> {{ $message }} </p>
-                                @enderror
-                            </div>
-                        </div>
+                <div class="card-body">
+                    @csrf
+                    @method('PATCH')
+                    <div class="mb-4">
+                        <div class="fw-bold border-bottom pb-2 mb-3"> بيانات المشرف </div>
                         <div class="row mb-3">
-                            <label class="col-form-label col-lg-2"> البريد الاكترونى <span
+                            <label class="col-form-label col-lg-2"> اسم المشرف <span
                                 class="text-danger">*</span></label>
                                 <div class="col-lg-10">
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="icon-mention "></i></span>
-                                        <input autocomplete="off" type="email" name="email" value='{{ $admin->email }}'
-                                        class="form-control @error('email')  is-invalid @enderror" required
-                                        placeholder="البريد الاكترونى">
-                                    </div>
-                                    @error('email')
+                                    <input autocomplete="off" type="text" name="name" value="{{ $admin->name }}"
+                                    class="form-control @error('name')  is-invalid @enderror" required
+                                    placeholder="اسم المشرف">
+                                    @error('name')
                                     <p class='text-danger'> {{ $message }} </p>
                                     @enderror
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label class="col-form-label col-lg-2"> رقم الجوال </label>
-                                <div class="col-lg-10">
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="icon-phone2 "></i></span>
-                                        <input autocomplete="off" type="text" name="phone" value='{{ $admin->phone }}'
-                                        class="form-control @error('phone')  is-invalid @enderror"
-                                        placeholder="رقم الجوال">
-                                    </div>
-                                    @error('phone')
-                                    <p class='text-danger'> {{ $message }} </p>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label class="col-form-label col-lg-2"> كلمه المرور </label>
-                                <div class="col-lg-10">
-                                    <div class="input-group">
-                                        <input autocomplete="new-password" type="password" name="password" id="passwordInput"
-                                        class="form-control" placeholder="كلمه المرور">
-                                        <span class="input-group-text" onclick="showPassword()"> <i
-                                            class="icon-eye2" id="passEye"></i></span>
+                                <label class="col-form-label col-lg-2"> البريد الاكترونى <span
+                                    class="text-danger">*</span></label>
+                                    <div class="col-lg-10">
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="icon-mention "></i></span>
+                                            <input autocomplete="off" type="email" name="email" value='{{ $admin->email }}'
+                                            class="form-control @error('email')  is-invalid @enderror" required
+                                            placeholder="البريد الاكترونى">
                                         </div>
-                                        @error('password')
+                                        @error('email')
                                         <p class='text-danger'> {{ $message }} </p>
                                         @enderror
                                     </div>
                                 </div>
                                 <div class="row mb-3">
-                                    <label class="col-form-label col-lg-2"> تاكيد كلمه المرور </label>
+                                    <label class="col-form-label col-lg-2"> رقم الجوال </label>
                                     <div class="col-lg-10">
                                         <div class="input-group">
-                                            <input autocomplete="off" type="password" name="password_confirmation" id="confirmPasswordInput"
-                                            class="form-control" placeholder="تاكيد كلمه المرور">
-                                            <span class="input-group-text" onclick="showConfirmedPassword()"> <i
-                                                class="icon-eye2" id="confirmPassEye"></i></span>
+                                            <span class="input-group-text"><i class="icon-phone2 "></i></span>
+                                            <input autocomplete="off" type="text" name="phone" value='{{ $admin->phone }}'
+                                            class="form-control @error('phone')  is-invalid @enderror"
+                                            placeholder="رقم الجوال">
+                                        </div>
+                                        @error('phone')
+                                        <p class='text-danger'> {{ $message }} </p>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label class="col-form-label col-lg-2"> كلمه المرور </label>
+                                    <div class="col-lg-10">
+                                        <div class="input-group">
+                                            <input autocomplete="new-password" type="password" name="password" id="passwordInput"
+                                            class="form-control" placeholder="كلمه المرور">
+                                            <span class="input-group-text" onclick="showPassword()"> <i
+                                                class="icon-eye2" id="passEye"></i></span>
                                             </div>
-                                            @error('password_confirmation')
+                                            @error('password')
                                             <p class='text-danger'> {{ $message }} </p>
                                             @enderror
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label class="col-lg-2 col-form-label pt-0"> السماح بدخول النظام </label>
+                                        <label class="col-form-label col-lg-2"> تاكيد كلمه المرور </label>
                                         <div class="col-lg-10">
-                                            <label class="form-check form-switch">
-                                                <input type="checkbox" value='1' class="form-check-input" name="active"
-                                                {{ $admin->is_banned == 0 ? 'checked' : '' }}>
-                                                <span class="form-check-label"> نعم </span>
-                                            </label>
+                                            <div class="input-group">
+                                                <input autocomplete="off" type="password" name="password_confirmation" id="confirmPasswordInput"
+                                                class="form-control" placeholder="تاكيد كلمه المرور">
+                                                <span class="input-group-text" onclick="showConfirmedPassword()"> <i
+                                                    class="icon-eye2" id="confirmPassEye"></i></span>
+                                                </div>
+                                                @error('password_confirmation')
+                                                <p class='text-danger'> {{ $message }} </p>
+                                                @enderror
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <label class="col-lg-2 col-form-label pt-0"> الصوره الشخصيه </label>
-                                        <div class="col-lg-10">
-                                            <input type="file" name="image" class="form-control">
-                                            @error('image')
-                                            <p class='text-danger'> {{ $message }} </p>
-                                            @enderror
+                                        <div class="row mb-3">
+                                            <label class="col-lg-2 col-form-label pt-0"> السماح بدخول النظام </label>
+                                            <div class="col-lg-10">
+                                                <label class="form-check form-switch">
+                                                    <input type="checkbox" value='1' class="form-check-input" name="active"
+                                                    {{ $admin->is_banned == 0 ? 'checked' : '' }}>
+                                                    <span class="form-check-label"> نعم </span>
+                                                </label>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <label class="col-lg-2 col-form-label pt-0">  الصلاحيات </label>
-                                        <div class="col-lg-10">
-                                            <div class="row">
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <p class="fw-semibold"> صلاحيات المشرفين </p>
-                                                        <div class="border p-3 rounded">
-                                                            <div class="form-check text-start mb-2">
-                                                                <input type="checkbox" name='permissions[]' value="admins.list" class="form-check-input" id="admins.list" {{ in_array('admins.list', $user_permissions) ? 'checked' : '' }}    >
-                                                                <label class="form-check-label" for="admins.list"> عرض كافه المشرفين </label>
-                                                            </div>
-                                                            <div class="form-check text-start mb-2">
-                                                                <input type="checkbox" name='permissions[]' value="admins.show" class="form-check-input" id="admins.show" {{ in_array('admins.show', $user_permissions) ? 'checked' : '' }}    >
-                                                                <label class="form-check-label" for="admins.show"> عرض بيانات المشرف </label>
-                                                            </div>
-                                                            <div class="form-check text-start mb-2">
-                                                                <input type="checkbox" name='permissions[]' value="admins.add" class="form-check-input" id="admins.add"  {{ in_array('admins.add', $user_permissions) ? 'checked' : '' }}   >
-                                                                <label class="form-check-label" for="admins.add"> إضافه مشرف جديد </label>
-                                                            </div>
-                                                            <div class="form-check text-start mb-2">
-                                                                <input type="checkbox" name='permissions[]' value="admins.delete" class="form-check-input" id="admins.delete" {{ in_array('admins.delete', $user_permissions) ? 'checked' : '' }}    >
-                                                                <label class="form-check-label" for="admins.delete"> حذف مشرف </label>
-                                                            </div>
-                                                            <div class="form-check text-start mb-2">
-                                                                <input type="checkbox" name='permissions[]' value="admins.edit" class="form-check-input" id="admins.edit" {{ in_array('admins.edit', $user_permissions) ? 'checked' : '' }}    >
-                                                                <label class="form-check-label" for="admins.edit"> تعديل بيانات المشرف </label>
+                                        <div class="row mb-3">
+                                            <label class="col-lg-2 col-form-label pt-0"> الصوره الشخصيه </label>
+                                            <div class="col-lg-10">
+                                                <input type="file" name="image" class="form-control">
+                                                @error('image')
+                                                <p class='text-danger'> {{ $message }} </p>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label class="col-lg-2 col-form-label pt-0">  الصلاحيات </label>
+                                            <div class="col-lg-10">
+                                                <div class="row">
+                                                    <div class="col-lg-3">
+                                                        <div class="mb-3">
+                                                            <p class="fw-semibold"> صلاحيات المشرفين </p>
+                                                            <div class="border p-3 rounded">
+                                                                <div class="form-check text-start mb-2">
+                                                                    <input type="checkbox" name='permissions[]' value="admins.list" class="form-check-input" id="admins.list" {{ in_array('admins.list', $user_permissions) ? 'checked' : '' }}    >
+                                                                    <label class="form-check-label" for="admins.list"> عرض كافه المشرفين </label>
+                                                                </div>
+                                                                <div class="form-check text-start mb-2">
+                                                                    <input type="checkbox" name='permissions[]' value="admins.show" class="form-check-input" id="admins.show" {{ in_array('admins.show', $user_permissions) ? 'checked' : '' }}    >
+                                                                    <label class="form-check-label" for="admins.show"> عرض بيانات المشرف </label>
+                                                                </div>
+                                                                <div class="form-check text-start mb-2">
+                                                                    <input type="checkbox" name='permissions[]' value="admins.add" class="form-check-input" id="admins.add"  {{ in_array('admins.add', $user_permissions) ? 'checked' : '' }}   >
+                                                                    <label class="form-check-label" for="admins.add"> إضافه مشرف جديد </label>
+                                                                </div>
+                                                                <div class="form-check text-start mb-2">
+                                                                    <input type="checkbox" name='permissions[]' value="admins.delete" class="form-check-input" id="admins.delete" {{ in_array('admins.delete', $user_permissions) ? 'checked' : '' }}    >
+                                                                    <label class="form-check-label" for="admins.delete"> حذف مشرف </label>
+                                                                </div>
+                                                                <div class="form-check text-start mb-2">
+                                                                    <input type="checkbox" name='permissions[]' value="admins.edit" class="form-check-input" id="admins.edit" {{ in_array('admins.edit', $user_permissions) ? 'checked' : '' }}    >
+                                                                    <label class="form-check-label" for="admins.edit"> تعديل بيانات المشرف </label>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <p class="fw-semibold"> صلاحيات المستخدمين </p>
-                                                        <div class="border p-3 rounded">
-                                                            <div class="form-check text-start mb-2">
-                                                                <input type="checkbox" name='permissions[]' value="users.list" class="form-check-input" id="users.list" {{ in_array('users.list', $user_permissions ) ? 'checked' : '' }} >
-                                                                <label class="form-check-label" for="users.list"> عرض كافه المستخدمين </label>
-                                                            </div>
-                                                            <div class="form-check text-start mb-2">
-                                                                <input type="checkbox" name='permissions[]' value="users.show" class="form-check-input" id="users.show" {{ in_array('users.show', $user_permissions ) ? 'checked' : '' }} >
-                                                                <label class="form-check-label" for="users.show"> عرض بيانات المستخدم </label>
-                                                            </div>
+                                                    <div class="col-lg-3">
+                                                        <div class="mb-3">
+                                                            <p class="fw-semibold"> صلاحيات المستخدمين </p>
+                                                            <div class="border p-3 rounded">
+                                                                <div class="form-check text-start mb-2">
+                                                                    <input type="checkbox" name='permissions[]' value="users.list" class="form-check-input" id="users.list" {{ in_array('users.list', $user_permissions ) ? 'checked' : '' }} >
+                                                                    <label class="form-check-label" for="users.list"> عرض كافه المستخدمين </label>
+                                                                </div>
+                                                                <div class="form-check text-start mb-2">
+                                                                    <input type="checkbox" name='permissions[]' value="users.show" class="form-check-input" id="users.show" {{ in_array('users.show', $user_permissions ) ? 'checked' : '' }} >
+                                                                    <label class="form-check-label" for="users.show"> عرض بيانات المستخدم </label>
+                                                                </div>
                                                             {{-- <div class="form-check text-start mb-2">
                                                                 <input type="checkbox" name='permissions[]' value="users.add" class="form-check-input" id="users.add" {{ in_array('users.add', $user_permissions ) ? 'checked' : '' }} >
                                                                 <label class="form-check-label" for="users.add"> إضافه مستخدم جديد </label>
@@ -479,6 +479,22 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <p class="fw-semibold"> صلاحيات التقييمات  </p>
+                                                        <div class="border p-3 rounded">
+                                                            <div class="form-check text-start mb-2">
+                                                                <input type="checkbox" name='permissions[]' value="reviews.approve" class="form-check-input" id="reviews.approve"  {{ in_array('reviews.approve', $user_permissions)  ? 'checked' : '' }}>
+                                                                <label class="form-check-label" for="reviews.approve"> الموافقه على التقييم </label>
+                                                            </div>
+                                                            <div class="form-check text-start mb-2">
+                                                                <input type="checkbox" name='permissions[]' value="reviews.delete" class="form-check-input" id="reviews.delete" {{ in_array('reviews.delete', $user_permissions)  ? 'checked' : '' }} >
+                                                                <label class="form-check-label" for="reviews.delete"> حذف التقييم </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
 
                                             </div>
                                         </div>
@@ -557,7 +573,7 @@
                 <script src="{{ asset('board_assets/js/vendor/notifications/sweet_alert.min.js') }}"></script>
                 <script src="{{ asset('board_assets/demo/pages/gallery.js') }}"></script>
                 <script>
-                   function showPassword() {
+                 function showPassword() {
                     var x = document.getElementById("passwordInput");
                     var passEye = document.getElementById("passEye");
 

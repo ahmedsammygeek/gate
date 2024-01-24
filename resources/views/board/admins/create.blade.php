@@ -482,6 +482,23 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <p class="fw-semibold"> صلاحيات التقييمات  </p>
+                                                <div class="border p-3 rounded">
+                                                    <div class="form-check text-start mb-2">
+                                                        <input type="checkbox" name='permissions[]' value="reviews.approve" class="form-check-input" id="reviews.approve" >
+                                                        <label class="form-check-label" for="reviews.approve"> الموافقه على التقييم </label>
+                                                    </div>
+                                                    <div class="form-check text-start mb-2">
+                                                        <input type="checkbox" name='permissions[]' value="reviews.delete" class="form-check-input" id="reviews.delete" >
+                                                        <label class="form-check-label" for="reviews.delete"> حذف التقييم </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>

@@ -21,6 +21,7 @@ use App\Http\Controllers\Board\UserInstallmentController;
 use App\Http\Controllers\Board\TransactionController;
 use App\Http\Controllers\Board\PackageInstallmentController;
 use App\Http\Controllers\Board\PageController;
+use App\Http\Controllers\Board\CourseReviewController;
 use App\Http\Controllers\Board\AjaxController;
 
 
@@ -68,6 +69,7 @@ Route::group(['prefix' => 'Board' , 'as' => 'board.'  ], function() {
         Route::resource('courses.units', CourseUnitController::class);  // done
         Route::resource('courses.units.lessons', LessonController::class);  // done
         Route::resource('pages', PageController::class);  // done
+        Route::resource('reviews', CourseReviewController::class);
 
         Route::get('purchases' , [PurchaseController::class ,'index'] )->name('purchases.index');
         Route::get('purchases/{purchase}' , [PurchaseController::class ,'show'] )->name('purchases.show');
