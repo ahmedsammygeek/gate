@@ -16,8 +16,7 @@
                 <h5 class="mb-0"> تعديل بيانات المشرف </h5>
             </div>
 
-            <form class="" method="POST" action="{{ route('board.admins.update', $admin) }}"
-            enctype="multipart/form-data">
+            <form class="" method="POST" action="{{ route('board.admins.update', $admin) }}" autocomplete="off" enctype="multipart/form-data">
             <div class="card-body">
                 @csrf
                 @method('PATCH')
