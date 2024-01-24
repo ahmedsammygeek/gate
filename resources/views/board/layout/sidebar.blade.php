@@ -94,9 +94,9 @@ switch (Request::segment(2)) {
                 @can('settings.payments.edit')
                 <li class="nav-item"><a href="{{ route('board.settings.payments.edit') }}" class="nav-link"> اعدادت الدفع </a></li>
                 @endcan
-                {{-- @can('settings.reviews.edit') --}}
-                <li class="nav-item"><a href="{{ route('board.settings.reviews.edit') }}" class="nav-link"> اعدادت التقييمات & التعليقات </a></li>
-                {{-- @endcan --}}
+                @can('settings.reviews.edit')
+                <li class="nav-item"><a href="{{ route('board.settings.reviews.edit') }}" class="nav-link"> اعدادت التقييمات </a></li>
+                @endcan
 
             </ul>
         </li>

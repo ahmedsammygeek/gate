@@ -465,12 +465,17 @@
                                                         <p class="fw-semibold"> صلاحيات الاعدادات  </p>
                                                         <div class="border p-3 rounded">
                                                             <div class="form-check text-start mb-2">
-                                                                <input type="checkbox" name='permissions[]' value="settings.social.edit" class="form-check-input" id="settings.social.edit"  {{ in_array('settings.social.edit', $user_permissions) }} >
+                                                                <input type="checkbox" name='permissions[]' value="settings.social.edit" class="form-check-input" id="settings.social.edit"  {{ in_array('settings.social.edit', $user_permissions)  ? 'checked' : '' }} >
                                                                 <label class="form-check-label" for="settings.social.edit"> تعديل الاعدادات العامه </label>
                                                             </div>
+
                                                             <div class="form-check text-start mb-2">
-                                                                <input type="checkbox" name='permissions[]' value="settings.payments.edit" class="form-check-input" id="settings.payments.edit"  {{ in_array('settings.payments.edit', $user_permissions) }} >
+                                                                <input type="checkbox" name='permissions[]' value="settings.payments.edit" class="form-check-input" id="settings.payments.edit"  {{ in_array('settings.payments.edit', $user_permissions)  ? 'checked' : '' }} >
                                                                 <label class="form-check-label" for="settings.payments.edit"> تعديل اعدادات الدفع </label>
+                                                            </div>
+                                                            <div class="form-check text-start mb-2">
+                                                                <input type="checkbox" name='permissions[]' value="settings.reviews.edit" class="form-check-input" id="settings.reviews.edit"  {{ in_array('settings.reviews.edit', $user_permissions)  ? 'checked' : '' }} >
+                                                                <label class="form-check-label" for="settings.reviews.edit"> تعديل اعدادات التقييمات </label>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -553,7 +558,7 @@
                 <script src="{{ asset('board_assets/js/vendor/notifications/sweet_alert.min.js') }}"></script>
                 <script src="{{ asset('board_assets/demo/pages/gallery.js') }}"></script>
                 <script>
-                 function showPassword() {
+                   function showPassword() {
                     var x = document.getElementById("passwordInput");
                     var passEye = document.getElementById("passEye");
 

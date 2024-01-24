@@ -15,6 +15,7 @@ class SettingController extends Controller
 
     public function edit()
     {
+        $this->authorize('settings.social.edit');
         $info = Setting::first();
         return view('board.settings.edit' , compact('info'));
     }
@@ -22,12 +23,14 @@ class SettingController extends Controller
 
     public function edit_payments()
     {
+        $this->authorize('settings.payments.edit');
         $info = Setting::first();
         return view('board.settings.edit_payments' , compact('info'));
     }
 
     public function edit_reviews()
     {
+        $this->authorize('settings.reviews.edit');
         $info = Setting::first();
         return view('board.settings.edit_reviews' , compact('info'));
     }
@@ -38,6 +41,7 @@ class SettingController extends Controller
      */
     public function update(UpdateSettingsRequest $request)
     {
+        $this->authorize('settings.social.edit');
         $info = Setting::first();
         $info->email = $request->email;
         $info->phone = $request->mobile ;
@@ -56,6 +60,7 @@ class SettingController extends Controller
 
     public function update_payments(UpdatePaymentSettingsRequest $request)
     {
+        $this->authorize('settings.payments.edit');
         $info = Setting::first();
         $info->bank_misr = $request->bank_misr;
         $info->my_fatoora = $request->my_fatoora ;
@@ -74,9 +79,9 @@ class SettingController extends Controller
 
     public function update_reviews(UpdateReviewSettingsRequest $request)
     {
+        $this->authorize('settings.reviews.edit');
         $info = Setting::first();
         $info->reviews_default_approve_value = $request->reviews_default_approve_value;
-        $info->comment_default_approve_value = $request->comment_default_approve_value ;
         $info->save();
         return redirect()->back()->with('success' , 'تم التعديل بنجاح' );
     }

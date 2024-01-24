@@ -475,6 +475,10 @@
                                                         <input type="checkbox" name='permissions[]' value="settings.payments.edit" class="form-check-input" id="settings.payments.edit" >
                                                         <label class="form-check-label" for="settings.payments.edit"> تعديل اعدادات الدفع </label>
                                                     </div>
+                                                    <div class="form-check text-start mb-2">
+                                                        <input type="checkbox" name='permissions[]' value="settings.reviews.edit" class="form-check-input" id="settings.reviews.edit" >
+                                                        <label class="form-check-label" for="settings.reviews.edit"> تعديل اعدادات التقييمات </label>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

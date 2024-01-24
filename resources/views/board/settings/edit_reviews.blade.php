@@ -21,7 +21,7 @@
 					@csrf
 					@method('PATCH')
 					<div class="mb-4">
-						<div class="fw-bold border-bottom pb-2 mb-3"> اعدادات التقييمات & التعليقات </div>
+						<div class="fw-bold border-bottom pb-2 mb-3"> اعدادات التقييمات  </div>
 						<div class="row mb-3">
 							<label class="col-form-label col-lg-2">  الموافقه على التقييم بشكل افتراضى </label>
 							<div class="col-lg-10">
@@ -37,7 +37,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="row mb-3">
+						{{-- <div class="row mb-3">
 							<label class="col-form-label col-lg-2"> الموافقه على التعليق بشكل افتراضى </label>
 							<div class="col-lg-10">
 								<div class="border p-3 rounded">
@@ -51,7 +51,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div> --}}
 				
 					</div>
 					

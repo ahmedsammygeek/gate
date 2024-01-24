@@ -23,7 +23,7 @@ class UpdateReviewSettingsRequest extends FormRequest
     {
         return [
             'reviews_default_approve_value' => 'required' , 
-            'comment_default_approve_value' => 'required' , 
+            // 'comment_default_approve_value' => 'required' , 
         ];
     }
 }
