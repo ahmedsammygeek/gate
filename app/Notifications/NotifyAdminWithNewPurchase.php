@@ -40,10 +40,11 @@ class NotifyAdminWithNewPurchase extends Notification
      */
     public function toArray(object $notifiable): array
     {
+        $this->purchase->load(['order' , 'order.course']);
         return [
             'type' => 'purchase' , 
             'title' => 'عمليه شراء جديده ' , 
-            'content' => 'لقد تمت عمليه شراء جديده برقم : '.$this->purchase->purchase_number.' بمبلغ : '.$this->purchase->total, 
+            'content' => 'لقد تمت عمليه شراء جديده برقم : '.$this->purchase->purchase_number.' بمبلغ : '.$this->purchase->total.' ل '.$this->purchase->order?->course?->title, 
             'url'  => route('board.purchases.show' , $this->purchase->id ) ,
         ];  
     }

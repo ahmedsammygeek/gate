@@ -12,7 +12,9 @@ use MyFatoorah\Library\API\Payment\MyFatoorahPaymentEmbedded;
 use MyFatoorah\Library\API\Payment\MyFatoorahPaymentStatus;
 use Exception;
 use Str;
+use Notification;
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Order;
 use App\Models\Purchase;
 use App\Models\PurchaseItem;
@@ -20,7 +22,10 @@ use App\Models\Transaction;
 use App\Models\Course;
 use App\Models\UserCourse;
 use App\Models\UserInstallments;
-
+use App\Models\Setting;
+use App\Notifications\NotifyAdminWithNewPurchase;
+use App\Notifications\NotifyAdminWithInstallmentPaid;
+use App\Notifications\NotifyAdminWithNewTransaction;
 class CheckoutController extends Controller
 {
 
@@ -96,8 +101,8 @@ class CheckoutController extends Controller
         $purchase =  $this->addPurchaseToUser($order);
         $this->addCoursesToUser($purchase);
         $this->addInstallmentsToUser($order , $purchase );
-
-        $message = 'تمت عمليه الشراء بنجاح';
+        $settings = Setting::first();
+        $message = $settings->bank_transfer_message;
         $status = 'success';
         $order_number = $order->order_number;
         return redirect(url('https://frontend.thegatelearning.com/confirm?message='.$message.'&status='.$status.'&order='.$order_number));
@@ -313,6 +318,10 @@ class CheckoutController extends Controller
                 }
             }
             $transaction->save();
+
+
+            $users = User::permission(['notifications.installments.pay'])->get();
+            Notification::send($users,  (new NotifyAdminWithNewTransaction($transaction)) );
         }
         return true;
     }
@@ -366,6 +375,14 @@ class CheckoutController extends Controller
             'item_type' => $order->course?->type , 
         ]);
         $purchase->items()->saveMany($purchase_items); 
+
+        // here we need to push th notifcation 
+
+        $users = User::permission(['notifications.purchases.new'])->get();
+        Notification::send($users,  (new NotifyAdminWithNewPurchase($purchase)) );
+
+
+
         return $purchase;       
     }
 

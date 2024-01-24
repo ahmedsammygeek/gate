@@ -84,7 +84,7 @@ class PayInstallmentController extends Controller
                 $transaction->save();
 
                 // now we need to notify admins with new transaction
-                $users = User::permission(['notifications.transactions.new'])->get();
+                $users = User::permission(['notifications.purchases.new'])->get();
                 Notification::send($users,  (new NotifyAdminWithNewTransaction($transaction)) );
 
 
