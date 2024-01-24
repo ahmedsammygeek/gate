@@ -16,7 +16,7 @@
                 <h5 class="mb-0"> تعديل بيانات المشرف </h5>
             </div>
 
-            <form class="" method="POST" action="{{ route('board.admins.update', $admin) }}" autocomplete="off" enctype="multipart/form-data">
+            <form class="" method="POST" action="{{ route('board.admins.update', $admin) }}"  enctype="multipart/form-data">
             <div class="card-body">
                 @csrf
                 @method('PATCH')
@@ -68,7 +68,7 @@
                                 <label class="col-form-label col-lg-2"> كلمه المرور </label>
                                 <div class="col-lg-10">
                                     <div class="input-group">
-                                        <input autocomplete="off" type="password" name="password" id="passwordInput"
+                                        <input autocomplete="new-password" type="password" name="password" id="passwordInput"
                                         class="form-control" placeholder="كلمه المرور">
                                         <span class="input-group-text" onclick="showPassword()"> <i
                                             class="icon-eye2" id="passEye"></i></span>

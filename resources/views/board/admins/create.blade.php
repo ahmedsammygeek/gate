@@ -14,7 +14,7 @@
                 <h5 class="mb-0"> إضافه مشرف جديد </h5>
             </div>
 
-            <form class="" method="POST" action="{{ route('board.admins.store') }}" autocomplete="off" enctype="multipart/form-data">
+            <form class="" method="POST" action="{{ route('board.admins.store') }}" enctype="multipart/form-data">
                 <div class="card-body">
                     @csrf
                     <div class="mb-4">
@@ -24,7 +24,7 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="col-lg-10">
-                                <input autocomplete="off" type="text" name="name" value="{{ old('name') }}"
+                                <input  type="text" name="name" value="{{ old('name') }}"
                                 class="form-control @error('name')  is-invalid @enderror" required
                                 placeholder="اسم المشرف">
                                 @error('name')
@@ -67,7 +67,7 @@
                                 <span class="text-danger">*</span></label>
                                 <div class="col-lg-10">
                                     <div class="input-group">
-                                        <input autocomplete="off" type="password" name="password" id="passwordInput"
+                                        <input autocomplete="new-password" type="password" name="password" id="passwordInput"
                                         class="form-control" required placeholder="كلمه المرور">
                                         <span class="input-group-text" onclick="showPassword()">
                                             <i class="icon-eye2" id="passEye"></i>
