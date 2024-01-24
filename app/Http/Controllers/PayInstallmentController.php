@@ -264,7 +264,7 @@ class PayInstallmentController extends Controller
         }
         $status = 'success';
         $message = 'تمت عمليه الدفع بنجاح';
-        dd($status , $message );
-        // return redirect(url('https://frontend.thegatelearning.com/installment-confirm?message='.$message.'&status='.$status));
+        // dd($status , $message );
+        return redirect(url('https://frontend.thegatelearning.com/installment-confirm?message='.$message.'&status='.$status));
     }
 }
