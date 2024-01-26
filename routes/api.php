@@ -42,14 +42,19 @@ Route::prefix("v1")->group(function () {
         Route::get('profile/purchases', [ProfileController::class, 'purchases']);
         Route::get('profile/transactions', [ProfileController::class, 'transactions']);
         Route::post('profile/password', [ProfileController::class, 'changePassword']);
-        Route::post('profile/validate/number', [ProfileController::class, 'sendOtp']);
-        Route::put('profile/number', [ProfileController::class, 'changeWtsNumber']);
         Route::post('logout', [AuthController::class, 'logout']);
         Route::get('notifications' , [NotificationController::class , 'index'] );
         Route::patch('notifications' , [NotificationController::class , 'update'] );
         Route::get('checkout' , [CheckoutController::class , 'index'] );
         Route::post('checkout' , [CheckoutController::class , 'checkout']);
         Route::post('courses/{identifier}/rate', [RateController::class, 'store']);
+
+        // change what's app number steps
+        Route::post('profile/number/request_to_change', [ProfileController::class, 'requestToChange']);
+        Route::post('profile/number/verify_otp', [ProfileController::class, 'verifyOtpForStepTwo']);
+        Route::post('profile/number/put_new_number', [ProfileController::class, 'sendOtpToNewNumber']);
+        Route::post('profile/number/verify_new_number', [ProfileController::class, 'verifyNewNumber']);
+
     });
     Route::get('settings/social' , [SettingsController::class , 'social'] );
     Route::get('settings/payments' , [SettingsController::class , 'payments'] );

@@ -12,14 +12,21 @@ use App\Http\Resources\ProfileResource;
 use App\Http\Requests\Api\Auth\ProfileRequest;
 use App\Http\Requests\Api\Auth\ChangePasswordRequest;
 use Auth;
+use Carbon\Carbon;
 use App\Http\Resources\Api\UserCourseRecourse;
 use App\Models\UserCourse;
 use App\Models\Purchase;
 use App\Models\Transaction;
 use App\Models\UserInstallments;
+use App\Models\PhoneCodeVerification;
 use App\Http\Resources\Api\UserInstallmentResource;
 use App\Http\Resources\Api\UserPurchaseResource;
 use App\Http\Resources\Api\UserTransactionResource;
+use Notification;
+use App\Notifications\TestNotification;
+use App\Channels\WhatsAppChannel;
+
+use App\Http\Requests\Api\CheckNewNumberRequest;
 class ProfileController extends Controller
 {
     public function index()
@@ -88,53 +95,109 @@ class ProfileController extends Controller
             'status' => true,
             'message' => 'success',
             'data' => null
-        ]);
+        ] , 200);
     }
 
+    public function requestToChange() {
 
-    public function sendOtp(ChangeWtsNumberRequest $request)
-    {
-        $data = $request->validated();
+        $user = Auth::user();
+        // we need now to send otp to user number to verify the first step
+        $code = new PhoneCodeVerification;
+        $code->code = substr(str_shuffle('0123456789'), 0 , 5 );
+        $code->phone = $user->phone;
+        $code->save();
 
-        $otp = mt_rand(1000, 9999);
 
-        auth()->user()->update(['otp' => $otp]);
-
+        Notification::route('WhatsApp', $user->phone )->notify(new TestNotification($code->code));
         return response()->json([
             'status' => true,
-            'message' => 'success',
-            'data' => (object) [
-                'code' => $otp,
-                'phone' => $data['phone']
-            ]
-        ]);
+            'message' => 'otp send to your current whats app number to virify it is you ',
+            'data' => [] , 
+        ] , 200);
     }
 
-    public function changeWtsNumber(SendOtpRequest $request)
+
+    public function verifyOtpForStepTwo(SendOtpRequest $request)
     {
-        $data = $request->validated();
-
-        $user = User::whereId(auth()->id())->where('otp', $data['otp'])->first();
-
-        if (!$user) {
-
+        $user = Auth::user();
+        $code = PhoneCodeVerification::where('code' , $request->otp )->where('phone' , $user->phone )->first();
+        if (!$code) {
             return response()->json([
                 'status' => false,
-                'message' => 'incorrect otp',
-                'data' => null
-            ], 401);
+                'message' => 'otp not correct',
+                'data' => [] , 
+            ]);
+        }
+        $code->step = 3;
+        $code->save();
+
+        return response()->json([
+            'status' => false,
+            'message' => 'you are ready now put your new number',
+            'data' => [] , 
+        ] , 200);
+    }
+
+    public function sendOtpToNewNumber(CheckNewNumberRequest $request)
+    {
+        $user = Auth::user();
+        $code = PhoneCodeVerification::where('phone' , $user->phone )->where('step' , 3 )->first();
+
+        if (!$code) {
+            return response()->json([
+                'status' => false,
+                'message' => 'you did not verify the action first',
+                'data' => [] , 
+            ] , 200);
         }
 
 
-        auth()->user()->update([
-            'otp' => null,
+        $code = new PhoneCodeVerification;
+        $code->code = substr(str_shuffle('0123456789'), 0 , 5 );
+        $code->phone = $request->phone;
+        $code->save();
+
+
+        Notification::route('WhatsApp', $request->phone )->notify(new TestNotification($code->code));
+        return response()->json([
+            'status' => true,
+            'message' => 'otp send to your new whats app number  ',
+            'data' => [] , 
         ]);
+    }
+
+    public function verifyNewNumber(ChangeWtsNumberRequest $request)
+    {
+        $code = PhoneCodeVerification::where('phone' , $request->phone )->where('code' , $request->code )->first();
+        if (!$code) {
+            return response()->json([
+                'status' => false,
+                'message' => 'otp is not valid',
+                'data' => [] , 
+            ]);
+        }
+
+        $user = Auth::user();
+        $code = PhoneCodeVerification::where('phone' , $user->phone )->where('step' , 3 )->first();
+        if ($code) {
+            $code->delete();
+        }
+
+        $code2 = PhoneCodeVerification::where('phone' , $request->phone )->first();
+        if ($code2) {
+            $code2->delete();
+        }
+
+        $user->phone = $request->phone;
+        $user->last_date_number_changed = Carbon::now();
+        $user->save();
 
         return response()->json([
             'status' => true,
-            'message' => 'success',
-            'data' => null
+            'message' => 'number changed successully',
+            'data' => [] , 
         ]);
+
     }
 
 
@@ -167,7 +230,7 @@ class ProfileController extends Controller
     }
 
 
-        public function transactions() {
+    public function transactions() {
 
         $transactions = Transaction::with(['purchase' , 'installment' ])->where('user_id' , Auth::id() )->latest()->get();
 
