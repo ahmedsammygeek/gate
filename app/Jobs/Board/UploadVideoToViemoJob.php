@@ -42,10 +42,16 @@ class UploadVideoToViemoJob implements ShouldQueue
             ] , 
             'embed_domains' => [
                 'localhost:8000' , 
+                'http://localhost:8000' , 
+                'https://localhost:8000' , 
                 'https://thegatelearning.com/' ,
                 'http://thegatelearning.com/' ,
                 'https://backend.thegatelearning.com' ,
                 'https://frontend.thegatelearning.com' ,
+                'https://thegatebeta.netlify.app/' , 
+                'localhost:3000' , 
+                'http://localhost:3000' , 
+                'https://localhost:3000' , 
             ]
         ] );
         $this->lesson->vimeo_number = explode('videos/', $video_path)[1];
