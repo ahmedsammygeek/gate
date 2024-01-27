@@ -12,6 +12,7 @@ use App\Http\Resources\Api\PackageResource;
 use App\Http\Resources\Api\PackageDetailsResource;
 use App\Http\Resources\DetailedCourseResource;
 use Auth;
+use Carbon\Carbon;
 use App\Http\Resources\Api\LessonDetailsResource;
 use App\Jobs\Api\AddLessonToUserViewJob;
 use App\Http\Resources\CourseUnitResource;
@@ -20,16 +21,10 @@ class CourseController extends Controller
 {
     public function index(Request $request)
     {
-
-        $token =  PersonalAccessToken::findToken($request->bearerToken());
-        $user_courses = UserCourse::where('user_id' , $token?->tokenable_id )->pluck('course_id')->toArray();
-
-
-        // dd($user_courses );
-
         $courses = Course::query()
-        ->whereNotIn('id' , $user_courses )
         ->where('type' , Course::COURSE ) 
+        ->where('is_active' , 1 )
+        ->where('ends_at' , '>' , Carbon::today() )
         ->with(['trainer', 'category'])
         ->when($request->category_id , function($query) use ($request) {
             $query->where('category_id' , $request->category_id );
@@ -50,13 +45,10 @@ class CourseController extends Controller
     public function packages(Request $request)
     {
 
-        $token =  PersonalAccessToken::findToken($request->bearerToken());
-        $user_courses = UserCourse::where('user_id' , $token?->tokenable_id )->pluck('course_id')->toArray();
-
-
         $packages = Course::query()
-        ->whereNotIn('id' , $user_courses )
-        ->where('type' , Course::PACKAGE ) 
+        ->where('type' , Course::PACKAGE )
+        ->where('is_active' , 1 )
+        ->where('ends_at' , '>' , Carbon::today() ) 
         ->with(['trainer', 'category'])
         ->when($request->category_id , function($query) use ($request) {
             $query->where('category_id' , $request->category_id );

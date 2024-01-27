@@ -42,7 +42,7 @@ class DetailedCourseResource extends JsonResource
             $data['purchase_date'] = null ;
             $data['expires_at'] = null ;
             $data['allowed'] = false ;
-            $data['deny_reason'] = '' ;
+            $data['deny_reason'] = 'you need to log in first' ;
             return $data;
         }
 
@@ -52,7 +52,7 @@ class DetailedCourseResource extends JsonResource
             $data['purchase_date'] = null ;
             $data['expires_at'] = null ;
             $data['allowed'] = false ;
-            $data['deny_reason'] = '' ;
+            $data['deny_reason'] = 'you need to log in first' ;
             return $data;
         }
 
@@ -63,7 +63,7 @@ class DetailedCourseResource extends JsonResource
             $data['purchase_date'] = null ;
             $data['expires_at'] = null ;
             $data['allowed'] = false ;
-            $data['deny_reason'] = '' ;
+            $data['deny_reason'] = 'you did not purchase this item yet' ;
             return $data;
         }
 
