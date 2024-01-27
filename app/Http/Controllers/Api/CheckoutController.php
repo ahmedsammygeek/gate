@@ -49,27 +49,27 @@ class CheckoutController extends Controller
             $first_installment = $course->installments()->where('days' , 0 )->first();
             $payment_types['installments']['amount_due_today']  = $first_installment ? $first_installment->amount : 0 ;
             if ($first_installment) {
-                 $payment_types['installments']['first_payment_date']  = Carbon::today()->toDateString();
-            } else {
-                $first_installment =  $course->installments()->orderBy('days' , 'ASC' )->first();
-                $payment_types['installments']['first_payment_date']  = Carbon::today()->addDay($first_installment->days)->toDateString();
-            }
-            
+               $payment_types['installments']['first_payment_date']  = Carbon::today()->toDateString();
+           } else {
+            $first_installment =  $course->installments()->orderBy('days' , 'ASC' )->first();
+            $payment_types['installments']['first_payment_date']  = Carbon::today()->addDay($first_installment->days)->toDateString();
         }
 
-        $info = Setting::first();
-        return response()->json([
-            'status' => true,
-            'message' => 'success',
-            'data' =>  (object) [
-                'payment_methods' => new PaymentSettingsResource($info) , 
-                'courses_details' => new BasicCourseResource($course) , 
-                'payment_types' => $payment_types , 
-                'can_purchase_this_item' => $this->canPurchaseThisItem($course) , 
-            ] , 
-        ]);
-
     }
+
+    $info = Setting::first();
+    return response()->json([
+        'status' => true,
+        'message' => 'success',
+        'data' =>  (object) [
+            'payment_methods' => new PaymentSettingsResource($info) , 
+            'courses_details' => new BasicCourseResource($course) , 
+            'payment_types' => $payment_types , 
+            'can_purchase_this_item' => $this->canPurchaseThisItem($course) , 
+        ] , 
+    ]);
+
+}
 
     /**
      * Show the form for creating a new resource.
@@ -81,6 +81,14 @@ class CheckoutController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'success',
+                'data' =>  []
+            ]);
+        }
+
+        if (!$this->canPurchaseThisItem($course)) {
+            return response()->json([
+                'status' => false,
+                'message' => 'you can not purchase this item case it is still active in you purchases items',
                 'data' =>  []
             ]);
         }
