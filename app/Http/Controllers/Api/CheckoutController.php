@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Course;
 use App\Models\Order;
 use App\Models\Setting;
+use App\Models\UserCourse;
 use App\Http\Requests\Api\CheckoutRequest;
 use App\Http\Requests\Api\CheckoutStep2Request;
 use App\Http\Resources\BasicCourseResource;
@@ -63,7 +64,8 @@ class CheckoutController extends Controller
             'data' =>  (object) [
                 'payment_methods' => new PaymentSettingsResource($info) , 
                 'courses_details' => new BasicCourseResource($course) , 
-                'payment_types' => $payment_types
+                'payment_types' => $payment_types , 
+                'can_purchase_this_item' => $this->canPurchaseThisItem($course) , 
             ] , 
         ]);
 
@@ -156,8 +158,22 @@ class CheckoutController extends Controller
                 'payment_link' => $url , 
             ] , 
         ]);
+    }
 
 
+
+    public function canPurchaseThisItem(Course $course)
+    {   
+        $user = Auth::user();
+        $user_course = UserCourse::where('user_id' , $user->id )->where('course_id' , $course->id )->latest()->first();
+        if (!$user_course) {
+            return true;
+        }
+
+        if ($user_course->expires_at >= Carbon::today() ) {
+            return false;
+        }
+        return true;  
     }
 
 
