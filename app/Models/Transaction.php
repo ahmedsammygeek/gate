@@ -34,10 +34,6 @@ class Transaction extends Model
             case Transaction::BANK_MISR:
             return 'بنك مصر';
             break;
-            
-            default:
-                // code...
-            break;
         }
     }
 

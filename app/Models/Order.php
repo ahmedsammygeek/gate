@@ -19,4 +19,22 @@ class Order extends Model
     {
         return $this->belongsTo(Course::class);
     }
+
+    public function paymentMethodAsText() {
+        switch ($this->payment_method) {
+            case 3:
+            return 'تحويل بنكى';
+            break;
+            case 2:
+            return 'ماى فاتوره';
+            break;
+            case 1:
+            return 'بنك مصر';
+            break;
+            default:
+            'لم يتم التحديد';
+            break;
+        }
+    }
+
 }

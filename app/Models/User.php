@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Spatie\Permission\Traits\HasRoles;
+use Carbon\Carbon;
 class User extends Authenticatable
 {
 
@@ -29,6 +30,7 @@ class User extends Authenticatable
 
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'last_date_number_changed' => 'datetime',
         'password' => 'hashed',
     ];
 
@@ -86,5 +88,16 @@ class User extends Authenticatable
         }
 
         return 'تحضيرى';
+    }
+
+
+    public function canUserChangeWhatsAppNumber()
+    {
+        if ($this->last_date_number_changed->diffInDays(Carbon::today()) >= 7 ) {
+            return true;
+        }
+
+
+        return false;
     }
 }
