@@ -100,4 +100,9 @@ class Course extends Model
     {
         return $this->hasManyThrough( Lesson::class , CourseUnit::class );
     }
+
+    public function availableForPurchase()
+    {
+        return true;
+    }
 }

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Carbon\Carbon;
 class UserCourse extends Model
 {
     use HasFactory;
@@ -27,5 +27,22 @@ class UserCourse extends Model
     public function course()
     {
         return $this->belongsTo(Course::class , 'course_id');
+    }
+
+
+
+    public static function isAllowedToWatchForApi($user_id , $course_id)
+    {
+
+        $user_course = self::where('user_id' , $user_id )->where('course_id' , $course_id )->latest()->first();
+        if (!$user_course) {
+            return false;
+        }
+
+        if ($user_course->expires_at >= Carbon::today() ) {
+            return true;
+        }
+
+        return false;
     }
 }

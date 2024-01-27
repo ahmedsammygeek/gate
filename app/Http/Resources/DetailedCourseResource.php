@@ -9,6 +9,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Api\ReviewResource;
 use Auth;
 use App\Models\UserCourse;
+use Carbon\Carbon;
 class DetailedCourseResource extends JsonResource
 {
 
@@ -35,23 +36,54 @@ class DetailedCourseResource extends JsonResource
             'ends_at' => $this->ends_at->toDateString() , 
         ];
 
-        if ($request->bearerToken() != null ) {
-            $token =  PersonalAccessToken::findToken($request->bearerToken());
-            $user_course = UserCourse::where('user_id' , $token?->tokenable_id )->where('course_id' , $this->id )->latest()->first();
-            if ($user_course) {
-                $data['dose_user_purchase_this'] = true ;
-                $data['purchase_date'] = $user_course->created_at->toDateString() ;
-                $data['expires_at'] = $user_course->expires_at ;
-            } else {
-                $data['dose_user_purchase_this'] = false ; 
-                $data['purchase_date'] = null ;
-                $data['expires_at'] = null ;
-            }
-        } else {
-            $data['dose_user_purchase_this'] = false ; 
+
+        if ($request->bearerToken() == null ) {
+            $data['can_user_purchase_this'] = true ; 
             $data['purchase_date'] = null ;
             $data['expires_at'] = null ;
+            $data['allowed'] = false ;
+            $data['deny_reason'] = '' ;
+            return $data;
         }
+
+        $token =  PersonalAccessToken::findToken($request->bearerToken());
+        if (!$token) {
+            $data['can_user_purchase_this'] = true ; 
+            $data['purchase_date'] = null ;
+            $data['expires_at'] = null ;
+            $data['allowed'] = false ;
+            $data['deny_reason'] = '' ;
+            return $data;
+        }
+
+        $user_course = UserCourse::where('user_id' , $token?->tokenable_id )->where('course_id' , $this->id )->latest()->first();
+
+        if (!$user_course) {
+            $data['can_user_purchase_this'] = true ; 
+            $data['purchase_date'] = null ;
+            $data['expires_at'] = null ;
+            $data['allowed'] = false ;
+            $data['deny_reason'] = '' ;
+            return $data;
+        }
+
+        if ($user_course->expires_at >= Carbon::today() ) {
+            $data['can_user_purchase_this'] = false ;
+            $data['purchase_date'] = $user_course->created_at->toDateString() ;
+            $data['expires_at'] = $user_course->expires_at->toDateString() ;
+            $data['allowed'] = UserCourse::isAllowedToWatchForApi($token?->tokenable_id , $this->id )  ;
+            $data['deny_reason'] = $user_course->deny_reason ;
+            return $data;
+        }
+
+        $data['can_user_purchase_this'] = true ;
+        $data['purchase_date'] = $user_course->created_at->toDateString() ;
+        $data['expires_at'] = $user_course->expires_at->toDateString() ;
+        $data['allowed'] =  UserCourse::isAllowedToWatchForApi($token?->tokenable_id , $this->id )  ;
+        $data['deny_reason'] = $user_course->deny_reason ;
+
+
         return $data;
+
     }
 }
