@@ -4,11 +4,11 @@ namespace App\Http\Resources\Api;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Storage;
-use App\Models\UserLessonView;
 use Auth;
+use App\Models\UserLessonView;
 use App\Models\UserCourse;
-class UserCourseRecourse extends JsonResource
+use Storage;
+class UserPackageCourseResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -23,11 +23,10 @@ class UserCourseRecourse extends JsonResource
             'image' => Storage::url('courses/'.$this->course?->image) , 
             'course_total_lessons' => $this->course?->lessons->count() , 
             'course_viewed_lessons' => UserLessonView::where('course_id' , $this->course_id )->where('user_id' , Auth::id() )->count() , 
-            'price' => rand(200 , 4000) , 
             'is_allowd' => UserCourse::isAllowedToWatchForApi(Auth::id()  ,  $this->course_id ) , 
             'deny_reason' => UserCourse::denyReasonForApi( Auth::id()    , $this->course_id) , 
-            'item_type' => 'course' , 
+            'item_type' =>  'course_of_package' , 
             'expires_at' => $this->expires_at->toDateString() , 
-        ]; 
+        ];
     }
 }

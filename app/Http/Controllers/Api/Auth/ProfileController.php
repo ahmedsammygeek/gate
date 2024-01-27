@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Auth;
 use App\Http\Requests\Api\Auth\ChangeWtsNumberRequest;
 use App\Http\Requests\Api\Auth\SendOtpRequest;
 use App\Models\User;
+use App\Models\Course;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -25,8 +26,8 @@ use App\Http\Resources\Api\UserTransactionResource;
 use Notification;
 use App\Notifications\TestNotification;
 use App\Channels\WhatsAppChannel;
-
 use App\Http\Requests\Api\CheckNewNumberRequest;
+use App\Http\Resources\Api\UserPackageResource;
 class ProfileController extends Controller
 {
     public function index()
@@ -68,17 +69,29 @@ class ProfileController extends Controller
     public function courses()
     {
         $user = Auth::user();
+        // here is the only purchase courses
+        $user_courses = UserCourse::where('user_id' , $user->id )->where('related_package_id' , null)->get();
+        // here is the package
+        $user_packages_ids = UserCourse::where('user_id' , $user->id )->where('related_package_id' , '!=' , null )->select('related_package_id')->groupBy('related_package_id')->pluck('related_package_id')->toArray();
 
-        $user_courses = UserCourse::where('user_id' , $user->id )->where('course_type' , 1 )->get();
-        $user_packages = UserCourse::where('user_id' , $user->id )->where('course_type' , 2 )->get();
 
+        $user_packages = Course::find($user_packages_ids);
+
+        // return $user_packages;
+ 
+        $user_packages->map(function($user_package , $key ){
+            $user_package['expires_at'] = UserCourse::where('user_id' , Auth::id() )->where('related_package_id' , $user_package->id )->first()?->expires_at ; 
+            $user_package['courses'] = UserCourse::where('user_id' , Auth::id() )->where('related_package_id' , $user_package->id )->get();
+        });
+
+        // dd($user_packages);
 
         return response()->json([
             'status' => true,
             'message' => '',
             'data' => (object) [
                 'courses' => UserCourseRecourse::collection($user_courses) , 
-                'packages' => UserCourseRecourse::collection($user_packages) , 
+                'packages' => UserPackageResource::collection($user_packages) , 
             ]
         ]);
     }
