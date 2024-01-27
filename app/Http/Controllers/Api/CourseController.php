@@ -138,6 +138,17 @@ class CourseController extends Controller
             ] , 403); 
         }
 
+
+        // we need to check if this lesson in non exipred course
+        $user_course = UserCourse::where('user_id' , Auth::id() )->where('course_id'  , $course->id)->first();
+        if ($user_course->expires_at < Carbon::today() ) {
+            return response()->json([
+                'status' => false,
+                'message' => "you can not access this course cause it is expired at , ".$user_course->expires_at->toDateString(),
+                "data" => []
+            ] , 403); 
+        }
+
         $lesson->load('unit.course');
         // we need to check if this lesson related to this course or not
 
@@ -148,6 +159,7 @@ class CourseController extends Controller
                 "data" => []
             ] , 403); 
         }
+
 
 
 
