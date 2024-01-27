@@ -69,11 +69,16 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
 
+        $user_courses = UserCourse::where('user_id' , $user->id )->where('course_type' , 1 )->get();
+        $user_packages = UserCourse::where('user_id' , $user->id )->where('course_type' , 2 )->get();
+
+
         return response()->json([
             'status' => true,
             'message' => '',
             'data' => (object) [
-                'courses' => UserCourseRecourse::collection($user->courses) , 
+                'courses' => UserCourseRecourse::collection($user_courses) , 
+                'packages' => UserCourseRecourse::collection($user_packages) , 
             ]
         ]);
     }
@@ -99,6 +104,18 @@ class ProfileController extends Controller
     }
 
     public function requestToChange() {
+
+        $user = Auth::user();
+        if (!$user->canUserChangeWhatsAppNumber()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'you can only request to change whats app number every 7 days',
+                'data' => [] , 
+            ] , 200);
+        }
+
+
+
 
         $user = Auth::user();
         // we need now to send otp to user number to verify the first step

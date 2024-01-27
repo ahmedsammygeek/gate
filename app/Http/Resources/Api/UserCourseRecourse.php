@@ -7,6 +7,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use Storage;
 use App\Models\UserLessonView;
 use Auth;
+use App\Models\UserCourse;
 class UserCourseRecourse extends JsonResource
 {
     /**
@@ -24,8 +25,10 @@ class UserCourseRecourse extends JsonResource
             'course_viewed_lessons' => UserLessonView::where('course_id' , $this->course_id )->where('user_id' , Auth::id() )->count() , 
             'status' => 'active' , 
             'price' => rand(200 , 4000) , 
-            'is_allowd' => $this->allowed ? true : false , 
+            'is_allowd' => UserCourse::isAllowedToWatchForApi(Auth::id()  ,  $this->course_id ) , 
+            'deny_reason' => UserCourse::denyReasonForApi( Auth::id()    , $this->course_id) , 
             'item_type' => $this->course_type == 1 ? 'course' : 'package' , 
+            'expires_at' => $this->expires_at->toDateString() , 
         ]; 
     }
 }

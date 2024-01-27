@@ -96,8 +96,7 @@ class User extends Authenticatable
         if ($this->last_date_number_changed->diffInDays(Carbon::today()) >= 7 ) {
             return true;
         }
-
-
+        
         return false;
     }
 }

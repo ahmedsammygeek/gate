@@ -29,7 +29,25 @@ class UserCourse extends Model
         return $this->belongsTo(Course::class , 'course_id');
     }
 
+    public static function denyReasonForApi($user_id , $course_id)
+    {
+        $user_course = UserCourse::where('user_id' , $user_id )->where('course_id' , $course_id )->latest()->first();
+        
+        if (!$user_course) {
+            return 'you did not purchases this course yet';
+        }
 
+        if ($user_course->expires_at < Carbon::today() ) {
+            return 'this course is expired for you';
+        }
+
+        if ($user_course->deny_reason) {
+            return  $user_course->deny_reason;
+        }
+
+        return '';
+        
+    }
 
     public static function isAllowedToWatchForApi($user_id , $course_id)
     {
