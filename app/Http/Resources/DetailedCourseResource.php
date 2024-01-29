@@ -43,6 +43,7 @@ class DetailedCourseResource extends JsonResource
             $data['expires_at'] = null ;
             $data['allowed'] = false ;
             $data['deny_reason'] = 'you need to log in first' ;
+            $data['dose_user_purchase_this'] = false ;
             return $data;
         }
 
@@ -53,6 +54,8 @@ class DetailedCourseResource extends JsonResource
             $data['expires_at'] = null ;
             $data['allowed'] = false ;
             $data['deny_reason'] = 'you need to log in first' ;
+            $data['dose_user_purchase_this'] = false ;
+
             return $data;
         }
 
@@ -64,6 +67,8 @@ class DetailedCourseResource extends JsonResource
             $data['expires_at'] = null ;
             $data['allowed'] = false ;
             $data['deny_reason'] = 'you did not purchase this item yet' ;
+            $data['dose_user_purchase_this'] = false ;
+
             return $data;
         }
 
@@ -73,6 +78,8 @@ class DetailedCourseResource extends JsonResource
             $data['expires_at'] = $user_course->expires_at->toDateString() ;
             $data['allowed'] = UserCourse::isAllowedToWatchForApi($token?->tokenable_id , $this->id )  ;
             $data['deny_reason'] = $user_course->deny_reason ;
+            $data['dose_user_purchase_this'] = true ;
+
             return $data;
         }
 
@@ -81,6 +88,8 @@ class DetailedCourseResource extends JsonResource
         $data['expires_at'] = $user_course->expires_at->toDateString() ;
         $data['allowed'] =  UserCourse::isAllowedToWatchForApi($token?->tokenable_id , $this->id )  ;
         $data['deny_reason'] = $user_course->deny_reason ;
+        $data['dose_user_purchase_this'] = true ;
+
 
 
         return $data;

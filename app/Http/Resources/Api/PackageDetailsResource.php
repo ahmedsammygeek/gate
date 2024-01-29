@@ -47,6 +47,7 @@ class PackageDetailsResource extends JsonResource
         if ($request->bearerToken() == null ) {
             $data['can_user_purchase_this'] = true ; 
             $data['purchase_date'] = null ;
+            $data['dose_user_purchase_this'] = false ;
             $data['expires_at'] = null ;
             $data['allowed'] = false ;
             $data['deny_reason'] = 'you need to log in first' ;
@@ -58,6 +59,8 @@ class PackageDetailsResource extends JsonResource
             $data['can_user_purchase_this'] = true ; 
             $data['purchase_date'] = null ;
             $data['expires_at'] = null ;
+            $data['dose_user_purchase_this'] = false ;
+
             $data['allowed'] = false ;
             $data['deny_reason'] = 'you need to login in first' ;
             return $data;
@@ -70,6 +73,7 @@ class PackageDetailsResource extends JsonResource
             $data['purchase_date'] = null ;
             $data['expires_at'] = null ;
             $data['allowed'] = false ;
+            $data['dose_user_purchase_this'] = false ;
             $data['deny_reason'] = 'you did not purchase this item yet' ;
             return $data;
         }
@@ -80,6 +84,8 @@ class PackageDetailsResource extends JsonResource
             $data['expires_at'] = $user_course->expires_at->toDateString() ;
             $data['allowed'] = UserCourse::isAllowedToWatchForApi($token?->tokenable_id , $this->id )  ;
             $data['deny_reason'] = $user_course->deny_reason ;
+            $data['dose_user_purchase_this'] = true ;
+
             return $data;
         }
 
@@ -88,6 +94,7 @@ class PackageDetailsResource extends JsonResource
         $data['expires_at'] = $user_course->expires_at->toDateString() ;
         $data['allowed'] =  UserCourse::isAllowedToWatchForApi($token?->tokenable_id , $this->id )  ;
         $data['deny_reason'] = $user_course->deny_reason ;
+        $data['dose_user_purchase_this'] = true ;
 
 
         return $data;
