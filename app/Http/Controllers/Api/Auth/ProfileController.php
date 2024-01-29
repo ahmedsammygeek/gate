@@ -162,7 +162,7 @@ class ProfileController extends Controller
         $code->save();
 
         return response()->json([
-            'status' => false,
+            'status' => true,
             'message' => 'you are ready now put your new number',
             'data' => [] , 
         ] , 200);
