@@ -391,7 +391,7 @@ class CheckoutController extends Controller
         $purchase->load(['items' , 'order' , 'user']);
         
 
-        $allowed = 1;
+        $allowed = 0;
 
         switch ($purchase->order->payment_type) {
             case 'installments':
