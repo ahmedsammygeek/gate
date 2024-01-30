@@ -149,6 +149,17 @@ class CourseController extends Controller
             ] , 403); 
         }
 
+        if (!$user_course->allowd) {
+            return response()->json([
+                'status' => false,
+                'message' => "you are not allowd to see this course anymore",
+                "data" => []
+            ] , 403); 
+        }
+
+        // we need to check if the is allowd or not
+
+
         $lesson->load('unit.course');
         // we need to check if this lesson related to this course or not
 
