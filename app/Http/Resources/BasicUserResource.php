@@ -14,7 +14,7 @@ class BasicUserResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'image' =>  Storage::url('users/' . $this->image),
+            'image' =>  Storage::url('trainers/' . $this->image),
         ];
     }
 }
