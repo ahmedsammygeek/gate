@@ -1,6 +1,6 @@
 <div>
     @if (count($user_courses))
-        <div class="col-md-12">
+    <div class="col-md-12">
         <div class="card">
 
 
@@ -8,7 +8,8 @@
                 <table class="table text-nowrap">
                     <thead>
                         <tr>
-                            <th > الكورس </th>
+                            <th > اسم </th>
+                            <th > النوع </th>
                             <th> تاريخ الانضمام </th>
                             <th> متاحه حتى تاريخ </th>
                             <th> نسبه اكمال الدوره </th>
@@ -20,15 +21,29 @@
                         @foreach ($user_courses as $user_course)
                         <tr>
                             <td class="pe-0">
-                                <div class="col-sm-6 col-lg-5">
-                                    <div class="card">
-                                        <div class="card-img-actions m-1">
-                                            <a href="{{ Storage::url('courses/'.$user_course->course->image) }}" class="btn btn-outline-white btn-icon rounded-pill" data-bs-popup="lightbox" data-gallery="gallery1">
-                                                <img src="{{ Storage::url('courses/'.$user_course->course->image) }}" class="card-img " width="60" height="60" alt="">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
+                                @switch($user_course->course_type)
+                                @case(1)
+                                <a href="{{ route('board.courses.show' , $user_course->course_id ) }}">
+                                    {{ $user_course->course?->title }}
+                                </a>
+                                @break
+                                @case(2)
+                                <a href="{{ route('board.packages.show' , $user_course->course_id ) }}">
+                                    {{ $user_course->course?->title }}
+                                </a>
+                                @break
+                                @endswitch
+                                
+                            </td>
+                            <td class="pe-0">
+                                @switch($user_course->course_type)
+                                @case(1)
+                                <span class='badge bg-primary' > كورس </span>
+                                @break
+                                @case(2)
+                                <span class='badge bg-success'> باقه </span>
+                                @break
+                                @endswitch
                             </td>
                             <td> 
                                 {{ $user_course->created_at->toDateString() }}
@@ -59,19 +74,19 @@
     </div>
     @else
     <div class="col-lg-12">
-    <br>
-    <br>
-    <div class="alert alert-warning alert-dismissible fade show">
-        <span class="fw-semibold"> لا يوجد كورسات حاليا للمستخدم  </span> 
+        <br>
+        <br>
+        <div class="alert alert-warning alert-dismissible fade show">
+            <span class="fw-semibold"> لا يوجد كورسات حاليا للمستخدم  </span> 
+        </div>
     </div>
-</div>
     @endif
 
     <div id="modal_form_vertical" wire:ignore.self class="modal fade" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Vertical form</h5>
+                    <h5 class="modal-title"> تعديل الكورس للطالب </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
@@ -85,6 +100,13 @@
                                     @error('expires_at')
                                     <p class='text-danger'> {{ $message }} </p>
                                     @enderror
+                                </div>
+                                <div class="col-sm-12">
+                                    <label class="form-label"> تفعيل الكورس  </label> <br>
+                                    <div class="form-check form-switch mb-2">
+                                        <input type="checkbox" class="form-check-input" id="sc_ls_c" wire:model='allowed' {{ $allowed == 1 ? 'checked' : ''  }}>
+                                        <label class="form-check-label" for="sc_ls_c"> نعم </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>

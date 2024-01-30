@@ -8,20 +8,26 @@ class ListAllUserCourses extends Component
 {
     public $user;
     public $item_id;
-    public $expires_at;
+    public $expires_at = null ;
+    public $allowed = null ;
     protected $listeners   = ['deleteItem' , 'setItemIDTo' , 'userCourseExpirationDateUpdated' => '$refresh'  ];
 
 
-
     protected $rules = [
-
         'expires_at' => 'required' , 
-
     ];
 
     public function setItemIDTo($item_id)
     {
         $this->item_id = $item_id;
+
+        $user_course = UserCourse::find($item_id);
+        if ($user_course) {
+            $this->expires_at = $user_course->expires_at->toDateString();
+            $this->allowed = $user_course->allowed;
+        }
+
+        // $this->expires_at = 
     }
 
     public function changeExpirationDateTo()
@@ -30,6 +36,7 @@ class ListAllUserCourses extends Component
         $user_course = UserCourse::find($this->item_id);
         if ($user_course) {
             $user_course->expires_at = $this->expires_at;
+            $user_course->allowed = $this->allowed;
             $user_course->save();
             $this->emit('userCourseExpirationDateUpdated');
         }
