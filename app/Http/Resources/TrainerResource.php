@@ -15,7 +15,7 @@ class TrainerResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'image' =>  Storage::url('users/' . $this->image),
+            'image' =>  Storage::url('trainers/' . $this->image),
             'telegram' => $this->telegram,
             'youtube' => $this->youtube,
             'twitter' => $this->twitter,

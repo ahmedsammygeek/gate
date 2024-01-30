@@ -54,7 +54,7 @@ class ListAllUserCourses extends Component
 
     public function render()
     {
-        $user_courses = UserCourse::with('course' )->where('user_id' , $this->user->id )->get();
+        $user_courses = UserCourse::with('course')->where('user_id' , $this->user->id )->where('related_package_id' , null )->get();
         return view('livewire.board.users.list-all-user-courses' , compact('user_courses') );
     }
 }

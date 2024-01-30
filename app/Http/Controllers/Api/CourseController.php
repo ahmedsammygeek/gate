@@ -144,20 +144,21 @@ class CourseController extends Controller
         if ($user_course->expires_at < Carbon::today() ) {
             return response()->json([
                 'status' => false,
-                'message' => "you can not access this course cause it is expired at , ".$user_course->expires_at->toDateString(),
-                "data" => []
-            ] , 403); 
-        }
-
-        if (!$user_course->allowd) {
-            return response()->json([
-                'status' => false,
-                'message' => "you are not allowd to see this course anymore",
+                'message' => " لا يمكنك الدخول بعد الان الى هذا الكورس بسبب انتهاء تاريخ الكورس ".$user_course->expires_at->toDateString(),
                 "data" => []
             ] , 403); 
         }
 
         // we need to check if the is allowd or not
+        if (!$user_course->allowd) {
+            return response()->json([
+                'status' => false,
+                'message' => "غير مسموح بالدخول لهذا الدوره برجاء التواصل مع اداره الموقع",
+                "data" => []
+            ] , 403); 
+        }
+
+        
 
 
         $lesson->load('unit.course');
