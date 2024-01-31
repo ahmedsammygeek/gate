@@ -18,6 +18,7 @@ use App\Http\Controllers\Api\PageController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\RateController;
 use App\Http\Controllers\Api\HomeController;
+use App\Http\Controllers\Api\TrainerController;
 
 Route::prefix("v1")->group(function () {
     Route::post('register', [RegisterController::class, 'register']);
@@ -35,6 +36,7 @@ Route::prefix("v1")->group(function () {
     Route::post('forget_password', [ForgetPasswordController::class, 'index']);
     Route::post('forget_password/step_two', [ForgetPasswordController::class, 'update']);
     Route::get('/home/courses' , [HomeController::class , 'index'] );
+    Route::get('/trainers/{trainer}' , [TrainerController::class , 'show'] );
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('courses/{course}/lessons/{lesson}', [CourseController::class, 'lesson']);
         Route::get('profile', [ProfileController::class, 'index']);
