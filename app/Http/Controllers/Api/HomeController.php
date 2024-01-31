@@ -35,7 +35,7 @@ class HomeController extends Controller
             'message' => '',
             'data' => (object) [
                 'courses' => BasicCourseResource::collection($courses) , 
-                'packages' => PackageResource::collection($courses) , 
+                'packages' => PackageResource::collection($packages) , 
             ]
         ]);
         
