@@ -24,7 +24,7 @@ class CourseController extends Controller
         $courses = Course::query()
         ->where('type' , Course::COURSE ) 
         ->where('is_active' , 1 )
-        ->where('ends_at' , '>' , Carbon::today() )
+        ->whereDate('ends_at' , '>' , Carbon::today() )
         ->with(['trainer', 'category'])
         ->when($request->category_id , function($query) use ($request) {
             $query->where('category_id' , $request->category_id );
@@ -48,7 +48,7 @@ class CourseController extends Controller
         $packages = Course::query()
         ->where('type' , Course::PACKAGE )
         ->where('is_active' , 1 )
-        ->where('ends_at' , '>' , Carbon::today() ) 
+        ->whereDate('ends_at' , '>' , Carbon::today() ) 
         ->with(['trainer', 'category'])
         ->when($request->category_id , function($query) use ($request) {
             $query->where('category_id' , $request->category_id );
