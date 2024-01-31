@@ -35,9 +35,26 @@ class ListAllUserCourses extends Component
         $this->validate();
         $user_course = UserCourse::find($this->item_id);
         if ($user_course) {
-            $user_course->expires_at = $this->expires_at;
-            $user_course->allowed = $this->allowed;
-            $user_course->save();
+            switch ($user_course->course_type) {
+                // that means it is course
+                case 1:
+                $user_course->expires_at = $this->expires_at;
+                $user_course->allowed = $this->allowed;
+                $user_course->save();
+                break;
+                // it means it is package and we need to update of package courses
+                case 2:
+                $user_course->expires_at = $this->expires_at;
+                $user_course->allowed = $this->allowed;
+                $user_course->save();
+                $user_package_courses = UserCourse::where('user_id' , $this->user->id )->where('related_package_id' , $user_course->course_id )->get();
+                foreach ($user_package_courses as $user_package_course) {
+                    $user_package_course->expires_at = $this->expires_at;
+                    $user_package_course->allowed = $this->allowed;
+                    $user_package_course->save();
+                }
+                break;
+            }
             $this->emit('userCourseExpirationDateUpdated');
         }
     }

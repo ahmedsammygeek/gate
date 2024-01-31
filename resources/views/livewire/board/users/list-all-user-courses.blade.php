@@ -31,8 +31,11 @@
                                 <a href="{{ route('board.packages.show' , $user_course->course_id ) }}">
                                     {{ $user_course->course?->title }}
                                 </a>
+                            
+
                                 @break
                                 @endswitch
+
                                 
                             </td>
                             <td class="pe-0">
@@ -66,6 +69,8 @@
                                 </a>
                             </td>
                         </tr>
+                       
+
                         @endforeach
                     </tbody>
                 </table>

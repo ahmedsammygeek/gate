@@ -23,7 +23,7 @@
             </li>
             <li class="nav-item">
                 <a href="{{ route('board.users.courses', $user) }}" class="nav-link "> 
-                    <span class="badge bg-primary rounded-pill me-2"> {{ $user->courses->count() }} </span>
+                    <span class="badge bg-primary rounded-pill me-2"> {{ $user->courses()->count() }} </span>
                     الكورسات
                 </a>
             </li>
