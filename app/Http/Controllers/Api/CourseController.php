@@ -116,6 +116,16 @@ class CourseController extends Controller
 
         AddLessonToUserViewJob::dispatch(Auth::user() , $lesson )->delay(now()->addSeconds(3));
         
+
+        if (!$lesson->is_active) {
+            return response()->json([
+                'status' => false,
+                'message' => "لا يمكنك الدخول لهذا الدرس حيث انه غير مفعل بعد",
+                "data" => []
+            ] , 200); 
+        }
+
+
         if ($lesson->is_free == 1 ) {
             return response()->json([
                 'status' => true,
@@ -133,7 +143,7 @@ class CourseController extends Controller
         if (!$user_course) {
             return response()->json([
                 'status' => false,
-                'message' => "you can not access this lesson please buy the course first",
+                'message' => "لا يمكن مشاهده الدرس برجاء شراء الكورس اولا",
                 "data" => []
             ] , 403); 
         }
@@ -149,8 +159,10 @@ class CourseController extends Controller
             ] , 403); 
         }
 
+
+
         // we need to check if the is allowd or not
-        if (!$user_course->allowd) {
+        if (!$user_course->allowed) {
             return response()->json([
                 'status' => false,
                 'message' => "غير مسموح بالدخول لهذا الدوره برجاء التواصل مع اداره الموقع",
