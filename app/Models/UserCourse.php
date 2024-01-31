@@ -41,7 +41,7 @@ class UserCourse extends Model
             return 'this course is expired for you';
         }
 
-        if ($user_course->deny_reason) {
+        if ($user_course->allowed) {
             return  $user_course->deny_reason;
         }
 
@@ -57,8 +57,12 @@ class UserCourse extends Model
             return false;
         }
 
+        if (!$user_course->allowed) {
+            return false;
+        }
+
         if ($user_course->expires_at >= Carbon::today() ) {
-            return true;
+            return  true ;
         }
 
         return false;
