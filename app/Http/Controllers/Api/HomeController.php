@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Course;
+use App\Models\User;
 use Carbon\Carbon;
 use App\Http\Resources\BasicCourseResource;
 use App\Http\Resources\Api\PackageResource;
+use App\Http\Resources\TrainerResource;
 class HomeController extends Controller
 {
     /**
@@ -29,6 +31,7 @@ class HomeController extends Controller
         ->latest()
         ->get();
 
+        $trainers = User::where('type' , 3)->where('show_in_home' , 1 )->latest()->get();
 
         return response()->json([
             'status' => true,
@@ -36,6 +39,7 @@ class HomeController extends Controller
             'data' => (object) [
                 'courses' => BasicCourseResource::collection($courses) , 
                 'packages' => PackageResource::collection($packages) , 
+                'trainers' => TrainerResource::collection($trainers) , 
             ]
         ]);
         
