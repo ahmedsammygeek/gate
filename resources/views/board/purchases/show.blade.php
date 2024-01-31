@@ -21,11 +21,11 @@
                 <a href="{{ route('board.purchases.show' , $purchase->id ) }}" class="nav-link active"> بيانات عمليه الشراء </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('board.purchases.transaction' , $purchase->id ) }}" class="nav-link"> بيانات الدفع </a>
+                <a href="{{ route('board.purchases.transactions' , $purchase->id ) }}" class="nav-link"> بيانات الدفع </a>
 
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link"> الاقساط الخاصه بعمليه الشراء </a>
+                 <a href="{{ route('board.purchases.installments' , $purchase->id ) }}" class="nav-link"> الاقساط الخاصه بعمليه الشراء </a>
             </li>
         </ul>
     </div>

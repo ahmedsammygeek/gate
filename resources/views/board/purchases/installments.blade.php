@@ -23,7 +23,7 @@
                 <a href="{{ route('board.purchases.show' , $purchase->id ) }}" class="nav-link "> بيانات عمليه الشراء </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('board.purchases.transaction' , $purchase->id ) }}" class="nav-link"> بيانات الدفع </a>
+                <a href="{{ route('board.purchases.transactions' , $purchase->id ) }}" class="nav-link"> بيانات الدفع </a>
 
             </li>
             <li class="nav-item">
