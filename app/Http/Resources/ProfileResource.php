@@ -28,7 +28,7 @@ class ProfileResource extends JsonResource
             'updated_ar' => $this->updated_ar , 
             'activated_at' => $this->activated_at , 
             'unread_notifications_count' => $this->unreadNotifications->count() , 
-            'courses_count' => $this->courses()->count() , 
+            'courses_count' => $this->courses()->where( 'related_package_id' , null)->count() , 
             'eligible_installments' => $this->installments()->whereDate('due_date' , '>=' , Carbon::today() )->count() , 
             'course_progress' => UserCourseProgressResource::collection(Auth::user()->courses) , 
             'can_change_whats_number' => $this->canUserChangeWhatsAppNumber() , 
