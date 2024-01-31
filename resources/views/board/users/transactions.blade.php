@@ -10,9 +10,10 @@
 @section('content')
 <div class="row">
     <div class="col-md-12">
-        <a href="{{ route('board.users.index') }}" class="btn btn-primary mb-2 " style="float: left;">
+        <a href="{{ route('board.users.index') }}" class="btn btn-primary mb-2 ml-2 " style="float: left;">
             عرض كافه المستخدمين <i class="icon-arrow-left7 "></i>
         </a>
+        @livewire('board.users.transactions.add-new-transaction'  , ['user' => $user] )
     </div>
     <div class="col-md-12">
         <ul class="nav nav-tabs nav-tabs-highlight nav-justified">
@@ -21,7 +22,7 @@
                     بيانات المستخدم
                 </a>
             </li>
-           <li class="nav-item">
+            <li class="nav-item">
                 <a href="{{ route('board.users.courses', $user) }}" class="nav-link "> 
                     <span class="badge bg-primary rounded-pill me-2"> {{ $user->courses->count() }} </span>
                     الكورسات
@@ -51,7 +52,7 @@
 <!-- Main charts -->
 
 <div class="row">
- @livewire('board.users.list-all-user-transactions' ,  ['user' => $user ] )
+    @livewire('board.users.list-all-user-transactions' ,  ['user' => $user ] )
 </div>
 @endsection
 
