@@ -11,7 +11,20 @@ use App\Http\Resources\BasicCourseResource;
 
 use Carbon\Carbon;
 class TrainerController extends Controller
-{
+{   
+
+    public function index()
+    {
+
+        $trainers = User::where('type' , 3 )->latest()->get();
+        return response()->json([
+            'status' => true , 
+            'message' => '' , 
+            'data' => (object)[
+                'trainers' => TrainerResource::collection($trainers)
+            ]
+        ], 200);
+    }
    
 
     /**

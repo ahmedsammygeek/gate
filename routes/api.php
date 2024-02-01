@@ -37,6 +37,7 @@ Route::prefix("v1")->group(function () {
     Route::post('forget_password/step_two', [ForgetPasswordController::class, 'update']);
     Route::get('/home' , [HomeController::class , 'index'] );
     Route::get('/trainers/{trainer}' , [TrainerController::class , 'show'] );
+    Route::get('/trainers' , [TrainerController::class , 'index'] );
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('courses/{course}/lessons/{lesson}', [CourseController::class, 'lesson']);
         Route::get('profile', [ProfileController::class, 'index']);
