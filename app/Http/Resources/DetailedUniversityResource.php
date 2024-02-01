@@ -24,8 +24,8 @@ class DetailedUniversityResource extends JsonResource
             'rate' => $this->rate,
             'country' => BasicDataResource::make($this->country),
             'trainer' => BasicUserResource::make($this->trainer),
-            'courses' => BasicCourseResource::collection($this->courses()->where('type' , 1 )->get()),
-            'packages' => PackageDetailsResource::collection($this->courses()->where('type' , 2 )->get()),
+            'courses' => BasicCourseResource::collection($this->courses()->where('type' , 1 )->where('is_active' , 1 )->whereDate('ends_at'  , '>' , Carbon::today() )->get()),
+            'packages' => PackageDetailsResource::collection($this->courses()->where('type' , 2 )->where('is_active' , 1 )->whereDate('ends_at'  , '>' , Carbon::today() )->get()),
         ];
     }
 }
