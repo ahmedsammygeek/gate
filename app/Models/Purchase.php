@@ -15,6 +15,14 @@ class Purchase extends Model
     }
 
 
+    public static function doseThisCoursePurchaseEndForThisUser($course_id , $user_id)
+    {   
+        $user_course = UserCourse::where('user_id' , $user_id )->where('course_id' , $course_id )->latest()->first();
+        if (!$user_course) {
+            return false;
+        }
+    }
+
 
     public function installments()
     {

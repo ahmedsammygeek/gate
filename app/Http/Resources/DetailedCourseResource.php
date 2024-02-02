@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Api\ReviewResource;
 use Auth;
-    use App\Models\UserInstallments;
-    use App\Models\UserCourse;
+use App\Models\UserInstallments;
+use App\Models\UserCourse;
 use Carbon\Carbon;
 class DetailedCourseResource extends JsonResource
 {
@@ -43,7 +43,7 @@ class DetailedCourseResource extends JsonResource
             $data['purchase_date'] = null ;
             $data['expires_at'] = null ;
             $data['allowed'] = false ;
-            $data['deny_reason'] = 'you need to log in first' ;
+            $data['deny_reason'] = 'يجب تسجيل الدخول اولا' ;
             $data['dose_user_purchase_this'] = false ;
             return $data;
         }
@@ -54,7 +54,7 @@ class DetailedCourseResource extends JsonResource
             $data['purchase_date'] = null ;
             $data['expires_at'] = null ;
             $data['allowed'] = false ;
-            $data['deny_reason'] = 'you need to log in first' ;
+            $data['deny_reason'] = 'يجب تسجيل الدخول اولا' ;
             $data['dose_user_purchase_this'] = false ;
 
             return $data;
@@ -67,11 +67,12 @@ class DetailedCourseResource extends JsonResource
             $data['purchase_date'] = null ;
             $data['expires_at'] = null ;
             $data['allowed'] = false ;
-            $data['deny_reason'] = 'you did not purchase this item yet' ;
+            $data['deny_reason'] = 'لم تقم بشراء هذا الكورس' ;
             $data['dose_user_purchase_this'] = false ;
-
             return $data;
         }
+
+
 
         if ($user_course->expires_at >= Carbon::today() ) {
             $data['can_user_purchase_this'] = false ;
@@ -80,7 +81,6 @@ class DetailedCourseResource extends JsonResource
             $data['allowed'] = UserCourse::isAllowedToWatchForApi($token?->tokenable_id , $this->id )  ;
             $data['deny_reason'] = $user_course->deny_reason ? $user_course->deny_reason : 'برجاء التحدث مع الاداره' ;
             $data['dose_user_purchase_this'] = true ;
-
             return $data;
         }
 

@@ -139,7 +139,7 @@ class CourseController extends Controller
 
 
         // check first if this user bought this course or not
-        $user_course = UserCourse::where('user_id' , Auth::id() )->where('course_id'  , $course->id)->first();
+        $user_course = UserCourse::where('user_id' , Auth::id() )->where('course_id'  , $course->id)->latest()->first();
         if (!$user_course) {
             return response()->json([
                 'status' => false,
@@ -150,7 +150,7 @@ class CourseController extends Controller
 
 
         // we need to check if this lesson in non exipred course
-        $user_course = UserCourse::where('user_id' , Auth::id() )->where('course_id'  , $course->id)->first();
+        // $user_course = UserCourse::where('user_id' , Auth::id() )->where('course_id'  , $course->id)->first();
         if ($user_course->expires_at < Carbon::today() ) {
             return response()->json([
                 'status' => false,
