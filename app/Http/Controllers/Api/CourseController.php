@@ -175,7 +175,7 @@ class CourseController extends Controller
         // we need to know if this is a spreated course or a course inclded in  a package
 
         if (($user_course->course_type == 1) && ($user_course->related_package_id == null ) ) {
-            dd('this means u r course');
+
             $user_installments_count = UserInstallments::
             where('user_id' , Auth::id() )
             ->where('status' , 0 )

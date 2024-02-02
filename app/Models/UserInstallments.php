@@ -36,4 +36,6 @@ class UserInstallments extends Model
     {
         return $this->belongsTo(Transaction::class);
     }
+
+    
 }

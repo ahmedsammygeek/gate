@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Api\ReviewResource;
 use Auth;
-use App\Models\UserCourse;
+    use App\Models\UserInstallments;
+    use App\Models\UserCourse;
 use Carbon\Carbon;
 class DetailedCourseResource extends JsonResource
 {
@@ -83,14 +84,63 @@ class DetailedCourseResource extends JsonResource
             return $data;
         }
 
+
+
+        if (($user_course->course_type == 1) && ($user_course->related_package_id == null ) ) {
+            $user_installments_count = UserInstallments::
+            where('user_id' , Auth::id() )
+            ->where('status' , 0 )
+            ->where('due_date' , '<=' , Carbon::today() )
+            ->whereHas('purchase' , function($query) use ($user_course) {
+                $query->whereHas('order' , function($query) use($user_course) {
+                    $query->where('course_id' , '=' , $user_course->course_id );
+                });
+            })
+            ->count();
+            if ($user_installments_count > 0 ) {
+                $data['can_user_purchase_this'] = false ;
+                $data['purchase_date'] = $user_course->created_at->toDateString() ;
+                $data['expires_at'] = $user_course->expires_at->toDateString() ;
+                $data['allowed'] = false;
+                $data['deny_reason'] = 'يجب تسديد القسط المستحق اولا' ;
+                $data['dose_user_purchase_this'] = true ;
+
+                return $data;
+            }
+        }
+
+        // this mean this is a course in a package
+        if (($user_course->course_type == 1) && ($user_course->related_package_id != null ) ) {
+            // package id is
+            $package_id = $user_course->related_package_id;
+            $user_installments_count = UserInstallments::
+            where('user_id' , Auth::id() )
+            ->where('status' , 0 )
+            ->where('due_date' , '<=' , Carbon::today() )
+            ->whereHas('purchase' , function($query) use ($user_course) {
+                $query->whereHas('order' , function($query) use($user_course) {
+                    $query->where('course_id' , '=' , $user_course->related_package_id );
+                });
+            })
+            ->count();
+            if ($user_installments_count > 0 ) {
+                $data['can_user_purchase_this'] = false ;
+                $data['purchase_date'] = $user_course->created_at->toDateString() ;
+                $data['expires_at'] = $user_course->expires_at->toDateString() ;
+                $data['allowed'] = false;
+                $data['deny_reason'] = 'يجب تسديد القسط المستحق اولا' ;
+                $data['dose_user_purchase_this'] = true ;
+
+                return $data;
+            }
+        }
+
         $data['can_user_purchase_this'] = true ;
         $data['purchase_date'] = $user_course->created_at->toDateString() ;
         $data['expires_at'] = $user_course->expires_at->toDateString() ;
         $data['allowed'] =  UserCourse::isAllowedToWatchForApi($token?->tokenable_id , $this->id )  ;
-        $data['deny_reason'] = $user_course->deny_reason ;
+        $data['deny_reason'] = $user_course->deny_reason  ? $user_course->deny_reason :  'برجاء التواصل مع الاداره' ;
         $data['dose_user_purchase_this'] = true ;
-
-
 
         return $data;
 
