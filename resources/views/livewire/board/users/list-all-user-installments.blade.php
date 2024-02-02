@@ -9,7 +9,7 @@
                 <table class="table text-nowrap">
                     <thead>
                         <tr>
-                            <th> رقم العمليه </th>
+                            <th> رقم القسط </th>
                             <th> تاريخ الاستحقاق </th>
                             <th> المبلغ </th>
                             <th>  حاله القسط </th>
@@ -23,7 +23,7 @@
                             <td>
                                 {{ $user_installment->installment_number }}
                             </td>
-                            <td> {{ $user_installment->due_date }} </td>
+                            <td> {{ $user_installment->due_date->toDateString() }} - {{ $user_installment->due_date->diffForHumans() }} </td>
                            
                             <td> {{ $user_installment->amount }} <span>  ريال </span> </td>
                             <td> 
