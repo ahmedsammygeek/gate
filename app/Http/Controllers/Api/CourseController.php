@@ -173,8 +173,9 @@ class CourseController extends Controller
         // now we need to check if the user has any un paid installments
 
         // we need to know if this is a spreated course or a course inclded in  a package
-        switch ($user_course->course_type) {
-            case 1:
+
+        if (($user_course->course_type == 1) && ($user_course->related_package_id == null ) ) {
+            dd('this means u r course');
             $user_installments_count = UserInstallments::
             where('user_id' , Auth::id() )
             ->where('status' , 0 )
@@ -192,14 +193,30 @@ class CourseController extends Controller
                     "data" => []
                 ] , 403); 
             }
-            break;
-            // case 2:
-            //     dd('fff');
-            // break;
         }
 
-
-        
+        // this mean this is a course in a package
+        if (($user_course->course_type == 1) && ($user_course->related_package_id != null ) ) {
+            // package id is
+            $package_id = $user_course->related_package_id;
+            $user_installments_count = UserInstallments::
+            where('user_id' , Auth::id() )
+            ->where('status' , 0 )
+            ->where('due_date' , '<=' , Carbon::today() )
+            ->whereHas('purchase' , function($query) use ($user_course) {
+                $query->whereHas('order' , function($query) use($user_course) {
+                    $query->where('course_id' , '=' , $user_course->related_package_id );
+                });
+            })
+            ->count();
+            if ($user_installments_count > 0 ) {
+                return response()->json([
+                    'status' => false,
+                    'message' => "لا يمكن مشاهده الدرس برجاء تسديد القسط المستحق اولا ثم استناف المشاهده ",
+                    "data" => []
+                ] , 403); 
+            }
+        }
 
 
 
