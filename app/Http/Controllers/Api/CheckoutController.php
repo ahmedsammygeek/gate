@@ -104,6 +104,16 @@ class CheckoutController extends Controller
             ]);
         }
 
+
+        if ($course->ends_at <= Carbon::today() ) {
+            return response()->json([
+                'status' => false,
+                'message' => 'this course is expired and can not be purchased',
+                'data' =>  []
+            ]);
+        }
+
+
         if (!$this->canPurchaseThisItem($course)) {
             return response()->json([
                 'status' => false,

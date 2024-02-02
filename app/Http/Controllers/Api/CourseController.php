@@ -6,6 +6,7 @@ use App\Http\Resources\BasicCourseResource;
 use App\Models\Course;
 use App\Models\Lesson;
 use App\Models\UserCourse;
+use App\Models\UserInstallments;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\PackageResource;
@@ -114,8 +115,7 @@ class CourseController extends Controller
     {
 
 
-        AddLessonToUserViewJob::dispatch(Auth::user() , $lesson )->delay(now()->addSeconds(3));
-        
+
 
         if (!$lesson->is_active) {
             return response()->json([
@@ -170,7 +170,37 @@ class CourseController extends Controller
             ] , 403); 
         }
 
+        // now we need to check if the user has any un paid installments
+
+        // we need to know if this is a spreated course or a course inclded in  a package
+        switch ($user_course->course_type) {
+            case 1:
+            $user_installments_count = UserInstallments::
+            where('user_id' , Auth::id() )
+            ->where('status' , 0 )
+            ->where('due_date' , '<=' , Carbon::today() )
+            ->whereHas('purchase' , function($query) use ($user_course) {
+                $query->whereHas('order' , function($query) use($user_course) {
+                    $query->where('course_id' , '=' , $user_course->course_id );
+                });
+            })
+            ->count();
+            if ($user_installments_count > 0 ) {
+                return response()->json([
+                    'status' => false,
+                    'message' => "لا يمكن مشاهده الدرس برجاء تسديد القسط المستحق اولا ثم استناف المشاهده ",
+                    "data" => []
+                ] , 403); 
+            }
+            break;
+            // case 2:
+            //     dd('fff');
+            // break;
+        }
+
+
         
+
 
 
         $lesson->load('unit.course');
@@ -184,6 +214,7 @@ class CourseController extends Controller
             ] , 403); 
         }
 
+        AddLessonToUserViewJob::dispatch(Auth::user() , $lesson )->delay(now()->addSeconds(3));
 
         return response()->json([
             'status' => true,
