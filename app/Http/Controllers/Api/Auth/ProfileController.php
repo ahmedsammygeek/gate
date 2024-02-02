@@ -234,7 +234,7 @@ class ProfileController extends Controller
 
     public function installments() {
 
-        $installments = UserInstallments::where('user_id' , Auth::id() )->get();
+        $installments = UserInstallments::where('user_id' , Auth::id() )->where('status' , 0 )->get();
 
         return response()->json([
             'status' => true,
