@@ -114,6 +114,14 @@ class CheckoutController extends Controller
         }
 
 
+        if ($request->payment_method == 3 && ( ($request->payment_type == 'installments') || ($request->payment_type == 'one_later_installment' ) ) ) {
+            return response()->json([
+                'status' => false,
+                'message' => 'يمكن الدفع عن طريق التحويل البنكى فقط فى حاله دفع المبلغ كامل',
+                'data' =>  []
+            ]);
+        }
+
         if (!$this->canPurchaseThisItem($course)) {
             return response()->json([
                 'status' => false,
