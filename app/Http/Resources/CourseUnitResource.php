@@ -14,7 +14,7 @@ class CourseUnitResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->getTranslations('title', ['ar', 'en']),
-            'lessons' => CourseUnitLessonResource::collection($this->lessons) , 
+            'lessons' => CourseUnitLessonResource::collection($this->lessons()->where('is_active' , 1 )->get()) , 
         ];
     }
 }
