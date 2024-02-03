@@ -46,6 +46,25 @@ class AddNewTransaction extends Component
         $transaction->image = basename($this->file->store('transactions'));
         $transaction->payment_method = Transaction::BANK_TRANSFER; 
         $transaction->save();
+
+
+        $purchase = Purchase::find($this->purchase_id);
+
+        if ($purchase) {
+
+            $purchase_transactions_total_amount = Transaction::where('purchase_id', $this->purchase_id )->sum('amount');
+
+            if ( $purchase_transactions_total_amount >= $purchase->total ) {
+                $purchase->is_paid = 2;
+            } else {
+                $purchase->is_paid = 1;
+            }
+                $purchase->save();
+
+        }
+
+
+
         $this->emit('transactionAdded');
         $this->emitTo('board.users.list-all-user-transactions' , 'transactionAdded' );
         $this->amount = null;
