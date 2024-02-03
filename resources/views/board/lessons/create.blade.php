@@ -116,7 +116,7 @@
 							<label class="col-form-label col-lg-2"> ملفات الدرس </label>
 							<div class="col-lg-10">
 								<input type="file" multiple name="files[]"  class="form-control @error('files')  is-invalid @enderror"  >
-								@error('files')
+								@error('files.*')
 								<p class='text-danger' > {{ $message }} </p>
 								@enderror
 								<p class="text-info"> الملفات المسموح بها هيا doc docx  ,pdf , zip , rar , png , jpg , jpeg ,  </p>

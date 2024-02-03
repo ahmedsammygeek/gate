@@ -40,17 +40,17 @@ class LessonController extends Controller
     public function store(StoreLessonRequest $request , Course $course ,  CourseUnit $unit)
     {
 
-        if ($request->hasFile('files')) {
-            $lesson_files = [];
-            for ($i=0; $i < count($request->file('files')); $i++) { 
-                $lesson_files[] = new LessonFile([
-                    'file' => basename($request->file('files.'.$i)->store('lesson_files')) , 
-                    'user_id' => Auth::id(), 
-                    'file_name' => $request->file('files.'.$i)->getClientOriginalName() , 
-                ]);
-            }
-            $lesson->files()->saveMany($lesson_files);
-        }
+        // if ($request->hasFile('files')) {
+        //     $lesson_files = [];
+        //     for ($i=0; $i < count($request->file('files')); $i++) { 
+        //         $lesson_files[] = new LessonFile([
+        //             'file' => basename($request->file('files.'.$i)->store('lesson_files')) , 
+        //             'user_id' => Auth::id(), 
+        //             'file_name' => $request->file('files.'.$i)->getClientOriginalName() , 
+        //         ]);
+        //     }
+        //     $lesson->files()->saveMany($lesson_files);
+        // }
         
 
         $lesson = new Lesson;
