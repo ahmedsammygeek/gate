@@ -37,7 +37,7 @@ class PackageDetailsResource extends JsonResource
             'reviews' => $this->reviews,
             'reviews_count' => $this->courseReviews->count() , 
             'students_number' => $this->students_number , 
-            'course_reviews' => ReviewResource::collection($this->courseReviews) , 
+            'course_reviews' => ReviewResource::collection($this->courseReviews()->where('is_active' , 1 )->get()) , 
             'package_courses' => PackageCourseResource::collection($this->courses) , 
             'courses_count' => $this->courses->count() , 
             'ends_at' => $this->ends_at->toDateString() , 

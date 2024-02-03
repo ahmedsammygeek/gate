@@ -31,7 +31,7 @@ class DetailedCourseResource extends JsonResource
             'trainer' => TrainerResource::make($this->whenLoaded('trainer')),
             'category' => BasicDataResource::make($this->whenLoaded('category')),
             'units' => CourseUnitResource::collection($this->whenLoaded('units')),
-            'course_reviews' => ReviewResource::collection($this->whenLoaded('courseReviews')),
+            'course_reviews' => ReviewResource::collection($this->courseReviews()->where('is_active' , 1 )->get()),
             'lessons_count' => $this->lessons()->count() , 
             'units_count' => $this->units()->count() , 
             'ends_at' => $this->ends_at->toDateString() , 
