@@ -12,6 +12,7 @@ use Auth;
 use Carbon\Carbon;
 use Laravel\Sanctum\PersonalAccessToken;
 use App\Models\UserCourse;
+use App\Models\UserInstallments;
 
 class PackageDetailsResource extends JsonResource
 {
