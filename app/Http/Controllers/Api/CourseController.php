@@ -151,7 +151,7 @@ class CourseController extends Controller
 
         // we need to check if this lesson in non exipred course
         // $user_course = UserCourse::where('user_id' , Auth::id() )->where('course_id'  , $course->id)->first();
-        if ($user_course->expires_at <= Carbon::today() ) {
+        if ($user_course->expires_at < Carbon::today() ) {
             return response()->json([
                 'status' => false,
                 'message' => " لا يمكنك الدخول بعد الان الى هذا الكورس بسبب انتهاء تاريخ الكورس ".$user_course->expires_at->toDateString(),
