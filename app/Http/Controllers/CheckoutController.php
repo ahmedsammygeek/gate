@@ -474,62 +474,77 @@ class CheckoutController extends Controller
 
     private function addInstallmentsToUser($order , $purchase )
     {
-        // this means he will pay with installments and with bank transfer
-        switch ($order->payment_method) {
+        if ($order->payment_method) {
+            switch ($order->payment_method) {
             // bank transfer payment
-            case 3:
+                case 3:
+                $user_installments = [];
+                $user_installments[] = new UserInstallments([
+                    'user_id' => $order->user_id , 
+                    'installment_number' => Str::uuid() , 
+                    'course_id' => $order->course_id , 
+                    'amount' => $order->course?->price_later , 
+                    'due_date' => Carbon::today() , 
+                    'status' => 0 , 
+                    'purchase_id' => $purchase->id , 
+                ]);
+                $order->user->installments()->saveMany($user_installments);
+                break;
+            // my fatorah payment method
+                case 2:
+                case 1:
+                $user_installments = [];
+                switch ($order->payment_type) {
+                    case 'installments':
+                    $course_installments = $order->course?->installments()->where('days' , '!=' , 0 )->get();
+                    foreach ($course_installments as $course_installment) {
+                        $user_installments[] = new UserInstallments([
+                            'user_id' => $order->user_id , 
+                            'installment_number' => Str::uuid() , 
+                            'course_id' => $order->course_id , 
+                            'amount' => $course_installment->amount , 
+                            'due_date' => Carbon::today()->addDays($course_installment->days) , 
+                            'status' => 0 , 
+                            'purchase_id' => $purchase->id , 
+                        ]);
+                    }
+                    break;
+                    case 'one_later_installment':
+                    $user_installments[] = new UserInstallments([
+                        'user_id' => $order->user_id , 
+                        'installment_number' => Str::uuid() , 
+                        'course_id' => $order->course_id , 
+                        'amount' => $order->course?->price_later , 
+                        'due_date' => Carbon::today()->addDays($order->course?->days) , 
+                        'status' => 0 , 
+                        'purchase_id' => $purchase->id , 
+                    ]);
+                    break;
+                    default:
+                    break;
+                }
+                $order->user->installments()->saveMany($user_installments);
+                break;
+
+                default:
+                // code...
+                break;
+            }
+        } else {
             $user_installments = [];
             $user_installments[] = new UserInstallments([
                 'user_id' => $order->user_id , 
                 'installment_number' => Str::uuid() , 
                 'course_id' => $order->course_id , 
                 'amount' => $order->course?->price_later , 
-                'due_date' => Carbon::today() , 
+                'due_date' => Carbon::today()->addDays($order->course?->days) , 
                 'status' => 0 , 
                 'purchase_id' => $purchase->id , 
             ]);
             $order->user->installments()->saveMany($user_installments);
-            break;
-            // my fatorah payment method
-            case 2:
-            case 1:
-            $user_installments = [];
-            switch ($order->payment_type) {
-                case 'installments':
-                $course_installments = $order->course?->installments()->where('days' , '!=' , 0 )->get();
-                foreach ($course_installments as $course_installment) {
-                    $user_installments[] = new UserInstallments([
-                        'user_id' => $order->user_id , 
-                        'installment_number' => Str::uuid() , 
-                        'course_id' => $order->course_id , 
-                        'amount' => $course_installment->amount , 
-                        'due_date' => Carbon::today()->addDays($course_installment->days) , 
-                        'status' => 0 , 
-                        'purchase_id' => $purchase->id , 
-                    ]);
-                }
-                break;
-                case 'one_later_installment':
-                $user_installments[] = new UserInstallments([
-                    'user_id' => $order->user_id , 
-                    'installment_number' => Str::uuid() , 
-                    'course_id' => $order->course_id , 
-                    'amount' => $order->course?->price_later , 
-                    'due_date' => Carbon::today()->addDays($order->course?->days) , 
-                    'status' => 0 , 
-                    'purchase_id' => $purchase->id , 
-                ]);
-                break;
-                default:
-                break;
-            }
-            $order->user->installments()->saveMany($user_installments);
-            break;
-            
-            default:
-                // code...
-            break;
         }
+        // this means he will pay with installments and with bank transfer
+        
         return true;
     }
 
