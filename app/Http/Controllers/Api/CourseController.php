@@ -6,6 +6,7 @@ use App\Http\Resources\BasicCourseResource;
 use App\Models\Course;
 use App\Models\Lesson;
 use App\Models\UserCourse;
+use App\Models\User;
 use App\Models\UserInstallments;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -18,6 +19,7 @@ use App\Http\Resources\Api\LessonDetailsResource;
 use App\Jobs\Api\AddLessonToUserViewJob;
 use App\Http\Resources\CourseUnitResource;
 use Laravel\Sanctum\PersonalAccessToken;
+
 class CourseController extends Controller
 {
     public function index(Request $request)
@@ -111,12 +113,8 @@ class CourseController extends Controller
     }
 
 
-    public function lesson(Course $course , Lesson $lesson)
+    public function lesson(Request $request ,   Course $course , Lesson $lesson)
     {
-
-
-
-
         if (!$lesson->is_active) {
             return response()->json([
                 'status' => false,
@@ -137,9 +135,26 @@ class CourseController extends Controller
             ] , 200); 
         }
 
+        if ($request->bearerToken() == null ) {
+            return response()->json([
+                'status' => false,
+                'message' => "يجب تسجيل الدخول اولا لمشاهده الدرس",
+                "data" => []
+            ] , 403); 
+        }
+
+        $token =  PersonalAccessToken::findToken($request->bearerToken());
+
+        if (!$token) {
+            return response()->json([
+                'status' => false,
+                'message' => "يجب تسجيل الدخول اولا لمشاهده الدرس",
+                "data" => []
+            ] , 403); 
+        }
 
         // check first if this user bought this course or not
-        $user_course = UserCourse::where('user_id' , Auth::id() )->where('course_id'  , $course->id)->latest()->first();
+        $user_course = UserCourse::where('user_id' , $token?->tokenable_id )->where('course_id'  , $course->id)->latest()->first();
         if (!$user_course) {
             return response()->json([
                 'status' => false,
@@ -170,6 +185,8 @@ class CourseController extends Controller
             ] , 403); 
         }
 
+        $user = User::find($token?->tokenable_id);
+
         // now we need to check if the user has any un paid installments
 
         // we need to know if this is a spreated course or a course inclded in  a package
@@ -177,7 +194,7 @@ class CourseController extends Controller
         if (($user_course->course_type == 1) && ($user_course->related_package_id == null ) ) {
 
             $user_installments_count = UserInstallments::
-            where('user_id' , Auth::id() )
+            where('user_id' , $user->id )
             ->where('status' , 0 )
             ->where('due_date' , '<=' , Carbon::today() )
             ->whereHas('purchase' , function($query) use ($user_course) {
@@ -200,7 +217,7 @@ class CourseController extends Controller
             // package id is
             $package_id = $user_course->related_package_id;
             $user_installments_count = UserInstallments::
-            where('user_id' , Auth::id() )
+            where('user_id' , $user->id  )
             ->where('status' , 0 )
             ->where('due_date' , '<=' , Carbon::today() )
             ->whereHas('purchase' , function($query) use ($user_course) {
@@ -231,7 +248,7 @@ class CourseController extends Controller
             ] , 403); 
         }
 
-        AddLessonToUserViewJob::dispatch(Auth::user() , $lesson )->delay(now()->addSeconds(3));
+        AddLessonToUserViewJob::dispatch( $user, $lesson )->delay(now()->addSeconds(3));
 
         return response()->json([
             'status' => true,

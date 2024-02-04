@@ -38,8 +38,8 @@ Route::prefix("v1")->group(function () {
     Route::get('/home' , [HomeController::class , 'index'] );
     Route::get('/trainers/{trainer}' , [TrainerController::class , 'show'] );
     Route::get('/trainers' , [TrainerController::class , 'index'] );
+    Route::get('courses/{course}/lessons/{lesson}', [CourseController::class, 'lesson']);
     Route::middleware('auth:sanctum')->group(function () {
-        Route::get('courses/{course}/lessons/{lesson}', [CourseController::class, 'lesson']);
         Route::get('profile', [ProfileController::class, 'index']);
         Route::post('profile', [ProfileController::class, 'store']);
         Route::get('profile/courses', [ProfileController::class, 'courses']);
