@@ -74,7 +74,7 @@ class DetailedCourseResource extends JsonResource
 
 
 
-        if ($user_course->expires_at >= Carbon::today() ) {
+        if ($user_course->expires_at > Carbon::today() ) {
 
             if (($user_course->course_type == 1) && ($user_course->related_package_id == null ) ) {
                 $user_installments_count = UserInstallments::
