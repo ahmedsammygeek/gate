@@ -70,9 +70,9 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         // here is the only purchase courses
-        $user_courses = UserCourse::where('user_id' , $user->id )->where('course_type' , 1 )->where('related_package_id' , null)->where('expires_at' ,  '>=' , Carbon::today() )->get();
+        $user_courses = UserCourse::where('user_id' , $user->id )->where('course_type' , 1 )->where('related_package_id' , null)->where('expires_at' ,  '>' , Carbon::today() )->get();
         // here is the package
-        $user_packages_ids = UserCourse::where('user_id' , $user->id )->where('related_package_id' , '!=' , null )->where('expires_at' ,  '>=' , Carbon::today() )->select('related_package_id' )->groupBy('related_package_id')->pluck('related_package_id')->toArray();
+        $user_packages_ids = UserCourse::where('user_id' , $user->id )->where('related_package_id' , '!=' , null )->where('expires_at' ,  '>' , Carbon::today() )->select('related_package_id' )->groupBy('related_package_id')->pluck('related_package_id')->toArray();
 
 
         $user_packages = Course::find($user_packages_ids);
