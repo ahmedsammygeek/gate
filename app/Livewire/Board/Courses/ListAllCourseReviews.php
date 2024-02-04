@@ -9,6 +9,16 @@ class ListAllCourseReviews extends Component
 
     public $course;
 
+    protected $listeners = ['deleteItem'];
+
+    public function deleteItem($item_id)
+    {
+        $item = CourseReview::find($item_id);
+        if ($item) {
+            $item->delete();
+            $this->emit('itemDeleted');
+        }
+    }
 
     public function changeReviewStatus($course_review_id)
     {
