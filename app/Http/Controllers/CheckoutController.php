@@ -79,6 +79,11 @@ class CheckoutController extends Controller
             return redirect(url('https://frontend.thegatelearning.com/confirm?message='.$message.'&status='.$status.'&order='.$order_number));
         }
 
+
+        // if (($order->payment_type == 'one_payment') && ($order->payment_method == 3) ) {
+        //     // code...
+        // }
+
         $order->load(['course'  , 'user' ]);
         switch ($order->payment_method) {
             case 1:
@@ -98,6 +103,7 @@ class CheckoutController extends Controller
 
     private function preparBankTransferPayment($order)
     {
+
         $purchase =  $this->addPurchaseToUser($order);
         $this->addCoursesToUser($purchase);
         $this->addInstallmentsToUser($order , $purchase );
@@ -471,40 +477,19 @@ class CheckoutController extends Controller
         // this means he will pay with installments and with bank transfer
         switch ($order->payment_method) {
             // bank transfer payment
-            // case 3:
-            // $user_installments = [];
-            // switch ($order->payment_type) {
-            //     case 'installments':
-            //     $course_installments = $order->course?->installments()->get();
-            //     foreach ($course_installments as $course_installment) {
-            //         $user_installments[] = new UserInstallments([
-            //             'user_id' => $order->user_id , 
-            //             'installment_number' => Str::uuid() , 
-            //             'course_id' => $order->course_id , 
-            //             'amount' => $course_installment->amount , 
-            //             'due_date' => Carbon::today()->addDays($course_installment->days) , 
-            //             'status' => 0 , 
-            //             'purchase_id' => $purchase->id , 
-            //         ]);
-            //     }
-            //     break;
-            //     case 'one_later_installment':
-            //     case 'one_payment':
-            //     $user_installments[] = new UserInstallments([
-            //         'user_id' => $order->user_id , 
-            //         'installment_number' => Str::uuid() , 
-            //         'course_id' => $order->course_id , 
-            //         'amount' => $order->course?->price_later , 
-            //         'due_date' => Carbon::today()->addDays($order->course?->days) , 
-            //         'status' => 0 , 
-            //         'purchase_id' => $purchase->id , 
-            //     ]);
-            //     break;
-            //     default:
-            //     break;
-            // }
-            // $order->user->installments()->saveMany($user_installments);
-            // break;
+            case 3:
+            $user_installments = [];
+            $user_installments[] = new UserInstallments([
+                'user_id' => $order->user_id , 
+                'installment_number' => Str::uuid() , 
+                'course_id' => $order->course_id , 
+                'amount' => $order->course?->price_later , 
+                'due_date' => Carbon::today() , 
+                'status' => 0 , 
+                'purchase_id' => $purchase->id , 
+            ]);
+            $order->user->installments()->saveMany($user_installments);
+            break;
             // my fatorah payment method
             case 2:
             case 1:
