@@ -474,7 +474,7 @@ class CheckoutController extends Controller
 
     private function addInstallmentsToUser($order , $purchase )
     {
-        if ($order->payment_method) {
+        if ($order->payment_method != 0 ) {
             switch ($order->payment_method) {
             // bank transfer payment
                 case 3:
@@ -493,9 +493,11 @@ class CheckoutController extends Controller
             // my fatorah payment method
                 case 2:
                 case 1:
+
                 $user_installments = [];
                 switch ($order->payment_type) {
                     case 'installments':
+                    $user_installments = [];
                     $course_installments = $order->course?->installments()->where('days' , '!=' , 0 )->get();
                     foreach ($course_installments as $course_installment) {
                         $user_installments[] = new UserInstallments([
@@ -508,6 +510,7 @@ class CheckoutController extends Controller
                             'purchase_id' => $purchase->id , 
                         ]);
                     }
+
                     $order->user->installments()->saveMany($user_installments);
                     break;
                     case 'one_later_installment':
@@ -521,9 +524,6 @@ class CheckoutController extends Controller
                         'purchase_id' => $purchase->id , 
                     ]);
                     $order->user->installments()->saveMany($user_installments);
-                    break;
-                    // $order->user->installments()->saveMany($user_installments);
-                    default:
                     break;
                 }
                 // $order->user->installments()->saveMany($user_installments);
