@@ -490,11 +490,8 @@ class CheckoutController extends Controller
                 ]);
                 $order->user->installments()->saveMany($user_installments);
                 break;
-            // my fatorah payment method
                 case 2:
                 case 1:
-
-                $user_installments = [];
                 switch ($order->payment_type) {
                     case 'installments':
                     $user_installments = [];
@@ -514,6 +511,7 @@ class CheckoutController extends Controller
                     $order->user->installments()->saveMany($user_installments);
                     break;
                     case 'one_later_installment':
+                    $user_installments = [];
                     $user_installments[] = new UserInstallments([
                         'user_id' => $order->user_id , 
                         'installment_number' => Str::uuid() , 
@@ -526,11 +524,6 @@ class CheckoutController extends Controller
                     $order->user->installments()->saveMany($user_installments);
                     break;
                 }
-                // $order->user->installments()->saveMany($user_installments);
-                break;
-
-                default:
-                // code...
                 break;
             }
         } else {
