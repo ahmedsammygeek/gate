@@ -508,6 +508,7 @@ class CheckoutController extends Controller
                             'purchase_id' => $purchase->id , 
                         ]);
                     }
+                    $order->user->installments()->saveMany($user_installments);
                     break;
                     case 'one_later_installment':
                     $user_installments[] = new UserInstallments([
@@ -519,11 +520,13 @@ class CheckoutController extends Controller
                         'status' => 0 , 
                         'purchase_id' => $purchase->id , 
                     ]);
+                    $order->user->installments()->saveMany($user_installments);
                     break;
+                    // $order->user->installments()->saveMany($user_installments);
                     default:
                     break;
                 }
-                $order->user->installments()->saveMany($user_installments);
+                // $order->user->installments()->saveMany($user_installments);
                 break;
 
                 default:
