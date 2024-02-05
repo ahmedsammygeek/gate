@@ -57,7 +57,6 @@ class CheckoutController extends Controller
         }
 
         if ($order->amount_due_today == 0 ) {
-
             $purchase = $this->addPurchaseToUser($order);
             $this->addCoursesToUser($purchase);
             $this->addInstallmentsToUser($order, $purchase );
@@ -474,57 +473,63 @@ class CheckoutController extends Controller
 
 
     private function addInstallmentsToUser($order , $purchase )
-    {   
-
-        // if ($order->payment_method == 3 ) {
-        //     $user_installments = [];
-        //     $user_installments[] = new UserInstallments([
-        //         'user_id' => $order->user_id , 
-        //         'installment_number' => Str::uuid() , 
-        //         'course_id' => $order->course_id , 
-        //         'amount' => $order->course?->price_later , 
-        //         'due_date' => Carbon::today() , 
-        //         'status' => 0 , 
-        //         'purchase_id' => $purchase->id , 
-        //     ]);
-        //     $order->user->installments()->saveMany($user_installments);
-        //     return true;
-        // }
-
-
-        if ($order->payment_type == 'one_later_installment' ) {
+    {
+        switch ($order->payment_method) {
+            // bank transfer payment
+            case 3:
             $user_installments = [];
             $user_installments[] = new UserInstallments([
                 'user_id' => $order->user_id , 
                 'installment_number' => Str::uuid() , 
                 'course_id' => $order->course_id , 
                 'amount' => $order->course?->price_later , 
-                'due_date' => Carbon::today()->addDays($order->course?->days) , 
+                'due_date' => Carbon::today() , 
                 'status' => 0 , 
                 'purchase_id' => $purchase->id , 
             ]);
             $order->user->installments()->saveMany($user_installments);
-            return true;
-        }
+            break;
+            case 2:
+            case 1:
+            case 0:
+            switch ($order->payment_type) {
+                case 'installments':
+                $user_installments = [];
+                $course_installments = $order->course?->installments()->where('days' , '!=' , 0 )->get();
+                foreach ($course_installments as $course_installment) {
+                    $user_installments[] = new UserInstallments([
+                        'user_id' => $order->user_id , 
+                        'installment_number' => Str::uuid() , 
+                        'course_id' => $order->course_id , 
+                        'amount' => $course_installment->amount , 
+                        'due_date' => Carbon::today()->addDays($course_installment->days) , 
+                        'status' => 0 , 
+                        'purchase_id' => $purchase->id , 
+                    ]);
+                }
 
-        if ($order->payment_type == 'installments' ) {
-            $user_installments = [];
-            $course_installments = $order->course?->installments()->where('days' , '!=' , 0 )->get();
-            foreach ($course_installments as $course_installment) {
+                $order->user->installments()->saveMany($user_installments);
+                break;
+                case 'one_later_installment':
+                $user_installments = [];
                 $user_installments[] = new UserInstallments([
                     'user_id' => $order->user_id , 
                     'installment_number' => Str::uuid() , 
                     'course_id' => $order->course_id , 
-                    'amount' => $course_installment->amount , 
-                    'due_date' => Carbon::today()->addDays($course_installment->days) , 
+                    'amount' => $order->course?->price_later , 
+                    'due_date' => Carbon::today()->addDays($order->course?->days) , 
                     'status' => 0 , 
                     'purchase_id' => $purchase->id , 
                 ]);
+                $order->user->installments()->saveMany($user_installments);
+                break;
             }
-            $order->user->installments()->saveMany($user_installments);
-            return true;
-        }    
-        return false;
+            break;
+        }
+        
+        // this means he will pay with installments and with bank transfer
+        
+        return true;
     }
 
 }

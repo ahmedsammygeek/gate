@@ -14,10 +14,8 @@ use App\Http\Resources\BasicCourseResource;
 use App\Http\Resources\Api\Settings\PaymentSettingsResource;
 use Str;
 use Auth;
-use Validator;
 use Carbon\Carbon;
 use App\Http\Resources\Api\CourseInstallmentResource;
-use Illuminate\Validation\Rule;
 class CheckoutController extends Controller
 {
 
@@ -95,30 +93,13 @@ class CheckoutController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function checkout(Request $request)
+    public function checkout(CheckoutStep2Request $request)
     {
-
-        $validator = Validator::make($request->all(), [
-            'course_id' => 'required',
-            'payment_type' => [
-                'required' , 
-                Rule::in(['one_payment', 'one_later_installment' , 'installments' ]),
-            ] ,
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => false,
-                'message' => 'يجب اختيار العنصر  و نوع الدفع ',
-                'data' =>  []
-            ]);
-        }
-
         $course = Course::find($request->course_id);
         if (!$course) {
             return response()->json([
-                'status' => false,
-                'message' => 'لم يتم العثور على الكورس',
+                'status' => true,
+                'message' => 'success',
                 'data' =>  []
             ]);
         }
@@ -127,11 +108,10 @@ class CheckoutController extends Controller
         if ($course->ends_at <= Carbon::today() ) {
             return response()->json([
                 'status' => false,
-                'message' => 'عفوا هذا الكورس منتهى ولا يمكن شراء حاليا',
+                'message' => 'this course is expired and can not be purchased',
                 'data' =>  []
             ]);
         }
-
 
 
         if ($request->payment_method == 3 && ( ($request->payment_type == 'installments') || ($request->payment_type == 'one_later_installment' ) ) ) {
@@ -145,7 +125,7 @@ class CheckoutController extends Controller
         if (!$this->canPurchaseThisItem($course)) {
             return response()->json([
                 'status' => false,
-                'message' => 'لا يمكنك شراء هذا الكورس & الباقه حيث انها مازلت غير منتهيه فى حسابك',
+                'message' => 'you can not purchase this item case it is still active in you purchases items',
                 'data' =>  []
             ]);
         }
@@ -156,7 +136,7 @@ class CheckoutController extends Controller
             if ($course->installments()->count() == 0 ) {
                 return response()->json([
                     'status' => false,
-                    'message' => 'هذا الكورس لا يحتوى على اقساط',
+                    'message' => 'error this item has no installments',
                     'data' => [] 
                 ]);
             }
@@ -166,7 +146,7 @@ class CheckoutController extends Controller
             if ( ( $course->price_later == null ) || ( $course->price_later == 0 ) ) {
                 return response()->json([
                     'status' => false,
-                    'message' => 'لا يمكن شراء هذا الكورس عن طريق دفعه مؤجله',
+                    'message' => 'error this item has no one later payment ',
                     'data' => [] 
                 ]);
             }
@@ -187,7 +167,7 @@ class CheckoutController extends Controller
                 break;
                 case 'one_later_installment':
                 $amount = $course->price_later;
-                $amount_due_today = 0 ;
+                $amount_due_today = $course->price_later;
                 break;
                 case 'installments':
                 if ($installment = $course->installments()->where('days'  , 0 )->first() ) {
@@ -202,26 +182,6 @@ class CheckoutController extends Controller
                 break;
             }
         }
-
-        if ($amount_due_today > 0 ) {
-
-            $validator = Validator::make($request->all(), [
-                'course_id' => 'required',
-                'payment_method' => [
-                    'required' , 
-                    Rule::in([1, 2 , 3]),
-                ] ,
-            ]);
-
-            if ($validator->fails()) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'يجب اختيار وسيله دفع لان يوجد مبلغ بقيمه '.$amount_due_today.' يجب دفعه اليوم',
-                    'data' =>  (object) []
-                ]);
-            }        
-        }
-
 
 
         $order = new Order;

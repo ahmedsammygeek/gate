@@ -41,7 +41,7 @@ class UpdateCourseRequest extends FormRequest
             'discount_end_at' => 'nullable' , 
             'show_in_home' => 'nullable' , 
             'active' => 'nullable' , 
-            'days' => 'nullable' , 
+            'days' => 'required_with:price_later',
             'ends_at' => 'required' , 
         ];
     }

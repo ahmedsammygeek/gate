@@ -63,12 +63,18 @@ class ListAllUserCourses extends Component
     public function deleteItem($item_id)
     {
         $item = UserCourse::find($item_id);
-        if ($item) {
+
+        if ($item->course_type == 1 ) {
             $item->delete();
             $this->emit('itemDeleted');
+        } else {
+            UserCourse::where('user_id' , $this->user->id )->where('related_package_id' , $item->course_id )->delete();
+            $item->delete();
+            $this->emit('itemDeleted');
+            // $item->delete();
         }
-    }
 
+    }
     public function render()
     {
         $user_courses = UserCourse::with('course')->where('user_id' , $this->user->id )->where('related_package_id' , null )->get();
