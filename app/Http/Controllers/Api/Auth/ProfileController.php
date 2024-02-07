@@ -234,18 +234,11 @@ class ProfileController extends Controller
 
     public function installments() {
 
-
         $overdue_installemnt_before_today =  UserInstallments::where('user_id' , Auth::id() )
         ->where('status' , 0 )
         ->whereDate('due_date' ,   '<=' ,  Carbon::today() )
         ->orderBy('due_date' , 'ASC')
         ->get();
-
-
-        // dd($overdue_installemnt_before_today);
-
-
-
         $upcomming_first_installment = UserInstallments::
         where('user_id' , Auth::id() )
         ->where('status' , 0 )
@@ -254,8 +247,6 @@ class ProfileController extends Controller
         ->get();
 
         $installments = $overdue_installemnt_before_today->merge($upcomming_first_installment);
-
-        // dd($installments);
 
         if (count($installments) == 0 ) {
             return response()->json([
@@ -266,6 +257,36 @@ class ProfileController extends Controller
                 ]
             ]);
         }
+
+        return response()->json([
+            'status' => true,
+            'message' => '',
+            'data' => [
+                'user_installments' => UserInstallmentResource::collection($installments) ,
+            ]
+        ]);
+    }
+
+    public function course_installments(Course $course) {
+
+        // first we need to see if the user bought this course or not
+
+        $user_courses = UserCourse::where('user_id' , Auth::id() )->where('course_id' , $course->id )->latest()->first();
+
+        if (!$user_courses) {
+            return response()->json([
+                'status' => false,
+                'message' => 'انت غير مشترك فى هذا الكورس',
+                'data' => []
+            ]);
+        }
+
+
+        $installments =  UserInstallments::where('user_id' , Auth::id() )
+        ->where('course_id' , $course->id )
+        ->orderBy('due_date' , 'ASC')
+        ->get();
+
 
         return response()->json([
             'status' => true,

@@ -43,6 +43,7 @@ Route::prefix("v1")->group(function () {
         Route::get('profile', [ProfileController::class, 'index']);
         Route::post('profile', [ProfileController::class, 'store']);
         Route::get('profile/courses', [ProfileController::class, 'courses']);
+        Route::get('profile/courses/{course}/installments', [ProfileController::class, 'course_installments']);
         Route::get('profile/installments', [ProfileController::class, 'installments']);
         Route::get('profile/purchases', [ProfileController::class, 'purchases']);
         Route::get('profile/transactions', [ProfileController::class, 'transactions']);
