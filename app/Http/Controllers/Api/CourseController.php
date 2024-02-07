@@ -80,6 +80,18 @@ class CourseController extends Controller
                 ]
             ] , 404);
         }
+
+        if (($package->ends_at <= Carbon::today() ) || ($package->is_active == 0) ) {
+            return response()->json([
+                'status' => false,
+                'message' => " هذه الباقه  غير متوفره حاليا ",
+                "data" => (object) [
+                ]
+            ] , 404);
+        }
+
+
+
         return response()->json([
             'status' => true,
             'message' => '',
@@ -96,7 +108,16 @@ class CourseController extends Controller
         if (!$course) {
             return response()->json([
                 'status' => false,
-                'message' => "course not found ",
+                'message' => " لا يمكن ايجاد الكورس ",
+                "data" => (object) [
+                ]
+            ] , 404);
+        }
+
+        if ($course->ends_at <= Carbon::today() || ($course->is_active == 0)  ) {
+            return response()->json([
+                'status' => false,
+                'message' => " هذا الكورس  غير متوفر حاليا ",
                 "data" => (object) [
                 ]
             ] , 404);
