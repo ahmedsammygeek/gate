@@ -249,7 +249,7 @@ class ProfileController extends Controller
         $upcomming_first_installment = UserInstallments::
         where('user_id' , Auth::id() )
         ->where('status' , 0 )
-        ->whereDate('due_date' , '=' , Carbon::today()->addDays(3) )
+        ->whereDate('due_date' , '<=' , Carbon::today()->addDays(3) )
         ->orderBy('due_date' , 'ASC')
         ->get();
 
