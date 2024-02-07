@@ -16,7 +16,6 @@ class UserInstallmentResource extends JsonResource
     {
         return [
             'installment_number' => $this->installment_number , 
-            'can_pay' => $this->can_pay ? $this->can_pay : false , 
             'amount' => $this->amount  , 
             'due_date' => $this->due_date->toDateString() , 
             'due_date_for_human' => $this->due_date->diffForHumans() , 
