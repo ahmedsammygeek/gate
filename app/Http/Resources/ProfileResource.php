@@ -14,6 +14,22 @@ class ProfileResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
+        $overdue_installemnt_before_today =  $this->installments()
+        ->where('status' , 0 )
+        ->whereDate('due_date' ,   '<=' ,  Carbon::today() )
+        ->orderBy('due_date' , 'ASC')
+        ->get();
+        $upcomming_first_installment = $this->installments()
+        ->where('status' , 0 )
+        ->whereDate('due_date' , '<=' , Carbon::today()->addDays(3) )
+        ->orderBy('due_date' , 'ASC')
+        ->get();
+
+        $installments = $overdue_installemnt_before_today->merge($upcomming_first_installment);
+
+
+
+
         return [
             'name' =>  $this->name,
             'email' => $this->email,
@@ -29,7 +45,7 @@ class ProfileResource extends JsonResource
             'activated_at' => $this->activated_at , 
             'unread_notifications_count' => $this->unreadNotifications->count() , 
             'courses_count' => $this->courses()->where('expires_at' , '>' , Carbon::today() )->where( 'related_package_id' , null)->count() , 
-            'eligible_installments' => $this->installments()->where('status' , 0 )->whereDate('due_date' , '>' , Carbon::today() )->count() , 
+            'eligible_installments' => $installments->count() , 
             'course_progress' => UserCourseProgressResource::collection(Auth::user()->courses()->where('expires_at' , '>' , Carbon::today() )->where( 'related_package_id' , null)->get()) , 
             'can_change_whats_number' => $this->canUserChangeWhatsAppNumber() , 
         ];
