@@ -248,6 +248,18 @@ class ProfileController extends Controller
 
         $installments = $overdue_installemnt_before_today->merge($upcomming_first_installment);
 
+        $installments->map(function($installment , $key ){
+
+            if ($key == 0 ) {
+                $installment->can_pay = true;
+            } else {
+                $installment->can_pay = false;
+            }
+
+            return $installment;
+
+        });
+
         if (count($installments) == 0 ) {
             return response()->json([
                 'status' => true,
