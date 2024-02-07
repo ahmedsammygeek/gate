@@ -78,7 +78,7 @@ class ProfileController extends Controller
         $user_packages = Course::find($user_packages_ids);
 
         // return $user_packages;
- 
+
         $user_packages->map(function($user_package , $key ){
             $user_package['expires_at'] = UserCourse::where('user_id' , Auth::id() )->where('related_package_id' , $user_package->id )->first()?->expires_at ; 
             $user_package['courses'] = UserCourse::where('user_id' , Auth::id() )->where('related_package_id' , $user_package->id )->get();
@@ -234,7 +234,38 @@ class ProfileController extends Controller
 
     public function installments() {
 
-        $installments = UserInstallments::where('user_id' , Auth::id() )->where('status' , 0 )->get();
+
+        $overdue_installemnt_before_today =  UserInstallments::where('user_id' , Auth::id() )
+        ->where('status' , 0 )
+        ->whereDate('due_date' ,   '<=' ,  Carbon::today() )
+        ->orderBy('due_date' , 'ASC')
+        ->get();
+
+
+        // dd($overdue_installemnt_before_today);
+
+
+
+        $upcomming_first_installment = UserInstallments::
+        where('user_id' , Auth::id() )
+        ->where('status' , 0 )
+        ->whereDate('due_date' , '=' , Carbon::today()->addDays(3) )
+        ->orderBy('due_date' , 'ASC')
+        ->get();
+
+        $installments = $overdue_installemnt_before_today->merge($upcomming_first_installment);
+
+        // dd($installments);
+
+        if (count($installments) == 0 ) {
+            return response()->json([
+                'status' => true,
+                'message' => 'لا يوجد اقساط حاليا يجب دفعها',
+                'data' => [
+                    'user_installments' => [] ,
+                ]
+            ]);
+        }
 
         return response()->json([
             'status' => true,

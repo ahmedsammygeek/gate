@@ -31,7 +31,6 @@ class UserInstallments extends Model
         return $this->belongsTo(Purchase::class);
     }
 
-
     public function transaction()
     {
         return $this->belongsTo(Transaction::class);
