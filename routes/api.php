@@ -69,3 +69,11 @@ Route::prefix("v1")->group(function () {
     Route::get('orders/{order:order_number}' , [OrderController::class , 'show'] );
 });
 
+
+
+Route::get('/post' , function(){
+
+
+    dd('how to be your slef');
+
+});

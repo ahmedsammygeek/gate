@@ -114,14 +114,49 @@ class CourseController extends Controller
             ] , 404);
         }
 
-        if ($course->ends_at <= Carbon::today() || ($course->is_active == 0)  ) {
-            return response()->json([
-                'status' => false,
-                'message' => " هذا الكورس  غير متوفر حاليا ",
-                "data" => (object) [
-                ]
-            ] , 404);
+        // first we need to check if this user logged in or not
+        $bearerToken =  $request->bearerToken()  ;
+        $token =  PersonalAccessToken::findToken($request->bearerToken());
+
+        // this means he is not logged in
+        if (!$bearerToken || !$token) {
+            if ($course->ends_at <= Carbon::today() || ($course->is_active == 0)  ) {
+                return response()->json([
+                    'status' => false,
+                    'message' => " هذا الكورس  غير متوفر حاليا ",
+                    "data" => (object) [
+                    ]
+                ] , 404);
+            }
         }
+
+        if ($token) {
+            // we need to check if this user bought this course and not expired yet or not
+            $user_course = UserCourse::where('user_id' , $token->tokenable_id )->where('course_id' , $course->id )->latest()->first();
+            if (!$user_course) {
+                if ($course->ends_at <= Carbon::today() || ($course->is_active == 0)  ) {
+                    return response()->json([
+                        'status' => false,
+                        'message' => " هذا الكورس  غير متوفر حاليا ",
+                        "data" => (object) [
+                        ]
+                    ] , 404);
+                }
+            } else {
+                if ($user_course->expires_at <= Carbon::today()) {
+                    if ($course->ends_at <= Carbon::today() || ($course->is_active == 0)  ) {
+                        return response()->json([
+                            'status' => false,
+                            'message' => " هذا الكورس  غير متوفر حاليا ",
+                            "data" => (object) [
+                            ]
+                        ] , 404);
+                    }
+                }
+            }
+
+        }
+
 
         $course->load(['courseReviews' , 'trainer' , 'units' ]);
         return response()->json([
