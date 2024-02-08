@@ -136,6 +136,20 @@ class CourseController extends Controller
 
     public function lesson(Request $request ,   Course $course , Lesson $lesson)
     {
+
+        $lesson->load('unit.course');
+        // we need to check if this lesson related to this course or not
+
+        if ($lesson->unit?->course_id != $course->id ) {
+            return response()->json([
+                'status' => false,
+                'message' => "خطا حاول مره اخرى",
+                "data" => []
+            ] , 403); 
+        }
+
+
+
         if (!$lesson->is_active) {
             return response()->json([
                 'status' => false,
@@ -256,18 +270,6 @@ class CourseController extends Controller
             }
         }
 
-
-
-        $lesson->load('unit.course');
-        // we need to check if this lesson related to this course or not
-
-        if ($lesson->unit?->course?->id != $course->id ) {
-            return response()->json([
-                'status' => false,
-                'message' => "you can not access this lesson  , as it is not related to this course",
-                "data" => []
-            ] , 403); 
-        }
 
         AddLessonToUserViewJob::dispatch( $user, $lesson )->delay(now()->addSeconds(3));
 
