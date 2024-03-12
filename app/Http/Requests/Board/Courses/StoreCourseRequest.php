@@ -43,6 +43,7 @@ class StoreCourseRequest extends FormRequest
             'active' => 'nullable' , 
             'days' => 'required_with:price_later' , 
             'ends_at' => 'required' , 
+            'trainer_percentage' => 'required' , 
         ];
     }
 }

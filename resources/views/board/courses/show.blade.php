@@ -111,6 +111,8 @@
                                     <td> {!! $course->getTranslation('curriculum', 'en') !!} </td>
                                 </tr>
 
+
+
                                 <tr>
                                     <th> الجامعه </th>
                                     <td> 
@@ -131,6 +133,13 @@
                                         <span class="badge bg-secondary"> باقه</span>
                                         @break
                                         @endswitch
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th> نسبه الناشر </th>
+                                    <td>
+                                        {{ $course->trainer_percentage }} <span class='text-muted' > % </span>
                                     </td>
                                 </tr>
 

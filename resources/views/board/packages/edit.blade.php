@@ -224,6 +224,21 @@
 								</div>
 							</div>
 						</div>
+						<div class="col-md-3">
+							<label class="col-form-label col-lg-12">  نسبه الناشر </label>
+							<div class="row">
+								<div class="col-lg-9">
+									<input type="number" name="trainer_percentage" value='{{ $package->trainer_percentage }}'
+									class="form-control @error('trainer_percentage')  is-invalid @enderror" placeholder=''>
+									@error('days')
+									<p class='text-danger'> {{ $message }} </p>
+									@enderror
+								</div>
+								<div class="col-lg-3">
+									<input type="number" class="form-control" disabled="" placeholder="%">
+								</div>
+							</div>
+						</div>
 						<div class="col-md-3 mt-4">
 							<label class="col-lg-12 col-form-label pt-0"> عرض داخل الصفحه الرئيسيه </label>
 							<div class="col-lg-12">

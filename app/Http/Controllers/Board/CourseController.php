@@ -68,6 +68,7 @@ class CourseController extends Controller
         $course->setTranslation('curriculum' , 'en' , $request->curriculum_en );
         $course->price = $request->price;
         $course->price_later = $request->price_later;
+        $course->trainer_percentage = $request->trainer_percentage;
         $course->days = $request->days;
         $course->discount_percentage = $request->discount_percentage;
         $course->discount_end_at = $request->discount_end_at;
@@ -125,6 +126,7 @@ class CourseController extends Controller
         $course->setTranslation('curriculum' , 'en' , $request->curriculum_en );
         $course->price = $request->price;
         $course->price_later = $request->price_later;
+        $course->trainer_percentage = $request->trainer_percentage;
         $course->days = $request->days;
         $course->discount_percentage = $request->discount_percentage;
         $course->discount_end_at = $request->discount_end_at;

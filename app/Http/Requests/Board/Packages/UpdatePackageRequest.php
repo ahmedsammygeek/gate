@@ -43,6 +43,7 @@ class UpdatePackageRequest extends FormRequest
             'show_in_home' => 'nullable' , 
             'active' => 'nullable' ,  
             'days' => 'required_with:price_later' ,  
+            'trainer_percentage' => 'required' , 
         ];
     }
 }

@@ -117,6 +117,8 @@
                                 </tr>
 
 
+
+
                                 <tr>
                                     <th> الجامعه </th>
                                     <td> 
@@ -137,6 +139,13 @@
                                         <span class="badge bg-secondary"> باقه</span>
                                         @break
                                         @endswitch
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th> نسبه الناشر </th>
+                                    <td>
+                                        {{ $package->trainer_percentage }} <span class='text-muted' > % </span>
                                     </td>
                                 </tr>
 

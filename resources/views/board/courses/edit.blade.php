@@ -255,15 +255,30 @@
                                             <label class="col-form-label col-lg-12"> عدد الايام قبل المطالبه بالدفعه المؤجله </label>
                                             <div class="row">
                                                 <div class="col-lg-9">
-                                                <input type="number" name="days" value='{{ $course->days }}'
-                                                class="form-control @error('days')  is-invalid @enderror" placeholder=''>
-                                                @error('days')
-                                                <p class='text-danger'> {{ $message }} </p>
-                                                @enderror
+                                                    <input type="number" name="days" value='{{ $course->days }}'
+                                                    class="form-control @error('days')  is-invalid @enderror" placeholder=''>
+                                                    @error('days')
+                                                    <p class='text-danger'> {{ $message }} </p>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <input type="number" class="form-control" disabled="" placeholder="يوم">
+                                                </div>
                                             </div>
-                                            <div class="col-lg-3">
-                                                <input type="number" class="form-control" disabled="" placeholder="يوم">
-                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="col-form-label col-lg-12">  نسبه الناشر </label>
+                                            <div class="row">
+                                                <div class="col-lg-9">
+                                                    <input type="number" name="trainer_percentage" value='{{ $course->trainer_percentage }}'
+                                                    class="form-control @error('trainer_percentage')  is-invalid @enderror" placeholder=''>
+                                                    @error('days')
+                                                    <p class='text-danger'> {{ $message }} </p>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <input type="number" class="form-control" disabled="" placeholder="%">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
