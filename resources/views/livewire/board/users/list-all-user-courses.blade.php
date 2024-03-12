@@ -13,6 +13,7 @@
                             <th> تاريخ الانضمام </th>
                             <th> متاحه حتى تاريخ </th>
                             <th> نسبه اكمال الدوره </th>
+                            <th> مفعل </th>
                             <th class="text-center" style="width: 20px;">خصائص</th>
                         </tr>
                     </thead>
@@ -58,6 +59,17 @@
                             </td>
 
                             <td> <span class='badge bg-info'> {{ $user_course->progress }} % </span>  </td>
+
+                            <td>
+                                @switch($user_course->allowed)
+                                @case(1)
+                                <span class='badge bg-success' > مفعل </span>
+                                @break
+                                @case(0)
+                                <span class='badge bg-danger'> غير مفعل </span>
+                                @break
+                                @endswitch
+                            </td>
 
 
                             <td class="text-center">

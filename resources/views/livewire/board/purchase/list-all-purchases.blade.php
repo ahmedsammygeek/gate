@@ -72,76 +72,119 @@
             <div class="table-responsive">
                 <table class="table text-nowrap">
                     <thead>
-                       @if (count($purchases))
-                       <tr>
-                        <th > رقم عمليه الشراء </th>
-                        <th > المستخدم </th>
-                        <th >  قيمه عمليه الشراء </th>
-                        <th >  نوع عمليه الشراء  </th>
-                        <th >  هل تم الدفع  </th>
-                        <th class="text-center" style="width: 20px;">خصائص</th>
-                    </tr>
-                    @endif
-                </thead>
-                <tbody>
-                 @if (count($purchases))
-                 @foreach ($purchases as $purchase)
-                 <tr>
-                    <td> {{ $purchase->purchase_number }} </td>
-                    <td> <a href="{{ route('board.users.show' , $purchase->user_id ) }}"> {{ $purchase->user?->name }} </a> </td>
-                    <td> {{ $purchase->total }} <span class='text-muted' >  ريال سعودى </span> </td>
-                    <td> 
-                        @switch($purchase->purchase_type)
-                        @case('one_later_installment')
-                        <span class='badge bg-primary' > قسط واحد مؤجل </span>
-                        @break
-                        @case('installments')
-                        <span class='badge bg-success' > اقساط </span>
-                        @break
-                        @case('one_payment')
-                        <span class='badge bg-info' > المبلغ كامل </span>
-                        @break
-                        @default
-                        @endswitch
-                    </td>
-                    <td>
-                        @switch($purchase->is_paid)
-                        @case(0)
-                        <span class='badge bg-warning' > لم يتم الدفع بعد </span>
-                        @break
-                        @case(1)
-                        <span class='badge bg-black' > تم الدفع بشكل جزئى </span>
-                        @break
-                        @case(2)
-                        <span class='badge bg-success' > تم دفع كامل المبلغ </span>
-                        @break
-                        @default
-                        @endswitch
-                    </td>
-                    <td class="text-center">
-                       @can('purchases.show')
-                       <a  href="{{ route('board.purchases.show'  , $purchase ) }}"  class="btn btn-sm btn-primary  ">
-                        <i class="icon-eye  "></i>
-                    </a>
-                    @endcan
-                </td>
-            </tr>
-            @endforeach
-            @else
-            <tr>
-                <td class="text-center text-danger" colspan="5"> لا يوجد بيانات  </td>
-            </tr>
-            @endif
+                        @if (count($purchases))
+                        <tr>
+                            <th > رقم عمليه الشراء </th>
+                            <th > المستخدم </th>
+                            <th >  قيمه عمليه الشراء </th>
+                            <th >  نوع عمليه الشراء  </th>
+                            <th >  هل تم الدفع  </th>
+                            <th class="text-center" style="width: 20px;">خصائص</th>
+                        </tr>
+                        @endif
+                    </thead>
+                    <tbody>
+                        @if (count($purchases))
+                        @foreach ($purchases as $purchase)
+                        <tr>
+                            <td> {{ $purchase->purchase_number }} </td>
+                            <td> <a href="{{ route('board.users.show' , $purchase->user_id ) }}"> {{ $purchase->user?->name }} </a> </td>
+                            <td> {{ $purchase->total }} <span class='text-muted' >  ريال سعودى </span> </td>
+                            <td> 
+                                @switch($purchase->purchase_type)
+                                @case('one_later_installment')
+                                <span class='badge bg-primary' > قسط واحد مؤجل </span>
+                                @break
+                                @case('installments')
+                                <span class='badge bg-success' > اقساط </span>
+                                @break
+                                @case('one_payment')
+                                <span class='badge bg-info' > المبلغ كامل </span>
+                                @break
+                                @default
+                                @endswitch
+                            </td>
+                            <td>
+                                @switch($purchase->is_paid)
+                                @case(0)
+                                <span class='badge bg-warning' > لم يتم الدفع بعد </span>
+                                @break
+                                @case(1)
+                                <span class='badge bg-black' > تم الدفع بشكل جزئى </span>
+                                @break
+                                @case(2)
+                                <span class='badge bg-success' > تم دفع كامل المبلغ </span>
+                                @break
+                                @default
+                                @endswitch
+                            </td>
+                            <td class="text-center">
+                                @can('purchases.show')
+                                <a  href="{{ route('board.purchases.show'  , $purchase ) }}"  class="btn btn-sm btn-primary  ">
+                                    <i class="icon-eye  "></i>
+                                </a>
 
-        </tbody>
-    </table>
-</div>
+                                <a wire:click='openEditModal({{ $purchase->id }})'  class="btn btn-sm btn-warning  ">
+                                    <i class="icon-eye  "></i>
+                                </a>
+                                @endcan
+                            </td>
+                        </tr>
+                        @endforeach
+                        @else
+                        <tr>
+                            <td class="text-center text-danger" colspan="5"> لا يوجد بيانات  </td>
+                        </tr>
+                        @endif
 
-<div class="card-footer d-flex justify-content-end ">
-    {{ $purchases->links() }}
-</div>
-</div>
-</div>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card-footer d-flex justify-content-end ">
+                {{ $purchases->links() }}
+            </div>
+        </div>
+    </div>
+
+    <div id="modal_form_vertical" wire:ignore.self class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"> تعديل  حاله عمليه الشراء </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <form wire:submit.prevent="changePurchaseStatus" >
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label class="form-label">  الحاله   </label>
+                                    <select wire:model='is_purchase_paid' class='form-control' >
+                                        <option value='0' {{ $is_purchase_paid == 0 ? 'selected="selected"' : '' }}  > لم يتم الدفع </option>
+                                        <option value='1' {{ $is_purchase_paid == 1 ? 'selected="selected"' : '' }}  > تم الدفع بشكل جزئ </option>
+                                        <option value='2' {{ $is_purchase_paid == 2 ? 'selected="selected"' : '' }}  > تم الدفع بشكل كامل </option>
+                                    </select>
+                                    @error('is_purchase_paid')
+                                    <p class='text-danger'> {{ $message }} </p>
+                                    @enderror
+                                </div>
+                                
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-link" data-bs-dismiss="modal"> اغلاق </button>
+                        <button type="submit" class="btn btn-primary"> حفظ </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 @section('scripts')
@@ -151,6 +194,23 @@
 <script src="{{ asset('board_assets/demo/pages/gallery.js') }}"></script>
 <script>
     $(function() {
+
+
+        
+
+        Livewire.on('statusChanged', () => {
+            $(document).find('#modal_form_vertical').modal('hide');
+            new Noty({
+                text: 'تم تعديل بنجاح',
+                type: 'info'
+            }).show();
+        })
+
+
+        Livewire.on('openModal', () => {
+            $(document).find('#modal_form_vertical').modal('show');
+        })
+
 
         Noty.overrideDefaults({
             theme: 'limitless',

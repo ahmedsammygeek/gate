@@ -17,7 +17,9 @@ class ListAllPurchases extends Component
     public $end_date;
     public $purchase_type;
     public $is_paid = 'all' ;
-    protected $listeners   =  ['deleteItem'];
+    public $is_purchase_paid;
+    public $selected_purchase;
+    protected $listeners   =  ['deleteItem' , 'openEditModal' ];
 
     public function deleteItem($item_id)
     {
@@ -27,6 +29,38 @@ class ListAllPurchases extends Component
             $this->emit('itemDeleted');
         }
     }
+
+    protected $rules = [
+        'is_purchase_paid' => 'required' , 
+    ];
+
+    public function changePurchaseStatus()
+    {
+        $this->validate();
+
+        $this->selected_purchase->is_paid = $this->is_purchase_paid;
+        $this->selected_purchase->save();
+
+
+        $this->emit('statusChanged');
+    }
+
+
+    public function mount()
+    {
+        $this->selected_purchase = new Purchase;
+    }
+
+
+
+    public function openEditModal($item_id)
+    {
+        $this->selected_purchase = Purchase::find($item_id);
+        $this->is_purchase_paid = $this->selected_purchase->is_paid;
+        $this->emit('openModal');
+    }
+
+
 
     public function updatedRows()
     {
