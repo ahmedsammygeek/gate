@@ -125,7 +125,7 @@
                                 </a>
 
                                 <a wire:click='openEditModal({{ $purchase->id }})'  class="btn btn-sm btn-warning  ">
-                                    <i class="icon-eye  "></i>
+                                    <i class="icon-database-edit2 "></i>
                                 </a>
                                 @endcan
                             </td>
