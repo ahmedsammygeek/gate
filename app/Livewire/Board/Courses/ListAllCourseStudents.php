@@ -8,6 +8,7 @@ class ListAllCourseStudents extends Component
 {
 
     public $course;
+
     public function render()
     {
         $course_users = UserCourse::where('course_id' , $this->course->id )->latest()->get();

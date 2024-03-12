@@ -10,4 +10,15 @@ class LessonFile extends Model
     use HasFactory;
 
     protected $fillable = ['file' , 'user_id' , 'file_name' ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+
+    public function lesson()
+    {
+        return $this->belongsTo(Lesson::class);
+    }
 }
