@@ -339,24 +339,32 @@ switch (Request::segment(2)) {
         </li>
         @endif
 
+                @if (auth()->user()->hasAnyPermission(['reports.courses.subscriptions' , 'reports.courses.total.subscriptions' , 'reports.subscriptions']))
+
         <li class="nav-item nav-item-submenu">
             <a href="#" class="nav-link {{ $reports }}">
                 <i class="icon-package "></i>
                 <span>  التقارير </span>
             </a>
             <ul class="nav-group-sub collapse" data-submenu-title="التقارير">
-                {{-- @if (auth()->user()->hasAnyPermission(['pages.list' , 'pages.show' , 'pages.delete' , 'pages.edit'])) --}}
-                <li class="nav-item"><a href="{{ route('board.courses.subscriptions.report') }}" class="nav-link"> تقرير اشتراكات الكورسات </a></li>
+                
+
+                @can('reports.courses.subscriptions')
+                   <li class="nav-item"><a href="{{ route('board.courses.subscriptions.report') }}" class="nav-link"> تقرير اشتراكات الكورسات </a></li>
+                @endcan
+
+                @can('reports.courses.total.subscriptions')
                 <li class="nav-item"><a href="{{ route('board.courses.total.subscriptions.report') }}" class="nav-link"> تقرير الكورسات المجمعه  </a></li>
+                @endcan
+
+                @can('reports.subscriptions')
                 <li class="nav-item"><a href="{{ route('board.subscriptions.report') }}" class="nav-link"> تقرير فحص الاشتراكات   </a></li>
-                {{-- @endif --}}
-                {{-- @can('pages.add') --}}
-                {{-- <li class="nav-item"><a href="{{ route('board.pages.create') }}" class="nav-link">إضافه صفحه
-                جديده </a></li> --}}
-                {{-- @endcan --}}
+                @endcan
+
             </ul>
         </li>
 
+                @endif
 
 
 

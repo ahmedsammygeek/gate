@@ -495,6 +495,28 @@
                                                     </div>
                                                 </div>
 
+                                                                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <p class="fw-semibold"> صلاحيات التقارير </p>
+                                                <div class="border p-3 rounded">
+                                                    <div class="form-check text-start mb-2">
+                                                        <input type="checkbox" name='permissions[]' value="reports.courses.subscriptions" class="form-check-input" id="reports.courses.subscriptions"  {{ in_array('reports.courses.subscriptions', $user_permissions ) ? 'checked' : '' }}  >
+                                                        <label class="form-check-label" for="reports.courses.subscriptions"> تقرير اشتراكات الكورسات </label>
+                                                    </div>
+                                                    <div class="form-check text-start mb-2">
+                                                        <input type="checkbox" name='permissions[]' value="reports.courses.total.subscriptions" class="form-check-input" id="reports.courses.total.subscriptions"  {{ in_array('reports.courses.total.subscriptions', $user_permissions ) ? 'checked' : '' }}  >
+                                                        <label class="form-check-label" for="reports.courses.total.subscriptions"> تقرير الكورسات المجمعه  </label>
+                                                    </div>
+                                                    <div class="form-check text-start mb-2">
+                                                        <input type="checkbox" name='permissions[]' value="reports.subscriptions" class="form-check-input" id="reports.subscriptions"  {{ in_array('reports.subscriptions', $user_permissions ) ? 'checked' : '' }}  >
+                                                        <label class="form-check-label" for="reports.subscriptions"> تقرير فحص الاشتراكات </label>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+
+
 
                                             </div>
                                         </div>
