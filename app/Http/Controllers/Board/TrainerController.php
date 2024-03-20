@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Board\Trainers\StoreTrainerRequest;
 use App\Http\Requests\Board\Trainers\UpdateTrainerRequest;
 use Auth;
+use Hash;
 use App\Models\User;
 class TrainerController extends Controller
 {
@@ -40,6 +41,8 @@ class TrainerController extends Controller
         $trainer->job_title = $request->job_title;
         $trainer->name = $request->name;
         $trainer->bio = $request->bio;
+        $trainer->email = $request->email;
+        $trainer->password = Hash::make($request->password);
         $trainer->facebook = $request->facebook;
         $trainer->youtube = $request->youtube;
         $trainer->twitter = $request->twitter;
@@ -84,6 +87,10 @@ class TrainerController extends Controller
         $trainer->facebook = $request->facebook;
         $trainer->youtube = $request->youtube;
         $trainer->twitter = $request->twitter;
+        $trainer->email = $request->email;
+        if ($request->filled('password')) {
+            $trainer->password = Hash::make($request->password);
+        }
         $trainer->instagram = $request->instagram;
         $trainer->show_in_home = $request->filled('show_in_home') ? 1 : 0 ;
         if ($request->hasFile('image')) {

@@ -31,6 +31,8 @@ class UpdateTrainerRequest extends FormRequest
             'job_title' => 'required' ,
             'bio' => 'required' ,
             'show_in_home' => 'nullable' ,
+            'email' => 'required' ,
+            'password' => 'nullable|confirmed' , 
         ];
     }
 }

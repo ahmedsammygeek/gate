@@ -31,6 +31,8 @@ class StoreTrainerRequest extends FormRequest
             'job_title' => 'required' ,
             'bio' => 'required' ,
             'show_in_home' => 'nullable' ,
+            'password' => 'required|confirmed' ,
+            'email' => 'required|email' ,
         ];
     }
 }

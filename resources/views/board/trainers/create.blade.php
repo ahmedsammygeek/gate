@@ -36,6 +36,44 @@
                             </div>
 
                             <div class="row mb-3">
+                                <label class="col-form-label col-lg-2"> البريد الاكتورنى <span
+                                        class="text-danger">*</span></label>
+                                <div class="col-lg-10">
+                                    <input type="text" name="email" value="{{ old('email') }}"
+                                        class="form-control @error('email')  is-invalid @enderror" 
+                                        placeholder="اسم المدرب">
+                                    @error('email')
+                                        <p class='text-danger'> {{ $message }} </p>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-form-label col-lg-2"> كلمه المرور <span
+                                        class="text-danger">*</span></label>
+                                <div class="col-lg-10">
+                                    <input type="password" name="password" value="{{ old('password') }}"
+                                        class="form-control @error('password')  is-invalid @enderror" >
+                                    @error('password')
+                                        <p class='text-danger'> {{ $message }} </p>
+                                    @enderror
+                                </div>
+                            </div>
+
+                             <div class="row mb-3">
+                                <label class="col-form-label col-lg-2"> تاكيد كلمه المرور <span
+                                        class="text-danger">*</span></label>
+                                <div class="col-lg-10">
+                                    <input type="password" name="password_confirmation" value="{{ old('password_confirmation') }}"
+                                        class="form-control @error('password_confirmation')  is-invalid @enderror"  >
+                                    @error('password_confirmation')
+                                        <p class='text-danger'> {{ $message }} </p>
+                                    @enderror
+                                </div>
+                            </div>
+
+                         
+
+                            <div class="row mb-3">
                                 <label class="col-form-label col-lg-2"> المسمى الوظيفى <span
                                         class="text-danger">*</span></label>
                                 <div class="col-lg-10">
