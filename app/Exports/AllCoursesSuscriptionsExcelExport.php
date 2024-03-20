@@ -9,15 +9,17 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
-class AllStudentSuscriptionsExcelExport implements FromCollection , WithHeadings  , WithMapping , ShouldAutoSize , WithEvents
+use App\Models\Purchase;
+use App\Models\Transaction;
+class AllCoursesSuscriptionsExcelExport implements  FromCollection , WithHeadings  , WithMapping , ShouldAutoSize , WithEvents
 {
-    protected $purchases;
+    protected $courses;
     protected $i;
 
-    public function __construct($purchases)
+    public function __construct($courses)
     {
         $this->i = 1;
-        $this->purchases = $purchases;
+        $this->courses = $courses;
     }
 
     /**
@@ -25,7 +27,26 @@ class AllStudentSuscriptionsExcelExport implements FromCollection , WithHeadings
     */
     public function collection()
     {
-        return $this->purchases->get();
+        $courses = $this->courses->get();
+
+        $courses->map(function($course){
+            $course->purchase_count = Purchase::whereHas('item' , function($query) use($course) {
+                $query->where('item_id' , $course->id );
+            })->count() ;
+            $purchase_total_price =  Purchase::whereHas('item' , function($query) use($course) {
+                $query->where('item_id' , $course->id );
+            })->sum('total');
+            $course->purchase_total_price = $purchase_total_price ;
+            $purchase_total_paid = Transaction::whereHas('purchase' , function($query) use($course) {
+                $query->whereHas('item' , function($query) use($course) {
+                    $query->where('item_id' , $course->id );
+                }) ;
+            })->sum('amount');
+            $course->purchase_total_paid = $purchase_total_paid ;
+            $course->purchase_total_remains = ($purchase_total_price - $purchase_total_paid  ) ;
+        });
+
+        return $courses;
     }
 
         public function registerEvents(): array
@@ -50,17 +71,17 @@ class AllStudentSuscriptionsExcelExport implements FromCollection , WithHeadings
     /**
     * @var Invoice $invoice
     */
-    public function map($purchase): array
+    public function map($course): array
     {
         return [
             $this->i++ ,
-            $purchase->created_at,
-            $purchase->user?->name,
-            $purchase->user?->phone,
-            $purchase->user?->email,
-            $purchase->transactions()->sum('amount') , 
-            ($purchase->total - $purchase->transactions()->sum('amount')) , 
-            ($purchase->total - $purchase->transactions()->sum('amount')) == 0 ? 'مدفوع' : 'متبقى'
+            $course->title,
+            $course->university?->title , 
+            $course->trainer?->name  , 
+            $course->purchase_total_price , 
+            $course->purchase_count   , 
+            $course->purchase_total_paid , 
+            $course->purchase_total_remains ,
         ];
     }
 
@@ -69,13 +90,13 @@ class AllStudentSuscriptionsExcelExport implements FromCollection , WithHeadings
     {
         return [
             '#' ,
-            'التاريخ' ,
-            'اسم الطالب' ,
-            'رقم الواتس' ,
-            'البريد الاكترونى' ,
-            'مدفوع' ,
-            'متبقى' ,
-            'الحاله' ,
+            'الكورس' ,
+            'الجامعه' ,
+            'الدكتور' ,
+            'اجمالى الاشتراكات  ' ,
+            'عدد الاشتراكات ' ,
+            'المدفوع' ,
+            'المتبقى' ,
         ];
     }
 }

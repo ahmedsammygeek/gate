@@ -8,6 +8,8 @@ use App\Models\Purchase;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Models\University;
+use Excel;
+use App\Exports\AllCoursesSuscriptionsExcelExport;
 class ListAllCourseSuscriptions extends Component
 {
 
@@ -19,12 +21,26 @@ class ListAllCourseSuscriptions extends Component
     public $end_date ;
 
 
-    
-
-    public function render()
+    public function resetFilters()
     {
+        $this->start_date = null;
+        $this->end_date = null;
+        $this->course_id = null;
+        $this->trainer_id = null;
+        $this->university_id = null;
+    }
 
-        $courses = Course::query()
+    
+    public function excelSheet()
+    {
+        $courses = $this->generateQuery();
+        return Excel::download(new AllCoursesSuscriptionsExcelExport($courses), 'AllCoursesSuscriptionsExcelExport.xlsx');
+    }
+
+
+    public function generateQuery($value='')
+    {
+        return Course::query()
         ->when($this->trainer_id , function($query){
             $query->where('trainer_id' , $this->trainer_id );
         }) 
@@ -44,9 +60,13 @@ class ListAllCourseSuscriptions extends Component
                 $query->whereDate('created_at' , '<='  , $this->end_date );
             });
         })
+        ->latest();
+    }
 
-        ->latest()
-        ->paginate($this->rows);
+
+    public function render()
+    {
+        $courses = $this->generateQuery()->paginate($this->rows);
         $courses->map(function($course){
             $course->purchase_count = Purchase::whereHas('item' , function($query) use($course) {
                 $query->where('item_id' , $course->id );
