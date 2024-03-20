@@ -17,7 +17,7 @@
 </div>
 
 @php
-$home = $admins = $countries = $settings = $reviews = $pages = $transactions = $users = $installments = $purchases =  $universities = $courses = $packages = $categories = $trainers = '';
+$home = $admins = $countries = $settings = $reviews = $pages = $transactions = $users = $installments = $purchases =  $universities = $courses = $packages = $categories = $trainers = $reports =  '';
 switch (Request::segment(2)) {
     case 'admins':
     $admins = 'active';
@@ -338,6 +338,22 @@ switch (Request::segment(2)) {
             </ul>
         </li>
         @endif
+
+        <li class="nav-item nav-item-submenu">
+            <a href="#" class="nav-link {{ $reports }}">
+                <i class="icon-package "></i>
+                <span>  التقارير </span>
+            </a>
+            <ul class="nav-group-sub collapse" data-submenu-title="التقارير">
+                {{-- @if (auth()->user()->hasAnyPermission(['pages.list' , 'pages.show' , 'pages.delete' , 'pages.edit'])) --}}
+                <li class="nav-item"><a href="{{ route('board.courses.subscriptions.report') }}" class="nav-link"> تقرير اشتراكات الكورسات </a></li>
+                {{-- @endif --}}
+                {{-- @can('pages.add') --}}
+                {{-- <li class="nav-item"><a href="{{ route('board.pages.create') }}" class="nav-link">إضافه صفحه
+                جديده </a></li> --}}
+                {{-- @endcan --}}
+            </ul>
+        </li>
 
 
 

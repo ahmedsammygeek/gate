@@ -24,7 +24,7 @@
         "spatie/laravel-permission": "^6.0",
         "spatie/laravel-sluggable": "^3.5",
         "spatie/laravel-translatable": "^6.5",
-        "twilio/sdk": "^7.12",
+        "twilio/sdk": "^7.16",
         "vimeo/laravel": "^5.8"
     },
     "require-dev": {

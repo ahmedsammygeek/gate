@@ -29,6 +29,11 @@ class Purchase extends Model
         return $this->hasMany(UserInstallments::class , 'purchase_id');
     }
 
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class , 'purchase_id');
+    }
+
     public function order() {
 
         return $this->belongsTo(Order::class);
@@ -43,6 +48,13 @@ class Purchase extends Model
     // {
     //     return $this->
     // }
+
+
+    public function item()
+    {
+        return $this->hasOne(PurchaseItem::class);
+    }
+
 
     public function items()
     {

@@ -23,6 +23,7 @@ use App\Http\Controllers\Board\PackageInstallmentController;
 use App\Http\Controllers\Board\PageController;
 use App\Http\Controllers\Board\CourseReviewController;
 use App\Http\Controllers\Board\AjaxController;
+use App\Http\Controllers\Board\ReportConttroller;
 
 
 
@@ -109,6 +110,8 @@ Route::group(['prefix' => 'Board' , 'as' => 'board.'  ], function() {
         Route::patch('settings/payments' , [SettingController::class , 'update_payments'] )->name('settings.payments.update');
         Route::get('settings/reviews' , [SettingController::class , 'edit_reviews'] )->name('settings.reviews.edit');
         Route::patch('settings/reviews' , [SettingController::class , 'update_reviews'] )->name('settings.reviews.update');
+
+        Route::get('/reports/courses/subscriptions' , [ReportConttroller::class , 'courses_subscriptions'] )->name('courses.subscriptions.report');
     });
 });
 

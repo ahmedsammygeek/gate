@@ -37,4 +37,21 @@ class Order extends Model
         }
     }
 
+    public function paymentTypeAsText() {
+        switch ($this->payment_type) {
+            case 'one_later_installment':
+            return 'دفعه مؤجله';
+            break;
+            case 'one_payment':
+            return 'دفع مباشر';
+            break;
+            case 'installments':
+            return 'عده اقساط';
+            break;
+            default:
+            'لم يتم التحديد';
+            break;
+        }
+    }
+
 }
