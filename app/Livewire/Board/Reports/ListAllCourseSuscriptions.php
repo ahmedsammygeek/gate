@@ -6,17 +6,48 @@ use Livewire\Component;
 use App\Models\Course;
 use App\Models\Purchase;
 use App\Models\Transaction;
+use App\Models\User;
+use App\Models\University;
 class ListAllCourseSuscriptions extends Component
 {
+
+    public $rows;
+    public $course_id;
+    public $trainer_id;
+    public $university_id;
+    public $start_date ;
+    public $end_date ;
+
+
+    
+
     public function render()
     {
 
-        $courses = Course::get();
+        $courses = Course::query()
+        ->when($this->trainer_id , function($query){
+            $query->where('trainer_id' , $this->trainer_id );
+        }) 
+        ->when($this->university_id , function($query){
+            $query->where('university_id' , $this->university_id );
+        }) 
+        ->when($this->course_id , function($query){
+            $query->where('id' , $this->course_id );
+        }) 
+        ->when($this->start_date , function($query){
+            $query->whereHas('orders' , function($query){
+                $query->whereDate('created_at' ,  '>=' ,  $this->start_date );
+            });
+        })
+        ->when($this->end_date , function($query){
+            $query->whereHas('orders' , function($query){
+                $query->whereDate('created_at' , '<='  , $this->end_date );
+            });
+        })
 
-
+        ->latest()
+        ->paginate($this->rows);
         $courses->map(function($course){
-
-            // dd(Order::where('is_paid' , 1 )->where('course_id' , $course->id )->sum('amount'));
             $course->purchase_count = Purchase::whereHas('item' , function($query) use($course) {
                 $query->where('item_id' , $course->id );
             })->count() ;
@@ -35,8 +66,11 @@ class ListAllCourseSuscriptions extends Component
         });
 
 
+        $trainers = User::where('type' , User::TRAINER )->select('id' , 'name')->get() ;
+        $universities = University::select('id' , 'title')->get() ;
+        $all_courses = Course::select('id' , 'title' )->get();
 
 
-        return view('livewire.board.reports.list-all-course-suscriptions' , compact('courses') );
+        return view('livewire.board.reports.list-all-course-suscriptions' , compact('courses' , 'all_courses' , 'trainers' , 'universities' ) );
     }
 }

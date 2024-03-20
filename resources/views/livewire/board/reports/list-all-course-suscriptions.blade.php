@@ -7,12 +7,6 @@
 
             <div class="card-body">
                 <div class="d-sm-flex align-items-sm-start">
-                    <div class="form-control-feedback form-control-feedback-start flex-grow-1 mb-3 mb-sm-0">
-                        <input type="text" wire:model='search' class="form-control" placeholder="البحث داخل عمليات الشراء">
-                        <div class="form-control-feedback-icon">
-                            <i class="ph-magnifying-glass"></i>
-                        </div>
-                    </div>
                     <div class="dropdown ms-sm-3 mb-3 mb-sm-0">
                         <select wire:model='rows' class="form-select">
                             <option value="30">30 صف للعرض</option>
@@ -34,7 +28,7 @@
                         <input type="date"  wire:model='end_date'  class='form-control'>
                     </div>
 
-{{--                     <div class="dropdown ms-sm-3  mb-sm-0">
+                    <div class="dropdown ms-sm-3  mb-sm-0">
                         <label for=""> الجامعه : </label>
                         <select wire:model='university_id' class="form-select">
                             <option value=""> جميع الجامعات  </option>
@@ -48,8 +42,8 @@
                         <label for=""> الكورس : </label>
                         <select wire:model='course_id' class="form-select">
                             <option value=""> جميع الكورسات :  </option>
-                            @foreach ($courses as $course)
-                                <option value="{{ $course->id }}">  {{ $course->title }} </option>
+                            @foreach ($all_courses as $single_course)
+                                <option value="{{ $single_course->id }}">  {{ $single_course->title }} </option>
                             @endforeach
                         </select>
                     </div>
@@ -61,7 +55,7 @@
                                 <option value="{{ $trainer->id }}">  {{ $trainer->name }} </option>
                             @endforeach
                         </select>
-                    </div> --}}
+                    </div>
 
  
                     <div class=" ms-sm-3  mb-sm-0">

@@ -96,9 +96,9 @@ class Course extends Model
     }
 
 
-    public function orders($value='')
+    public function orders()
     {
-        // code...
+        return $this->hasMany(Order::class , 'course_id');
     }
 
     public function lessons()

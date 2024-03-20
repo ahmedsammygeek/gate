@@ -7,12 +7,6 @@
 
             <div class="card-body">
                 <div class="d-sm-flex align-items-sm-start">
-                    <div class="form-control-feedback form-control-feedback-start flex-grow-1 mb-3 mb-sm-0">
-                        <input type="text" wire:model='search' class="form-control" placeholder="البحث داخل عمليات الشراء">
-                        <div class="form-control-feedback-icon">
-                            <i class="ph-magnifying-glass"></i>
-                        </div>
-                    </div>
                     <div class="dropdown ms-sm-3 mb-3 mb-sm-0">
                         <select wire:model='rows' class="form-select">
                             <option value="30">30 صف للعرض</option>
