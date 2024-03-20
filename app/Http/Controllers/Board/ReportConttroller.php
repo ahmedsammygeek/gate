@@ -19,4 +19,9 @@ class ReportConttroller extends Controller
     {
         return view('board.reports.total_courses_subscriptions');
     }
+
+    public function subscriptions()
+    {
+        return view('board.reports.subscriptions');
+    }
 }

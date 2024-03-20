@@ -111,6 +111,7 @@ Route::group(['prefix' => 'Board' , 'as' => 'board.'  ], function() {
         Route::get('settings/reviews' , [SettingController::class , 'edit_reviews'] )->name('settings.reviews.edit');
         Route::patch('settings/reviews' , [SettingController::class , 'update_reviews'] )->name('settings.reviews.update');
 
+        Route::get('/reports/subscriptions' , [ReportConttroller::class , 'subscriptions'] )->name('subscriptions.report');
         Route::get('/reports/courses/subscriptions' , [ReportConttroller::class , 'courses_subscriptions'] )->name('courses.subscriptions.report');
         Route::get('/reports/total_courses/subscriptions' , [ReportConttroller::class , 'total_courses_subscriptions'] )->name('courses.total.subscriptions.report');
     });
