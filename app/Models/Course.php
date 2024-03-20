@@ -96,6 +96,11 @@ class Course extends Model
     }
 
 
+    public function orders($value='')
+    {
+        // code...
+    }
+
     public function lessons()
     {
         return $this->hasManyThrough( Lesson::class , CourseUnit::class );

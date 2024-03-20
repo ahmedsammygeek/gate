@@ -347,6 +347,7 @@ switch (Request::segment(2)) {
             <ul class="nav-group-sub collapse" data-submenu-title="التقارير">
                 {{-- @if (auth()->user()->hasAnyPermission(['pages.list' , 'pages.show' , 'pages.delete' , 'pages.edit'])) --}}
                 <li class="nav-item"><a href="{{ route('board.courses.subscriptions.report') }}" class="nav-link"> تقرير اشتراكات الكورسات </a></li>
+                <li class="nav-item"><a href="{{ route('board.courses.total.subscriptions.report') }}" class="nav-link"> تقرير الكورسات المجمعه  </a></li>
                 {{-- @endif --}}
                 {{-- @can('pages.add') --}}
                 {{-- <li class="nav-item"><a href="{{ route('board.pages.create') }}" class="nav-link">إضافه صفحه

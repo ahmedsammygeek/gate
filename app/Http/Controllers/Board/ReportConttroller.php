@@ -13,4 +13,10 @@ class ReportConttroller extends Controller
     {
         return view('board.reports.courses_subscriptions');
     }
+
+
+    public function total_courses_subscriptions()
+    {
+        return view('board.reports.total_courses_subscriptions');
+    }
 }
