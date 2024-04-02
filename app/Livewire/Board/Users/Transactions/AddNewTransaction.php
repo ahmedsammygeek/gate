@@ -18,11 +18,11 @@ class AddNewTransaction extends Component
     public $transaction_number;
 
     protected $rules = [
-        'file' => 'required',
+        'file' => 'nullable',
         'amount' => 'required',
         'purchase_id' => 'required',
         'payment_date' => 'required',
-        'transaction_number' => 'required',
+        'transaction_number' => 'nullable',
     ];
 
     protected $messages = [
@@ -43,7 +43,9 @@ class AddNewTransaction extends Component
         $transaction->payment_date = $this->payment_date;
         $transaction->purchase_id = $this->purchase_id;
         $transaction->added_by = Auth::id();
-        $transaction->image = basename($this->file->store('transactions'));
+        if ($this->file) {
+            $transaction->image = basename($this->file->store('transactions'));
+        }
         $transaction->payment_method = Transaction::BANK_TRANSFER; 
         $transaction->save();
 
