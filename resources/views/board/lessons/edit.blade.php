@@ -37,9 +37,16 @@
 					<div class="mb-4">
 						<div class="fw-bold border-bottom pb-2 mb-3"> بيانات  الدرس </div>
 
+						<div class="row mb-3">
+							<label class="col-form-label col-lg-2"> الفديو الحالى </label>
+							<div class="col-lg-10">
+								<iframe src="https://player.vimeo.com/video/{{ $lesson->vimeo_number }}" width="100%" height="500" title="{{ $lesson->title }}"></iframe>
+							</div>
+						</div>
+
 
 						<div class="row mb-3">
-							<label class="col-form-label col-lg-2"> الفديو </label>
+							<label class="col-form-label col-lg-2"> اختر الفديو جديد </label>
 							<div class="col-lg-10">
 								<input type="file" name="video"  class="form-control @error('video')  is-invalid @enderror"  >
 								@error('video')
