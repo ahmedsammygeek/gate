@@ -8,7 +8,8 @@
                 <table class="table text-nowrap">
                     <thead>
                         <tr>
-                            <th> رقم العمليه </th>
+                            <th> رقم العمليه الشراء </th>
+                            <th> رقم عمليه التحويل </th>
                             <th> تاريخ العمليه </th>
                             <th> المبلغ </th>
                             <th> طريقه الدفع </th>
@@ -19,6 +20,7 @@
 
                         @foreach ($user->transactions as $user_transaction)
                         <tr>
+                            <td> {{ $user_transaction->purchase?->purchase_number }} </td>
                             <td>
                                 {{ $user_transaction->payment_id }}
                             </td>
