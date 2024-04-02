@@ -79,9 +79,22 @@ class ProfileController extends Controller
 
         // return $user_packages;
 
-        $user_packages->map(function($user_package , $key ){
+         $user_courses->map(function($user_course , $key ) use($user) {
+
+
+            $user_course['purchase_price'] = Purchase::where('user_id' , $user->id )->whereHas('item', function($query) use($user_course ) {
+                $query->where('item_id' , $user_course->course_id );
+            })->latest()->first()?->total;
+
+
+        });
+
+        $user_packages->map(function($user_package , $key )  use($user) {
             $user_package['expires_at'] = UserCourse::where('user_id' , Auth::id() )->where('related_package_id' , $user_package->id )->first()?->expires_at ; 
             $user_package['courses'] = UserCourse::where('user_id' , Auth::id() )->where('related_package_id' , $user_package->id )->get();
+            $user_package['purchase_price'] = Purchase::where('user_id' , $user->id )->whereHas('item', function($query) use($user_package) {
+                $query->where('item_id' , $user_package->course_id );
+            })->latest()->first()?->total;
         });
 
         // dd($user_packages);
