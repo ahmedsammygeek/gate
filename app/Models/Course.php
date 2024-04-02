@@ -11,7 +11,7 @@ use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
+use Carbon\Carbon;
 class Course extends Model
 {
     use HasFactory;
@@ -21,7 +21,7 @@ class Course extends Model
     const PACKAGE = 2 ;
 
     protected $casts = [
-
+        'discount_end_at' => 'date' , 
         'ends_at' => 'date' ,
     ];
 
@@ -73,7 +73,10 @@ class Course extends Model
     public function getPrice()
     {
         if ($this->price_after_discount) {
-            return $this->price_after_discount;
+
+            if ($this->discount_end_at->diffInDays(Carbon::today()) > 0 ) {
+                return $this->price_after_discount;
+            }
         }
 
         return $this->price;

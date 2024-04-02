@@ -173,6 +173,9 @@
                                     </td>
                                 </tr>
 
+
+                                {{ dd($course->getPrice()) }}
+
                                 <tr>
                                     <th> سعر الكورس المباشر </th>
                                     <td>
