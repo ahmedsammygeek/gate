@@ -23,7 +23,7 @@ class UserPackageResource extends JsonResource
             'image' => Storage::url('courses/'.$this->image) , 
             'course_total_lessons' => $this->lessons->count() , 
             'course_viewed_lessons' => UserLessonView::where('course_id' , $this->id )->where('user_id' , Auth::id() )->count() , 
-            'price' => rand(200 , 4000) , 
+            'price' => $this->purchase_price , 
             'is_allowd' => UserCourse::isAllowedToWatchForApi(Auth::id()  ,  $this->id ) , 
             'deny_reason' => UserCourse::denyReasonForApi( Auth::id()    , $this->course_id) , 
             'item_type' =>  'package' , 
