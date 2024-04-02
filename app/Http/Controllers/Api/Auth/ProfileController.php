@@ -76,10 +76,8 @@ class ProfileController extends Controller
 
 
         $user_packages = Course::find($user_packages_ids);
-
         // return $user_packages;
-
-         $user_courses->map(function($user_course , $key ) use($user) {
+        $user_courses->map(function($user_course , $key ) use($user) {
             $user_course['purchase_price'] = Purchase::where('user_id' , $user->id )->whereHas('item', function($query) use($user_course ) {
                 $query->where('item_id' , $user_course->course_id );
             })->latest()->first()?->total;

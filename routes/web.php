@@ -118,6 +118,7 @@ Route::group(['prefix' => 'Board' , 'as' => 'board.'  ], function() {
 });
 
 
+// Route::get('/files/{}')
 
 Route::get('orders/{order:order_number}/pay' , [CheckoutController::class , 'pay' ]  )->name('orders.pay');
 Route::get('orders/{order:order_number}/myfatoorah/callback' , [CheckoutController::class , 'myfatoorah_callback'])->name('myfatoorah.callback');

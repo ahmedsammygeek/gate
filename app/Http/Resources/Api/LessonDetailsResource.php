@@ -8,6 +8,7 @@ use App\Models\UserCourse;
 use App\Models\UserLessonView;
 use Auth;
 use Laravel\Sanctum\PersonalAccessToken;
+use App\Http\Resources\Api\LessonFileResource;
 class LessonDetailsResource extends JsonResource
 {
     /**
@@ -23,6 +24,7 @@ class LessonDetailsResource extends JsonResource
             'description' => $this->getTranslations('description', ['ar', 'en']),
             'vimeo_number' => $this->vimeo_number , 
             'is_free' => $this->is_free == 0 ? false  : true , 
+            'files' => LessonFileResource::collection($this->files) , 
         ];
         $data['dose_user_seen_this_lesson'] = false;
         $data['dose_user_purchase_this'] = false ; 
