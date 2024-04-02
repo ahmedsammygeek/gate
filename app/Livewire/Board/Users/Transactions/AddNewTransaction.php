@@ -78,7 +78,7 @@ class AddNewTransaction extends Component
 
     public function render()
     {
-        $purchases = Purchase::where('user_id' , $this->user->id )->get();
+        $purchases = Purchase::where('user_id' , $this->user->id )->where('is_paid' , '!=' , 2 )->get();
         return view('livewire.board.users.transactions.add-new-transaction' , compact('purchases') );
     }
 }

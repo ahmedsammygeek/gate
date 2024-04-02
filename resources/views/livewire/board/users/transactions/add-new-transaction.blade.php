@@ -20,7 +20,7 @@
                                     <select wire:model='purchase_id' class='form-control'>
                                         <option value=""></option>
                                         @foreach ($purchases as $purchase)
-                                        <option value="{{ $purchase->id }}"> {{ $purchase->purchase_number }} </option>
+                                        <option value="{{ $purchase->id }}"> {{ $purchase->purchase_number }} - {{ $purchase->total }} ريال </option>
                                         @endforeach
                                     </select>
                                     @error('purchase_id')
