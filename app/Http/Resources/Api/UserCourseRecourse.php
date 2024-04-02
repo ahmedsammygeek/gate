@@ -23,7 +23,7 @@ class UserCourseRecourse extends JsonResource
             'image' => Storage::url('courses/'.$this->course?->image) , 
             'course_total_lessons' => $this->course?->lessons->count() , 
             'course_viewed_lessons' => UserLessonView::where('course_id' , $this->course_id )->where('user_id' , Auth::id() )->count() , 
-            'price' => $this->purchase_price   , 
+            'price' => rand(200 , 4000) , 
             'is_allowd' => UserCourse::isAllowedToWatchForApi(Auth::id()  ,  $this->course_id ) , 
             'deny_reason' => UserCourse::denyReasonForApi( Auth::id()    , $this->course_id) , 
             'item_type' => 'course' , 
