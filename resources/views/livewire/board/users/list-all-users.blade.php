@@ -94,7 +94,7 @@
                 <table class="table text-nowrap">
                     <thead>
                         @if (count($users))
-                           <tr>
+                        <tr>
                             <th > اسم المستخدم </th>
                             <th>البريد الكاترونى </th>
                             <th>رقم الواتس</th>
@@ -109,7 +109,7 @@
                     <tbody>
 
                         @if (count($users))
-                            @foreach ($users as $user)
+                        @foreach ($users as $user)
                         <tr>
                             <td>
                                 <a href="{{ route('board.users.show' , $user ) }}" class="d-block fw-semibold">{{ $user->name }}</a>
@@ -156,6 +156,13 @@
                                     <i class="icon-eye  "></i>
                                 </a>
                                 @endcan
+                                
+                                @can('users.edit')
+                                <a href="{{ route('board.users.edit'  , $user ) }}"  class="btn btn-sm btn-warning ">
+                                    <i class="icon-database-edit2  "></i>
+                                </a>
+                                @endcan
+
                                 @can('users.delete')
                                 <a data-item_id='{{ $user->id }}' class="btn btn-danger btn-sm delete_item">
                                     <i class="icon-trash  "></i>

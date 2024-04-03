@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Board;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-
+use App\Models\University;
+use App\Http\Requests\Board\Users\UpdateUserRequest;
 class UserController extends Controller
 {
     /**
@@ -61,5 +62,25 @@ class UserController extends Controller
         return view('board.users.transactions' , compact('user'));
     }
 
+
+    public function edit(User $user)
+    {
+        $universities = University::all();
+        return view('board.users.edit' , compact('user' , 'universities' ) );
+    }
+
+    public function update(UpdateUserRequest $request , User $user)
+    {
+        $user->email = $request->email;
+        $user->name = $request->name;
+        $user->phone = $request->phone;
+        $user->university_id = $request->university_id;
+        $user->study_type = $request->study_type;
+        $user->division = $request->division;
+        $user->telegram = $request->telegram;
+        $user->save();
+
+        return redirect(route('board.users.index'))->with('success' , 'تم التعديل بنجاح' );
+    }
 
 }
