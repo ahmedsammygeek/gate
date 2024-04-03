@@ -5,7 +5,7 @@
 @section('breadcrumbs')
     {{-- <a href="{{ route('board.transactions.index') }}" class="breadcrumb-item">  </a> --}}
     <span class="breadcrumb-item "> التقارير</span>
-    <span class="breadcrumb-item active"> تقرير الكورسات مجمعه </span>
+    <span class="breadcrumb-item active"> تقرير فحص الاشتراكات  </span>
 @endsection
 
 @section('content')

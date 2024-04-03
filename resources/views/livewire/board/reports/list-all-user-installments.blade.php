@@ -4,7 +4,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header bg-primary">
-                <h5 class="mb-0 text-white">عرض كافه  الاقساط</h5>
+                <h5 class="mb-0 text-white"> تقرير فحص الاشتراكات </h5>
             </div>
 
             <div class="card-body">
@@ -17,6 +17,7 @@
                     </div>
                     <div class="dropdown ms-sm-3 mb-3 mb-sm-0">
                         <select wire:model='rows' class="form-select">
+                            <option value="5"> 5 صف للعرض</option>
                             <option value="30">30 صف للعرض</option>
                             <option value="60">60 صف للعرض </option>
                             <option value="90">90 صف للعرض </option>
@@ -26,19 +27,13 @@
                     </div>
                 </div>
                 <div class="d-sm-flex align-items-sm-start mt-2">
+                   
                     <div class="dropdown ms-sm-3  mb-sm-0">
-                        <select wire:model='status' class="form-select">
-                            <option value="all"> جملع الحاات الدفع </option>
-                            <option value="0"> لم يتم الدفع  </option>
-                            <option value="1"> تم الدفع  </option>
-                        </select>
-                    </div>
-                    <div class="dropdown ms-sm-3  mb-sm-0">
-                        <select wire:model='due_date_status' class="form-select">
-                            <option value="all"> جملع الحلات الاستحقاق </option>
-                            <option value="1"> تم تخطى تاريخ الاستحقاق  </option>
-                            <option value="2"> لم يتم تخطى تاريخ الاستحقاق  بعد </option>
-                            <option value="3"> تاريخ استحقاق اليوم </option>
+                        <select wire:model='is_paid_status' class="form-select">
+                            <option value="all"> جملع الحلات الشراء </option>
+                            <option value="1"> تم الدفع بشكل كامل </option>
+                            <option value="2"> تم الدفع بشكل جزءى </option>
+                            <option value="3"> لم يتم الدفع </option>
                         </select>
                     </div>
                     <div class="dropdown ms-sm-3  mb-sm-0">
@@ -71,6 +66,15 @@
                         </button>
                     </div>
 
+                    <div class=" ms-sm-3  mb-sm-0">
+                        <button wire:loading.attr="disabled"  wire:click='unLockUsers' type="button" class="btn btn-flat-primary btn-labeled btn-labeled-start ">
+                            <span  class="btn-labeled-icon bg-primary text-white">
+                                <i class="icon-lock"></i>
+                            </span>
+                            Allow access
+                        </button>
+                    </div>
+
                 </div>
             </div>
 
@@ -91,7 +95,9 @@
                             <th >  المدفوع  </th>
                             <th >  المتبقى  </th>
                             <th >  الحاله  </th>
-                            <th >  اختيار  </th>
+                            <th >  
+                                <input type="checkbox" wire:model='selectAll' class="form-check-input" id="cc_ls_c1" >
+                            </th>
                         </tr>
                         @endif
                     </thead>

@@ -12,12 +12,25 @@ class ListAllUserInstallments extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
-    public $rows;
+    public $rows = 5;
     public $search;
     public $due_date;
-    public $due_date_status = 'all' ;
+    public $is_paid_status = 'all' ;
     public $status = 'all' ;
     public $selectedPurchases = [] ;
+    public $showingNow = [] ;
+    public $selectAll;
+
+
+    public function updatedSelectAll()
+    {
+        if ($this->selectAll) {
+            $this->selectedPurchases = $this->showingNow;
+        }
+        else {
+            $this->selectedPurchases = [];
+        }
+    }
 
     public function updatedRows()
     {
@@ -35,7 +48,7 @@ class ListAllUserInstallments extends Component
         $this->due_date = null;
         $this->status = 'all';
         $this->search = null;
-        $this->due_date_status = 'all';
+        $this->is_paid_status = 'all';
     }
 
 
@@ -46,33 +59,49 @@ class ListAllUserInstallments extends Component
         //     $query->where('installment_number' , 'LIKE' , '%'.$this->search.'%' );
         // })
 
-        // ->when($this->status != 'all' , function($query){
-        //     $query->where('status' , $this->status );
-        // })
-        // ->when($this->due_date , function($query){
-        //     $query->whereDate('due_date' ,  $this->due_date );
-        // })
-        // ->when($this->due_date_status != 'all' , function($query){
-        //     if ($this->due_date_status == 1 ) {
-        //         $query->whereDate('due_date' , '<' ,  Carbon::today() )->where('status' , 0 );
-        //     }
-
-        //     if ($this->due_date_status == 2 ) {
-        //         $query->whereDate('due_date' , '>='  ,  Carbon::today() )->where('status' , 0 );
-        //     }
-
-        //     if ($this->due_date_status == 3 ) {
-        //         $query->whereDate('due_date' ,  Carbon::today() );
-        //     }
-        // })
+        ->when($this->is_paid_status != 'all' , function($query){
+           
+            $query->where('is_paid' , $this->is_paid_status);
+        })
         ->latest();
     }
 
 
 
+    public function unLockUsers()
+    {
+        foreach ($this->selectedPurchases as $selectedPurchase) {
+            $purchase = Purchase::find($selectedPurchase);
+            if ($purchase) {
+                $user_course = UserCourse::where('user_id' , $purchase->user_id )->where('course_id' , $purchase->item?->item_id )->first();
+
+                if ($user_course) {
+                    switch ($user_course->course_type) {
+                    // that means it is course
+                        case 1:
+                        $user_course->allowed = 1;
+                        $user_course->save();
+                        break;
+                    // it means it is package and we need to update of package courses
+                        case 2:
+                        $user_course->allowed = 1;
+                        $user_course->save();
+                        $user_package_courses = UserCourse::where('user_id' , $purchase->user->id )->where('related_package_id' , $user_course->course_id )->get();
+                        foreach ($user_package_courses as $user_package_course) {
+                            $user_package_course->allowed = 0;
+                            $user_package_course->save();
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+        $this->emit('userCourseExpirationDateUpdated');
+    }
+
+
     public function lockUsers()
     {
-
         foreach ($this->selectedPurchases as $selectedPurchase) {
             $purchase = Purchase::find($selectedPurchase);
             if ($purchase) {
@@ -97,21 +126,15 @@ class ListAllUserInstallments extends Component
                         break;
                     }
                 }
-
             }
-            $this->emit('userCourseExpirationDateUpdated');
-
         }
-
-
-
+        $this->emit('userCourseExpirationDateUpdated');
     }
 
 
     public function render()
     {
-        $purchases = $this->generateQuery()->paginate($this->rows);
-
+        $purchases = $this->generateQuery()->get();
 
         $purchases->map(function($purchase){
             $status = 0;
@@ -124,6 +147,10 @@ class ListAllUserInstallments extends Component
             return $purchase;
         });
 
+        $purchases = collect($purchases)->paginate($this->rows);
+
+
+        $this->showingNow = $purchases->pluck('id')->toArray();
 
         return view('livewire.board.reports.list-all-user-installments' , compact('purchases'));
     }
