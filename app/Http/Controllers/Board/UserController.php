@@ -71,6 +71,7 @@ class UserController extends Controller
 
     public function update(UpdateUserRequest $request , User $user)
     {
+
         $user->email = $request->email;
         $user->name = $request->name;
         $user->phone = $request->phone;
@@ -78,7 +79,9 @@ class UserController extends Controller
         $user->study_type = $request->study_type;
         $user->division = $request->division;
         $user->telegram = $request->telegram;
+        $user->is_banned  = $request->filled('active') ? 0 : 1;
         $user->save();
+
 
         return redirect(route('board.users.index'))->with('success' , 'تم التعديل بنجاح' );
     }

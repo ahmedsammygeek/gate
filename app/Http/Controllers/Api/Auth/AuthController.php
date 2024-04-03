@@ -21,7 +21,7 @@ class AuthController extends Controller
             if ($user->is_banned) {
                 return response()->json([
                     'status' => false,
-                    'message' => 'please contact admins',
+                    'message' => 'please contact admins , you are banned',
                     'data' => null
                 ], 401);
             }

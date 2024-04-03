@@ -30,7 +30,7 @@ class UpdateUserRequest extends FormRequest
             'university_id' => 'required' , 
             'study_type' => 'nullable' , 
             'division' => 'nullable' , 
-            'is_banned' => 'nullable' , 
+            'active' => 'nullable' , 
             'telegram' => 'required' , 
         ];
     }
