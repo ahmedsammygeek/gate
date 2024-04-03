@@ -9,26 +9,8 @@
 
             <div class="card-body">
                 <div class="d-sm-flex align-items-sm-start">
-                    <div class="form-control-feedback form-control-feedback-start flex-grow-1 mb-3 mb-sm-0">
-                        <input type="text" wire:model='search' class="form-control" placeholder="البحث داخل الاقساط">
-                        <div class="form-control-feedback-icon">
-                            <i class="ph-magnifying-glass"></i>
-                        </div>
-                    </div>
-                    <div class="dropdown ms-sm-3 mb-3 mb-sm-0">
-                        <select wire:model='rows' class="form-select">
-                            <option value="5"> 5 صف للعرض</option>
-                            <option value="30">30 صف للعرض</option>
-                            <option value="60">60 صف للعرض </option>
-                            <option value="90">90 صف للعرض </option>
-                            <option value="120">120 صف للعرض </option>
-                            <option value="150">150 صف للعرض </option>
-                        </select>
-                    </div>
-                </div>
-                <div class="d-sm-flex align-items-sm-start mt-2">
-                   
-                    <div class="dropdown ms-sm-3  mb-sm-0">
+
+                                        <div class="dropdown ms-sm-3  mb-sm-0">
                         <select wire:model='is_paid_status' class="form-select">
                             <option value="all"> جملع الحلات الشراء </option>
                             <option value="1"> تم الدفع بشكل كامل </option>
@@ -74,6 +56,23 @@
                             Allow access
                         </button>
                     </div>
+                   
+                    <div class="dropdown ms-sm-3 mb-3 mb-sm-0">
+
+
+                        <select wire:model='rows' class="form-select">
+                            <option value="5"> 5 صف للعرض</option>
+                            <option value="30">30 صف للعرض</option>
+                            <option value="60">60 صف للعرض </option>
+                            <option value="90">90 صف للعرض </option>
+                            <option value="120">120 صف للعرض </option>
+                            <option value="150">150 صف للعرض </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="d-sm-flex align-items-sm-start mt-2">
+                   
+
 
                 </div>
             </div>
