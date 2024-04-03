@@ -8,6 +8,7 @@
                 <table class="table text-nowrap">
                     <thead>
                         <tr>
+                            <th></th>
                             <th > اسم </th>
                             <th > النوع </th>
                             <th> تاريخ الانضمام </th>
@@ -21,6 +22,9 @@
 
                         @foreach ($user_courses as $user_course)
                         <tr>
+                            <td>
+                                {{ $user_course->id }}
+                            </td>
                             <td class="pe-0">
                                 @switch($user_course->course_type)
                                 @case(1)

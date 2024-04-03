@@ -57,11 +57,21 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                  <label class="form-label"> الرقم المرجعى للتحويل </label>
+                                    <label class="form-label"> الرقم المرجعى للتحويل </label>
                                     <input type="text" wire:model='transaction_number' class="form-control">
                                     @error('transaction_number')
                                     <p class='text-danger' > {{ $message }} </p>
                                     @enderror
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 mt-2">
+                                    <label class="form-label"> تفعيل الكورس </label>
+                                    <div class="form-check form-switch mb-2">
+                                        <input type="checkbox" class="form-check-input" id="sc_ls_c" wire:model='allowed' >
+                                        <label class="form-check-label" for="sc_ls_c"> </label>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>

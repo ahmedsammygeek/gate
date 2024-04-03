@@ -55,9 +55,7 @@ class ListAllUserInstallments extends Component
     public function generateQuery()
     {
         return Purchase::query()->with(['user' ])
-        ->when($this->search , function($query){
-            $query->where('installment_number' , 'LIKE' , '%'.$this->search.'%' );
-        })
+
 
         ->when($this->is_paid_status != 'all' , function($query){
            

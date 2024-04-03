@@ -5,6 +5,7 @@ namespace App\Livewire\Board\Users\Transactions;
 use Livewire\Component;
 use App\Models\Purchase;
 use App\Models\Transaction;
+use App\Models\UserCourse;
 use Livewire\WithFileUploads;
 use Auth;
 class AddNewTransaction extends Component
@@ -16,6 +17,7 @@ class AddNewTransaction extends Component
     public $purchase_id;
     public $payment_date;
     public $transaction_number;
+    public $allowed;
 
     protected $rules = [
         'file' => 'nullable',
@@ -23,6 +25,7 @@ class AddNewTransaction extends Component
         'purchase_id' => 'required',
         'payment_date' => 'required',
         'transaction_number' => 'nullable',
+        'allowed' => 'nullable'
     ];
 
     protected $messages = [
@@ -61,8 +64,35 @@ class AddNewTransaction extends Component
             } else {
                 $purchase->is_paid = 1;
             }
-                $purchase->save();
+            $purchase->save();
+        }
 
+
+
+        if ($this->allowed) {
+
+
+            $user_course = UserCourse::where('user_id' , $purchase->user_id )->where('course_id' , $purchase->item?->item_id )->latest()->first();
+
+            if ($user_course) {
+                switch ($user_course->course_type) {
+                    // that means it is course
+                    case 1:
+                    $user_course->allowed = 1;
+                    $user_course->save();
+                    break;
+                    // it means it is package and we need to update of package courses
+                    case 2:
+                    $user_course->allowed = 1;
+                    $user_course->save();
+                    $user_package_courses = UserCourse::where('user_id' , $purchase->user->id )->where('related_package_id' , $user_course->course_id )->get();
+                    foreach ($user_package_courses as $user_package_course) {
+                        $user_package_course->allowed = 0;
+                        $user_package_course->save();
+                    }
+                    break;
+                }
+            }
         }
 
 
