@@ -17,7 +17,7 @@
 </div>
 
 @php
-$home = $admins = $countries = $settings = $reviews = $pages = $transactions = $users = $installments = $purchases =  $universities = $courses = $packages = $categories = $trainers = $reports =  '';
+$home = $admins = $countries = $settings = $trainers_transfers = $reviews = $pages = $transactions = $users = $installments = $purchases =  $universities = $courses = $packages = $categories = $trainers = $reports =  '';
 switch (Request::segment(2)) {
     case 'admins':
     $admins = 'active';
@@ -57,6 +57,9 @@ switch (Request::segment(2)) {
     break;
     case 'reviews':
     $reviews = 'active';
+    break;
+    case 'trainers_transfers':
+    $trainers_transfers = 'active';
     break;
     default:
     $home = 'active';
@@ -339,18 +342,37 @@ switch (Request::segment(2)) {
         </li>
         @endif
 
-                @if (auth()->user()->hasAnyPermission(['reports.courses.subscriptions' , 'reports.courses.total.subscriptions' , 'reports.subscriptions']))
+        @if (auth()->user()->hasAnyPermission(['trainers_transfers.list' , 'trainers_transfers.show' , 'trainers_transfers.delete' , 'trainers_transfers.edit' , 'trainers_transfers.add' ]))
+        <li class="nav-item nav-item-submenu">
+            <a href="#" class="nav-link {{ $trainers_transfers }}">
+                <i class="icon-package "></i>
+                <span> تحويلات المدربين </span>
+            </a>
+            <ul class="nav-group-sub collapse" data-submenu-title="تحويلات المدربين">
+                @if (auth()->user()->hasAnyPermission(['trainers_transfers.list' , 'trainers_transfers.show' , 'trainers_transfers.delete' , 'trainers_transfers.edit']))
+                <li class="nav-item"><a href="{{ route('board.trainers_transfers.index') }}" class="nav-link"> عرض كافه
+                التحويلات </a></li>
+                @endif
+                @can('trainers_transfers.add')
+                <li class="nav-item"><a href="{{ route('board.trainers_transfers.create') }}" class="nav-link">إضافه تحويل
+                جديده </a></li>
+                @endcan
+            </ul>
+        </li>
+        @endif
 
+
+        
+
+        @if (auth()->user()->hasAnyPermission(['reports.courses.subscriptions' , 'reports.courses.total.subscriptions' , 'reports.subscriptions']))
         <li class="nav-item nav-item-submenu">
             <a href="#" class="nav-link {{ $reports }}">
                 <i class="icon-package "></i>
                 <span>  التقارير </span>
             </a>
             <ul class="nav-group-sub collapse" data-submenu-title="التقارير">
-                
-
                 @can('reports.courses.subscriptions')
-                   <li class="nav-item"><a href="{{ route('board.courses.subscriptions.report') }}" class="nav-link"> تقرير اشتراكات الكورسات </a></li>
+                <li class="nav-item"><a href="{{ route('board.courses.subscriptions.report') }}" class="nav-link"> تقرير اشتراكات الكورسات </a></li>
                 @endcan
 
                 @can('reports.courses.total.subscriptions')
@@ -360,11 +382,10 @@ switch (Request::segment(2)) {
                 @can('reports.subscriptions')
                 <li class="nav-item"><a href="{{ route('board.subscriptions.report') }}" class="nav-link"> تقرير فحص الاشتراكات   </a></li>
                 @endcan
-
             </ul>
         </li>
 
-                @endif
+        @endif
 
 
 

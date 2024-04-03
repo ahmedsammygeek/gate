@@ -24,6 +24,7 @@ use App\Http\Controllers\Board\PageController;
 use App\Http\Controllers\Board\CourseReviewController;
 use App\Http\Controllers\Board\AjaxController;
 use App\Http\Controllers\Board\ReportConttroller;
+use App\Http\Controllers\Board\TrainerTransferController;
 
 
 
@@ -38,8 +39,8 @@ Route::get('error' , function(Request $request){
    return redirect(url('https://frontend.thegatelearning.com/confirm?message='.$message.'&status='.$status));
 });
 
-Route::get('/test' ,[TestController::class , 'index'] );
-Route::get('/test2' ,[TestController::class , 'index2'] );
+// Route::get('/test' ,[TestController::class , 'index'] );
+// Route::get('/test2' ,[TestController::class , 'index2'] );
 // Route::get('/test' ,[MyFatoorahController::class , 'index'] );
 
 Route::get('/' , function(){
@@ -68,6 +69,7 @@ Route::group(['prefix' => 'Board' , 'as' => 'board.'  ], function() {
         Route::resource('courses.units.lessons', LessonController::class);  // done
         Route::resource('pages', PageController::class);  // done
         Route::resource('reviews', CourseReviewController::class);
+        Route::resource('trainers_transfers', TrainerTransferController::class);
 
         Route::get('purchases' , [PurchaseController::class ,'index'] )->name('purchases.index');
         Route::get('purchases/{purchase}' , [PurchaseController::class ,'show'] )->name('purchases.show');

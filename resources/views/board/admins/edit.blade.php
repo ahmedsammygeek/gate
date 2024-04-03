@@ -416,6 +416,33 @@
                                                 </div>
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
+                                                        <p class="fw-semibold"> صلاحيات تحويلات المدربين </p>
+                                                        <div class="border p-3 rounded">
+                                                            <div class="form-check text-start mb-2">
+                                                                <input type="checkbox" name='permissions[]' value="trainers_transfers.list" class="form-check-input" id="trainers_transfers.list"  {{ in_array('trainers_transfers.list', $user_permissions ) ? 'checked' : '' }}  >
+                                                                <label class="form-check-label" for="trainers_transfers.list"> عرض كافه تحويلات المدربين </label>
+                                                            </div>
+                                                            <div class="form-check text-start mb-2">
+                                                                <input type="checkbox" name='permissions[]' value="trainers_transfers.show" class="form-check-input" id="trainers_transfers.show"  {{ in_array('trainers_transfers.show', $user_permissions ) ? 'checked' : '' }}  >
+                                                                <label class="form-check-label" for="trainers_transfers.show"> عرض بيانات التحويل </label>
+                                                            </div>
+                                                            <div class="form-check text-start mb-2">
+                                                                <input type="checkbox" name='permissions[]' value="trainers_transfers.add" class="form-check-input" id="trainers_transfers.add"  {{ in_array('trainers_transfers.add', $user_permissions ) ? 'checked' : '' }}  >
+                                                                <label class="form-check-label" for="trainers_transfers.add"> إضافه تحويل جديده </label>
+                                                            </div>
+                                                            <div class="form-check text-start mb-2">
+                                                                <input type="checkbox" name='permissions[]' value="trainers_transfers.delete" class="form-check-input" id="trainers_transfers.delete"  {{ in_array('trainers_transfers.delete', $user_permissions ) ? 'checked' : '' }}  >
+                                                                <label class="form-check-label" for="trainers_transfers.delete"> حذف التحويل </label>
+                                                            </div>
+                                                            <div class="form-check text-start mb-2">
+                                                                <input type="checkbox" name='permissions[]' value="trainers_transfers.edit" class="form-check-input" id="trainers_transfers.edit"  {{ in_array('trainers_transfers.edit', $user_permissions ) ? 'checked' : '' }}  >
+                                                                <label class="form-check-label" for="trainers_transfers.edit"> تعديل بيانات التحويل </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
                                                         <p class="fw-semibold"> صلاحيات عمليات الشراء </p>
                                                         <div class="border p-3 rounded">
                                                             <div class="form-check text-start mb-2">
