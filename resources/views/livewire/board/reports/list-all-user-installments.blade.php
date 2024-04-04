@@ -10,7 +10,7 @@
             <div class="card-body">
                 <div class="d-sm-flex align-items-sm-start">
 
-                                        <div class="dropdown ms-sm-3  mb-sm-0">
+                    <div class="dropdown ms-sm-3  mb-sm-0">
                         <select wire:model='is_paid_status' class="form-select">
                             <option value="all"> جملع الحلات الشراء </option>
                             <option value="1"> تم الدفع بشكل كامل </option>
@@ -56,7 +56,7 @@
                             Allow access
                         </button>
                     </div>
-                   
+                    
                     <div class="dropdown ms-sm-3 mb-3 mb-sm-0">
 
 
@@ -71,7 +71,7 @@
                     </div>
                 </div>
                 <div class="d-sm-flex align-items-sm-start mt-2">
-                   
+                 
 
 
                 </div>
@@ -101,9 +101,9 @@
                         @endif
                     </thead>
                     <tbody>
-                     @if (count($purchases))
-                     @foreach ($purchases as $purchase)
-                     <tr>
+                       @if (count($purchases))
+                       @foreach ($purchases as $purchase)
+                       <tr>
                         <td> {{ $purchase->user?->name }} </td>
                         <td> {{ $purchase->user?->phone }} </td>
                         <td> {{ $purchase->user?->email }} </td>
@@ -152,33 +152,33 @@
 <script src="{{ asset('board_assets/demo/pages/gallery.js') }}"></script>
 <script>
 
-jQuery(document).ready(function($) {
-    
-    
-    Noty.overrideDefaults({
-        theme: 'limitless',
-        layout: 'topLeft',
-        type: 'alert',
-        timeout: 2500
-    });
+    jQuery(document).ready(function($) {
+        
+        
+        Noty.overrideDefaults({
+            theme: 'limitless',
+            layout: 'topLeft',
+            type: 'alert',
+            timeout: 2500
+        });
 
-    const swalInit = swal.mixin({
-        buttonsStyling: false,
-        customClass: {
-            confirmButton: 'btn btn-primary',
-            cancelButton: 'btn btn-light',
-            denyButton: 'btn btn-light',
-            input: 'form-control'
-        }
-    });
+        const swalInit = swal.mixin({
+            buttonsStyling: false,
+            customClass: {
+                confirmButton: 'btn btn-primary',
+                cancelButton: 'btn btn-light',
+                denyButton: 'btn btn-light',
+                input: 'form-control'
+            }
+        });
 
-    Livewire.on('userCourseExpirationDateUpdated', () => {
-        new Noty({
-          text: 'تم منع الدخول بنجاح',
-          type: 'info'
-      }).show();
-    })
-});
+        Livewire.on('userCourseExpirationDateUpdated', () => {
+            new Noty({
+              text: 'تم منع الدخول بنجاح',
+              type: 'info'
+          }).show();
+        })
+    });
 
 
 </script>

@@ -20,7 +20,7 @@
         <label class="col-form-label col-lg-2">  الكورس <span class="text-danger">*</span>   </label>
         <div class="col-lg-10">
             <div class="input-group">
-                <select name="course_id" class='form-control' id="">
+                <select name="course_id" wire:model='course_id' class='form-control' id="">
                     <option value=""></option>
                     @foreach ($this->courses as $course)
                     <option value="{{ $course->id }}"> {{ $course->title }} </option>
@@ -36,7 +36,7 @@
         <label class="col-form-label col-lg-2">  نوع التحويل <span class="text-danger">*</span>    </label>
         <div class="col-lg-10">
             <div class="input-group">
-                <select name="transfer_type" class='form-control' id="">
+                <select name="transfer_type" wire:model='transfer_type' class='form-control' id="">
                     <option value="1"> تحويل بنكى </option>
                     <option value="2"> paypal </option>
                     <option value="3"> فودافون كاش </option>
@@ -51,7 +51,7 @@
     <div class="row mb-3">
         <label class="col-lg-2 col-form-label pt-0"> المبلغ <span class="text-danger">*</span> </label>
         <div class="col-lg-10">
-            <input type="text" name="amount" class="form-control">
+            <input type="text" name="amount" wire:model='amount' class="form-control">
             @error('amount')
             <p class='text-danger'> {{ $message }} </p>
             @enderror
@@ -61,7 +61,7 @@
     <div class="row mb-3">
         <label class="col-lg-2 col-form-label pt-0"> تاريخ التحويل <span class="text-danger">*</span> </label>
         <div class="col-lg-10">
-            <input type="date" name="transfer_date" class="form-control">
+            <input type="date" name="transfer_date" wire:model='transfer_date' class="form-control">
             @error('transfer_date')
             <p class='text-danger'> {{ $message }} </p>
             @enderror
@@ -84,7 +84,7 @@
     <div class="row mb-3">
         <label class="col-lg-2 col-form-label pt-0"> ملاحظات </label>
         <div class="col-lg-10">
-            <input type="text" name="comments" class="form-control">
+            <input type="text" name="comments"  wire:model='comments' class="form-control">
             @error('comments')
             <p class='text-danger'> {{ $message }} </p>
             @enderror

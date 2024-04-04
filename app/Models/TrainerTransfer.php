@@ -26,5 +26,20 @@ class TrainerTransfer extends Model
         return $this->belongsTo(Course::class , 'course_id' );
     }
 
+    public function transferTypeAsText()
+    {
+        switch ($this->transfer_type) {
+            case 1:
+                return 'تحويل بنكى';
+            break;
+            case 2:
+                return 'paypal';
+            break;
+            case 3:
+                return 'فودافون كاش';
+            break;
+        }
+    }
+
 
 }

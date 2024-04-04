@@ -4,7 +4,7 @@ namespace App\Http\Requests\Board\TrainerTransfers;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreTrainerTransferRequest extends FormRequest
+class UpdateTrainerTransferRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,7 @@ class StoreTrainerTransferRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'trainer_id' => 'required' , 
+             'trainer_id' => 'required' , 
             'course_id' => 'required' , 
             'transfer_type' => 'required' , 
             'amount' => 'required' , 
