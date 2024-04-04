@@ -38,6 +38,15 @@ class TrainerTransfer extends Model
             case 3:
                 return 'فودافون كاش';
             break;
+            case 4:
+                return 'شيك';
+            break;
+            case 5:
+                return 'كاش';
+            break;
+            case 6:
+                return 'اخرى';
+            break;
         }
     }
 

@@ -10,9 +10,12 @@
                     <div class="dropdown ms-sm-3  mb-sm-0">
                         <select wire:model='transfer_type' class="form-select">
                             <option value=""> جملع طرق الدفع </option>
-                            <option value="1">  تحويل بنكى  </option>
-                            <option value="2"> paypal  </option>
-                            <option value="3"> فودافون كاش  </option>
+                            <option value="1"> تحويل بنكى </option>
+                            <option value="2"> paypal </option>
+                            <option value="3"> فودافون كاش </option>
+                            <option value="4"> شيك </option>
+                            <option value="5"> كاش </option>
+                            <option value="6"> اخرى </option>
                         </select>
                     </div>
                     <div class="dropdown ms-sm-3  mb-sm-0">
@@ -106,13 +109,13 @@
 
                             <td class="text-center">
                                 @can('trainers_transfers.show')
-                                   <a  href="{{ route('board.trainers_transfers.show'  , $transfer ) }}"  class="btn btn-sm btn-primary  ">
+                                <a  href="{{ route('board.trainers_transfers.show'  , $transfer ) }}"  class="btn btn-sm btn-primary  ">
                                     <i class="icon-eye  "></i>
                                 </a>
                                 @endcan
 
                                 @can('trainers_transfers.edit')
-                                   <a  href="{{ route('board.trainers_transfers.edit'  , $transfer ) }}"  class="btn btn-sm btn-warning  ">
+                                <a  href="{{ route('board.trainers_transfers.edit'  , $transfer ) }}"  class="btn btn-sm btn-warning  ">
                                     <i class="icon-database-edit2 "></i>
                                 </a>
                                 @endcan

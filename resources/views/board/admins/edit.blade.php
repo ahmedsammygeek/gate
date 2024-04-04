@@ -538,6 +538,11 @@
                                                         <input type="checkbox" name='permissions[]' value="reports.subscriptions" class="form-check-input" id="reports.subscriptions"  {{ in_array('reports.subscriptions', $user_permissions ) ? 'checked' : '' }}  >
                                                         <label class="form-check-label" for="reports.subscriptions"> تقرير فحص الاشتراكات </label>
                                                     </div>
+
+                                                    <div class="form-check text-start mb-2">
+                                                        <input type="checkbox" name='permissions[]' value="trainers.dues.report" class="form-check-input" id="trainers.dues.report"  {{ in_array('trainers.dues.report', $user_permissions ) ? 'checked' : '' }} >
+                                                        <label class="form-check-label" for="trainers.dues.report"> تقرير مستحقات الناشرين </label>
+                                                    </div>
                                                     
                                                 </div>
                                             </div>

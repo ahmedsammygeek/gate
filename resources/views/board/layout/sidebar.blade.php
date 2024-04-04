@@ -382,6 +382,13 @@ switch (Request::segment(2)) {
                 @can('reports.subscriptions')
                 <li class="nav-item"><a href="{{ route('board.subscriptions.report') }}" class="nav-link"> تقرير فحص الاشتراكات   </a></li>
                 @endcan
+
+                @can('trainers.dues.report')
+                    <li class="nav-item"><a href="{{ route('board.trainers.dues.report') }}" class="nav-link"> تقرير مستحقات الناشرين </a></li>
+                @endcan
+
+                
+
             </ul>
         </li>
 

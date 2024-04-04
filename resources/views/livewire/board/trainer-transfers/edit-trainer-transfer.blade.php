@@ -40,6 +40,9 @@
                     <option value="1"> تحويل بنكى </option>
                     <option value="2"> paypal </option>
                     <option value="3"> فودافون كاش </option>
+                    <option value="4"> شيك </option>
+                    <option value="5"> كاش </option>
+                    <option value="6"> اخرى </option>
                 </select>
             </div>
             @error('course_id')

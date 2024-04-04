@@ -116,6 +116,8 @@ Route::group(['prefix' => 'Board' , 'as' => 'board.'  ], function() {
         Route::get('/reports/subscriptions' , [ReportConttroller::class , 'subscriptions'] )->name('subscriptions.report');
         Route::get('/reports/courses/subscriptions' , [ReportConttroller::class , 'courses_subscriptions'] )->name('courses.subscriptions.report');
         Route::get('/reports/total_courses/subscriptions' , [ReportConttroller::class , 'total_courses_subscriptions'] )->name('courses.total.subscriptions.report');
+
+        Route::get('/reports/trainers_dues' , [ReportConttroller::class , 'trainers_dues']  )->name('trainers.dues.report');
     });
 });
 
