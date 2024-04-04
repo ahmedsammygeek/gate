@@ -91,5 +91,12 @@
         </div>
     </div>
 
+    <div class="row mb-3">
+        <label class="col-lg-2 col-form-label pt-0"> صوره التحويل الحاليه </label>
+        <div class="col-lg-10">
+            <img class="img-thumbnail img-responsive" src="{{ Storage::url('trainers_transfers/'.$trainer_transfer->image) }}" alt="">
+        </div>
+    </div>
+
 
 </div>
