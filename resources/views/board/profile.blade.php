@@ -17,10 +17,14 @@
 					@method('PATCH')
 					<div class="mb-4">
 						<div class="fw-bold border-bottom pb-2 mb-3"> بيانات المستخدم </div>
+
+
+
+						@if (Auth::user()->type == 1 )
 						<div class="row mb-3">
 							<label class="col-form-label col-lg-2"> اسم المستخدم <span class="text-danger">*</span></label>
 							<div class="col-lg-10">
-								<input type="text" name="name" value="{{ $user->name }}" class="form-control @error('name')  is-invalid @enderror" required placeholder="اسم المستخدم">
+								<input type="text" name="name"  value="{{ $user->name }}" class="form-control @error('name')  is-invalid @enderror" required placeholder="اسم المستخدم">
 								@error('name')
 								<p class='text-danger' > {{ $message }} </p>
 								@enderror
@@ -52,6 +56,10 @@
 								@enderror
 							</div>
 						</div>
+						@endif
+
+
+
 						<div class="row mb-3">
 							<label class="col-form-label col-lg-2"> كلمه المرور  </label>
 							<div class="col-lg-10">
@@ -71,7 +79,9 @@
 							</div>
 						</div>
 
-						<div class="row mb-3">
+
+						@if (Auth::user()->type == 1 )
+							<div class="row mb-3">
 							<label class="col-form-label col-lg-2"> صوره الملف الشخصى </label>
 							<div class="col-lg-10">
 								<input type="file" name="image" class="form-control" placeholder="">
@@ -86,6 +96,9 @@
 								<img class='img-thumbnail' src="{{ Storage::url('users/'.$user->image) }}" alt="">
 							</div>
 						</div>
+						@endif
+
+						
 
 					</div>
 				</div>

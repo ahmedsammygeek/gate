@@ -25,9 +25,13 @@ class ProfileController extends Controller
     public function update(UpdateProfileRequest $request)
     {
         $user = Auth::user();
-        $user->email = $request->email;
-        $user->name = $request->name;
-        $user->phone = $request->phone;
+
+        if (Auth::user()->type == 1) {
+            $user->email = $request->email;
+            $user->name = $request->name;
+            $user->phone = $request->phone;
+        }
+
         $user->password  = $request->filled('password') ? Hash::make($request->password) : $user->password;
         if ($request->hasFile('image')) {
             $user->image = basename($request->file('image')->store('users'));

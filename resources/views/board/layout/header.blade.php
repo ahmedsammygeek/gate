@@ -12,24 +12,7 @@
 				</a>
 			</div>
 
-			<ul class="nav flex-row">
-				<li class="nav-item d-lg-none">
-					<a href="#navbar_search" class="navbar-nav-link navbar-nav-link-icon rounded-pill" data-bs-toggle="collapse">
-						<i class="ph-magnifying-glass"></i>
-					</a>
-				</li>
-			</ul>
 
-			<div class="navbar-collapse justify-content-center flex-lg-1 order-2 order-lg-1 collapse" id="navbar_search">
-				<div class="navbar-search flex-fill position-relative mt-2 mt-lg-0 mx-lg-3">
-					<div class="form-control-feedback form-control-feedback-start flex-grow-1" data-color-theme="dark">
-						<input type="text" class="form-control bg-transparent rounded-pill" placeholder="Search" data-bs-toggle="dropdown">
-						<div class="form-control-feedback-icon">
-							<i class="ph-magnifying-glass"></i>
-						</div>
-					</div>
-				</div>
-			</div>
 
 			<ul class="nav flex-row justify-content-end order-1 order-lg-2">
 				<li class="nav-item ms-lg-2">

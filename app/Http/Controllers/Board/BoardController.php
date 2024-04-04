@@ -12,14 +12,34 @@ use App\Models\University;
 use App\Models\Purchase;
 use App\Models\Transaction;
 use App\Models\UserInstallments;
+use App\Models\UserCourse;
+use App\Models\TrainerTransfer;
 use Carbon\Carbon;
 use DB;
+use Auth;
 class BoardController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
+    {
+
+        switch (Auth::user()->type) {
+            case User::ADMIN:
+            return $this->admin();
+            break;
+            case User::TRAINER:
+            return $this->trainer();
+            break;
+        }
+    }
+
+
+    /**
+     * Display the specified resource.
+     */
+    public function admin()
     {
         $today_users_count = User::where('type' , User::USER )->whereDate('created_at' , Carbon::today() )->count();
         $transactions_sum = Transaction::whereDate('created_at' , Carbon::today() )->sum('amount');
@@ -98,50 +118,27 @@ class BoardController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function trainer()
     {
-        //
+        $courses_count = Course::where('trainer_id' , Auth::id() )->count();
+        $courses_id_logged_in_this_user = Course::where('trainer_id' , Auth::id() )->pluck('id')->toArray();
+        $courses_users_count = UserCourse::whereIn('course_id' , $courses_id_logged_in_this_user)->count();
+        $transfers = TrainerTransfer::where('trainer_id' , Auth::id() )->latest()->get();
+
+
+
+
+        $purchases = Purchase::query()
+        ->with(['item' , 'item.course'  , 'item.course.university' , 'item.course.trainer' , 'order' , 'transactions' ])
+        ->whereHas('order' ,  function($query) use($courses_id_logged_in_this_user) {
+            $query->whereIn('course_id', $courses_id_logged_in_this_user );
+        })
+        ->get();
+        return view('board.trainer_index' , compact('courses_count' , 'purchases' , 'transfers' , 'courses_users_count' ) );
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+    
 }

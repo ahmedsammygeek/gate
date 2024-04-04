@@ -21,12 +21,21 @@ class UpdateProfileRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'name' => 'required' , 
-            'email' => 'required|email|unique:users,email,'.Auth::id() , 
-            'phone' => 'nullable|unique:users,phone,'.Auth::id() , 
-            'password' => 'nullable|confirmed' , 
-            'image' => 'nullable|image'
-        ];
+        $user_type = Auth::user()->type;
+
+        if ($user_type == 1 ) {
+            return [
+                'name' => 'required' , 
+                'email' => 'required|email|unique:users,email,'.Auth::id() , 
+                'phone' => 'nullable|unique:users,phone,'.Auth::id() , 
+                'password' => 'nullable|confirmed' , 
+                'image' => 'nullable|image'
+            ];
+        } else {
+            return [
+                'password' => 'nullable|confirmed' , 
+            ];
+        }
+        
     }
 }

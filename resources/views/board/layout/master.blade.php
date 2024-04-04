@@ -89,7 +89,9 @@
 	<!-- Page content -->
 	<div class="page-content pt-0">
 
-		@include('board.layout.sidebar')
+		@if (Auth::user()->type  == App\Models\User::ADMIN )
+			@include('board.layout.sidebar')
+		@endif
 
 
 		<!-- Main content -->

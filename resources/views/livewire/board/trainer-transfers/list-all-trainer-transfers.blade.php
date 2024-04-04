@@ -103,6 +103,15 @@
                                 @case(3)
                                 <span class='badge bg-info' >فودافون كاش </span>
                                 @break
+                                @case(4)
+                                <span class='badge bg-gradient' > شيك </span>
+                                @break
+                                @case(5)
+                                <span class='badge bg-indigo' > كاش </span>
+                                @break
+                                @case(6)
+                                <span class='badge bg-black' > اخرى </span>
+                                @break
                                 @endswitch
                             </td>
                             <td> {{ $transfer->user?->name }} </td>
